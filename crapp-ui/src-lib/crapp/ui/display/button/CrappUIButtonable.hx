@@ -1,5 +1,7 @@
 package crapp.ui.display.button;
 
+import priori.system.PriKey;
+import priori.event.PriKeyboardEvent;
 import crapp.ui.controller.CrappUITapController;
 import priori.event.PriTapEvent;
 import priori.types.PriTransitionType;
@@ -16,7 +18,6 @@ class CrappUIButtonable extends CrappUIStylableDisplay {
         super();
 
         this.allowTransition(PriTransitionType.BACKGROUND_COLOR, 0.2);
-        this.addEventListener(PriTapEvent.TAP, this.onTapEvent);
     }
 
     private function onTapEvent(e:PriTapEvent):Void {
@@ -25,6 +26,12 @@ class CrappUIButtonable extends CrappUIStylableDisplay {
     
     override function setup() {
         this.tapController = new CrappUITapController(this, this.updateDisplay);
+        this.addEventListener(PriTapEvent.TAP, this.onTapEvent);
+        this.addEventListener(PriKeyboardEvent.KEY_DOWN, this.onKeyDown);
+    }
+
+    private function onKeyDown(e:PriKeyboardEvent):Void {
+        if (e.keycode == PriKey.SPACE || e.keycode == PriKey.ENTER) this.onTapEvent(null);
     }
 
     override function paint() {
@@ -53,5 +60,10 @@ class CrappUIButtonable extends CrappUIStylableDisplay {
         this.endBatchUpdate();
 
         this.corners = [Math.round(CrappUISizeReference.TINY * style.corners)];        
+    }
+
+    override public function kill():Void {
+        this.tapController.kill();
+        super.kill();
     }
 }

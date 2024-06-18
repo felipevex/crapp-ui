@@ -4,11 +4,8 @@ import crapp.ui.controller.CrappUITapController;
 import tricks.layout.LayoutSize;
 import tricks.layout.LayoutElement;
 import priori.style.font.PriFontStyleAlign;
-import priori.system.PriKey;
-import priori.event.PriKeyboardEvent;
 import priori.style.font.PriFontStyleWeight;
 import priori.geom.PriColor;
-import priori.event.PriTapEvent;
 import priori.types.PriTransitionType;
 import priori.style.border.PriBorderStyle;
 import crapp.ui.style.CrappUISizeReference;
@@ -25,10 +22,7 @@ class CrappUIButton extends CrappUIButtonable {
 
     public function new() {
         super();
-
-        this.addEventListener(PriTapEvent.TAP, this.onTapButton);
-        this.addEventListener(PriKeyboardEvent.KEY_DOWN, this.onKeyDown);
-
+        
         this.allowTransition(PriTransitionType.BACKGROUND_COLOR, 0.2);
     }
 
@@ -67,21 +61,12 @@ class CrappUIButton extends CrappUIButtonable {
         return layout;
     }
 
-    private function onKeyDown(e:PriKeyboardEvent):Void {
-        if (e.keycode == PriKey.SPACE || e.keycode == PriKey.ENTER) {
-            this.onTapButton(null);
-        }
-    }
-
     override function setup() {
         super.setup();
 
         this.displayLabel = new CrappUILabel();
         this.displayLabel.text = 'BUTTON';
         this.displayLabel.align = PriFontStyleAlign.CENTER;
-
-        this.tapController = new CrappUITapController(this, this.updateDisplay);
-
         this.displayLabel.weight = PriFontStyleWeight.THICK600;
 
         this.addChildList([
@@ -144,15 +129,6 @@ class CrappUIButton extends CrappUIButtonable {
         this.displayLabel.centerY = this.height/2 + 1;
         this.displayLabel.centerX = this.width/2;
         this.displayLabel.endBatchUpdate();
-    }
-
-    override public function kill():Void {
-        this.tapController.kill();
-        super.kill();
-    }
-
-    private function onTapButton(e:PriTapEvent):Void {
-        if (this.actions.onClick != null) this.actions.onClick();
     }
 
 }

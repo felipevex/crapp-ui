@@ -27,7 +27,7 @@ class CrappUIStylableDisplay extends CrappUIDisplay implements ICrappUIStyleObje
       */
     public var hasVerticalConstraint(get, null):Bool;
 
-    @:isVar public var actions(get, set):CrappUIActionsResource;
+    @:isVar public var actions(get, null):CrappUIActionsResource;
 
     public var layout(get, set):LayoutElement<CrappUIStylableDisplay>;
     @:isVar public var vLayoutSize(default, set):LayoutSize = LayoutSize.FIXED;
@@ -50,12 +50,6 @@ class CrappUIStylableDisplay extends CrappUIDisplay implements ICrappUIStyleObje
     private function get_actions():CrappUIActionsResource {
         if (this.actions == null) this.actions = {};
         return this.actions;
-    }
-    
-    private function set_actions(value:CrappUIActionsResource):CrappUIActionsResource {
-        if (value == null) this.actions = {};
-        else this.actions = value;
-        return value;
     }
 
     function get_parentStyle():CrappUIStyle return this.styleController.getParentStyle();
