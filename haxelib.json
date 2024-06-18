@@ -1,0 +1,16 @@
+{
+  "name": "crapp-ui",
+  "url": "https://github.com/felipevex/crapp-ui",
+  "classPath" : "crapp-ui/src-lib",
+  "license": "MIT",
+  "tags": [],
+  "description": "",
+  "version": "1.0.0",
+  "releasenote": "",
+  "contributors": [ "felipevex" ],
+  "dependencies": {
+    "datetime" : "",
+    "util-kit" : "",
+    "anonstruct" : ""
+  }
+}

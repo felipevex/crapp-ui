@@ -1,0 +1,61 @@
+{
+  "project_name" : "Project",
+
+  "lang" : "pt-br",
+
+  "meta" : [
+    "<meta name=\"format-detection\" content=\"telephone=no\">",
+    "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src * data: blob: ws: wss: gap://ready file://*; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * ws: wss:;\" >",
+    "<meta id=\"extViewportMeta\" name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport=contain\">"
+  ],
+
+  "link" : [
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-100.woff\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-100.woff2\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-100italic.woff\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-100italic.woff2\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-600.woff\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-600.woff2\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-600italic.woff\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-600italic.woff2\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-700.woff\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-700.woff2\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-700italic.woff\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-700italic.woff2\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-italic.woff\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-italic.woff2\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-regular.woff\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-regular.woff2\" as=\"font\" crossorigin>",
+    "<link href=\"fonts/saira/saira.css\" rel=\"stylesheet\">",
+
+    "<script type=\"text/javascript\" src=\"js/tinycolor-min.js\"></script>",
+
+    "<script src=\"js/FileSaver.js\"></script>",
+    "<script src=\"js/qrcode.min.js\"></script>",
+    "<script src=\"js/pako.min.js\"></script>",
+    "<script src=\"js/chart.min.js\"></script>",
+    "<script src=\"socketio/socket.io.js\"></script>"
+  ],
+
+  "d_flags" : [
+    "version=DEV_VERSION",
+    "js-es=5"
+  ],
+
+  "dependencies" : [
+    "datetime",
+    "actuate",
+    "anonstruct",
+    "util-kit",
+    "priori-fontawesome"
+  ],
+
+  "main" : "front.Front",
+
+  "src" : [
+    "src-front",
+    "src-lib"
+  ],
+
+  "output" : "build/front"
+}
