@@ -1,0 +1,76 @@
+FROM haxe:4.3.3-bullseye
+
+ENV LANG=en_US.utf8
+ENV LANGUAGE=en_US.UTF-8
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends apt-utils
+RUN apt-get install -y unzip
+RUN apt-get install -y zip
+RUN apt-get install -y gcc
+RUN apt-get install -y g++
+
+# ruby & gem
+RUN apt-get install -y wget
+RUN apt-get install -y make
+RUN apt-get install -y ruby-full
+RUN apt-get install zlib1g-dev
+RUN gem install bundler -v 2.3.26
+
+# Install Java
+RUN apt-get install -y default-jdk
+ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+
+# INSTALLING NODEJS
+RUN apt-get install -y ca-certificates curl gnupg
+RUN mkdir -p /etc/apt/keyrings
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+ENV NODE_MAJOR=20
+RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+RUN apt-get update
+RUN apt-get install -y nodejs
+
+ENV NODE_PATH=/usr/lib/node_modules
+ENV NODE_OPTIONS=--max_old_space_size=4096
+
+
+# HAXELIB SETUP
+RUN mkdir -p /haxelib
+RUN haxelib setup /haxelib
+
+# HAXER LIBS
+RUN yes | haxelib install utest
+RUN yes | haxelib install actuate
+RUN yes | haxelib install PBKDF2
+RUN yes | haxelib install jQueryExtern
+RUN yes | haxelib install datetime
+RUN yes | haxelib install haxe-crypto
+RUN yes | haxelib --skip-dependencies git priori-fontawesome https://github.com/triture/priori-fontawesome.git      master
+RUN yes | haxelib --skip-dependencies git apirock https://github.com/triture/apirock.git                            master
+RUN yes | haxelib --skip-dependencies git priori https://github.com/triture/priori.git                              v2
+RUN yes | haxelib --skip-dependencies git util-kit https://github.com/triture/util-kit.git
+RUN yes | haxelib --skip-dependencies git apirock https://github.com/triture/apirock.git                            master
+RUN yes | haxelib --skip-dependencies git anonstruct https://github.com/triture/anonstruct.git
+RUN yes | haxelib install hxjava
+RUN yes | haxelib git easeljs https://github.com/felipevex/haxe-easeljs.git                                         master library
+
+# NODEJS LIBS
+RUN npm install -g nodemon@2.0.20
+RUN npm install -g minify@7.0.2
+RUN npm install -g express@4.18.1
+RUN npm install -g mysql@2.18.1
+RUN npm install -g cors@2.8.5
+RUN npm install -g aws-sdk@2.1218.0
+RUN npm install -g --unsafe-perm sharp@0.31.0
+RUN npm install -g uuid@9.0.0
+RUN npm install -g file-type@16.4.0
+RUN npm install -g mime-types@2.1.30
+RUN npm install -g memcached@2.2.2
+RUN npm install -g socket.io@4.5.3
+RUN npm install -g socket.io-client@4.5.3
+RUN npm install -g mssql@10.0.1
+
+WORKDIR /crapp-ui
+
+CMD ["sh", "/docker-shared/alive.sh"]
