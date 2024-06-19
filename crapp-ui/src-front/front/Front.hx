@@ -13,6 +13,7 @@ import crapp.ui.display.app.CrappUIApp;
     <routes>
         <route scene="front.scene.home.SceneHome" route="**" />
         <route scene="front.scene.home.SceneHome" route="home" />
+        <route scene="front.scene.text.SceneText" route="text" />
         <route scene="front.scene.button.SceneButton" route="button" />
         <route scene="front.scene.input.SceneInputText" route="input/text" />
     </routes>

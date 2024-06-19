@@ -1,15 +1,15 @@
 package crapp.ui.display.text;
 
-import crapp.ui.style.CrappUISizeReference;
-import helper.kits.StringKit;
 import priori.style.font.PriFontStyle;
 import priori.style.font.PriFontStyleWeight;
-import crapp.ui.style.CrappUIStyle;
-import crapp.ui.display.CrappUIStylableDisplay;
 import priori.style.font.PriFontStyleAlign;
 import priori.event.PriEvent;
 import priori.event.PriFocusEvent;
 import priori.event.PriKeyboardEvent;
+import helper.kits.StringKit;
+import crapp.ui.style.CrappUISizeReference;
+import crapp.ui.style.CrappUIStyle;
+import crapp.ui.display.CrappUIStylableDisplay;
 
 @priori('
 <priori>
@@ -18,9 +18,9 @@ import priori.event.PriKeyboardEvent;
     </view>
 </priori>
 ')
-class CrappUILabel extends CrappUIStylableDisplay {
+class CrappUIText extends CrappUIStylableDisplay {
 
-    private var __textValue:String = "Label";
+    private var __textValue:String = "Text";
 
     public var text(get, set):String;
     public var editable(get, set):Bool;
@@ -40,7 +40,7 @@ class CrappUILabel extends CrappUIStylableDisplay {
         this.clipping = false;
         
         this.label.clipping = false;
-        this.label.text = "Label";
+        this.label.text = this.__textValue;
     }
 
     private function set_uiSize(value:Float):Float {
@@ -80,20 +80,20 @@ class CrappUILabel extends CrappUIStylableDisplay {
 
     private function onChange(e:PriEvent):Void {
         this.__textValue = this.label.text;
-        this.dispatchEvent(new PriEvent(PriEvent.CHANGE));
+        
+        this.dispatchEvent(new PriEvent(PriEvent.RESIZE));
+        
+        if (this.actions.onChange != null) this.actions.onChange();
     }
 
     private function onFocus(e:PriFocusEvent):Void {
-        var ev:PriFocusEvent = cast e.clone();
-        ev.currentTarget = this;
-        ev.target = this;
-
         this.label.ellipsis = 
             this.editable && e.type == PriFocusEvent.FOCUS_IN
             ? false
             : true;
 
-        this.dispatchEvent(ev);
+        if (e.type == PriFocusEvent.FOCUS_IN && this.actions.onFocusIn != null) this.actions.onFocusIn();
+        else if (e.type == PriFocusEvent.FOCUS_OUT && this.actions.onFocusOut != null) this.actions.onFocusOut();
     }
 
     private function onKey(e:PriKeyboardEvent):Void {
@@ -124,6 +124,7 @@ class CrappUILabel extends CrappUIStylableDisplay {
         }
 
         this.updateDisplay();
+        this.dispatchEvent(new PriEvent(PriEvent.RESIZE));
         return value;
     }
 

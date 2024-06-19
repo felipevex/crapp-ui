@@ -1,6 +1,5 @@
 package crapp.ui.display.button;
 
-import crapp.ui.controller.CrappUITapController;
 import tricks.layout.LayoutSize;
 import tricks.layout.LayoutElement;
 import priori.style.font.PriFontStyleAlign;
@@ -10,11 +9,11 @@ import priori.types.PriTransitionType;
 import priori.style.border.PriBorderStyle;
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.CrappUIStyle;
-import crapp.ui.display.text.CrappUILabel;
+import crapp.ui.display.text.CrappUIText;
 
 class CrappUIButton extends CrappUIButtonable {
     
-    private var displayLabel:CrappUILabel;
+    private var displayLabel:CrappUIText;
 
     @:isVar public var autoSize(default, set):Bool = true;
     
@@ -64,7 +63,7 @@ class CrappUIButton extends CrappUIButtonable {
     override function setup() {
         super.setup();
 
-        this.displayLabel = new CrappUILabel();
+        this.displayLabel = new CrappUIText();
         this.displayLabel.text = 'BUTTON';
         this.displayLabel.align = PriFontStyleAlign.CENTER;
         this.displayLabel.weight = PriFontStyleWeight.THICK600;
