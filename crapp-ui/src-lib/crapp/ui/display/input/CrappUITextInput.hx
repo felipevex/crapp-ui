@@ -20,6 +20,8 @@ class CrappUITextInput extends CrappUIInput<String> {
 
     @:isVar public var label(default, set):String = "LABEL";
 
+    public var password(get, set):Bool;
+
     public function new() {
         super();
 
@@ -33,6 +35,12 @@ class CrappUITextInput extends CrappUIInput<String> {
         this.updateDisplay();
         return value;
 	}
+
+    private function get_password():Bool return this.input.password;
+    private function set_password(value:Bool):Bool {
+        this.input.password = value;
+        return value;
+    }
 
     override function setup() {
         super.setup();

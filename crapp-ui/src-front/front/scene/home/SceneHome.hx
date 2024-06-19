@@ -12,7 +12,8 @@ import crapp.ui.display.app.CrappUIScene;
     </imports>
     <view>
         <private:CrappUILayotable hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
-            <private:CrappUIButton id="testButton" label="BUTTONS" />
+            <private:CrappUIButton id="testButton" label="BUTTONS TEST" />
+            <private:CrappUIButton id="testInputText" label="INPUT TEXT TEST" />
         </private:CrappUILayotable>
     </view>
 </priori>
@@ -22,8 +23,7 @@ class SceneHome extends CrappUIScene {
     override function setup() {
         super.setup();
 
-        this.testButton.actions.onClick = () -> {
-            PriSceneManager.singleton().navigate('button');
-        }
+        this.testButton.actions.onClick = () -> PriSceneManager.singleton().navigate('button');
+        this.testInputText.actions.onClick = () -> PriSceneManager.singleton().navigate('input/text');
     }
 }

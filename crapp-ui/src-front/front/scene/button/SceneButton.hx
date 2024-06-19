@@ -24,11 +24,11 @@ class SceneButton extends CrappUIScene {
     override function setup() {
         super.setup();
 
-        this.red.style = new CrappUIStyle(0xFFFFFF, 0xFF0000, 13, 10, 'Saira, Open Sans', 6);
-    }
+        var style:CrappUIStyle = CrappUIStyle.bluePrint();
+        style.background = 0xFF0000;
+        style.primary = 0xFFFFFF;
 
-    override function paint() {
-        super.paint();
+        this.red.style = style;
     }
 
 }
