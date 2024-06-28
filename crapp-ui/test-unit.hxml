@@ -4,8 +4,10 @@
 -lib anonstruct
 -lib utest
 -lib datetime
+-lib priori
 
 -cp src-test
+-cp src-front
 -cp src-lib
 
 -D hscriptPos

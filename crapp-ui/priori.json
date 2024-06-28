@@ -39,7 +39,8 @@
 
   "d_flags" : [
     "version=DEV_VERSION",
-    "js-es=5"
+    "js-es=5",
+    "prioridebug"
   ],
 
   "dependencies" : [
