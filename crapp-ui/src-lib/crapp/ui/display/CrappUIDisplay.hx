@@ -1,11 +1,27 @@
 package crapp.ui.display;
 
+import crapp.ui.composite.CrappUICompositeManager;
 import crapp.ui.style.CrappUIEvents;
 import priori.event.PriEvent;
 import priori.style.shadow.PriShadowStyle;
 import priori.view.builder.PriBuilder;
 
 class CrappUIDisplay extends PriBuilder {
+
+    private var s:Bool;
+    
+    public var composite:CrappUICompositeManager;
+
+    public function new() {
+        this.composite = new CrappUICompositeManager(this);
+        super();
+        
+        this.applyComposite();
+    }
+
+    private function applyComposite():Void {
+        for (c in this.composite) c.setup();
+    }
     
     @:noCompletion private var _z:Float = 0;
     public var z(get, set):Float;

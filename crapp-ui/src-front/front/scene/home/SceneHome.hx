@@ -16,6 +16,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton id="testText" label="TEXTS" />
             <private:CrappUIButton id="testButton" label="BUTTONS" />
             <private:CrappUIButton id="testInputText" label="INPUT - TEXT" />
+            <private:CrappUIButton id="testCompositeScroller" label="COMPOSITE - SCROLLER" />
         </private:CrappUILayotable>
     </view>
 </priori>
@@ -29,5 +30,6 @@ class SceneHome extends CrappUIScene {
         this.testText.actions.onClick = () -> PriSceneManager.singleton().navigate('text');
         this.testButton.actions.onClick = () -> PriSceneManager.singleton().navigate('button');
         this.testInputText.actions.onClick = () -> PriSceneManager.singleton().navigate('input/text');
+        this.testCompositeScroller.actions.onClick = () -> PriSceneManager.singleton().navigate('composite/scroller');
     }
 }
