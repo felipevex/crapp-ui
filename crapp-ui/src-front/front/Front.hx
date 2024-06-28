@@ -18,6 +18,7 @@ import crapp.ui.display.app.CrappUIApp;
         <route scene="front.scene.input.SceneInputText" route="input/text" />
         <route scene="front.scene.style.SceneStyle" route="style" />
         <route scene="front.scene.composite.SceneScrollerComposite" route="composite/scroller" />
+        <route scene="front.scene.list.SceneList" route="list" />
     </routes>
 </priori>
 ')
