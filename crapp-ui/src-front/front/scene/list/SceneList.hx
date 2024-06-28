@@ -10,8 +10,7 @@ class SceneList extends CrappUIScene {
     var list:CrappUIList<ListChildrenData>;
     
     override function setup() {
-        this.list = new CrappUIList<ListChildrenData>();
-        this.list.childClass = ListChildren;
+        this.list = new CrappUIList<ListChildrenData>(ListChildren);
         this.list.rowHeight = 50;
 
         this.list.data = [
