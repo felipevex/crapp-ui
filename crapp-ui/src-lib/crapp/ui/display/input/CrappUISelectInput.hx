@@ -27,8 +27,9 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
     private var arrow:FontAwesomeIcon;
 
     @:isVar public var label(default, set):String = "LABEL";
-
     @:isVar public var data(default, set):Array<T>;
+
+    public var labelField(get, set):String;
 
     public function new() {
         super();
@@ -37,6 +38,13 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
         this.width = 300;
 
         this.allowTransition(PriTransitionType.BACKGROUND_COLOR, 0.2);
+    }
+
+    private function get_labelField():String return this.input.labelField;
+    private function set_labelField(value:String):String {
+        if (value == null) return value;
+        this.input.labelField = value;
+        return value;
     }
 
     private function set_data(value:Array<T>):Array<T> {

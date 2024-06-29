@@ -20,6 +20,10 @@ class SceneInputSelect extends CrappUIScene {
 
     override function setup() {
 
+        var style:CrappUIStyle = CrappUIStyle.bluePrint();
+        style.background = 0xFF0000;
+        style.primary = 0xFFFFFF;
+
         var selectData:Array<InputSelectData> = [
             { label: "Option 1", value: 1 },
             { label: "Option 2", value: 2 },
@@ -33,16 +37,33 @@ class SceneInputSelect extends CrappUIScene {
         var select1:CrappUISelectInput<InputSelectData> = new CrappUISelectInput<InputSelectData>();
         select1.data = selectData;
 
+        var select2:CrappUISelectInput<InputSelectData> = new CrappUISelectInput<InputSelectData>();
+        select2.label = "Write Other Label";
+        select2.data = selectData;
+
+        var select3:CrappUISelectInput<InputSelectData> = new CrappUISelectInput<InputSelectData>();
+        select3.data = selectData;
+        select3.label = "Change the Value Label";
+        select3.labelField = "value";
+
+        var select4:CrappUISelectInput<InputSelectData> = new CrappUISelectInput<InputSelectData>();
+        select4.data = selectData;
+        select4.style = style;
+
+        var select5:CrappUISelectInput<InputSelectData> = new CrappUISelectInput<InputSelectData>();
+        select5.data = selectData;
+        select5.actions.onChange = () -> {
+            select5.label = select5.value.label;
+        }
+
 
         this.container.addChildList([
-            select1
+            select1,
+            select2,
+            select3,
+            select4,
+            select5
         ]);
-
-        var style:CrappUIStyle = CrappUIStyle.bluePrint();
-        style.background = 0xFF0000;
-        style.primary = 0xFFFFFF;
-        
-        // this.red.style = style;
     }
 
 }
