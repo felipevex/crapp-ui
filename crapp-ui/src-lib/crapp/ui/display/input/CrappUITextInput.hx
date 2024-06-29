@@ -1,5 +1,7 @@
 package crapp.ui.display.input;
 
+import priori.types.PriTransitionType;
+import priori.geom.PriColor;
 import haxe.Timer;
 import priori.event.PriKeyboardEvent;
 import priori.system.PriKey;
@@ -26,6 +28,8 @@ class CrappUITextInput extends CrappUIInput<String> {
         super();
 
         this.width = 300;
+
+        this.allowTransition(PriTransitionType.BACKGROUND_COLOR, 0.2);
     }
 
     override private function get_value():String return this.input.value;
@@ -85,6 +89,8 @@ class CrappUITextInput extends CrappUIInput<String> {
         this.input.width = this.width - (style.space * 3.5);
         this.input.centerX = this.width/2;
         this.input.maxY = this.height - style.space;
+
+        if (this.hasFocus()) this.bgColor = style.selectedBackgroundColor();
         
         if (this.hasContentOrSelection()) {
             this.labelDisplay.fontSize = CrappUISizeReference.UNDER * style.size;

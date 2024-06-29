@@ -14,6 +14,8 @@ class CrappUIStyle {
 
     public var font(get, null):PriFontStyle;
 
+    public var selectedColorWeight:Float = 0.06;
+
     public function new(
         primary:PriColor, 
         background:PriColor,
@@ -29,6 +31,8 @@ class CrappUIStyle {
         this.fontFamily = fontFamily;
         this.corners = corners;
     }
+
+    inline public function selectedBackgroundColor():CrappUIColor return new CrappUIColor(this.background.darken(this.selectedColorWeight));
 
     static public function bluePrint():CrappUIStyle {
         return new CrappUIStyle(

@@ -95,14 +95,18 @@ class CrappUIButton extends CrappUIButtonable {
 
         this.startBatchUpdate();
         
-        var overColor:PriColor = this.tapController.isFocused
-            ? style.background.isLight
-                ? style.background.darken(0.2)
-                : style.background.brighten(0.2)
-            : style.background.isLight
-                ? style.background.darker 
-                : style.background.brighter
-            ;
+        // var overColor:PriColor = this.tapController.isFocused
+        //     ? style.background.isLight
+        //         ? style.background.darken(0.2)
+        //         : style.background.brighten(0.2)
+        //     : style.background.isLight
+        //         ? style.background.darker 
+        //         : style.background.brighter
+        //     ;
+
+        var overColor:PriColor = this.tapController.isDown
+            ? style.selectedBackgroundColor().darker
+            : style.selectedBackgroundColor();
 
         var bgColor:PriColor = (this.tapController.isOver || this.tapController.isFocused)
             ? overColor

@@ -19,6 +19,9 @@ abstract CrappUIColor(CrappUIColorSwatch) {
     @:from
     inline static function fromPriColor(color:PriColor):CrappUIColor return new CrappUIColor(color);
 
+    @:to
+    inline function toPriColor():PriColor return this.color;
+
     @:from
     inline static function fromInt(color:Int):CrappUIColor return new CrappUIColor(color);
     

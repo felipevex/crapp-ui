@@ -1,8 +1,11 @@
 package crapp.ui.display.input;
 
+import priori.types.PriTransitionType;
+import priori.geom.PriColor;
+import priori.fontawesome.FontAwesomeIconType;
+import priori.fontawesome.FontAwesomeIcon;
+import priori.fontawesome.PriFAIcon;
 import js.Browser;
-import js.html.SelectElement;
-import js.html.HtmlElement;
 import priori.view.form.PriFormSelect;
 import haxe.Timer;
 import priori.event.PriKeyboardEvent;
@@ -21,6 +24,8 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
     private var input:PriFormSelect;
     private var delayedChangeTimer:Timer;
 
+    private var arrow:FontAwesomeIcon;
+
     @:isVar public var label(default, set):String = "LABEL";
 
     @:isVar public var data(default, set):Array<T>;
@@ -30,6 +35,8 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
 
         this.data = [];
         this.width = 300;
+
+        this.allowTransition(PriTransitionType.BACKGROUND_COLOR, 0.2);
     }
 
     private function set_data(value:Array<T>):Array<T> {
@@ -68,9 +75,12 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
 
         this.input = this.createInputSelect();
 
+        this.arrow = new FontAwesomeIcon(FontAwesomeIconType.CARET_DOWN);
+
         this.addChildList([
             this.input,
-            this.labelDisplay
+            this.labelDisplay,
+            this.arrow
         ]);
     }
 
@@ -93,9 +103,17 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
             + style.space / 2;
 
         this.input.fontSize = style.size;
-        this.input.width = this.width - (style.space * 3.5);
-        this.input.centerX = this.width/2;
+        //this.input.width = this.width - (style.space * 3.5);
+        //this.input.centerX = this.width/2;
+        this.input.x = (style.space * 3.5) / 2;
+        this.input.width = this.width - this.input.x;
         this.input.maxY = this.height - style.space;
+
+        this.arrow.size = style.size;
+        this.arrow.color = style.primary.color;
+        this.arrow.maxX = this.input.maxX - style.space;
+
+        if (this.hasFocus()) this.bgColor = style.selectedBackgroundColor();
         
         if (this.hasContentOrSelection()) {
             this.labelDisplay.fontSize = CrappUISizeReference.UNDER * style.size;
@@ -103,12 +121,16 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
             this.labelDisplay.y = style.space;
             this.labelDisplay.width = this.width - (style.space * 3.5);
             this.labelDisplay.centerX = this.width/2;
+
+            this.arrow.centerY = this.input.centerY;
         } else {
             this.labelDisplay.fontSize = style.size;
 
             this.labelDisplay.width = this.width - (style.space * 3.5);
             this.labelDisplay.centerX = this.width/2;
             this.labelDisplay.centerY = this.height/2;
+
+            this.arrow.centerY = this.labelDisplay.centerY;
         }
         
     }
@@ -143,7 +165,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
 
     private function onFieldChange(e:PriEvent):Void {
         this.updateDisplay();
-        
+
         this.killTimer();
 
         this.delayedChangeTimer = Timer.delay(this.runDelayedChangeEvent, 600);
