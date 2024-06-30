@@ -91,33 +91,14 @@ class CrappUIButton extends CrappUIButtonable {
     }
 
     override private function paint():Void {
+        super.paint();
+
         var style:CrappUIStyle = this.style;
 
-        this.startBatchUpdate();
-        
-        // var overColor:PriColor = this.tapController.isFocused
-        //     ? style.background.isLight
-        //         ? style.background.darken(0.2)
-        //         : style.background.brighten(0.2)
-        //     : style.background.isLight
-        //         ? style.background.darker 
-        //         : style.background.brighter
-        //     ;
-
-        var overColor:PriColor = this.tapController.isDown
-            ? style.selectedBackgroundColor().darker
-            : style.selectedBackgroundColor();
-
-        var bgColor:PriColor = (this.tapController.isOver || this.tapController.isFocused)
-            ? overColor
-            : style.background.color;
-        
-        this.bgColor = bgColor;
+        this.corners = [Math.round(CrappUISizeReference.TINY * style.corners)];
         this.border = style.primary.brightness >= style.background.brightness
             ? null
             : new PriBorderStyle(2, style.primary.color);
-
-        this.endBatchUpdate();
 
         if (this.autoSize) {
             this.height = this.displayLabel.height + style.space * 2;
@@ -125,8 +106,6 @@ class CrappUIButton extends CrappUIButtonable {
         } else {
             this.displayLabel.width = this.width - style.space * 3.5;
         }
-        
-        this.corners = [Math.round(CrappUISizeReference.TINY * style.corners)];
         
         this.displayLabel.startBatchUpdate();
         this.displayLabel.centerY = this.height/2 + 1;

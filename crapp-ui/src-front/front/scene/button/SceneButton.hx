@@ -15,6 +15,11 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton label="MY LABEL" />
             <private:CrappUIButton id="red" />
             <private:CrappUIButton autoSize=":false" width="200" />
+            <private:CrappUILayotable vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
+                <private:CrappUIButton hLayoutSize="FLEX" />
+                <private:CrappUIButton hLayoutSize="FLEX" />
+                <private:CrappUIButton hLayoutSize="FLEX" />
+            </private:CrappUILayotable>
         </private:CrappUILayotable>
     </view>
 </priori>

@@ -1,27 +1,37 @@
 package crapp.ui.display.button;
 
+import tricks.layout.LayoutElement;
+import priori.fontawesome.FontAwesomeIcon;
 import crapp.ui.style.CrappUISizeReference;
-import priori.geom.PriColor;
 import crapp.ui.display.button.CrappUIButtonable;
 import priori.fontawesome.FontAwesomeIconType;
 import crapp.ui.style.CrappUIStyle;
-import priori.fontawesome.PriFAIcon;
 
 class CrappUIButtonIcon extends CrappUIButtonable {
     
-    public var iconColor(default, set):PriColor;
+    private var icon:FontAwesomeIcon;
 
-    private var icon:PriFAIcon;
-    private var iconType:FontAwesomeIconType;
+    @:isVar public var iconType(get, set):FontAwesomeIconType;
 
-    public function new(iconType:FontAwesomeIconType) {
-        this.iconType = iconType;
+    public function new(?iconType:FontAwesomeIconType) {
+        this.iconType = iconType == null ? FontAwesomeIconType.USER : iconType;
 
         super();
     }
 
-    private function set_iconColor(value:PriColor):PriColor {
-        this.iconColor = value;
+    override function get_layout():LayoutElement<CrappUIStylableDisplay> {
+        var layout = super.get_layout();
+
+        layout.horizontal.size = FIXED;
+        layout.vertical.size = FIXED;
+        
+        return layout;
+    }
+
+    private function get_iconType():FontAwesomeIconType return this.iconType;
+    private function set_iconType(value:FontAwesomeIconType):FontAwesomeIconType {
+        if (value == null || value == this.iconType) return value;
+        this.iconType = value;
         this.updateDisplay();
         return value;
     }
@@ -29,11 +39,7 @@ class CrappUIButtonIcon extends CrappUIButtonable {
     override function setup() {
         super.setup();
 
-        this.width = 30;
-        this.height = 30;
-
-        this.icon = new PriFAIcon();
-        this.icon.icon = Std.string(this.iconType);
+        this.icon = new FontAwesomeIcon();
 
         this.addChildList([
             this.icon
@@ -42,17 +48,20 @@ class CrappUIButtonIcon extends CrappUIButtonable {
 
     override function paint() {
         super.paint();
-        
+
         var style:CrappUIStyle = this.style;
 
-        this.icon.iconColor = this.iconColor == null
-            ? style.primary
-            : this.iconColor;
+        this.corners = [10000000];
 
-        this.corners = [Std.int(style.corners * CrappUISizeReference.SMALL)];
+        var space:Float = (style.space * 1.6) / 2;
 
-        this.icon.iconSize = Std.int(Math.min(this.height - 5, this.width - 5));
-        this.icon.centerX = this.width/2;
-        this.icon.centerY = this.height/2;
+        this.icon.x = space;
+        this.icon.y = space;
+        this.icon.icon = this.iconType;
+        this.icon.color = style.primary.color;
+        this.icon.size = style.size * CrappUISizeReference.LARGE;
+        
+        this.width = this.icon.maxX + space;
+        this.height = this.icon.maxY + space;
     }
 }

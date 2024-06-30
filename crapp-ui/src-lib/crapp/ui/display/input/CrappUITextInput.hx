@@ -1,7 +1,6 @@
 package crapp.ui.display.input;
 
 import priori.types.PriTransitionType;
-import priori.geom.PriColor;
 import haxe.Timer;
 import priori.event.PriKeyboardEvent;
 import priori.system.PriKey;

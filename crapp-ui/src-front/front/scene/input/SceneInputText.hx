@@ -19,6 +19,11 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUITextInput id="inputChangeDelay" label="TEST CHANGE WITH DELAY" />
             <private:CrappUITextInput id="red" />
             <private:CrappUITextInput label="PASSWORD" password=":true" />
+            <private:CrappUILayotable vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
+                <private:CrappUITextInput hLayoutSize="FLEX" />
+                <private:CrappUITextInput hLayoutSize="FLEX" />
+                <private:CrappUITextInput hLayoutSize="FLEX" />
+            </private:CrappUILayotable>
         </private:CrappUILayotable>
     </view>
 </priori>

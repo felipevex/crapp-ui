@@ -11,7 +11,9 @@ import crapp.ui.display.app.CrappUIScene;
     </imports>
     <view>
         <private:CrappUILayotable id="container" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
-            
+            <private:CrappUILayotable id="distribute" vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
+                
+            </private:CrappUILayotable>
         </private:CrappUILayotable>
     </view>
 </priori>
@@ -56,14 +58,33 @@ class SceneInputSelect extends CrappUIScene {
             select5.label = select5.value.label;
         }
 
+        var select6:CrappUISelectInput<InputSelectData> = new CrappUISelectInput<InputSelectData>();
+        select6.data = selectData;
+        select6.actions.onDelayedChange = () -> {
+            select6.label = select6.value.label;
+        }
 
         this.container.addChildList([
             select1,
             select2,
             select3,
             select4,
-            select5
+            select5,
+            select6
         ]);
+
+        this.distribute.addChildList([
+            this.createFlexInput(),
+            this.createFlexInput(),
+            this.createFlexInput()
+        ]);
+    }
+
+    private function createFlexInput():CrappUISelectInput<InputSelectData> {
+        var result = new CrappUISelectInput<InputSelectData>();
+        result.hLayoutSize = FLEX;
+        
+        return result;
     }
 
 }
