@@ -26,10 +26,13 @@ class CrappUICompositeManager {
     public function next():CrappUIComposite return this.composites[i++];
     
     public function add(composite:Class<CrappUIComposite>):Void {
+        var compositeClassName:String = Type.getClassName(composite);
+
+        if (this.map.exists(compositeClassName)) return;
+
         var compositeInstance:CrappUIComposite = Type.createInstance(composite, []);
         compositeInstance.display = this.display;
         
-        var compositeClassName:String = Type.getClassName(composite);
         this.map.set(compositeClassName, this.composites.length);
         this.composites.push(compositeInstance);
     }

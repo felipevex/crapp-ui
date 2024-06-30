@@ -5,7 +5,6 @@ import priori.event.PriKeyboardEvent;
 import crapp.ui.controller.CrappUITapController;
 import priori.event.PriTapEvent;
 import priori.types.PriTransitionType;
-import crapp.ui.style.CrappUISizeReference;
 import priori.geom.PriColor;
 import crapp.ui.style.CrappUIStyle;
 import crapp.ui.display.CrappUIStylableDisplay;

@@ -4,7 +4,6 @@ import tricks.layout.LayoutSize;
 import tricks.layout.LayoutElement;
 import priori.style.font.PriFontStyleAlign;
 import priori.style.font.PriFontStyleWeight;
-import priori.geom.PriColor;
 import priori.types.PriTransitionType;
 import priori.style.border.PriBorderStyle;
 import crapp.ui.style.CrappUISizeReference;
