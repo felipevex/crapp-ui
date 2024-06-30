@@ -180,4 +180,10 @@ class CrappUIStylableDisplay extends CrappUIDisplay implements ICrappUIStyleObje
     inline private function paintCorners(style:CrappUIStyle, size:CrappUISizeReference):Void {
         this.corners = [Math.round(style.corners * size.toFloat())];
     }
+
+    override function kill() {
+        this.actions = null;
+
+        super.kill();
+    }
 }

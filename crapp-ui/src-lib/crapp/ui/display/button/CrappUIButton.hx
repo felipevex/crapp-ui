@@ -22,6 +22,8 @@ class CrappUIButton extends CrappUIButtonable {
         super();
         
         this.allowTransition(PriTransitionType.BACKGROUND_COLOR, 0.2);
+
+        this.label = 'BUTTON';
     }
 
     override function get_layout():LayoutElement<CrappUIStylableDisplay> {
@@ -63,7 +65,6 @@ class CrappUIButton extends CrappUIButtonable {
         super.setup();
 
         this.displayLabel = new CrappUIText();
-        this.displayLabel.text = 'BUTTON';
         this.displayLabel.align = PriFontStyleAlign.CENTER;
         this.displayLabel.weight = PriFontStyleWeight.THICK600;
 
