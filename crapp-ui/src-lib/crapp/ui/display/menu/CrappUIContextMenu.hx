@@ -1,5 +1,7 @@
 package crapp.ui.display.menu;
 
+import priori.scene.PriSceneManagerEvents;
+import priori.scene.PriSceneManager;
 import priori.types.PriTransitionType;
 import priori.event.PriTapEvent;
 import priori.event.PriEvent;
@@ -96,8 +98,9 @@ class CrappUIContextMenu extends CrappUIStylableDisplay {
         this.ref = reference;
         this.updatePositionByReference();
 
+        this.ref.addEventListener(PriEvent.REMOVED_FROM_APP, this.onEventToKill);
         PriApp.g().addEventListener(PriEvent.RESIZE, this.onAppResize);
-        PriApp.g().addEventListener(PriTapEvent.TAP_UP, this.onTapUp);
+        PriApp.g().addEventListener(PriTapEvent.TAP_UP, this.onEventToKill);
 
         PriApp.g().addChild(this);
     }
@@ -106,7 +109,7 @@ class CrappUIContextMenu extends CrappUIStylableDisplay {
         this.updatePositionByReference();
     }
 
-    private function onTapUp(e:PriTapEvent):Void {
+    private function onEventToKill(e:PriTapEvent):Void {
         haxe.Timer.delay(()->{
             this.removeFromParent();
             this.kill();
@@ -114,8 +117,9 @@ class CrappUIContextMenu extends CrappUIStylableDisplay {
     }
 
     override function kill() {
+        this.ref.removeEventListener(PriEvent.REMOVED_FROM_APP, this.onEventToKill);
         PriApp.g().removeEventListener(PriEvent.RESIZE, this.onAppResize);
-        PriApp.g().removeEventListener(PriTapEvent.TAP_UP, this.onTapUp);
+        PriApp.g().removeEventListener(PriTapEvent.TAP_UP, this.onEventToKill);
 
         this.ref = null;
 
