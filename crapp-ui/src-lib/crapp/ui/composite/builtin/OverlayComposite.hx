@@ -41,6 +41,14 @@ class OverlayComposite extends CrappUIComposite {
         if (autoPositionOnReference) this.updatePositionByReference();
     }
 
+    public function close():Void {
+        this.kill();
+        
+        this.display.removeFromParent();
+        this.display.kill();
+        this.ref = null;
+    }
+
     private function onAppResize(e:PriEvent):Void {
         this.updatePositionByReference();
     }
@@ -56,11 +64,6 @@ class OverlayComposite extends CrappUIComposite {
         if (this.display.maxY > (PriApp.g().height - this.autoPositionBorderOffset)) this.display.maxY = PriApp.g().height - this.autoPositionBorderOffset;
     }
 
-    private function onAutoClose(e:PriEvent):Void {
-        haxe.Timer.delay(()->{
-            this.display.removeFromParent();
-            this.display.kill();
-        }, 0);
-    }
+    private function onAutoClose(e:PriEvent):Void haxe.Timer.delay(this.close, 0);
 
 }

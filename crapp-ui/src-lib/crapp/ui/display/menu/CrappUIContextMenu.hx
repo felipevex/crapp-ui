@@ -72,7 +72,10 @@ class CrappUIContextMenu extends CrappUIStylableDisplay {
     }
 
     public function addMenu(label:String, action:()->Void, ?style:CrappUIStyle):Void {
-        var item:CrappUIContextMenuItem = new CrappUIContextMenuItem(label, action);
+        var item:CrappUIContextMenuItem = new CrappUIContextMenuItem(label, () -> {
+            this.composite.get(OverlayComposite).close();
+            action();
+        });
         if (style != null) item.style = style;
 
         this.items.push(item);
