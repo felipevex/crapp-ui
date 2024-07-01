@@ -20,6 +20,7 @@ class CrappUIDisplay extends PriBuilder {
     }
 
     private function applyComposite():Void {
+        this.composite.reset();
         for (c in this.composite) c.setup();
     }
     
@@ -71,5 +72,12 @@ class CrappUIDisplay extends PriBuilder {
     override private function ___onResize(e:PriEvent):Void {
         super.___onResize(e);
         if (this.parent != null) this.parent.dispatchEvent(new CrappUIEvent(CrappUIEvent.UPDATE_DISPLAY));
+    }
+
+    override function kill() {
+        this.composite.reset();
+        for (c in this.composite) c.kill();
+        
+        super.kill();
     }
 }

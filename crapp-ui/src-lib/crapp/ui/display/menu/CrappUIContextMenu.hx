@@ -1,12 +1,7 @@
 package crapp.ui.display.menu;
 
-import priori.scene.PriSceneManagerEvents;
-import priori.scene.PriSceneManager;
+import crapp.ui.composite.builtin.OverlayComposite;
 import priori.types.PriTransitionType;
-import priori.event.PriTapEvent;
-import priori.event.PriEvent;
-import priori.geom.PriGeomPoint;
-import priori.app.PriApp;
 import priori.view.PriDisplay;
 import crapp.ui.style.CrappUIStyle;
 import priori.style.font.PriFontStyleWeight;
@@ -15,8 +10,6 @@ import crapp.ui.display.text.CrappUIText;
 import crapp.ui.display.button.CrappUIButtonable;
 
 class CrappUIContextMenu extends CrappUIStylableDisplay {
-
-    private static var BORDER_OFFSET:Float = 15;
 
     private var ref:PriDisplay;
     private var items:Array<CrappUIContextMenuItem>;
@@ -27,6 +20,10 @@ class CrappUIContextMenu extends CrappUIStylableDisplay {
 
     override function setup() {
         super.setup();
+
+        this.composite.add(OverlayComposite);
+        this.composite.get(OverlayComposite).autoCloseOnAppClick = true;
+        this.composite.get(OverlayComposite).autoPositionOnReference = true;
 
         this.setupAlphaIntro();
         this.items = [];
@@ -60,7 +57,7 @@ class CrappUIContextMenu extends CrappUIStylableDisplay {
         this.width = maxWidth;
         this.height = lastY;
 
-        this.updatePositionByReference();
+        this.composite.get(OverlayComposite).updatePositionByReference();
     }
 
     private function getMaxItemWidth():Float {
@@ -74,17 +71,6 @@ class CrappUIContextMenu extends CrappUIStylableDisplay {
         return maxWidth;
     }
 
-    private function updatePositionByReference():Void {
-        if (this.ref == null || !this.ref.hasApp()) return;
-
-        var point:PriGeomPoint = this.ref.localToGlobal(new PriGeomPoint(this.ref.x, this.ref.y));
-        this.x = point.x;
-        this.y = point.y;
-
-        if (this.maxX > (PriApp.g().width - BORDER_OFFSET)) this.maxX = PriApp.g().width - BORDER_OFFSET;
-        if (this.maxY > (PriApp.g().height - BORDER_OFFSET)) this.maxY = PriApp.g().height - BORDER_OFFSET;
-    }
-
     public function addMenu(label:String, action:()->Void, ?style:CrappUIStyle):Void {
         var item:CrappUIContextMenuItem = new CrappUIContextMenuItem(label, action);
         if (style != null) item.style = style;
@@ -96,31 +82,10 @@ class CrappUIContextMenu extends CrappUIStylableDisplay {
 
     public function openAt(reference:PriDisplay):Void {
         this.ref = reference;
-        this.updatePositionByReference();
-
-        this.ref.addEventListener(PriEvent.REMOVED_FROM_APP, this.onEventToKill);
-        PriApp.g().addEventListener(PriEvent.RESIZE, this.onAppResize);
-        PriApp.g().addEventListener(PriTapEvent.TAP_UP, this.onEventToKill);
-
-        PriApp.g().addChild(this);
-    }
-
-    private function onAppResize(e:PriEvent):Void {
-        this.updatePositionByReference();
-    }
-
-    private function onEventToKill(e:PriTapEvent):Void {
-        haxe.Timer.delay(()->{
-            this.removeFromParent();
-            this.kill();
-        }, 0);
+        this.composite.get(OverlayComposite).open(this.ref);
     }
 
     override function kill() {
-        this.ref.removeEventListener(PriEvent.REMOVED_FROM_APP, this.onEventToKill);
-        PriApp.g().removeEventListener(PriEvent.RESIZE, this.onAppResize);
-        PriApp.g().removeEventListener(PriTapEvent.TAP_UP, this.onEventToKill);
-
         this.ref = null;
 
         super.kill();
