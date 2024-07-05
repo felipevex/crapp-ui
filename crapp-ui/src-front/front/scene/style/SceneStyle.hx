@@ -31,17 +31,20 @@ class SceneStyle extends CrappUIScene {
     override function setup() {
         super.setup();
 
-        var red:CrappUIStyle = CrappUIStyle.bluePrint();
-        red.background = 0xFF0000;
-        red.primary = 0xFFFFFF;
+        var red:CrappUIStyle = CrappUIStyle.fromData({
+            background: 0xFF0000,
+            primary: 0xFFFFFF
+        });
 
-        var green:CrappUIStyle = CrappUIStyle.bluePrint();
-        green.background = 0x0DC146;
-        green.primary = 0xFFFFFF;
+        var green:CrappUIStyle = CrappUIStyle.fromData({
+            background: 0x00FF00,
+            primary: 0xFFFFFF
+        });
 
-        var blue:CrappUIStyle = CrappUIStyle.bluePrint();
-        blue.background = 0x150AE0;
-        blue.primary = 0xFFFFFF;
+        var blue:CrappUIStyle = CrappUIStyle.fromData({
+            background: 0x0000FF,
+            primary: 0xFFFFFF
+        });
 
         this.boxRed.style = red;
         this.boxGreen.style = green;

@@ -19,12 +19,12 @@ class CrappUIStyle {
     public var selectedColorWeight:Float = 0.06;
 
     public function new(
-        primary:PriColor, 
-        background:PriColor,
-        size:Float,
-        space:Float,
-        fontFamily:String,
-        corners:Float
+        primary:PriColor = 0x4A6DE5,
+        background:PriColor = 0xFFFFFF, 
+        size:Float = 13.0,
+        space:Float = 10.0,
+        fontFamily:String = 'Saira, Open Sans',
+        corners:Float = 6
     ) {
         this.primary = primary;
         this.background = background;
@@ -62,6 +62,19 @@ class CrappUIStyle {
 
     inline public function selectedBackgroundColor():CrappUIColor return new CrappUIColor(this.background.darken(this.selectedColorWeight));
 
+    private function get_font():PriFontStyle {
+        return new PriFontStyle(
+            this.primary.color, 
+            this.fontFamily
+        );
+    }
+
+    public function clone():CrappUIStyle {
+        var result:CrappUIStyle = new CrappUIStyle();
+        result.data = this.data;
+        return result;
+    }
+
     static public function bluePrint():CrappUIStyle {
         return new CrappUIStyle(
             0x4A6DE5, 
@@ -73,15 +86,8 @@ class CrappUIStyle {
         );
     }
 
-    private function get_font():PriFontStyle {
-        return new PriFontStyle(
-            this.primary.color, 
-            this.fontFamily
-        );
-    }
-
-    static public function fromData(data:CrappUIStyleData):CrappUIStyle {
-        var result:CrappUIStyle = CrappUIStyle.bluePrint();
+    static public function fromData(data:CrappUIStyleData, ?base:CrappUIStyle):CrappUIStyle {
+        var result:CrappUIStyle = base == null ? CrappUIStyle.bluePrint() : base.clone();
         result.data = data;
         return result;
     }
