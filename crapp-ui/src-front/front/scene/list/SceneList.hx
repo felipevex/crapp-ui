@@ -81,7 +81,7 @@ private class ListChildren extends CrappUiListChild<ListChildrenData> {
 
     override function updateData():Void {
         this.label.text = this.data.name;
-        this.bgColor = this.data.id % 2 == 0 ? 0xDDDDDD : 0xADADAD;
+        this.bgColor = this.index % 2 == 0 ? 0xDDDDDD : 0xADADAD;
     }
 
 }

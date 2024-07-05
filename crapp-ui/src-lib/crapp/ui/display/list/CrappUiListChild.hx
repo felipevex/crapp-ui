@@ -3,8 +3,10 @@ package crapp.ui.display.list;
 class CrappUiListChild<T> extends CrappUIStylableDisplay {
 
     @:isVar public var data(default, set):T;
+    public var index:Int;
     
     public function new() {
+        this.index = 0;
         super();
     }
 

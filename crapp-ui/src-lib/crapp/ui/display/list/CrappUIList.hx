@@ -139,7 +139,6 @@ class CrappUIList<T> extends CrappUIStylableDisplay {
 
         var itemHeight:Float = Math.fround(this.rowHeight);
         var currentScrollPosition:Float = this.composite.get(ScrollerComposite).scrollY;
-        var maxScrollPosition:Float = this.composite.get(ScrollerComposite).maxScrollY;
 
         var initialPosition:Int = Math.floor(currentScrollPosition / itemHeight);
         var initialIndex:Int = initialPosition % this.childPool.length;
@@ -157,17 +156,18 @@ class CrappUIList<T> extends CrappUIStylableDisplay {
         }
     }
 
-    private function updateItem(item:CrappUiListChild<T>, currentPosition:Int, totalItems:Int, itemHeight:Float):Void {
+    private function updateItem(item:CrappUiListChild<T>, rowIndex:Int, totalItems:Int, itemHeight:Float):Void {
         item.startBatchUpdate();
 
-        if (currentPosition >= totalItems) {
+        if (rowIndex >= totalItems) {
             item.visible = false;
             item.y = 0;
         } else {
             item.visible = true;
-            item.y = currentPosition * itemHeight;
+            item.y = rowIndex * itemHeight;
             item.x = 0;
-            item.data = this.data[currentPosition];
+            item.index = rowIndex;
+            item.data = this.data[rowIndex];
         }
 
         item.endBatchUpdate();
