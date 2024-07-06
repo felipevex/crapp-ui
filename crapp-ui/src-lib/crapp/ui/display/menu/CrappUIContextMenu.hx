@@ -1,5 +1,7 @@
 package crapp.ui.display.menu;
 
+import crapp.ui.composite.builtin.ButtonableComposite;
+import crapp.ui.composite.builtin.OverEffectComposite;
 import crapp.ui.composite.builtin.OverlayComposite;
 import priori.types.PriTransitionType;
 import priori.view.PriDisplay;
@@ -7,7 +9,6 @@ import crapp.ui.style.CrappUIStyle;
 import priori.style.font.PriFontStyleWeight;
 import priori.style.font.PriFontStyleAlign;
 import crapp.ui.display.text.CrappUIText;
-import crapp.ui.display.button.CrappUIButtonable;
 
 class CrappUIContextMenu extends CrappUIStylableDisplay {
 
@@ -102,7 +103,7 @@ class CrappUIContextMenu extends CrappUIStylableDisplay {
 
 }
 
-private class CrappUIContextMenuItem extends CrappUIButtonable {
+private class CrappUIContextMenuItem extends CrappUIStylableDisplay {
     
     private var displayLabel:CrappUIText;
 
@@ -121,7 +122,8 @@ private class CrappUIContextMenuItem extends CrappUIButtonable {
     }
 
     override function setup() {
-        super.setup();
+        this.composite.add(OverEffectComposite);
+        this.composite.add(ButtonableComposite);
 
         this.displayLabel = new CrappUIText();
         this.displayLabel.text = this.label;
@@ -135,7 +137,7 @@ private class CrappUIContextMenuItem extends CrappUIButtonable {
     }
 
     override private function paint():Void {
-        super.paint();
+        this.composite.get(OverEffectComposite).updateDisplay();
 
         var style:CrappUIStyle = this.style;
 

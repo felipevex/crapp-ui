@@ -1,13 +1,14 @@
 package crapp.ui.display.button;
 
+import crapp.ui.composite.builtin.ButtonableComposite;
+import crapp.ui.composite.builtin.OverEffectComposite;
 import tricks.layout.LayoutElement;
 import priori.fontawesome.FontAwesomeIcon;
 import crapp.ui.style.CrappUISizeReference;
-import crapp.ui.display.button.CrappUIButtonable;
 import priori.fontawesome.FontAwesomeIconType;
 import crapp.ui.style.CrappUIStyle;
 
-class CrappUIButtonIcon extends CrappUIButtonable {
+class CrappUIButtonIcon extends CrappUIStylableDisplay {
     
     private var icon:FontAwesomeIcon;
 
@@ -37,7 +38,8 @@ class CrappUIButtonIcon extends CrappUIButtonable {
     }
 
     override function setup() {
-        super.setup();
+        this.composite.add(OverEffectComposite);
+        this.composite.add(ButtonableComposite);
 
         this.icon = new FontAwesomeIcon();
 
@@ -47,7 +49,7 @@ class CrappUIButtonIcon extends CrappUIButtonable {
     }
 
     override function paint() {
-        super.paint();
+        this.composite.get(OverEffectComposite).updateDisplay();
 
         var style:CrappUIStyle = this.style;
 

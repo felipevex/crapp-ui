@@ -1,5 +1,7 @@
 package crapp.ui.display.button;
 
+import crapp.ui.composite.builtin.ButtonableComposite;
+import crapp.ui.composite.builtin.OverEffectComposite;
 import tricks.layout.LayoutSize;
 import tricks.layout.LayoutElement;
 import priori.style.font.PriFontStyleAlign;
@@ -10,7 +12,7 @@ import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.CrappUIStyle;
 import crapp.ui.display.text.CrappUIText;
 
-class CrappUIButton extends CrappUIButtonable {
+class CrappUIButton extends CrappUIStylableDisplay {
     
     private var displayLabel:CrappUIText;
 
@@ -62,7 +64,8 @@ class CrappUIButton extends CrappUIButtonable {
     }
 
     override function setup() {
-        super.setup();
+        this.composite.add(OverEffectComposite);
+        this.composite.add(ButtonableComposite);
 
         this.displayLabel = new CrappUIText();
         this.displayLabel.align = PriFontStyleAlign.CENTER;
@@ -91,7 +94,7 @@ class CrappUIButton extends CrappUIButtonable {
     }
 
     override private function paint():Void {
-        super.paint();
+        this.composite.get(OverEffectComposite).updateDisplay();
 
         var style:CrappUIStyle = this.style;
 

@@ -1,6 +1,6 @@
 package crapp.ui.composite;
 
-import crapp.ui.display.CrappUIDisplay;
+import crapp.ui.display.CrappUIStylableDisplay;
 import haxe.ds.StringMap;
 
 class CrappUICompositeManager {
@@ -8,10 +8,10 @@ class CrappUICompositeManager {
     private var map:StringMap<Int>;
     private var composites:Array<CrappUIComposite>;
     
-    private var display:CrappUIDisplay;
+    private var display:CrappUIStylableDisplay;
     private var i:Int;
 
-    public function new(display:CrappUIDisplay) {
+    public function new(display:CrappUIStylableDisplay) {
         this.i = 0;
 
         this.display = display;
@@ -35,6 +35,8 @@ class CrappUICompositeManager {
         
         this.map.set(compositeClassName, this.composites.length);
         this.composites.push(compositeInstance);
+
+        compositeInstance.setup();
     }
 
     public function get<T:Class<R>, R:CrappUIComposite>(composite:T):R {

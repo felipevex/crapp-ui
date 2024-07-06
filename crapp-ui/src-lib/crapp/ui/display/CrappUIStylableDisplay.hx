@@ -1,5 +1,6 @@
 package crapp.ui.display;
 
+import crapp.ui.composite.CrappUICompositeManager;
 import crapp.ui.interfaces.ICrappUIStyleObject;
 import crapp.ui.controller.CrappUIStyleController;
 import crapp.ui.style.CrappUISizeReference;
@@ -12,7 +13,7 @@ import tricks.layout.LayoutSize;
 import crapp.ui.style.CrappUIStyle;
 
 class CrappUIStylableDisplay extends CrappUIDisplay implements ICrappUIStyleObject {
-
+    
     private var styleController:CrappUIStyleController;
     public var style(get, set):CrappUIStyle;
     public var parentStyle(get, null):CrappUIStyle;
@@ -39,7 +40,10 @@ class CrappUIStylableDisplay extends CrappUIDisplay implements ICrappUIStyleObje
     @:isVar public var hLayoutGap(default, set):Float = 0.0;
     @:isVar public var vLayoutGap(default, set):Float = 0.0;
     
+    public var composite:CrappUICompositeManager;
+
     public function new() {
+        this.composite = new CrappUICompositeManager(this);
         this.styleController = new CrappUIStyleController();
         
         super();
@@ -182,6 +186,9 @@ class CrappUIStylableDisplay extends CrappUIDisplay implements ICrappUIStyleObje
     }
 
     override function kill() {
+        this.composite.reset();
+        for (c in this.composite) c.kill();
+
         this.actions = null;
 
         super.kill();
