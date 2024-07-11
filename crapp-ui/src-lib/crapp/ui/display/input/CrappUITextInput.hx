@@ -125,6 +125,7 @@ class CrappUITextInput extends CrappUIInput<String> {
 
     private function onKeyDown(e:PriKeyboardEvent):Void {
         if (e.keycode != PriKey.ENTER) return;
+        if (this.delayedChangeTimer != null) this.runDelayedChangeEvent();
         if (this.actions.onSubmit != null) this.actions.onSubmit();
     }
 
