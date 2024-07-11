@@ -10,10 +10,10 @@ class CrappUIList<T> extends CrappUIStylableDisplay {
     @:isVar public var data(default, set):Array<T> = [];
     
     private var scrollerSpacer:PriDisplay;
-    private var childClass:Class<CrappUiListChild<T>>;
-    private var childPool:Array<CrappUiListChild<T>> = [];
+    private var childClass:Class<CrappUIListChild<T>>;
+    private var childPool:Array<CrappUIListChild<T>> = [];
 
-    public function new(childClass:Class<CrappUiListChild<T>>) {
+    public function new(childClass:Class<CrappUIListChild<T>>) {
         super();
         this.childClass = childClass;
     }
@@ -89,7 +89,7 @@ class CrappUIList<T> extends CrappUIStylableDisplay {
 
     inline private function createNewPoolItems(itemsNeeded:Int):Void {
         var newItemsNeeded:Int = itemsNeeded - this.childPool.length;
-        var newItems:Array<CrappUiListChild<T>> = [];
+        var newItems:Array<CrappUIListChild<T>> = [];
 
         for (i in 0 ... newItemsNeeded) {
             var item = this.factoryNewItem();
@@ -100,9 +100,9 @@ class CrappUIList<T> extends CrappUIStylableDisplay {
         this.addChildList(newItems);
     }
 
-    inline private function factoryNewItem():CrappUiListChild<T> {
-        var instance:CrappUiListChild<T> = Type.createInstance(
-            this.childClass == null ? CrappUiListChild : this.childClass,
+    inline private function factoryNewItem():CrappUIListChild<T> {
+        var instance:CrappUIListChild<T> = Type.createInstance(
+            this.childClass == null ? CrappUIListChild : this.childClass,
             []
         );
         return instance;
@@ -156,7 +156,7 @@ class CrappUIList<T> extends CrappUIStylableDisplay {
         }
     }
 
-    private function updateItem(item:CrappUiListChild<T>, rowIndex:Int, totalItems:Int, itemHeight:Float):Void {
+    private function updateItem(item:CrappUIListChild<T>, rowIndex:Int, totalItems:Int, itemHeight:Float):Void {
         item.startBatchUpdate();
 
         if (rowIndex >= totalItems) {

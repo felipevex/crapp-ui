@@ -1,7 +1,7 @@
 package front.scene.list;
 
 import crapp.ui.display.text.CrappUIText;
-import crapp.ui.display.list.CrappUiListChild;
+import crapp.ui.display.list.CrappUIListChild;
 import crapp.ui.display.list.CrappUIList;
 import crapp.ui.display.app.CrappUIScene;
 
@@ -58,7 +58,7 @@ private typedef ListChildrenData = {
     var name:String;
 }
 
-private class ListChildren extends CrappUiListChild<ListChildrenData> {
+private class ListChildren extends CrappUIListChild<ListChildrenData> {
 
     private var label:CrappUIText;
 
