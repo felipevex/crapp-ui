@@ -1,5 +1,6 @@
 package crapp.ui.display.text;
 
+import tricks.layout.LayoutSize;
 import priori.style.font.PriFontStyle;
 import priori.style.font.PriFontStyleWeight;
 import priori.style.font.PriFontStyleAlign;
@@ -32,6 +33,9 @@ class CrappUIText extends CrappUIStylableDisplay {
 
     public var uiSize(default, set):Float = CrappUISizeReference.BASE;
 
+    private var lastSettedWidth:Float;
+    private var lastSettedHeight:Float;
+
     @:isVar public var isHTML(default, set):Bool = false;
 
     public function new() {
@@ -41,6 +45,11 @@ class CrappUIText extends CrappUIStylableDisplay {
         
         this.label.clipping = false;
         this.label.text = this.__textValue;
+    }
+
+    override private function set_hLayoutSize(value:LayoutSize):LayoutSize {
+        if (value == LayoutSize.FLEX) this.autoSize = false;
+        return super.set_hLayoutSize(value);
     }
 
     private function set_uiSize(value:Float):Float {
@@ -132,6 +141,9 @@ class CrappUIText extends CrappUIStylableDisplay {
     private function set_autoSize(value:Bool):Bool {
         this.label.autoSize = value;
         this.label.clipping = !value;
+
+        if (!value && this.lastSettedWidth != null) this.width = this.lastSettedWidth;
+
         this.updateDisplay();
         return value;
     }
@@ -159,18 +171,22 @@ class CrappUIText extends CrappUIStylableDisplay {
         
         this.label.endBatchUpdate();
         
-        if (this.autoSize == false) this.label.width = Math.round(this.width);
+        if (!this.autoSize) this.label.width = Math.round(this.width);
         else super.set_width(Math.round(this.label.width));
 
         super.set_height(Math.round(this.label.height));
     }
 
     override private function set_width(value:Float):Float {
-        if (this.autoSize == false) super.set_width(value);
+        this.lastSettedWidth = value;
+        if (!this.autoSize) super.set_width(value);
         return value;
     }
 
-    override private function set_height(value:Float):Float return value;
+    override private function set_height(value:Float):Float {
+        this.lastSettedHeight = value;
+        return value;
+    }
 
     private function get_weight():PriFontStyleWeight return this.label.weight;
 	private function set_weight(value:PriFontStyleWeight):PriFontStyleWeight {

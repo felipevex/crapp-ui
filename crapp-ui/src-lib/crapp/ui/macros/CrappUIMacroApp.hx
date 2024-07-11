@@ -1,5 +1,6 @@
 package crapp.ui.macros;
 
+import builder.helper.BuilderMacroHelper;
 #if macro
 import haxe.macro.PositionTools;
 import haxe.xml.Parser.XmlParserException;
@@ -19,11 +20,79 @@ import haxe.macro.Expr;
 class CrappUIMacroApp {
     
     #if macro
+
+    static public function loadPrioriXML():Xml {
+        var val:String = null;
+        var xml:Xml = null;
+
+        if (!BuilderMacroHelper.hasMetaKey('priori')) return null;
+        else val = Std.string(BuilderMacroHelper.getMetaValue('priori'));
+
+        // try to load xml data from file
+        var fileName:String = StringTools.trim(val.substr(0, 1024)).split('\n').join('');
+        
+        if (sys.FileSystem.exists(fileName) && !sys.FileSystem.isDirectory(fileName)) {
+
+            var data:String = sys.io.File.getContent(StringTools.trim(val));
+
+            try {
+                xml = Xml.parse(data);
+            } catch(e:XmlParserException) {
+
+                var errorPos = Context.makePosition(
+                    {
+                        file : fileName,
+                        min : e.position,
+                        max : data.length
+                    }
+                );
+                
+                Context.warning(
+                    e.message,
+                    errorPos
+                );
+
+                var metaPos = BuilderMacroHelper.getMetaPosition('priori');
+                errorPos = Context.makePosition(metaPos);
+
+                Context.fatalError(
+                    'Error on $fileName: ${e.message}',
+                    errorPos
+                );
+
+            }
+
+        } else {
+            // try to parse xml data from metatag
+            try {
+                xml = Xml.parse(val);
+            } catch(e:XmlParserException) {
+                
+                var metaPos = BuilderMacroHelper.getMetaPosition('priori');
+                var errorPos = Context.makePosition(
+                    {
+                        file : metaPos.file,
+                        min : metaPos.min + e.position,
+                        max : metaPos.min + val.length
+                    }
+                );
+                
+                Context.fatalError(
+                    e.message,
+                    errorPos
+                );
+            }
+        }
+
+        return xml;
+    }
+
+    
     static public function build():Array<Field> {
         
         var fields:Array<Field> = Context.getBuildFields();
 
-        var xml:Xml = priori.view.builder.PriBuilderMacros.loadPrioriXML();
+        var xml:Xml = loadPrioriXML();
 
         if (xml != null) {
             try {
