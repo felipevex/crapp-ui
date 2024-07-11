@@ -11,11 +11,11 @@ import crapp.ui.display.app.CrappUIScene;
         <crapp.ui.display.layout.CrappUILayotable />
     </imports>
     <view>
-        <private:CrappUIButtonIcon id="b1" />
-        <private:CrappUIButtonIcon id="b2" />
-        <private:CrappUIButtonIcon id="b3" />
-        <private:CrappUIButtonIcon id="b4" />
-        <private:CrappUIButtonIcon id="b5" />
+        <private:CrappUIButtonIcon id="b1" centerX:Paint="this.width/2" centerY:Paint="this.height/2" />
+        <private:CrappUIButtonIcon id="b2" x="20" y="20" />
+        <private:CrappUIButtonIcon id="b3" maxX:Paint="this.width - 20" maxY:Paint="this.height - 20" />
+        <private:CrappUIButtonIcon id="b4" maxX:Paint="this.width - 20" y="20" />
+        <private:CrappUIButtonIcon id="b5" x="20" maxY:Paint="this.height - 20" />
     </view>
 </priori>
 ')
@@ -28,24 +28,10 @@ class SceneContextMenu extends CrappUIScene {
     override function paint() {
         super.paint();
 
-        b1.centerX = this.width/2;
-        b1.centerY = this.height/2;
         b1.actions.onClick = openFastMenu.bind(b1);
-
-        b2.x = 20;
-        b2.y = 20;
         b2.actions.onClick = openContextMenu.bind(b2);
-
-        b3.maxX = this.width - 20;
-        b3.maxY = this.height - 20;
         b3.actions.onClick = openContextMenu.bind(b3);
-
-        b4.maxX = this.width - 20;
-        b4.y = 20;
         b4.actions.onClick = openContextMenu.bind(b4);
-
-        b5.x = 20;
-        b5.maxY = this.height - 20;
         b5.actions.onClick = openContextMenu.bind(b5);
     }
 
