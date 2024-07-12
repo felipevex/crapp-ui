@@ -1,0 +1,52 @@
+package front.scene.image;
+
+import haxe.Timer;
+import priori.fontawesome.FontAwesomeIconType;
+import crapp.ui.style.CrappUIStyle;
+import crapp.ui.display.app.CrappUIScene;
+
+@priori('
+<priori>
+    <imports>
+        <crapp.ui.display.layout.CrappUILayotable />
+        <crapp.ui.display.image.CrappUIImage />
+        <crapp.ui.display.text.CrappUIText />
+    </imports>
+    <view>
+        <CrappUILayotable hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
+            <CrappUIImage />
+            <CrappUIText text="Image without src" />
+
+            <CrappUIImage id="logo" src="./image/logo.png" />
+            <CrappUIText text="Image with src" />
+
+            <CrappUIImage src="./image/logo.png" resize="AUTO_HEIGHT" width="200" />
+            <CrappUIText text="AUTO_HEIGHT" />
+
+            <CrappUIImage src="./image/logo.png" resize="AUTO_WIDTH" height="13" />
+            <CrappUIText text="AUTO_WIDTH" />
+
+            <CrappUIImage src="./image/logo.png" resize="STRETCH" width="25" height="30" />
+            <CrappUIText text="STRETCH" />
+
+            <CrappUIImage src="./image/logo.png" resize="FILL" width="60" height="60" />
+            <CrappUIText text="FILL" />
+
+            <CrappUIImage src="./image/logo.png" resize="FIT" width="60" height="60" />
+            <CrappUIText text="FIT" />
+
+            <CrappUIImage src="./image/logo.png" resize="REAL" />
+            <CrappUIText text="REAL" />
+
+        </CrappUILayotable>
+    </view>
+</priori>
+')
+class SceneImage extends CrappUIScene {
+    
+    override function setup() {
+        super.setup();
+
+    }
+
+}

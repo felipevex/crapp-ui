@@ -22,6 +22,7 @@ import crapp.ui.display.app.CrappUIApp;
         <route scene="front.scene.composite.SceneScrollerComposite" route="composite/scroller" />
         <route scene="front.scene.list.SceneList" route="list" />
         <route scene="front.scene.menu.SceneContextMenu" route="menu/context" />
+        <route scene="front.scene.image.SceneImage" route="image" />
     </routes>
 </priori>
 ')

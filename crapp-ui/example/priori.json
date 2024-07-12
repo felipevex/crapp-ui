@@ -1,0 +1,28 @@
+{
+  "project_name" : "Crapp UI Example",
+
+  "lang" : "pt-br",
+
+  "meta" : [],
+
+  "link" : [],
+
+  "d_flags" : [
+    "prioridebug"
+  ],
+
+  "dependencies" : [
+    "crapp-ui"
+  ],
+
+  "template" : "template",
+
+  "main" : "front.Front",
+
+  "src" : [
+    "src",
+    "../src-lib"
+  ],
+
+  "output" : "../build/front"
+}

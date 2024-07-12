@@ -1,21 +1,21 @@
 package crapp.ui.display;
 
-import priori.view.builder.PriBuilder;
 import priori.app.PriApp;
-import crapp.ui.style.CrappUIEvents;
 import priori.event.PriEvent;
 import priori.style.shadow.PriShadowStyle;
-import crapp.ui.composite.CrappUICompositeManager;
-import crapp.ui.interfaces.ICrappUIStyleObject;
-import crapp.ui.controller.CrappUIStyleController;
-import crapp.ui.style.CrappUISizeReference;
 import priori.style.border.PriBorderStyle;
-import crapp.ui.resource.CrappUIActionsResource;
+import priori.view.builder.PriBuilder;
 import tricks.layout.LayoutElement;
 import tricks.layout.LayoutAlignment;
 import tricks.layout.LayoutDistribution;
 import tricks.layout.LayoutSize;
+import crapp.ui.resource.CrappUIActionsResource;
+import crapp.ui.style.CrappUIEvents;
 import crapp.ui.style.CrappUIStyle;
+import crapp.ui.style.CrappUISizeReference;
+import crapp.ui.composite.CrappUICompositeManager;
+import crapp.ui.interfaces.ICrappUIStyleObject;
+import crapp.ui.controller.CrappUIStyleController;
 
 class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
     

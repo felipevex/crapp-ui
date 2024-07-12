@@ -7,7 +7,7 @@
 -lib util-kit
 -lib priori-fontawesome
 
--cp src-front
+-cp example/src
 -cp src-lib
 
 -D version=DEV_VERSION

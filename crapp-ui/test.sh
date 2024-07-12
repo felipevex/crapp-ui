@@ -1,7 +1,11 @@
 #!/bin/bash
 
 haxe haxe-front.hxml                                            && \
+
+cd ./example/                                                   && \
 haxelib run priori build                                        && \
+cd ../                                                          && \
+
 haxe test-unit.hxml                                             && \
 sleep 1s
 

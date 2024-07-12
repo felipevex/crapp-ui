@@ -8,8 +8,10 @@ services:
             dockerfile: dockerfile
         environment: 
             KEEP_CONTAINER_ALIVE: "yes"
+            RUN_BASH_SCRIPT: "/docker-haxe/script/init.sh"
         volumes:
             - ./docker/shared:/docker-shared
+            - ./docker/haxe:/docker-haxe
             - ./crapp-ui:/crapp-ui
 
     nginx:
