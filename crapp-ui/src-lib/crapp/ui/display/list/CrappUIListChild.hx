@@ -13,7 +13,7 @@ class CrappUIListChild<T> extends CrappUILayotable {
     }
 
     private function updateData():Void {
-        throw "Not implemented";
+        
     }
 
     private function set_data(value:T):T {

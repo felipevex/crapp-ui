@@ -5,14 +5,28 @@ import crapp.ui.display.list.CrappUIListChild;
 import crapp.ui.display.list.CrappUIList;
 import crapp.ui.display.app.CrappUIScene;
 
+@priori('
+<priori>
+    <imports>
+        <crapp.ui.display.list.CrappUIList />
+    </imports>
+    <view>
+        <private:CrappUIList 
+            id="list"
+            type="<ListChildrenData>"
+            rowHeight="50" 
+            childClass:Literal="ListChildren" 
+            width="300" 
+            height="200" 
+            centerX:Paint="this.width/2" 
+            centerY:Paint="this.height/2" 
+        />
+    </view>
+</priori>
+')
 class SceneList extends CrappUIScene {
-
-    var list:CrappUIList<ListChildrenData>;
     
     override function setup() {
-        this.list = new CrappUIList<ListChildrenData>(ListChildren);
-        this.list.rowHeight = 50;
-
         this.list.data = [
             { id: 1, name: "Item 1" },
             { id: 2, name: "Item 2" },
@@ -35,22 +49,7 @@ class SceneList extends CrappUIScene {
             { id: 19, name: "Item 19" },
             { id: 20, name: "Item 20" }
         ];
-
-        this.addChildList([
-            this.list
-        ]);
     }
-
-    override function paint() {
-        super.paint();
-
-        this.list.width = 300;
-        this.list.height = 200;
-
-        this.list.centerX = this.width / 2;
-        this.list.centerY = this.height / 2;
-    }
-
 }
 
 private typedef ListChildrenData = {

@@ -9,13 +9,27 @@ class CrappUIList<T> extends CrappUIDisplay {
     @:isVar public var rowHeight(default, set):Float = 40;
     @:isVar public var data(default, set):Array<T> = [];
     
+    @:isVar public var childClass(get, set):Class<CrappUIListChild<T>>;
     private var scrollerSpacer:PriDisplay;
-    private var childClass:Class<CrappUIListChild<T>>;
+    
     private var childPool:Array<CrappUIListChild<T>> = [];
 
-    public function new(childClass:Class<CrappUIListChild<T>>) {
+    public function new() {
         super();
-        this.childClass = childClass;
+    }
+
+    private function get_childClass():Class<CrappUIListChild<T>> {
+        return this.childClass == null ? CrappUIListChild : this.childClass;
+    }
+
+    private function set_childClass(value:Class<CrappUIListChild<T>>):Class<CrappUIListChild<T>> {
+        if (value == null || value == this.childClass) return value;
+
+        this.resetChildPool();
+        this.childClass = value;
+        this.updateList();
+
+        return value;
     }
 
     override private function setup():Void {
