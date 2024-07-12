@@ -1,8 +1,5 @@
 package front.scene.image;
 
-import haxe.Timer;
-import priori.fontawesome.FontAwesomeIconType;
-import crapp.ui.style.CrappUIStyle;
 import crapp.ui.display.app.CrappUIScene;
 
 @priori('
@@ -37,6 +34,9 @@ import crapp.ui.display.app.CrappUIScene;
 
             <CrappUIImage src="./image/logo.png" resize="REAL" />
             <CrappUIText text="REAL" />
+
+            <CrappUIImage src="./image/logo.png" resize="REAL" effect="GRAYSCALE" />
+            <CrappUIText text="GRAYSCALE" />
 
         </CrappUILayotable>
     </view>

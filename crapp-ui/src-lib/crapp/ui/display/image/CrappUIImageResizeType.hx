@@ -11,6 +11,8 @@ enum abstract CrappUIImageResizeType(String) to String {
 
     @:from
     public static function fromString(value:String):CrappUIImageResizeType {
+        if (value == null) return AUTO_HEIGHT;
+        
         switch (value.toLowerCase()) {
             case "stretch" | "fixed": return STRETCH;
             case "fill" | "zoom": return FILL;
@@ -18,7 +20,7 @@ enum abstract CrappUIImageResizeType(String) to String {
             case "auto_height" | "height" | "auto" | "default" : return AUTO_HEIGHT;
             case "auto_width" | "width": return AUTO_WIDTH;
             case "real" | "original": return REAL;
-            case _ : return STRETCH;
+            case _ : return AUTO_HEIGHT;
         }
     }
 

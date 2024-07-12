@@ -1,5 +1,7 @@
 package crapp.ui.display.image;
 
+import helper.kits.StringKit;
+import priori.style.filter.PriFilterStyle;
 import priori.event.PriEvent;
 import priori.view.PriImage;
 import crapp.ui.display.CrappUIDisplay;
@@ -7,13 +9,14 @@ import crapp.ui.display.CrappUIDisplay;
 class CrappUIImage extends CrappUIDisplay {
     
     public var resize(default, set):CrappUIImageResizeType = AUTO_HEIGHT;
+    public var effect(default, set):CrappUIImageEffectType = NONE;
+
     public var src(default, set):String;
     
     private var image:PriImage;
 
     override function setup() {
         super.setup();
-        
         this.bgColor = 0xf3f3f3;
     }
 
@@ -27,6 +30,15 @@ class CrappUIImage extends CrappUIDisplay {
 
         this.resize = value;
         this.updateSize();
+        return value;
+    }
+
+    private function set_effect(value:CrappUIImageEffectType):CrappUIImageEffectType {
+        if (value == null || value == this.effect) return value;
+
+        this.effect = value;
+        this.updateEffect();
+
         return value;
     }
 
@@ -52,11 +64,16 @@ class CrappUIImage extends CrappUIDisplay {
     private function onError(e:PriEvent):Void {
         this.image.removeFromParent();
         this.image.kill();
+        
+        if (this.actions.onError != null) this.actions.onError();
     }
 
     private function onComplete(e:PriEvent):Void {
         this.addChild(this.image);
         this.updateSize();
+        this.updateEffect();
+
+        if (this.actions.onLoad != null) this.actions.onLoad();
     }
 
     private function updateSize():Void {
@@ -91,6 +108,19 @@ class CrappUIImage extends CrappUIDisplay {
 
         this.image.centerX = this.width / 2;
         this.image.centerY = this.height / 2;
+    }
+
+    private function updateEffect():Void {
+        if (this.image == null) return;
+
+        var filter:PriFilterStyle = new PriFilterStyle();
+
+        switch (this.effect) {
+            case NONE: filter = null;
+            case GRAYSCALE: filter.grayscale = 1;
+        }
+
+        this.image.filter = filter;
     }
 
 }
