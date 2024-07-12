@@ -1,0 +1,53 @@
+{
+  "project_name" : "Project",
+
+  "lang" : "pt-br",
+
+  "meta" : [],
+
+  "link" : [
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-100.woff\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-100.woff2\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-100italic.woff\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-100italic.woff2\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-600.woff\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-600.woff2\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-600italic.woff\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-600italic.woff2\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-700.woff\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-700.woff2\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-700italic.woff\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-700italic.woff2\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-italic.woff\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-italic.woff2\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-regular.woff\" as=\"font\" crossorigin>",
+    "<link rel=\"preload\" href=\"fonts/saira/saira-v8-latin-regular.woff2\" as=\"font\" crossorigin>",
+    "<link href=\"fonts/saira/saira.css\" rel=\"stylesheet\">",
+
+    "<script type=\"text/javascript\" src=\"js/tinycolor-min.js\"></script>",
+
+    "<script src=\"js/FileSaver.js\"></script>",
+    "<script src=\"js/qrcode.min.js\"></script>",
+    "<script src=\"js/pako.min.js\"></script>",
+    "<script src=\"js/chart.min.js\"></script>",
+    "<script src=\"socketio/socket.io.js\"></script>"
+  ],
+
+  "d_flags" : [],
+
+  "dependencies" : [
+    "datetime",
+    "actuate",
+    "anonstruct",
+    "util-kit",
+    "priori-fontawesome"
+  ],
+
+  "template" : "crapp-ui/template",
+
+  "main" : "",
+
+  "src" : [],
+
+  "output" : ""
+}
