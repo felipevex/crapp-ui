@@ -1,6 +1,5 @@
 package crapp.ui.display.image;
 
-import helper.kits.StringKit;
 import priori.style.filter.PriFilterStyle;
 import priori.event.PriEvent;
 import priori.view.PriImage;
