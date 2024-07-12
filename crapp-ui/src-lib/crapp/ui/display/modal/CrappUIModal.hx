@@ -4,7 +4,7 @@ import priori.event.PriEvent;
 import crapp.ui.controller.CrappUIModalController;
 import priori.view.PriDisplay;
 
-class CrappUIModal extends CrappUIStylableDisplay {
+class CrappUIModal extends CrappUIDisplay {
 
     @:isVar public var allowCloseModal(get, set):Bool = true;
     @:isVar public var allowCloseModalWithEsc(get, set):Bool = true;

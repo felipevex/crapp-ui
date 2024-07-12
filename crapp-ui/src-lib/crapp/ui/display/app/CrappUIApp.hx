@@ -20,8 +20,8 @@ class CrappUIApp extends PriApp implements ICrappUIStyleObject {
 
     @:noCompletion private var __delayedStart:Bool = true;
     
-    public var sceneContainer:CrappUIStylableDisplay;
-    public var overlayContainer:CrappUIStylableDisplay;
+    public var sceneContainer:CrappUIDisplay;
+    public var overlayContainer:CrappUIDisplay;
 
     public var customPreloader:Class<PriPreloaderView>;
     
@@ -53,7 +53,7 @@ class CrappUIApp extends PriApp implements ICrappUIStyleObject {
     @:noCompletion private function startSceneContainer():Void {
         if (this.sceneContainer != null) return;
 
-        this.sceneContainer = new CrappUIStylableDisplay();
+        this.sceneContainer = new CrappUIDisplay();
         this.sceneContainer.left = 0;
         this.sceneContainer.top = 0;
         this.sceneContainer.right = 0;

@@ -10,7 +10,7 @@ import priori.style.font.PriFontStyleWeight;
 import priori.style.font.PriFontStyleAlign;
 import crapp.ui.display.text.CrappUIText;
 
-class CrappUIContextMenu extends CrappUIStylableDisplay {
+class CrappUIContextMenu extends CrappUIDisplay {
 
     private var ref:PriDisplay;
     private var items:Array<CrappUIContextMenuItem>;
@@ -103,7 +103,7 @@ class CrappUIContextMenu extends CrappUIStylableDisplay {
 
 }
 
-private class CrappUIContextMenuItem extends CrappUIStylableDisplay {
+private class CrappUIContextMenuItem extends CrappUIDisplay {
     
     private var displayLabel:CrappUIText;
 

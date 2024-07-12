@@ -12,7 +12,7 @@ import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.CrappUIStyle;
 import crapp.ui.display.text.CrappUIText;
 
-class CrappUIButton extends CrappUIStylableDisplay {
+class CrappUIButton extends CrappUIDisplay {
     
     private var displayLabel:CrappUIText;
 
@@ -28,7 +28,7 @@ class CrappUIButton extends CrappUIStylableDisplay {
         this.label = 'BUTTON';
     }
 
-    override function get_layout():LayoutElement<CrappUIStylableDisplay> {
+    override function get_layout():LayoutElement<CrappUIDisplay> {
         var layout = super.get_layout();
         
         layout.horizontal = {
@@ -41,7 +41,7 @@ class CrappUIButton extends CrappUIStylableDisplay {
         return layout;
     }
 
-    override function set_layout(value:LayoutElement<CrappUIStylableDisplay>):LayoutElement<CrappUIStylableDisplay> {
+    override function set_layout(value:LayoutElement<CrappUIDisplay>):LayoutElement<CrappUIDisplay> {
         var layout = super.set_layout(value);
         
         if (layout.horizontal == null) this.autoSize = true;

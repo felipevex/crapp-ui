@@ -5,7 +5,7 @@ import crapp.ui.style.CrappUIStyle;
 import priori.fontawesome.FontAwesomeIconType;
 import crapp.ui.display.button.CrappUIButtonIcon;
 
-class CrappUIContainerWithButtons extends CrappUIStylableDisplay {
+class CrappUIContainerWithButtons extends CrappUIDisplay {
     
     private var controlButtons:Array<CrappUIButtonIcon>;
 

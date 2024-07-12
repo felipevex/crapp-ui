@@ -5,7 +5,7 @@ import priori.event.PriEvent;
 import tricks.layout.Layout;
 import tricks.layout.LayoutElement;
 
-class CrappUILayotable extends CrappUIStylableDisplay {
+class CrappUILayotable extends CrappUIDisplay {
 
     private var invalid:Bool;
 
@@ -14,15 +14,15 @@ class CrappUILayotable extends CrappUIStylableDisplay {
         super();
     }
     
-    override function get_layout():LayoutElement<CrappUIStylableDisplay> {
+    override function get_layout():LayoutElement<CrappUIDisplay> {
         var layout = super.get_layout();
         layout.isContainer = true;
 
         for (i in 0 ... this.numChildren) {
             var child = this.getChild(i);
-            if (!Std.isOfType(child, CrappUIStylableDisplay)) continue;
+            if (!Std.isOfType(child, CrappUIDisplay)) continue;
 
-            layout.children.push((cast(child, CrappUIStylableDisplay)).layout);
+            layout.children.push((cast(child, CrappUIDisplay)).layout);
         }
         
         if (layout.children.length == 0) {
@@ -39,7 +39,7 @@ class CrappUILayotable extends CrappUIStylableDisplay {
         return layout;
     }
 
-    override function set_layout(value:LayoutElement<CrappUIStylableDisplay>):LayoutElement<CrappUIStylableDisplay> {
+    override function set_layout(value:LayoutElement<CrappUIDisplay>):LayoutElement<CrappUIDisplay> {
         this.invalid = true;
 
         var layout = super.set_layout(value);
@@ -55,7 +55,7 @@ class CrappUILayotable extends CrappUIStylableDisplay {
     override function paint() {
         if (this.invalid) return;
 
-        var layoutElement:LayoutElement<CrappUIStylableDisplay> = this.layout;
+        var layoutElement:LayoutElement<CrappUIDisplay> = this.layout;
         var layout:Layout = new Layout();
         layout.organize(layoutElement);
 

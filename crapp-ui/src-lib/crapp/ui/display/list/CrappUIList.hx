@@ -4,7 +4,7 @@ import crapp.ui.composite.builtin.ScrollerComposite;
 import priori.event.PriEvent;
 import priori.view.PriDisplay;
 
-class CrappUIList<T> extends CrappUIStylableDisplay {
+class CrappUIList<T> extends CrappUIDisplay {
 
     @:isVar public var rowHeight(default, set):Float = 40;
     @:isVar public var data(default, set):Array<T> = [];

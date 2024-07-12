@@ -8,7 +8,7 @@ import crapp.ui.style.CrappUISizeReference;
 import priori.fontawesome.FontAwesomeIconType;
 import crapp.ui.style.CrappUIStyle;
 
-class CrappUIButtonIcon extends CrappUIStylableDisplay {
+class CrappUIButtonIcon extends CrappUIDisplay {
     
     private var icon:FontAwesomeIcon;
 
@@ -20,7 +20,7 @@ class CrappUIButtonIcon extends CrappUIStylableDisplay {
         super();
     }
 
-    override function get_layout():LayoutElement<CrappUIStylableDisplay> {
+    override function get_layout():LayoutElement<CrappUIDisplay> {
         var layout = super.get_layout();
 
         layout.horizontal.size = FIXED;

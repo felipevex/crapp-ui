@@ -1,6 +1,6 @@
 package crapp.ui.display.input;
 
-class CrappUIInput<T> extends CrappUIStylableDisplay {
+class CrappUIInput<T> extends CrappUIDisplay {
     
     public var value(get, set):T;
 	

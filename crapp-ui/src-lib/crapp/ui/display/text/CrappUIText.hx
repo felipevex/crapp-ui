@@ -10,7 +10,7 @@ import priori.event.PriKeyboardEvent;
 import helper.kits.StringKit;
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.CrappUIStyle;
-import crapp.ui.display.CrappUIStylableDisplay;
+import crapp.ui.display.CrappUIDisplay;
 
 @priori('
 <priori>
@@ -19,7 +19,7 @@ import crapp.ui.display.CrappUIStylableDisplay;
     </view>
 </priori>
 ')
-class CrappUIText extends CrappUIStylableDisplay {
+class CrappUIText extends CrappUIDisplay {
 
     private var __textValue:String = "Text";
 

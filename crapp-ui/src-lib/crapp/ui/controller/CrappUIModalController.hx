@@ -1,9 +1,9 @@
 package crapp.ui.controller;
 
+import crapp.ui.display.CrappUIDisplay;
 import helper.kits.ArrayKit;
 import crapp.ui.display.modal.CrappUIModal;
 import priori.event.PriEvent;
-import crapp.ui.display.CrappUIStylableDisplay;
 import priori.scene.PriSceneManager;
 import priori.types.PriTransitionType;
 import priori.system.PriKey;
@@ -22,10 +22,10 @@ class CrappUIModalController {
     }
 
     private var modals:Array<CrappUIModalElement> = [];
-    private var modalContainer:CrappUIStylableDisplay;
+    private var modalContainer:CrappUIDisplay;
 
     private function new() {
-        this.modalContainer = new CrappUIStylableDisplay();
+        this.modalContainer = new CrappUIDisplay();
         this.modalContainer.left = 0;
         this.modalContainer.top = 0;
         this.modalContainer.right = 0;
@@ -40,7 +40,7 @@ class CrappUIModalController {
         PriApp.g().removeChild(this.modalContainer);
     }
 
-    public function getContainer():CrappUIStylableDisplay {
+    public function getContainer():CrappUIDisplay {
         return this.modalContainer;
     }
 
@@ -52,7 +52,7 @@ class CrappUIModalController {
         while (this.modals.length > 0) this.remove(this.modals[0].modal);
     }
 
-    public function tryToCloseParentModal(element:CrappUIStylableDisplay):Void {
+    public function tryToCloseParentModal(element:CrappUIDisplay):Void {
         if (element == null) return;
         element.dispatchEvent(new PriEvent(PriEvent.CLOSE, false, true));
     }
@@ -70,7 +70,7 @@ class CrappUIModalController {
             ? this.modals[currentIndex]
             : {
                 modal : modal,
-                background : new CrappUIStylableDisplay()
+                background : new CrappUIDisplay()
             };
 
         if (currentIndex >= 0) this.modals.remove(item);
@@ -194,6 +194,6 @@ class CrappUIModalController {
 }
 
 private typedef CrappUIModalElement = {
-    var background:CrappUIStylableDisplay;
+    var background:CrappUIDisplay;
     var modal:CrappUIModal;
 }

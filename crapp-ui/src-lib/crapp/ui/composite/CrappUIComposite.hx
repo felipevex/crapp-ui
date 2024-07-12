@@ -1,11 +1,11 @@
 package crapp.ui.composite;
 
-import crapp.ui.display.CrappUIStylableDisplay;
+import crapp.ui.display.CrappUIDisplay;
 
 @:access(crapp.ui.display.CrappUIDisplay)
 class CrappUIComposite {
 
-    public var display:CrappUIStylableDisplay;
+    public var display:CrappUIDisplay;
     
     public function new() {
         
