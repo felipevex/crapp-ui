@@ -18,12 +18,11 @@ class CrappUIApp extends PriApp implements ICrappUIStyleObject {
     public var style(get, set):CrappUIStyle;
     public var parentStyle(get, null):CrappUIStyle;
 
-    @:noCompletion private var __delayedStart:Bool = true;
-    
     public var sceneContainer:CrappUIDisplay;
     public var overlayContainer:CrappUIDisplay;
 
     public var customPreloader:Class<PriPreloaderView>;
+
     
     public function new() {
         this.styleController = new CrappUIStyleController();
@@ -32,7 +31,6 @@ class CrappUIApp extends PriApp implements ICrappUIStyleObject {
 
         this.styleController.start(this);
         
-
         this.startSceneContainer();
         this.startOverlay();
 
@@ -69,14 +67,6 @@ class CrappUIApp extends PriApp implements ICrappUIStyleObject {
     public function onLoad():Void {}
     public function onError():Void {}
 
-    override private function startApplication():Void {
-        if (!__delayedStart) {
-            this.__priBuilderSetup();
-            this.__priBuilderPaint();
-            super.startApplication();
-        }
-    }
-
     @:noCompletion private function __priBuilderSetup():Void {}
     @:noCompletion private function __priBuilderPaint():Void {}
     @:noCompletion private function __priAppInclude():Void {}
@@ -84,12 +74,7 @@ class CrappUIApp extends PriApp implements ICrappUIStyleObject {
 
     @:noCompletion private function __on_preloader_error():Void {}
     @:noCompletion private function __on_preloader_success():Void {
-        this.__delayedStart = false;
-        this.__priAppRoutes();
         this.onLoad();
-        this.startApplication();
-        
-        PriSceneManager.singleton().navigateToCurrent();
     }
 
     function get_parentStyle():CrappUIStyle return this.styleController.getParentStyle();
@@ -101,8 +86,11 @@ class CrappUIApp extends PriApp implements ICrappUIStyleObject {
         this.dispatchEvent(event);
     }
 
-    public function updateDisplay():Void {
-        
+    public function updateDisplay():Void {}
+
+    public function init():Void {
+        this.__priAppRoutes();
+        PriSceneManager.singleton().navigateToCurrent();
     }
 
 }

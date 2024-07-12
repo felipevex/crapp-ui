@@ -35,4 +35,10 @@ class Front extends CrappUIApp {
         
         PriFontStyle.DEFAULT_FAMILY = 'Saira, Open Sans';
     }
+
+    override function onLoad() {
+        super.onLoad();
+
+        this.init();
+    }
 }
