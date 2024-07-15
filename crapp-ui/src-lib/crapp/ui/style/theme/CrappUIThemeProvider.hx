@@ -76,23 +76,23 @@ class CrappUIThemeProvider {
     public function hasTheme(theme:String):Bool return this.themes.exists(theme);
 
     public function getStyleData(?theme:String, ?tag:String, ?variant:String, ?includeDefault:Bool = true):CrappUIStyleData {
-        var result:CrappUIStyleData = includeDefault ? this.getDefaultStyle() : {};
-
         var themeFast:ThemeDataFast = StringKit.isEmpty(theme) ? null : this.themes.get(theme);
         var tagFast:ThemeDataFast = themeFast == null || StringKit.isEmpty(tag) ? null : themeFast.children.get(tag);
         var variantFast:ThemeDataFast = tagFast == null || StringKit.isEmpty(variant) ? null : tagFast.children.get(variant);
         
-        result = themeFast == null ? result : this.mergeStyles(result, themeFast.data);
-        result = tagFast == null ? result : this.mergeStyles(result, tagFast.data);
-        result = variantFast == null ? result : this.mergeStyles(result, variantFast.data);
+        var result:CrappUIStyleData = this.crush([
+            themeFast == null ? null : themeFast.data,
+            tagFast == null ? null : tagFast.data,
+            variantFast == null ? null : variantFast.data
+        ], includeDefault);
         
         return result;
     }
 
-    public function crush(styles:Array<CrappUIStyleData>):CrappUIStyleData {
-        var result:CrappUIStyleData = this.getDefaultStyle();
+    public function crush(styles:Array<CrappUIStyleData>, ?includeDefault:Bool = true):CrappUIStyleData {
+        var result:CrappUIStyleData = includeDefault ? this.getDefaultStyle() : {};
 
-        for (style in styles) result = this.mergeStyles(result, style);
+        for (style in styles) if (style != null) result = this.mergeStyles(result, style);
         return result;
     }
 
