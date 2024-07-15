@@ -16,8 +16,6 @@ interface ICrappUIStyleObject {
     
     public var parent(get, null):PriDisplay;
     
-    // public var parentStyle(get, null):CrappUIStyle;
-
     public function addEventListener(event:String, listener:Dynamic->Void):Void;
     private function propagateCrappUIEvent(event:CrappUIEvents):Void;
 

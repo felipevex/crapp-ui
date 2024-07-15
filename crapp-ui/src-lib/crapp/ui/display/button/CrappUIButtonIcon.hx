@@ -1,5 +1,6 @@
 package crapp.ui.display.button;
 
+import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import crapp.ui.composite.builtin.ButtonableComposite;
 import crapp.ui.composite.builtin.OverEffectComposite;
 import tricks.layout.LayoutElement;
@@ -18,6 +19,8 @@ class CrappUIButtonIcon extends CrappUIDisplay {
         this.iconType = iconType == null ? FontAwesomeIconType.USER : iconType;
 
         super();
+
+        this.tag = CrappUIStyleDefaultTagType.BUTTON_ICON;
     }
 
     override function get_layout():LayoutElement<CrappUIDisplay> {

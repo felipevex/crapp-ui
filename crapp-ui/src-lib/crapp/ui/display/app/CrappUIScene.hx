@@ -15,7 +15,6 @@ class CrappUIScene extends PriSceneView implements ICrappUIStyleObject {
     public var tag(get, set):String;
     public var variant(get, set):String;
     public var style(get, set):CrappUIStyleData;
-    // public var parentStyle(get, null):CrappUIStyle;
 
     public function new(data:Dynamic) {
         this.styleManager = new CrappUIStyleManager();
@@ -23,7 +22,6 @@ class CrappUIScene extends PriSceneView implements ICrappUIStyleObject {
         this.styleManager.start(this);
     }
 
-    // function get_parentStyle():CrappUIStyle return this.styleManager.getParentStyle();
     function get_style():CrappUIStyleData return this.styleManager.getStyle();
 	function set_style(value:CrappUIStyleData):CrappUIStyleData return this.styleManager.setStyle(value);
     function get_theme():String return this.styleManager.getTheme();

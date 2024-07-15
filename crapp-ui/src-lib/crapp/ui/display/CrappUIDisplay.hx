@@ -30,7 +30,6 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
     public var tag(get, set):String;
     public var variant(get, set):String;
     public var style(get, set):CrappUIStyleData;
-    // public var parentStyle(get, null):CrappUIStyle;
 
     /**
      * indica que o elemento tem um constraint horizontal para valores de left e right

@@ -6,7 +6,6 @@ import helper.kits.StringKit;
 import priori.event.PriEvent;
 import crapp.ui.style.CrappUIEvents;
 import crapp.ui.interfaces.ICrappUIStyleObject;
-import crapp.ui.style.CrappUIStyle;
 
 @:access(crapp.ui.interfaces.ICrappUIStyleObject)
 class CrappUIStyleManager {
@@ -100,6 +99,8 @@ class CrappUIStyleManager {
     }
 
     public function setTheme(value:String):String {
+        if (this.theme == value) return value;
+
         this.theme = value;
         this.doPropagateChanges();
         return value;
@@ -107,6 +108,8 @@ class CrappUIStyleManager {
 
     public function getTag():String return this.tag;
     public function setTag(value:String):String {
+        if (this.tag == value) return value;
+
         this.tag = value;
         this.doPropagateChanges();
         return value;
@@ -114,6 +117,8 @@ class CrappUIStyleManager {
 
     public function getVariant():String return this.variant;
     public function setVariant(value:String):String {
+        if (this.variant == value) return value;
+
         this.variant = value;
         this.doPropagateChanges();
         return value;
@@ -121,9 +126,7 @@ class CrappUIStyleManager {
 
     private function doPropagateChanges():Void {
         if (this.display == null) return;
-
         this.display.propagateCrappUIEvent(CrappUIEvents.STYLE_CHANGE);
-        // this.display.updateDisplay();
     }
 
 }

@@ -56,7 +56,7 @@ class CrappUIThemeProvider {
                 children : new StringMap<ThemeDataFast>()
             };
             
-            result.children.set(tag.tag, tagFast);
+            result.children.set(tag.tag.toLowerCase(), tagFast);
 
             if (tag.variants == null) continue;
             for (variant in tag.variants) {
@@ -65,7 +65,7 @@ class CrappUIThemeProvider {
                     children : new StringMap<ThemeDataFast>()
                 };
 
-                tagFast.children.set(variant.variant, variantFast);
+                tagFast.children.set(variant.variant.toLowerCase(), variantFast);
             }
         }
 
@@ -77,8 +77,8 @@ class CrappUIThemeProvider {
 
     public function getStyleData(?theme:String, ?tag:String, ?variant:String, ?includeDefault:Bool = true):CrappUIStyleData {
         var themeFast:ThemeDataFast = StringKit.isEmpty(theme) ? null : this.themes.get(theme);
-        var tagFast:ThemeDataFast = themeFast == null || StringKit.isEmpty(tag) ? null : themeFast.children.get(tag);
-        var variantFast:ThemeDataFast = tagFast == null || StringKit.isEmpty(variant) ? null : tagFast.children.get(variant);
+        var tagFast:ThemeDataFast = themeFast == null || StringKit.isEmpty(tag) ? null : themeFast.children.get(tag.toLowerCase());
+        var variantFast:ThemeDataFast = tagFast == null || StringKit.isEmpty(variant) ? null : tagFast.children.get(variant.toLowerCase());
         
         var result:CrappUIStyleData = this.crush([
             themeFast == null ? null : themeFast.data,
@@ -96,7 +96,7 @@ class CrappUIThemeProvider {
         return result;
     }
 
-    private function mergeStyles(mergeFrom:CrappUIStyleData, mergeWith:CrappUIStyleData):CrappUIStyleData {
+    inline private function mergeStyles(mergeFrom:CrappUIStyleData, mergeWith:CrappUIStyleData):CrappUIStyleData {
         return {
             color : mergeWith.color != null ? mergeWith.color : mergeFrom.color,
             on_color : mergeWith.on_color != null ? mergeWith.on_color : mergeFrom.on_color,
