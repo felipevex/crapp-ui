@@ -71,7 +71,7 @@ class CrappUIButton extends CrappUIDisplay {
         this.composite.add(ButtonableComposite);
 
         this.displayLabel = new CrappUIText();
-        this.displayLabel.tag = this.tag;
+        this.displayLabel.tag = null;
         this.displayLabel.align = PriFontStyleAlign.CENTER;
         this.displayLabel.weight = PriFontStyleWeight.THICK600;
 
@@ -99,8 +99,8 @@ class CrappUIButton extends CrappUIDisplay {
 
     override private function paint():Void {
         this.composite.get(OverEffectComposite).updateDisplay();
-
-        var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
+        
+        var style:CrappUIStyle = this.composite.get(OverEffectComposite).style;
 
         this.corners = [Math.round(CrappUISizeReference.TINY * style.corners)];
         this.border = style.onColor.brightness >= style.color.brightness

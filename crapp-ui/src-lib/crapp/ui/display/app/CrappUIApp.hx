@@ -2,8 +2,6 @@ package crapp.ui.display.app;
 
 import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.style.CrappUIStyleManager;
-import crapp.ui.style.CrappUIEvents;
-import priori.event.PriEvent;
 import crapp.ui.interfaces.ICrappUIStyleObject;
 import priori.scene.view.PriPreloaderView;
 import crapp.ui.controller.CrappUIModalController;
@@ -82,11 +80,6 @@ class CrappUIApp extends PriApp implements ICrappUIStyleObject {
 
     function get_style():CrappUIStyleData return this.styleManager.getStyle();
 	function set_style(value:CrappUIStyleData):CrappUIStyleData return this.styleManager.setStyle(value);
-
-    private function propagateCrappUIEvent(event:CrappUIEvents):Void {
-        var event:PriEvent = new PriEvent(event, true, false);
-        this.dispatchEvent(event);
-    }
 
     public function updateDisplay():Void {}
 

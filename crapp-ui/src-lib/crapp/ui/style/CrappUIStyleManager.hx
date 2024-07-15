@@ -1,10 +1,10 @@
 package crapp.ui.style;
 
+import crapp.ui.event.CrappUIEventType;
 import crapp.ui.style.theme.CrappUIThemeProvider;
 import crapp.ui.style.data.CrappUIStyleData;
 import helper.kits.StringKit;
 import priori.event.PriEvent;
-import crapp.ui.style.CrappUIEvents;
 import crapp.ui.interfaces.ICrappUIStyleObject;
 
 @:access(crapp.ui.interfaces.ICrappUIStyleObject)
@@ -23,7 +23,8 @@ class CrappUIStyleManager {
 
     public function start(display:ICrappUIStyleObject):Void {
         this.display = display;
-        this.display.addEventListener(CrappUIEvents.STYLE_CHANGE, this.onStyleChangeEvent);
+
+        this.display.addEventListener(CrappUIEventType.STYLE_CHANGE, this.onStyleChangeEvent);
     }
 
     private function onStyleChangeEvent(e:PriEvent):Void this.display.updateDisplay();
@@ -42,46 +43,60 @@ class CrappUIStyleManager {
         else return null;
     }
 
-    private function createParentTreeFrom(display:ICrappUIStyleObject):Array<ICrappUIStyleObject> {
+    // PARENT --> ... --> CURRENT CHILD
+    private function createTree(display:ICrappUIStyleObject):Array<ICrappUIStyleObject> {
         var parent:ICrappUIStyleObject = display;
         var tree:Array<ICrappUIStyleObject> = [];
 
         while (parent != null) {
-            tree.push(parent);
+            tree.unshift(parent);
             parent = this.getParentFrom(parent);
         }
 
         return tree;
     }
 
-    private function getParentThemeFromTree(tree:Array<ICrappUIStyleObject>):String {
-        for (component in tree) {
-            var theme:String = component.styleManager.theme;
-            if (!StringKit.isEmpty(theme)) return theme;
-        }
-
-        return null;
-    }
-
     public function getStyle():CrappUIStyleData {
         var styleSequence:Array<CrappUIStyleData> = [];
-        var tree:Array<ICrappUIStyleObject> = this.createParentTreeFrom(this.display);
+        
+        var tree:Array<ICrappUIStyleObject> = this.createTree(this.display);
+        
+        var theme:String = null;
+        var tag:String = null;
+        var variant:String = null;
 
-        while (tree.length > 0) {
-            var theme:String = this.getParentThemeFromTree(tree);
-            
-            var component:ICrappUIStyleObject = tree.shift();
+        for (component in tree) {
+            var themeChanged:Bool = false;
+            var tagChanged:Bool = false;
+            var variantChanged:Bool = false;
 
-            var tag:String = component.styleManager.tag;
-            var variant:String = component.styleManager.variant;
+            var currTheme:String = component.styleManager.theme;
+            var currTag:String = component.styleManager.tag;
+            var currVariant:String = component.styleManager.variant;
 
-            if (!StringKit.isEmpty(theme) || !StringKit.isEmpty(tag) || !StringKit.isEmpty(variant)) {
-                styleSequence.unshift(
-                    CrappUIThemeProvider.get().getStyleData(theme, tag, variant, false)
-                );
+            if (!StringKit.isEmpty(currTheme) && currTheme != theme) {
+                theme = currTheme;
+                themeChanged = true;
             }
-            
-            if (component.styleManager.style != null) styleSequence.unshift(component.styleManager.style);
+
+            if (!StringKit.isEmpty(currTag) && currTag != tag) {
+                tag = currTag;
+                tagChanged = true;
+            }
+
+            if (!StringKit.isEmpty(currVariant) && currVariant != variant) {
+                variant = currVariant;
+                variantChanged = true;
+            }
+
+            if (themeChanged || tagChanged || variantChanged) {
+                var breaks:Array<CrappUIStyleData> = CrappUIThemeProvider.get().getStyleBreaked(theme, tag, variant);
+                if (themeChanged) styleSequence.push(breaks[0]);
+                if (tagChanged) styleSequence.push(breaks[1]);
+                if (variantChanged) styleSequence.push(breaks[2]);
+            }
+
+            if (component.styleManager.style != null) styleSequence.push(component.styleManager.style);
         }
 
         return CrappUIThemeProvider.get().crush(styleSequence);
@@ -93,11 +108,7 @@ class CrappUIStyleManager {
         return value;
     }
 
-    public function getTheme():String {
-        var tree:Array<ICrappUIStyleObject> = this.createParentTreeFrom(this.display);
-        return this.getParentThemeFromTree(tree);
-    }
-
+    public function getTheme():String return this.theme;
     public function setTheme(value:String):String {
         if (this.theme == value) return value;
 
@@ -126,7 +137,9 @@ class CrappUIStyleManager {
 
     private function doPropagateChanges():Void {
         if (this.display == null) return;
-        this.display.propagateCrappUIEvent(CrappUIEvents.STYLE_CHANGE);
+
+        var event:PriEvent = new PriEvent(CrappUIEventType.STYLE_CHANGE, false, false);
+        this.display.dispatchEvent(event);
     }
 
 }

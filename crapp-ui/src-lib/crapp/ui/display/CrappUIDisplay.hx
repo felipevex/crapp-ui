@@ -1,5 +1,6 @@
 package crapp.ui.display;
 
+import crapp.ui.event.CrappUIEventType;
 import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.style.CrappUIStyleManager;
 import priori.app.PriApp;
@@ -12,7 +13,6 @@ import tricks.layout.LayoutAlignment;
 import tricks.layout.LayoutDistribution;
 import tricks.layout.LayoutSize;
 import crapp.ui.resource.CrappUIActionsResource;
-import crapp.ui.style.CrappUIEvents;
 import crapp.ui.style.CrappUIStyle;
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.composite.CrappUICompositeManager;
@@ -67,7 +67,7 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
     @:noCompletion
     override private function ___onResize(e:PriEvent):Void {
         super.___onResize(e);
-        if (this.parent != null) this.parent.dispatchEvent(new CrappUIEvent(CrappUIEvent.UPDATE_DISPLAY));
+        if (this.parent != null) this.parent.dispatchEvent(new PriEvent(CrappUIEventType.UPDATE_DISPLAY));
     }
 
     public function isPortraitDisplay():Bool {
@@ -118,11 +118,6 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
     private function get_actions():CrappUIActionsResource {
         if (this.actions == null) this.actions = {};
         return this.actions;
-    }
-
-    private function propagateCrappUIEvent(event:CrappUIEvents):Void {
-        var event:PriEvent = new PriEvent(event, true, false);
-        this.dispatchEvent(event);
     }
 
     // function get_parentStyle():CrappUIStyle return this.styleManager.getParentStyle();

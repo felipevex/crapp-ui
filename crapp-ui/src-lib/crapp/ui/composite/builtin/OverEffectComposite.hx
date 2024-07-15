@@ -8,17 +8,18 @@ import priori.types.PriTransitionType;
 class OverEffectComposite extends CrappUIComposite {
     
     public var tapController:CrappUITapController;
+    public var style:CrappUIStyle;
 
     public function updateDisplay():Void {
-        var style:CrappUIStyle = CrappUIStyle.fromData(this.display.style);
+        this.style = CrappUIStyle.fromData(this.display.style);
 
         var overColor:PriColor = this.tapController.isDown
-            ? style.onFocusColor().darker
-            : style.onFocusColor();
+            ? this.style.onFocusColor().darker
+            : this.style.onFocusColor();
 
         var bgColor:PriColor = (this.tapController.isOver || this.tapController.isFocused)
             ? overColor
-            : style.color.color;
+            : this.style.color.color;
         
         this.display.bgColor = bgColor;
     }

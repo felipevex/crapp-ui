@@ -75,16 +75,24 @@ class CrappUIThemeProvider {
     public function setTheme(theme:CrappUIThemeData):Void this.themes.set(theme.theme, this.convertToThemeFast(theme));
     public function hasTheme(theme:String):Bool return this.themes.exists(theme);
 
-    public function getStyleData(?theme:String, ?tag:String, ?variant:String, ?includeDefault:Bool = true):CrappUIStyleData {
+    public function getStyleBreaked(theme:String, tag:String, variant:String):Array<CrappUIStyleData> {
+        var result:Array<CrappUIStyleData> = [];
+
         var themeFast:ThemeDataFast = StringKit.isEmpty(theme) ? null : this.themes.get(theme);
+        result.push(themeFast == null ? null : themeFast.data);
+
         var tagFast:ThemeDataFast = themeFast == null || StringKit.isEmpty(tag) ? null : themeFast.children.get(tag.toLowerCase());
+        result.push(tagFast == null ? null : tagFast.data);
+
         var variantFast:ThemeDataFast = tagFast == null || StringKit.isEmpty(variant) ? null : tagFast.children.get(variant.toLowerCase());
+        result.push(variantFast == null ? null : variantFast.data);
         
-        var result:CrappUIStyleData = this.crush([
-            themeFast == null ? null : themeFast.data,
-            tagFast == null ? null : tagFast.data,
-            variantFast == null ? null : variantFast.data
-        ], includeDefault);
+        return result;
+    }
+
+    public function getStyleData(?theme:String, ?tag:String, ?variant:String, ?includeDefault:Bool = true):CrappUIStyleData {
+        var breaks:Array<CrappUIStyleData> = this.getStyleBreaked(theme, tag, variant);
+        var result:CrappUIStyleData = this.crush(breaks, includeDefault);
         
         return result;
     }

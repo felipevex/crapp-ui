@@ -1,8 +1,8 @@
 package crapp.ui.interfaces;
 
+import priori.event.PriEvent;
 import crapp.ui.style.CrappUIStyleManager;
 import crapp.ui.style.data.CrappUIStyleData;
-import crapp.ui.style.CrappUIEvents;
 import priori.view.PriDisplay;
 
 interface ICrappUIStyleObject {
@@ -17,7 +17,7 @@ interface ICrappUIStyleObject {
     public var parent(get, null):PriDisplay;
     
     public function addEventListener(event:String, listener:Dynamic->Void):Void;
-    private function propagateCrappUIEvent(event:CrappUIEvents):Void;
+    private function dispatchEvent(event:PriEvent):Void;
 
     public function updateDisplay():Void;
 }

@@ -161,6 +161,11 @@ class CrappUIText extends CrappUIDisplay {
     private function get_selectable():Bool return this.label.selectable;
     private function set_selectable(value:Bool):Bool return this.label.selectable = value;
 
+
+    override function updateDisplay() {
+        super.updateDisplay();
+    }
+
     override private function paint():Void {
         var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
         

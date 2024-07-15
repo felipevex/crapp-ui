@@ -37,6 +37,12 @@ import crapp.ui.display.app.CrappUIScene;
                 </CrappUILayotable>
             </CrappUILayotable>
 
+            <CrappUILayotable theme="OTHER" hLayoutSize="FLEX" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" vLayoutSize="FIT" >
+                <CrappUIButton />
+                <CrappUIButton tag="OTHER_TAG" />
+                <CrappUIButton tag="INVALID_TAG" />
+            </CrappUILayotable>
+
         </private:CrappUILayotable>
     </view>
 </priori>
@@ -97,7 +103,7 @@ class SceneStyle extends CrappUIScene {
         var redTheme:CrappUIThemeData = {
             theme: "red",
             color: 0xB82020,
-            on_color: 0xFFFFFF,
+            on_color: 0xFFD6D6,
             tags: [
                 {
                     tag : "TEXT",
@@ -106,8 +112,22 @@ class SceneStyle extends CrappUIScene {
             ]
         };
 
+        var otherTheme:CrappUIThemeData = {
+            theme: "OTHER",
+            color: 0x000000,
+            on_color: 0x1E8480,
+            tags: [
+                {
+                    tag : "OTHER_TAG",
+                    color : 0x989680,
+                    on_color: 0xF42400
+                }
+            ]
+        };
+
         CrappUIThemeProvider.get().setTheme(darkTheme);
         CrappUIThemeProvider.get().setTheme(redTheme);
+        CrappUIThemeProvider.get().setTheme(otherTheme);
     }
 
 }
