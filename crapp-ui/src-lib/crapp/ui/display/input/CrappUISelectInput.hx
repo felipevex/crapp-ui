@@ -95,7 +95,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
     override function paint() {
         super.paint();
 
-        var style:CrappUIStyle = this.style;
+        var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
         var font:PriFontStyle = style.font;
 
         this.labelDisplay.fontStyle = font;
@@ -118,10 +118,10 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
         this.input.maxY = this.height - style.space;
 
         this.arrow.size = style.size;
-        this.arrow.color = style.primary.color;
+        this.arrow.color = style.onColor.color;
         this.arrow.maxX = this.input.maxX - style.space;
 
-        if (this.hasFocus()) this.bgColor = style.selectedBackgroundColor();
+        if (this.hasFocus()) this.bgColor = style.onFocusColor();
         
         if (this.hasContentOrSelection()) {
             this.labelDisplay.fontSize = CrappUISizeReference.UNDER * style.size;

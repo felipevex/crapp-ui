@@ -1,5 +1,6 @@
 package crapp.ui.style;
 
+import crapp.ui.style.data.CrappUIStyleData;
 import priori.style.font.PriFontStyle;
 import priori.geom.PriColor;
 
@@ -7,8 +8,8 @@ class CrappUIStyle {
 
     public var data(get, set):CrappUIStyleData;
     
-    public var primary:CrappUIColor;
-    public var background:CrappUIColor;
+    public var onColor:CrappUIColor;
+    public var color:CrappUIColor;
     public var size:Float;
     public var space:Float;
     public var fontFamily:String;
@@ -16,18 +17,18 @@ class CrappUIStyle {
 
     public var font(get, null):PriFontStyle;
 
-    public var selectedColorWeight:Float = 0.06;
+    public var onFocusWeight:Float = 0.06;
 
     public function new(
-        primary:PriColor = 0x4A6DE5,
-        background:PriColor = 0xFFFFFF, 
+        on_color:PriColor = 0x4A6DE5,
+        color:PriColor = 0xFFFFFF, 
         size:Float = 13.0,
         space:Float = 10.0,
         fontFamily:String = 'Saira, Open Sans',
         corners:Float = 6
     ) {
-        this.primary = primary;
-        this.background = background;
+        this.onColor = on_color;
+        this.color = color;
         this.size = size;
         this.space = space;
         this.fontFamily = fontFamily;
@@ -36,35 +37,37 @@ class CrappUIStyle {
 
     private function get_data():CrappUIStyleData {
         return {
-            primary : this.primary,
-            background : this.background,
+            on_color : this.onColor,
+            color : this.color,
             size : this.size,
             space : this.space,
-            fontFamily : this.fontFamily,
+            font_family : this.fontFamily,
             corners : this.corners,
-            selectedColorWeight : this.selectedColorWeight
+            on_focus_weight : this.onFocusWeight
         };
     }
 
     private function set_data(value:CrappUIStyleData):CrappUIStyleData {
         if (value == null) return value;
 
-        if (value.primary != null) this.primary = value.primary;
-        if (value.background != null) this.background = value.background;
+        if (value.on_color != null) this.onColor = value.on_color;
+        if (value.color != null) this.color = value.color;
         if (value.size != null) this.size = value.size;
         if (value.space != null) this.space = value.space;
-        if (value.fontFamily != null) this.fontFamily = value.fontFamily;
+        if (value.font_family != null) this.fontFamily = value.font_family;
         if (value.corners != null) this.corners = value.corners;
-        if (value.selectedColorWeight != null) this.selectedColorWeight = value.selectedColorWeight;
+        if (value.on_focus_weight != null) this.onFocusWeight = value.on_focus_weight;
 
         return value;
     }
 
-    inline public function selectedBackgroundColor():CrappUIColor return new CrappUIColor(this.background.darken(this.selectedColorWeight));
+    inline public function onFocusColor():CrappUIColor {
+        return new CrappUIColor(this.color.darken(this.onFocusWeight));
+    }
 
     private function get_font():PriFontStyle {
         return new PriFontStyle(
-            this.primary.color, 
+            this.onColor.color, 
             this.fontFamily
         );
     }

@@ -1,5 +1,6 @@
 package front.scene.menu;
 
+import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.style.CrappUIStyle;
 import crapp.ui.display.menu.CrappUIContextMenu;
 import crapp.ui.display.app.CrappUIScene;
@@ -36,8 +37,9 @@ class SceneContextMenu extends CrappUIScene {
     }
 
     private function openContextMenu(ref):Void {
-        var style:CrappUIStyle = CrappUIStyle.bluePrint();
-        style.primary = 0xFF0000;
+        var style:CrappUIStyleData = {
+            on_color: 0xFF0000
+        }
         
         var menu:CrappUIContextMenu = new CrappUIContextMenu();
         menu.addMenu('Color Red', ()-> {this.bgColor = 0xff0000;});
@@ -49,8 +51,9 @@ class SceneContextMenu extends CrappUIScene {
     }
 
     private function openFastMenu(ref):Void {
-        var style:CrappUIStyle = CrappUIStyle.bluePrint();
-        style.primary = 0xFF0000;
+        var style:CrappUIStyleData = {
+            on_color: 0xFF0000
+        }
 
         CrappUIContextMenu.open(ref, [
             {label: 'FAST - Color Red', action: ()-> {this.bgColor = 0xff0000;}},

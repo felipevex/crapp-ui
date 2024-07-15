@@ -1,6 +1,5 @@
 package front.scene.input;
 
-import crapp.ui.style.CrappUIStyle;
 import crapp.ui.display.app.CrappUIScene;
 
 @priori('
@@ -34,12 +33,11 @@ class SceneInputText extends CrappUIScene {
 
         this.inputChange.actions.onChange = () -> this.inputChange.label = this.inputChange.value;
         this.inputChangeDelay.actions.onDelayedChange = () -> this.inputChangeDelay.label = this.inputChangeDelay.value;
-
-        var style:CrappUIStyle = CrappUIStyle.bluePrint();
-        style.background = 0xFF0000;
-        style.primary = 0xFFFFFF;
         
-        this.red.style = style;
+        this.red.style = {
+            color: 0xFF0000,
+            on_color: 0xFFFFFF
+        };
     }
 
 }

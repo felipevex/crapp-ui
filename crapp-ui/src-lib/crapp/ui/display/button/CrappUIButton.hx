@@ -1,5 +1,6 @@
 package crapp.ui.display.button;
 
+import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import crapp.ui.composite.builtin.ButtonableComposite;
 import crapp.ui.composite.builtin.OverEffectComposite;
 import tricks.layout.LayoutSize;
@@ -23,6 +24,8 @@ class CrappUIButton extends CrappUIDisplay {
     public function new() {
         super();
         
+        this.tag = CrappUIStyleDefaultTagType.BUTTON;
+
         this.allowTransition(PriTransitionType.BACKGROUND_COLOR, 0.2);
 
         this.label = 'BUTTON';
@@ -68,6 +71,7 @@ class CrappUIButton extends CrappUIDisplay {
         this.composite.add(ButtonableComposite);
 
         this.displayLabel = new CrappUIText();
+        this.displayLabel.tag = this.tag;
         this.displayLabel.align = PriFontStyleAlign.CENTER;
         this.displayLabel.weight = PriFontStyleWeight.THICK600;
 
@@ -96,12 +100,12 @@ class CrappUIButton extends CrappUIDisplay {
     override private function paint():Void {
         this.composite.get(OverEffectComposite).updateDisplay();
 
-        var style:CrappUIStyle = this.style;
+        var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
 
         this.corners = [Math.round(CrappUISizeReference.TINY * style.corners)];
-        this.border = style.primary.brightness >= style.background.brightness
+        this.border = style.onColor.brightness >= style.color.brightness
             ? null
-            : new PriBorderStyle(2, style.primary.color);
+            : new PriBorderStyle(2, style.onColor.color);
 
         if (this.autoSize) {
             this.height = this.displayLabel.height + style.space * 2;

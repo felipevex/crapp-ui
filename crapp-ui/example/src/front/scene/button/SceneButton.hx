@@ -1,6 +1,6 @@
 package front.scene.button;
 
-import crapp.ui.style.CrappUIStyle;
+import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.display.app.CrappUIScene;
 
 @priori('
@@ -29,9 +29,10 @@ class SceneButton extends CrappUIScene {
     override function setup() {
         super.setup();
 
-        var style:CrappUIStyle = CrappUIStyle.bluePrint();
-        style.background = 0xFF0000;
-        style.primary = 0xFFFFFF;
+        var style:CrappUIStyleData = {
+            color: 0xFF0000,
+            on_color: 0xFFFFFF
+        }
 
         this.red.style = style;
     }

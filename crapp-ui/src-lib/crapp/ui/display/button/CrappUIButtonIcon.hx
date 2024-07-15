@@ -51,7 +51,7 @@ class CrappUIButtonIcon extends CrappUIDisplay {
     override function paint() {
         this.composite.get(OverEffectComposite).updateDisplay();
 
-        var style:CrappUIStyle = this.style;
+        var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
 
         this.corners = [10000000];
 
@@ -60,7 +60,7 @@ class CrappUIButtonIcon extends CrappUIDisplay {
         this.icon.x = space;
         this.icon.y = space;
         this.icon.icon = this.iconType;
-        this.icon.color = style.primary.color;
+        this.icon.color = style.onColor.color;
         this.icon.size = style.size * CrappUISizeReference.LARGE;
         
         this.width = this.icon.maxX + space;

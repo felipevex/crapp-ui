@@ -1,5 +1,6 @@
 package crapp.ui.display.menu;
 
+import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.composite.builtin.ButtonableComposite;
 import crapp.ui.composite.builtin.OverEffectComposite;
 import crapp.ui.composite.builtin.OverlayComposite;
@@ -72,7 +73,7 @@ class CrappUIContextMenu extends CrappUIDisplay {
         return maxWidth;
     }
 
-    public function addMenu(label:String, action:()->Void, ?style:CrappUIStyle):Void {
+    public function addMenu(label:String, action:()->Void, ?style:CrappUIStyleData):Void {
         var item:CrappUIContextMenuItem = new CrappUIContextMenuItem(label, () -> {
             this.composite.get(OverlayComposite).close();
             action();
@@ -95,7 +96,7 @@ class CrappUIContextMenu extends CrappUIDisplay {
         super.kill();
     }
 
-    public static function open(reference:PriDisplay, items:Array<{label:String, action:()->Void, ?style:CrappUIStyle}>):Void {
+    public static function open(reference:PriDisplay, items:Array<{label:String, action:()->Void, ?style:CrappUIStyleData}>):Void {
         var menu:CrappUIContextMenu = new CrappUIContextMenu();
         for (item in items) menu.addMenu(item.label, item.action, item.style);
         menu.openAt(reference);
@@ -117,7 +118,7 @@ private class CrappUIContextMenuItem extends CrappUIDisplay {
     }
 
     public function idealWidth():Float {
-        var style:CrappUIStyle = this.style;
+        var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
         return this.displayLabel.width + style.space * 2;
     }
 
@@ -139,7 +140,7 @@ private class CrappUIContextMenuItem extends CrappUIDisplay {
     override private function paint():Void {
         this.composite.get(OverEffectComposite).updateDisplay();
 
-        var style:CrappUIStyle = this.style;
+        var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
 
         this.height = this.displayLabel.height + style.space * 2;
         

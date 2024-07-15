@@ -1,5 +1,7 @@
 package crapp.ui.display;
 
+import crapp.ui.style.data.CrappUIStyleData;
+import crapp.ui.style.CrappUIStyleManager;
 import priori.app.PriApp;
 import priori.event.PriEvent;
 import priori.style.shadow.PriShadowStyle;
@@ -15,7 +17,6 @@ import crapp.ui.style.CrappUIStyle;
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.composite.CrappUICompositeManager;
 import crapp.ui.interfaces.ICrappUIStyleObject;
-import crapp.ui.controller.CrappUIStyleController;
 
 class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
     
@@ -23,9 +24,13 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
     private var _z:Float = 0;
     public var z(get, set):Float;
 
-    private var styleController:CrappUIStyleController;
-    public var style(get, set):CrappUIStyle;
-    public var parentStyle(get, null):CrappUIStyle;
+    private var styleManager:CrappUIStyleManager;
+
+    public var theme(get, set):String;
+    public var tag(get, set):String;
+    public var variant(get, set):String;
+    public var style(get, set):CrappUIStyleData;
+    // public var parentStyle(get, null):CrappUIStyle;
 
     /**
      * indica que o elemento tem um constraint horizontal para valores de left e right
@@ -53,11 +58,11 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
 
     public function new() {
         this.composite = new CrappUICompositeManager(this);
-        this.styleController = new CrappUIStyleController();
+        this.styleManager = new CrappUIStyleManager();
         
         super();
 
-        this.styleController.start(this);
+        this.styleManager.start(this);
     }
 
     @:noCompletion
@@ -121,10 +126,17 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
         this.dispatchEvent(event);
     }
 
-    function get_parentStyle():CrappUIStyle return this.styleController.getParentStyle();
-    function get_style():CrappUIStyle return this.styleController.getStyle();
-	function set_style(value:CrappUIStyle):CrappUIStyle return this.styleController.setStyle(value);
-
+    // function get_parentStyle():CrappUIStyle return this.styleManager.getParentStyle();
+    function get_style():CrappUIStyleData return this.styleManager.getStyle();
+	function set_style(value:CrappUIStyleData):CrappUIStyleData return this.styleManager.setStyle(value);
+    
+    function get_theme():String return this.styleManager.getTheme();
+    function set_theme(value:String):String return this.styleManager.setTheme(value);
+    function get_tag():String return this.styleManager.getTag();
+    function set_tag(value:String):String return this.styleManager.setTag(value);
+    function get_variant():String return this.styleManager.getVariant();
+    function set_variant(value:String):String return this.styleManager.setVariant(value);
+    
     override public function addChildList(childList:Array<Dynamic>):Void {
         super.addChildList(childList);
         this.updateDisplay();
@@ -239,11 +251,11 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
     }
 
     inline private function paintBackground(style:CrappUIStyle):Void {
-        this.bgColor = style.background.color;
+        this.bgColor = style.color.color;
     }
 
     inline private function paintBorder(style:CrappUIStyle):Void {
-        this.border = new PriBorderStyle(2, style.primary.color.mix(style.background.color, 0.5));
+        this.border = new PriBorderStyle(2, style.onColor.color.mix(style.color.color, 0.5));
     }
 
     inline private function paintCorners(style:CrappUIStyle, size:CrappUISizeReference):Void {

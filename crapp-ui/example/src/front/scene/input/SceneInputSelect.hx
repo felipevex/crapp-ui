@@ -1,7 +1,7 @@
 package front.scene.input;
 
+import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.display.input.CrappUISelectInput;
-import crapp.ui.style.CrappUIStyle;
 import crapp.ui.display.app.CrappUIScene;
 
 @priori('
@@ -41,9 +41,10 @@ class SceneInputSelect extends CrappUIScene {
 
     override function setup() {
 
-        var style:CrappUIStyle = CrappUIStyle.bluePrint();
-        style.background = 0xFF0000;
-        style.primary = 0xFFFFFF;
+        var style:CrappUIStyleData = {
+            color: 0xFF0000,
+            on_color: 0xFFFFFF    
+        }
 
         select4.style = style;
 

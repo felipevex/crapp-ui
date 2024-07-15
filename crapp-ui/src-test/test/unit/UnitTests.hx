@@ -1,5 +1,6 @@
 package test.unit;
 
+import test.unit.style.TestThemeProvider;
 import test.unit.tricks.layout.LayoutHelperDetectorTest;
 import test.unit.tricks.layout.LayoutHelperInsertTest;
 import test.unit.tricks.layout.LayoutVerticalSizeFlexTest;
@@ -31,16 +32,16 @@ class UnitTests {
         runner.addCase(new LayoutHorizontalSizeFitTest());
         runner.addCase(new LayoutHorizontalGapTest());
         runner.addCase(new LayoutHorizontalSizeFlexTest());
-
         runner.addCase(new LayoutVerticalAlignmentTest());
         runner.addCase(new LayoutVerticalDistributionSideTest());
         runner.addCase(new LayoutVerticalDistributionJustifyTest());
         runner.addCase(new LayoutVerticalSizeFitTest());
         runner.addCase(new LayoutVerticalGapTest());
         runner.addCase(new LayoutVerticalSizeFlexTest());
-
         runner.addCase(new LayoutHelperInsertTest());
         runner.addCase(new LayoutHelperDetectorTest());
+
+        runner.addCase(new TestThemeProvider());
 
         Report.create(runner);
         runner.run();

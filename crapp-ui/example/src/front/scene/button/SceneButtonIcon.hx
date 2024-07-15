@@ -1,7 +1,7 @@
 package front.scene.button;
 
+import crapp.ui.style.data.CrappUIStyleData;
 import priori.fontawesome.FontAwesomeIconType;
-import crapp.ui.style.CrappUIStyle;
 import crapp.ui.display.app.CrappUIScene;
 
 @priori('
@@ -24,9 +24,10 @@ class SceneButtonIcon extends CrappUIScene {
     override function setup() {
         super.setup();
         
-        var style:CrappUIStyle = CrappUIStyle.bluePrint();
-        style.background = 0xC9EBCA;
-        style.primary = 0x126238;
+        var style:CrappUIStyleData = {
+            color : 0xC9EBCA,
+            on_color : 0x126238
+        }
 
         this.button.style = style;
 

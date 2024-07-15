@@ -1,9 +1,9 @@
 package crapp.ui.display.app;
 
+import crapp.ui.style.data.CrappUIStyleData;
+import crapp.ui.style.CrappUIStyleManager;
 import crapp.ui.style.CrappUIEvents;
 import priori.event.PriEvent;
-import crapp.ui.style.CrappUIStyle;
-import crapp.ui.controller.CrappUIStyleController;
 import crapp.ui.interfaces.ICrappUIStyleObject;
 import priori.scene.view.PriPreloaderView;
 import crapp.ui.controller.CrappUIModalController;
@@ -14,9 +14,13 @@ import priori.app.PriApp;
 @:autoBuild(crapp.ui.macros.CrappUIMacroApp.build())
 class CrappUIApp extends PriApp implements ICrappUIStyleObject {
 
-    private var styleController:CrappUIStyleController;
-    public var style(get, set):CrappUIStyle;
-    public var parentStyle(get, null):CrappUIStyle;
+    private var styleManager:CrappUIStyleManager;
+
+    public var theme(get, set):String;
+    public var tag(get, set):String;
+    public var variant(get, set):String;
+    public var style(get, set):CrappUIStyleData;
+    // public var parentStyle(get, null):CrappUIStyle;
 
     public var sceneContainer:CrappUIDisplay;
     public var overlayContainer:CrappUIDisplay;
@@ -25,11 +29,11 @@ class CrappUIApp extends PriApp implements ICrappUIStyleObject {
 
     
     public function new() {
-        this.styleController = new CrappUIStyleController();
+        this.styleManager = new CrappUIStyleManager();
 
         super();
 
-        this.styleController.start(this);
+        this.styleManager.start(this);
         
         this.startSceneContainer();
         this.startOverlay();
@@ -77,9 +81,9 @@ class CrappUIApp extends PriApp implements ICrappUIStyleObject {
         this.onLoad();
     }
 
-    function get_parentStyle():CrappUIStyle return this.styleController.getParentStyle();
-    function get_style():CrappUIStyle return this.styleController.getStyle();
-	function set_style(value:CrappUIStyle):CrappUIStyle return this.styleController.setStyle(value);
+    // function get_parentStyle():CrappUIStyle return this.styleManager.getParentStyle();
+    function get_style():CrappUIStyleData return this.styleManager.getStyle();
+	function set_style(value:CrappUIStyleData):CrappUIStyleData return this.styleManager.setStyle(value);
 
     private function propagateCrappUIEvent(event:CrappUIEvents):Void {
         var event:PriEvent = new PriEvent(event, true, false);
@@ -93,4 +97,10 @@ class CrappUIApp extends PriApp implements ICrappUIStyleObject {
         PriSceneManager.singleton().navigateToCurrent();
     }
 
+    function get_theme():String return this.styleManager.getTheme();
+    function set_theme(value:String):String return this.styleManager.setTheme(value);
+    function get_tag():String return this.styleManager.getTag();
+    function set_tag(value:String):String return this.styleManager.setTag(value);
+    function get_variant():String return this.styleManager.getVariant();
+    function set_variant(value:String):String return this.styleManager.setVariant(value);
 }

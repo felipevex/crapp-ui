@@ -10,15 +10,15 @@ class OverEffectComposite extends CrappUIComposite {
     public var tapController:CrappUITapController;
 
     public function updateDisplay():Void {
-        var style:CrappUIStyle = this.display.style;
+        var style:CrappUIStyle = CrappUIStyle.fromData(this.display.style);
 
         var overColor:PriColor = this.tapController.isDown
-            ? style.selectedBackgroundColor().darker
-            : style.selectedBackgroundColor();
+            ? style.onFocusColor().darker
+            : style.onFocusColor();
 
         var bgColor:PriColor = (this.tapController.isOver || this.tapController.isFocused)
             ? overColor
-            : style.background.color;
+            : style.color.color;
         
         this.display.bgColor = bgColor;
     }

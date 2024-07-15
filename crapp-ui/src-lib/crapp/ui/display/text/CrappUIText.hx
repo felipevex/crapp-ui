@@ -1,5 +1,6 @@
 package crapp.ui.display.text;
 
+import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import tricks.layout.LayoutSize;
 import priori.style.font.PriFontStyle;
 import priori.style.font.PriFontStyleWeight;
@@ -40,6 +41,8 @@ class CrappUIText extends CrappUIDisplay {
 
     public function new() {
         super();
+        
+        this.tag = CrappUIStyleDefaultTagType.TEXT;
 
         this.clipping = false;
         
@@ -159,7 +162,7 @@ class CrappUIText extends CrappUIDisplay {
     private function set_selectable(value:Bool):Bool return this.label.selectable = value;
 
     override private function paint():Void {
-        var style:CrappUIStyle = this.style;
+        var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
         
         this.label.startBatchUpdate();
         this.label.fontSize = style.size * this.uiSize;
