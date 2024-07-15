@@ -2,7 +2,6 @@ package crapp.ui.style;
 
 import crapp.ui.style.data.CrappUIStyleData;
 import priori.style.font.PriFontStyle;
-import priori.geom.PriColor;
 
 class CrappUIStyle {
 
@@ -19,21 +18,7 @@ class CrappUIStyle {
 
     public var onFocusWeight:Float = 0.06;
 
-    public function new(
-        on_color:PriColor = 0x4A6DE5,
-        color:PriColor = 0xFFFFFF, 
-        size:Float = 13.0,
-        space:Float = 10.0,
-        fontFamily:String = 'Saira, Open Sans',
-        corners:Float = 6
-    ) {
-        this.onColor = on_color;
-        this.color = color;
-        this.size = size;
-        this.space = space;
-        this.fontFamily = fontFamily;
-        this.corners = corners;
-    }
+    public function new() {}
 
     private function get_data():CrappUIStyleData {
         return {
@@ -78,19 +63,8 @@ class CrappUIStyle {
         return result;
     }
 
-    static public function bluePrint():CrappUIStyle {
-        return new CrappUIStyle(
-            0x4A6DE5, 
-            0xFFFFFF, 
-            13.0,
-            10.0,
-            'Saira, Open Sans',
-            6
-        );
-    }
-
     static public function fromData(data:CrappUIStyleData, ?base:CrappUIStyle):CrappUIStyle {
-        var result:CrappUIStyle = base == null ? CrappUIStyle.bluePrint() : base.clone();
+        var result:CrappUIStyle = base == null ? new CrappUIStyle() : base.clone();
         result.data = data;
         return result;
     }

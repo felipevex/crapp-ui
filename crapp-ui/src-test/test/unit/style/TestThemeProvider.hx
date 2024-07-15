@@ -8,26 +8,11 @@ import utest.Test;
 
 @:access(crapp.ui.style.theme.CrappUIThemeProvider)
 class TestThemeProvider extends Test {
-    
-    function test_provider_has_default_theme_automaticaly_loaded() {
-        
-        // ARRANGE
-        var provider = CrappUIThemeProvider.get();
-        
-        var expected:Bool = true;
-        var result:Bool;
-
-        // ACT
-        result = provider.hasTheme('default');
-
-        // ASSERT
-        Assert.equals(expected, result);
-    }
 
     function test_provider_merge_style_data() {
         // ARRANGE
         var provider = CrappUIThemeProvider.get();
-
+        
         var valueMergeFrom:CrappUIStyleData = {
             color : 0xFFFFFF,
             on_color : 0x4A6DE5,

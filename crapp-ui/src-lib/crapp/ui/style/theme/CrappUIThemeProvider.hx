@@ -8,6 +8,7 @@ import crapp.ui.style.data.CrappUIThemeData;
 class CrappUIThemeProvider {
     
     private static var THEME:CrappUIThemeProvider;
+    private static var DEFAULT_STYLE:CrappUIStyleData;
     
     public static function get():CrappUIThemeProvider {
         if (THEME == null) THEME = new CrappUIThemeProvider();
@@ -18,7 +19,27 @@ class CrappUIThemeProvider {
 
     private function new() {
         this.themes = new StringMap<ThemeDataFast>();
-        this.startDefaultTheme();
+        this.setDefaultStyle({});
+    }
+
+    public function setDefaultStyle(style:CrappUIStyleData):Void {
+        var result:CrappUIStyleData = {
+            color : 0xFFFFFF,
+            on_color : 0x4A6DE5,
+            size : 13.0,
+            space : 10,
+            font_family : 'Saira, Open Sans',
+            corners : 6,
+            on_focus_weight : 0.06
+        };
+
+        result = this.mergeStyles(result, style);
+
+        DEFAULT_STYLE = result;
+    }
+
+    private function getDefaultStyle():CrappUIStyleData {
+        return DEFAULT_STYLE;
     }
 
     private function convertToThemeFast(theme:CrappUIThemeData):ThemeDataFast {
@@ -54,47 +75,8 @@ class CrappUIThemeProvider {
     public function setTheme(theme:CrappUIThemeData):Void this.themes.set(theme.theme, this.convertToThemeFast(theme));
     public function hasTheme(theme:String):Bool return this.themes.exists(theme);
 
-    private function startDefaultTheme():Void {
-        var defaultTheme:CrappUIThemeData = createDefaultTheme();
-        this.setTheme(defaultTheme);
-    }
-
-    private function createDefaultStyleData():CrappUIStyleData {
-        return {
-            color : 0xFFFFFF,
-            on_color : 0x4A6DE5,
-            size : 13.0,
-            space : 10,
-            font_family : 'Saira, Open Sans',
-            corners : 6,
-            on_focus_weight : 0.06
-        };
-    }
-
-    private function createDefaultTheme():CrappUIThemeData {
-        var defaultStyle:CrappUIStyleData = this.createDefaultStyleData();
-        
-        var theme:CrappUIThemeData = {
-            theme : 'default',
-
-            color : defaultStyle.color,
-            on_color : defaultStyle.on_color,
-            size : defaultStyle.size,
-            space : defaultStyle.space,
-            font_family : defaultStyle.font_family,
-            corners : defaultStyle.corners,
-            on_focus_weight : defaultStyle.on_focus_weight,
-
-            tags : []
-        };
-
-        return theme;
-    }
-
     public function getStyleData(?theme:String, ?tag:String, ?variant:String, ?includeDefault:Bool = true):CrappUIStyleData {
-        if (includeDefault && (StringKit.isEmpty(theme) || !this.hasTheme(theme))) theme = 'default';
-
-        var result:CrappUIStyleData = includeDefault ? this.createDefaultStyleData() : {};
+        var result:CrappUIStyleData = includeDefault ? this.getDefaultStyle() : {};
 
         var themeFast:ThemeDataFast = StringKit.isEmpty(theme) ? null : this.themes.get(theme);
         var tagFast:ThemeDataFast = themeFast == null || StringKit.isEmpty(tag) ? null : themeFast.children.get(tag);
@@ -108,7 +90,8 @@ class CrappUIThemeProvider {
     }
 
     public function crush(styles:Array<CrappUIStyleData>):CrappUIStyleData {
-        var result:CrappUIStyleData = this.createDefaultStyleData();
+        var result:CrappUIStyleData = this.getDefaultStyle();
+
         for (style in styles) result = this.mergeStyles(result, style);
         return result;
     }

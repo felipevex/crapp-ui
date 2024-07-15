@@ -26,12 +26,12 @@ import crapp.ui.display.app.CrappUIScene;
             </private:CrappUILayotable>
 
             <CrappUILayotable left="0" right="0" vLayoutSize="FIT" hLayoutDistribution="SIDE">
-                <CrappUILayotable theme="dark" hLayoutSize="FLEX" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" vLayoutSize="FIT" >
+                <CrappUILayotable id="c1" theme="dark" hLayoutSize="FLEX" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" vLayoutSize="FIT" >
                     <private:CrappUIText text="Theme Dark" />
                     <CrappUIButton />
                     <CrappUIButton variant="LIGHTER" />
                 </CrappUILayotable>
-                <CrappUILayotable theme="red" hLayoutSize="FLEX" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" vLayoutSize="FIT" >
+                <CrappUILayotable id="c2" theme="red" hLayoutSize="FLEX" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" vLayoutSize="FIT" >
                     <private:CrappUIText text="Theme Red" />
                     <CrappUIButton />
                 </CrappUILayotable>
@@ -67,6 +67,10 @@ class SceneStyle extends CrappUIScene {
             on_color: 0xFFFFFF
         };
 
+        haxe.Timer.delay(() -> {
+            c1.theme = "red";
+            c2.theme = "dark";
+        }, 3000);
         
     }
 
