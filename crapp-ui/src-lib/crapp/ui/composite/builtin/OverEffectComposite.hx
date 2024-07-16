@@ -26,8 +26,8 @@ class OverEffectComposite extends CrappUIComposite {
 
     override function setup() {
         this.tapController = new CrappUITapController(this.display, this.updateDisplay);
-
-        this.display.allowTransition(PriTransitionType.BACKGROUND_COLOR, 0.2);
+        
+        haxe.Timer.delay(this.display.allowTransition.bind(PriTransitionType.BACKGROUND_COLOR, 0.2), 1);
     }
 
     override function kill() {

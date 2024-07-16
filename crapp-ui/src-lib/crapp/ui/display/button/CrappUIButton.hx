@@ -25,9 +25,7 @@ class CrappUIButton extends CrappUIDisplay {
         super();
         
         this.tag = CrappUIStyleDefaultTagType.BUTTON;
-
-        haxe.Timer.delay(this.allowTransition.bind(PriTransitionType.BACKGROUND_COLOR, 0.2), 1);
-
+        
         this.label = 'BUTTON';
     }
 
