@@ -4,6 +4,8 @@ import priori.style.filter.PriFilterStyle;
 import priori.event.PriEvent;
 import priori.view.PriImage;
 import crapp.ui.display.CrappUIDisplay;
+import crapp.ui.display.image.types.CrappUIImageEffectType;
+import crapp.ui.display.image.types.CrappUIImageResizeType;
 
 class CrappUIImage extends CrappUIDisplay {
     

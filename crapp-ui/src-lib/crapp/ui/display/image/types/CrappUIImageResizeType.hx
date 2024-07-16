@@ -1,4 +1,4 @@
-package crapp.ui.display.image;
+package crapp.ui.display.image.types;
 
 enum abstract CrappUIImageResizeType(String) to String {
 

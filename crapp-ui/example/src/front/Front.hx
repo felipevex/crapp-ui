@@ -24,6 +24,9 @@ import crapp.ui.display.app.CrappUIApp;
         <route scene="front.scene.menu.SceneContextMenu" route="menu/context" />
         <route scene="front.scene.image.SceneImage" route="image" />
         <route scene="front.scene.container.SceneSurface" route="container/surface" />
+        <route scene="front.scene.line.SceneLineHorizontal" route="line/horizontal" />
+        <route scene="front.scene.line.SceneLineVertical" route="line/vertical" />
+        
     </routes>
 </priori>
 ')

@@ -23,6 +23,8 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton id="testMenuContext" label="MENU - CONTEXT" />
             <private:CrappUIButton id="testImage" label="IMAGE" />
             <private:CrappUIButton id="testSurface" label="CONTAINER - SURFACE" />
+            <private:CrappUIButton id="testLineHorizontal" label="LINE - HORIZONTAL" />
+            <private:CrappUIButton id="testLineVertical" label="LINE - VERTICAL" />
         </private:CrappUILayotable>
     </view>
 </priori>
@@ -43,5 +45,7 @@ class SceneHome extends CrappUIScene {
         this.testMenuContext.actions.onClick = () -> PriSceneManager.singleton().navigate('menu/context');
         this.testImage.actions.onClick = () -> PriSceneManager.singleton().navigate('image');
         this.testSurface.actions.onClick = () -> PriSceneManager.singleton().navigate('container/surface');
+        this.testLineHorizontal.actions.onClick = () -> PriSceneManager.singleton().navigate('line/horizontal');
+        this.testLineVertical.actions.onClick = () -> PriSceneManager.singleton().navigate('line/vertical');
     }
 }
