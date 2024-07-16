@@ -12,6 +12,7 @@ class CrappUIStyleManager {
 
     private var display:ICrappUIStyleObject;
     private var style:CrappUIStyleData;
+    private var styleCache:CrappUIStyleData;
 
     private var tag:String;
     private var variant:String;
@@ -20,14 +21,16 @@ class CrappUIStyleManager {
     public function new() {
         
     }
-
+    
     public function start(display:ICrappUIStyleObject):Void {
         this.display = display;
-
         this.display.addEventListener(CrappUIEventType.STYLE_CHANGE, this.onStyleChangeEvent);
     }
 
-    private function onStyleChangeEvent(e:PriEvent):Void this.display.updateDisplay();
+    private function onStyleChangeEvent(e:PriEvent):Void {
+        this.styleCache = null;
+        this.display.updateDisplay();
+    }
 
     private function getParentStyledDisplay():ICrappUIStyleObject {
         if (this.display == null) return null;
@@ -57,8 +60,10 @@ class CrappUIStyleManager {
     }
 
     public function getStyle():CrappUIStyleData {
+        if (this.styleCache != null) return this.styleCache;
+
         var styleSequence:Array<CrappUIStyleData> = [];
-        
+
         var tree:Array<ICrappUIStyleObject> = this.createTree(this.display);
         
         var theme:String = null;
@@ -99,7 +104,8 @@ class CrappUIStyleManager {
             if (component.styleManager.style != null) styleSequence.push(component.styleManager.style);
         }
 
-        return CrappUIThemeProvider.get().crush(styleSequence);
+        this.styleCache = CrappUIThemeProvider.get().crush(styleSequence);
+        return this.styleCache;
 	}
 
     public function setStyle(value:CrappUIStyleData):CrappUIStyleData {
@@ -111,7 +117,6 @@ class CrappUIStyleManager {
     public function getTheme():String return this.theme;
     public function setTheme(value:String):String {
         if (this.theme == value) return value;
-
         this.theme = value;
         this.doPropagateChanges();
         return value;
@@ -120,7 +125,6 @@ class CrappUIStyleManager {
     public function getTag():String return this.tag;
     public function setTag(value:String):String {
         if (this.tag == value) return value;
-
         this.tag = value;
         this.doPropagateChanges();
         return value;
@@ -129,16 +133,15 @@ class CrappUIStyleManager {
     public function getVariant():String return this.variant;
     public function setVariant(value:String):String {
         if (this.variant == value) return value;
-
         this.variant = value;
         this.doPropagateChanges();
         return value;
     }
 
-    private function doPropagateChanges():Void {
+    public function doPropagateChanges():Void {
         if (this.display == null) return;
 
-        var event:PriEvent = new PriEvent(CrappUIEventType.STYLE_CHANGE, false, false);
+        var event:PriEvent = new PriEvent(CrappUIEventType.STYLE_CHANGE, true, false);
         this.display.dispatchEvent(event);
     }
 

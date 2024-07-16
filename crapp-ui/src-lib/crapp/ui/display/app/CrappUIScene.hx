@@ -29,4 +29,13 @@ class CrappUIScene extends PriSceneView implements ICrappUIStyleObject {
     function get_variant():String return this.styleManager.getVariant();
     function set_variant(value:String):String return this.styleManager.setVariant(value);
     
+    override public function addChildList(childList:Array<Dynamic>):Void {
+        super.addChildList(childList);
+        this.styleManager.doPropagateChanges();
+    }
+
+    override public function removeChildList(childList:Array<Dynamic>):Void {
+        super.removeChildList(childList);
+        this.updateDisplay();
+    }
 }

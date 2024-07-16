@@ -64,12 +64,6 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
         this.styleManager.start(this);
     }
 
-    @:noCompletion
-    override private function ___onResize(e:PriEvent):Void {
-        super.___onResize(e);
-        if (this.parent != null) this.parent.dispatchEvent(new PriEvent(CrappUIEventType.UPDATE_DISPLAY));
-    }
-
     public function isPortraitDisplay():Bool {
         if (PriApp.g().width >= PriApp.g().height) return false;
         return true;
@@ -120,7 +114,6 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
         return this.actions;
     }
 
-    // function get_parentStyle():CrappUIStyle return this.styleManager.getParentStyle();
     function get_style():CrappUIStyleData return this.styleManager.getStyle();
 	function set_style(value:CrappUIStyleData):CrappUIStyleData return this.styleManager.setStyle(value);
     
@@ -133,7 +126,7 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
     
     override public function addChildList(childList:Array<Dynamic>):Void {
         super.addChildList(childList);
-        this.updateDisplay();
+        this.styleManager.doPropagateChanges();
     }
 
     override public function removeChildList(childList:Array<Dynamic>):Void {

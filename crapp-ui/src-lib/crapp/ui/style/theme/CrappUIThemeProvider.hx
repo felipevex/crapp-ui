@@ -1,5 +1,6 @@
 package crapp.ui.style.theme;
 
+import crapp.ui.event.CrappUIEventType;
 import haxe.ds.StringMap;
 import helper.kits.StringKit;
 import crapp.ui.style.data.CrappUIStyleData;
@@ -72,7 +73,12 @@ class CrappUIThemeProvider {
         return result;
     }
 
-    public function setTheme(theme:CrappUIThemeData):Void this.themes.set(theme.theme, this.convertToThemeFast(theme));
+    public function setTheme(theme:CrappUIThemeData):Void {
+        this.themes.set(theme.theme, this.convertToThemeFast(theme));
+        #if js
+        priori.app.PriApp.g().dispatchEvent(new priori.event.PriEvent(CrappUIEventType.STYLE_CHANGE, true, false));
+        #end
+    }
     public function hasTheme(theme:String):Bool return this.themes.exists(theme);
 
     public function getStyleBreaked(theme:String, tag:String, variant:String):Array<CrappUIStyleData> {

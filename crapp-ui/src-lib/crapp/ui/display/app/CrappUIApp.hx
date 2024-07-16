@@ -94,4 +94,14 @@ class CrappUIApp extends PriApp implements ICrappUIStyleObject {
     function set_tag(value:String):String return this.styleManager.setTag(value);
     function get_variant():String return this.styleManager.getVariant();
     function set_variant(value:String):String return this.styleManager.setVariant(value);
+
+    override public function addChildList(childList:Array<Dynamic>):Void {
+        super.addChildList(childList);
+        this.styleManager.doPropagateChanges();
+    }
+
+    override public function removeChildList(childList:Array<Dynamic>):Void {
+        super.removeChildList(childList);
+        this.updateDisplay();
+    }
 }
