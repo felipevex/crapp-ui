@@ -28,7 +28,7 @@ class CrappUITextInput extends CrappUIInput<String> {
 
         this.width = 300;
 
-        this.allowTransition(PriTransitionType.BACKGROUND_COLOR, 0.2);
+        haxe.Timer.delay(this.allowTransition.bind(PriTransitionType.BACKGROUND_COLOR, 0.2), 1);
     }
 
     override private function get_value():String return this.input.value;
