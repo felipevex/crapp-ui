@@ -25,6 +25,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton id="testSurface" label="CONTAINER - SURFACE" />
             <private:CrappUIButton id="testLineHorizontal" label="LINE - HORIZONTAL" />
             <private:CrappUIButton id="testLineVertical" label="LINE - VERTICAL" />
+            <private:CrappUIButton id="testModalAlert" label="MODAL - ALERT" />
         </private:CrappUILayotable>
     </view>
 </priori>
@@ -47,5 +48,6 @@ class SceneHome extends CrappUIScene {
         this.testSurface.actions.onClick = () -> PriSceneManager.singleton().navigate('container/surface');
         this.testLineHorizontal.actions.onClick = () -> PriSceneManager.singleton().navigate('line/horizontal');
         this.testLineVertical.actions.onClick = () -> PriSceneManager.singleton().navigate('line/vertical');
+        this.testModalAlert.actions.onClick = () -> PriSceneManager.singleton().navigate('modal/alert');
     }
 }

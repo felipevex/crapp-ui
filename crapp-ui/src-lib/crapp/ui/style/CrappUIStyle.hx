@@ -32,6 +32,10 @@ class CrappUIStyle {
         };
     }
 
+    public function getCornersArray():Array<Int> {
+        return [Std.int(this.corners)];
+    }
+
     private function set_data(value:CrappUIStyleData):CrappUIStyleData {
         if (value == null) return value;
 

@@ -4,7 +4,6 @@ import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.style.CrappUIStyleManager;
 import crapp.ui.interfaces.ICrappUIStyleObject;
 import priori.scene.view.PriPreloaderView;
-import crapp.ui.controller.CrappUIModalController;
 import priori.scene.PriSceneManager;
 import priori.app.PriApp;
 
@@ -20,7 +19,6 @@ class CrappUIApp extends PriApp implements ICrappUIStyleObject {
     public var style(get, set):CrappUIStyleData;
 
     public var sceneContainer:CrappUIDisplay;
-    public var overlayContainer:CrappUIDisplay;
 
     public var customPreloader:Class<PriPreloaderView>;
 
@@ -33,11 +31,9 @@ class CrappUIApp extends PriApp implements ICrappUIStyleObject {
         this.styleManager.start(this);
         
         this.startSceneContainer();
-        this.startOverlay();
 
         this.addChildList([
-            this.sceneContainer,
-            this.overlayContainer
+            this.sceneContainer
         ]);
 
         this.__priAppInclude();
@@ -57,12 +53,8 @@ class CrappUIApp extends PriApp implements ICrappUIStyleObject {
         this.sceneContainer.top = 0;
         this.sceneContainer.right = 0;
         this.sceneContainer.bottom = 0;
-        PriSceneManager.use().holder = this.sceneContainer;
-    }
 
-    @:noCompletion private function startOverlay():Void {
-        this.overlayContainer = CrappUIModalController.use().getContainer();
-        this.overlayContainer.visible = false;
+        PriSceneManager.use().holder = this.sceneContainer;
     }
 
     public function onLoad():Void {}

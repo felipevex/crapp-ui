@@ -1,7 +1,9 @@
 package crapp.ui.controller;
 
+import priori.scene.PriSceneManagerEvents;
+import tricks.layout.LayoutAlignment;
+import crapp.ui.display.layout.CrappUILayotable;
 import crapp.ui.display.CrappUIDisplay;
-import helper.kits.ArrayKit;
 import crapp.ui.display.modal.CrappUIModal;
 import priori.event.PriEvent;
 import priori.scene.PriSceneManager;
@@ -22,14 +24,23 @@ class CrappUIModalController {
     }
 
     private var modals:Array<CrappUIModalElement> = [];
-    private var modalContainer:CrappUIDisplay;
+    private var modalContainer:CrappUILayotable;
 
     private function new() {
-        this.modalContainer = new CrappUIDisplay();
+        this.modalContainer = new CrappUILayotable();
         this.modalContainer.left = 0;
         this.modalContainer.top = 0;
         this.modalContainer.right = 0;
         this.modalContainer.bottom = 0;
+
+        this.modalContainer.hLayoutAlignment = LayoutAlignment.CENTER;
+        this.modalContainer.vLayoutAlignment = LayoutAlignment.CENTER;
+
+        PriSceneManager.use().addEventListener(PriSceneManagerEvents.CHANGE_SCENE, this.onChangeScene);
+    }
+
+    private function onChangeScene(e:PriEvent):Void {
+        this.closeAllModals();
     }
 
     private function showModalContainer():Void {
@@ -85,11 +96,11 @@ class CrappUIModalController {
         item.background.top = 0;
         item.background.bottom = 0;
         item.background.bgColor = 0x000000;
-        item.background.allowTransition(PriTransitionType.ALPHA, 0.2);
+        item.background.allowTransition(PriTransitionType.ALPHA, 0.15);
         item.background.z = 8;
 
         item.modal.alpha = 0;
-        item.modal.allowTransition(PriTransitionType.ALPHA, 0.3);
+        item.modal.allowTransition(PriTransitionType.ALPHA, 0.2);
 
         for (o in this.modals) {
             if (o.modal == item.modal) item.modal.disabled = false;
