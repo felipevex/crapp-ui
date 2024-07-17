@@ -26,7 +26,7 @@ import crapp.ui.display.app.CrappUIApp;
         <route scene="front.scene.container.SceneSurface" route="container/surface" />
         <route scene="front.scene.line.SceneLineHorizontal" route="line/horizontal" />
         <route scene="front.scene.line.SceneLineVertical" route="line/vertical" />
-        <route scene="front.scene.modal.SceneAlertDialog" route="modal/alert" />
+        <route scene="front.scene.modal.SceneDialog" route="modal/dialog" />
         
     </routes>
 </priori>

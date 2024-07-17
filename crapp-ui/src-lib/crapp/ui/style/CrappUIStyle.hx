@@ -32,8 +32,8 @@ class CrappUIStyle {
         };
     }
 
-    public function getCornersArray():Array<Int> {
-        return [Std.int(this.corners)];
+    public function getCornersArray(multiply:Float = 1):Array<Int> {
+        return [Std.int(this.corners * multiply)];
     }
 
     private function set_data(value:CrappUIStyleData):CrappUIStyleData {

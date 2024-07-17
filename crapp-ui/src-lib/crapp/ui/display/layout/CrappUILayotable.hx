@@ -63,12 +63,12 @@ class CrappUILayotable extends CrappUIDisplay {
     }
 
     override function addChildList(childList:Array<Dynamic>):Void {
-        for (child in childList) child.addEventListener(PriEvent.RESIZE, this.onChildResize);
+        for (child in childList) if (child != null) child.addEventListener(PriEvent.RESIZE, this.onChildResize);
         super.addChildList(childList);
     }
 
     override function removeChildList(childList:Array<Dynamic>):Void {
-        for (child in childList) child.removeEventListener(PriEvent.RESIZE, this.onChildResize);
+        for (child in childList) if (child != null) child.removeEventListener(PriEvent.RESIZE, this.onChildResize);
         super.removeChildList(childList);
     }
 

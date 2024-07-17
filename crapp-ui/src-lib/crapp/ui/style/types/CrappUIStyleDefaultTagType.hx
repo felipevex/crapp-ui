@@ -10,5 +10,6 @@ enum abstract CrappUIStyleDefaultTagType(String) from String to String {
     var IMAGE;
     var SURFACE;
     var LINE;
+    var DIALOG;
     
 }
