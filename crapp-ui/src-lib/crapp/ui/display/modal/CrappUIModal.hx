@@ -1,5 +1,6 @@
 package crapp.ui.display.modal;
 
+import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import crapp.ui.display.layout.CrappUILayotable;
 import priori.event.PriEvent;
 import crapp.ui.controller.CrappUIModalController;
@@ -12,6 +13,8 @@ class CrappUIModal extends CrappUILayotable {
     
     public function new() {
         super();
+        
+        this.tag = CrappUIStyleDefaultTagType.MODAL;
     }
 
     public function open():Void CrappUIModalController.use().add(this);

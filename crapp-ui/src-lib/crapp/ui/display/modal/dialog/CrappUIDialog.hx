@@ -55,10 +55,7 @@ class CrappUIDialog extends CrappUIModal {
 
     override function setup() {
         super.setup();
-
-        this.vLayoutAlignment = LayoutAlignment.CENTER;
-        this.vLayoutDistribution = LayoutDistribution.SIDE;
-
+        
         if (!StringKit.isEmpty(this.data.title)) {
             this.title = new CrappUIText();
             this.title.hLayoutSize = LayoutSize.FLEX;
