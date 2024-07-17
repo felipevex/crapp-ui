@@ -20,7 +20,9 @@ class CrappUILayotable extends CrappUIDisplay {
 
         for (i in 0 ... this.numChildren) {
             var child = this.getChild(i);
-            if (!Std.isOfType(child, CrappUIDisplay)) continue;
+            
+            if (!child.visible) continue;
+            else if (!Std.isOfType(child, CrappUIDisplay)) continue;
 
             layout.children.push((cast(child, CrappUIDisplay)).layout);
         }
@@ -28,11 +30,11 @@ class CrappUILayotable extends CrappUIDisplay {
         if (layout.children.length == 0) {
             if (layout.horizontal.size == LayoutSize.FIT) {
                 layout.horizontal.size = LayoutSize.FIXED;
-                layout.width = 10;
+                layout.width = 0;
             }
             if (layout.vertical.size == LayoutSize.FIT) {
                 layout.vertical.size = LayoutSize.FIXED;
-                layout.height = 10;
+                layout.height = 0;
             }
         }
 
