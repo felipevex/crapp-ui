@@ -55,7 +55,7 @@ class CrappUIDialog extends CrappUIModal {
 
     override function setup() {
         super.setup();
-        
+
         if (!StringKit.isEmpty(this.data.title)) {
             this.title = new CrappUIText();
             this.title.hLayoutSize = LayoutSize.FLEX;
@@ -68,7 +68,7 @@ class CrappUIDialog extends CrappUIModal {
         this.text.hLayoutSize = LayoutSize.FLEX;
         this.text.text = this.data.message;
         this.text.autoSize = false;
-        this.text.multiLine = false;
+        this.text.multiLine = true;
         this.text.tag = null;
 
         this.textContainer.addChildList([
@@ -124,7 +124,10 @@ class CrappUIDialog extends CrappUIModal {
 
         this.text.width = this.width - style.space * 2;
 
-        this.height = Math.max(minHeight, this.textContainer.height + this.buttonContainer.height + space * 5);
+        this.height = Math.max(
+            minHeight, 
+            this.textContainer.height + this.buttonContainer.height + space * 2 + style.space * 3 + 5
+        );
     }
 
     static public function openMessage(message:String, ?title:String):CrappUIDialog {

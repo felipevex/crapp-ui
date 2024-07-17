@@ -13,6 +13,7 @@ import crapp.ui.display.app.CrappUIScene;
         <CrappUILayotable vLayoutAlignment="CENTER" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="0" right="0" top="0" bottom="0" >
             <private:CrappUIButton id="btMessage" label="Open Message" />
             <private:CrappUIButton id="btMessageWithTitle" label="Open Message with Title" />
+            <private:CrappUIButton id="btLongMessage" label="Open Long Message" />
         </CrappUILayotable>
     </view>
 </priori>
@@ -33,5 +34,7 @@ class SceneDialog extends CrappUIScene {
                 { label: 'CONTINUAR', action: () -> { trace('OK'); } }
             ]
         });
+        
+        this.btLongMessage.actions.onClick = CrappUIDialog.openMessage.bind("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi placerat felis eu est ultrices, at sagittis neque malesuada. Vivamus magna urna, ultricies suscipit massa nec, lobortis porta odio. Sed et euismod leo.", "Longa Mensagem");
     }
 }
