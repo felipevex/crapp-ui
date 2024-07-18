@@ -26,6 +26,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton id="testLineHorizontal" label="LINE - HORIZONTAL" />
             <private:CrappUIButton id="testLineVertical" label="LINE - VERTICAL" />
             <private:CrappUIButton id="testModalDialog" label="MODAL - DIALOG" />
+            <private:CrappUIButton id="testIcon" label="ICON" />
         </private:CrappUILayotable>
     </view>
 </priori>
@@ -49,5 +50,7 @@ class SceneHome extends CrappUIScene {
         this.testLineHorizontal.actions.onClick = () -> PriSceneManager.singleton().navigate('line/horizontal');
         this.testLineVertical.actions.onClick = () -> PriSceneManager.singleton().navigate('line/vertical');
         this.testModalDialog.actions.onClick = () -> PriSceneManager.singleton().navigate('modal/dialog');
+        this.testIcon.actions.onClick = () -> PriSceneManager.singleton().navigate('icon');
+        
     }
 }

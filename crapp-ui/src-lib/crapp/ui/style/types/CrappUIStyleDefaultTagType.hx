@@ -4,6 +4,7 @@ enum abstract CrappUIStyleDefaultTagType(String) from String to String {
     
     var BUTTON;
     var BUTTON_ICON;
+    var ICON;
     var SELECT_INPUT;
     var TEXT_INPUT;
     var TEXT;
@@ -13,4 +14,5 @@ enum abstract CrappUIStyleDefaultTagType(String) from String to String {
     var MODAL;
     var DIALOG;
     var CONTEXT_MENU;
+    
 }

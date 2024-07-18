@@ -33,8 +33,7 @@ class CrappUIText extends CrappUIDisplay {
     public var align(get, set):PriFontStyleAlign;
     
     @:isVar public var weight(default, set):CrappUIStyleFontWeightType;
-
-    public var size(default, set):CrappUISizeReference = CrappUISizeReference.BASE;
+    @:isVar public var size(default, set):CrappUISizeReference = CrappUISizeReference.BASE;
 
     private var lastSettedWidth:Float;
     private var lastSettedHeight:Float;

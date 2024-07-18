@@ -1,25 +1,17 @@
 package crapp.ui.display.button;
 
+import crapp.ui.display.icon.CrappUIIcon;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import crapp.ui.composite.builtin.ButtonableComposite;
 import crapp.ui.composite.builtin.OverEffectComposite;
 import tricks.layout.LayoutElement;
-import priori.fontawesome.FontAwesomeIcon;
 import crapp.ui.style.CrappUISizeReference;
-import priori.fontawesome.FontAwesomeIconType;
 import crapp.ui.style.CrappUIStyle;
 
-class CrappUIButtonIcon extends CrappUIDisplay {
+class CrappUIButtonIcon extends CrappUIIcon {
     
-    private var icon:FontAwesomeIcon;
-
-    @:isVar public var iconType(get, set):FontAwesomeIconType;
-
-    public function new(?iconType:FontAwesomeIconType) {
-        this.iconType = iconType == null ? FontAwesomeIconType.USER : iconType;
-
+    public function new() {
         super();
-
         this.tag = CrappUIStyleDefaultTagType.BUTTON_ICON;
     }
 
@@ -32,41 +24,28 @@ class CrappUIButtonIcon extends CrappUIDisplay {
         return layout;
     }
 
-    private function get_iconType():FontAwesomeIconType return this.iconType;
-    private function set_iconType(value:FontAwesomeIconType):FontAwesomeIconType {
-        if (value == null || value == this.iconType) return value;
-        this.iconType = value;
-        this.updateDisplay();
-        return value;
-    }
-
     override function setup() {
         this.composite.add(OverEffectComposite);
         this.composite.add(ButtonableComposite);
 
-        this.icon = new FontAwesomeIcon();
-
-        this.addChildList([
-            this.icon
-        ]);
+        super.setup();
     }
 
     override function paint() {
         this.composite.get(OverEffectComposite).updateDisplay();
 
-        var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
+        var style:CrappUIStyle = this.composite.get(OverEffectComposite).style;
 
         this.corners = [10000000];
 
         var space:Float = (style.space * 1.6) / 2;
 
-        this.icon.x = space;
-        this.icon.y = space;
-        this.icon.icon = this.iconType;
-        this.icon.color = style.onColor.color;
-        this.icon.size = style.size * CrappUISizeReference.LARGE;
+        this.iconDisplay.x = space;
+        this.iconDisplay.y = space;
+        this.iconDisplay.color = style.onColor;
+        this.iconDisplay.icon = this.icon;
+        this.iconDisplay.size = style.size * this.size;
         
-        this.width = this.icon.maxX + space;
-        this.height = this.icon.maxY + space;
+        this.setDisplaySize(this.iconDisplay.maxX + space, this.iconDisplay.maxY + space);
     }
 }
