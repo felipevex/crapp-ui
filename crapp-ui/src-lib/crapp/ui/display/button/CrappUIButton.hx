@@ -70,7 +70,6 @@ class CrappUIButton extends CrappUIDisplay {
         this.displayLabel = new CrappUIText();
         this.displayLabel.tag = null;
         this.displayLabel.align = PriFontStyleAlign.CENTER;
-        this.displayLabel.weight = CrappUIStyleFontWeightType.BOLD;
 
         this.addChildList([
             this.displayLabel
