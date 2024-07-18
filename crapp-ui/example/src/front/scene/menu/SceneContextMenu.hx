@@ -1,7 +1,7 @@
 package front.scene.menu;
 
-import crapp.ui.style.data.CrappUIStyleData;
-import crapp.ui.style.CrappUIStyle;
+import crapp.ui.style.theme.CrappUIThemeProvider;
+import crapp.ui.style.data.CrappUIThemeData;
 import crapp.ui.display.menu.CrappUIContextMenu;
 import crapp.ui.display.app.CrappUIScene;
 
@@ -24,6 +24,18 @@ class SceneContextMenu extends CrappUIScene {
     
     override function setup() {
         super.setup();
+
+        var RED_THEME:CrappUIThemeData = {
+            theme: "RED_THEME",
+            tags: [
+                {
+                    tag : "RED",
+                    on_color: 0xF42400
+                }
+            ]
+        };
+
+        CrappUIThemeProvider.get().setTheme(RED_THEME);
     }
 
     override function paint() {
@@ -37,30 +49,23 @@ class SceneContextMenu extends CrappUIScene {
     }
 
     private function openContextMenu(ref):Void {
-        var style:CrappUIStyleData = {
-            on_color: 0xFF0000
-        }
-        
         var menu:CrappUIContextMenu = new CrappUIContextMenu();
+        menu.theme = "RED_THEME";
         menu.addMenu('Color Red', ()-> {this.bgColor = 0xff0000;});
         menu.addMenu('Color Green', ()-> {this.bgColor = 0x00ff00;});
         menu.addMenu('Color Blue', ()-> {this.bgColor = 0x0000ff;});
-        menu.addMenu('Reset', ()-> {this.bgColor = 0xffffff;}, style);
+        menu.addMenu('Reset', ()-> {this.bgColor = 0xffffff;}, 'RED');
 
         menu.openAt(ref);
     }
 
     private function openFastMenu(ref):Void {
-        var style:CrappUIStyleData = {
-            on_color: 0xFF0000
-        }
-
         CrappUIContextMenu.open(ref, [
             {label: 'FAST - Color Red', action: ()-> {this.bgColor = 0xff0000;}},
             {label: 'FAST - Color Green', action: ()-> {this.bgColor = 0x00ff00;}},
             {label: 'FAST - Color Blue', action: ()-> {this.bgColor = 0x0000ff;}},
-            {label: 'FAST - Reset', action: ()-> {this.bgColor = 0xffffff;}, style : style}
-        ]);
+            {label: 'FAST - Reset', action: ()-> {this.bgColor = 0xffffff;}, tag : "RED"}
+        ]).theme = "RED_THEME";
     }
 
 }

@@ -1,6 +1,8 @@
 package crapp.ui.display.menu;
 
 import crapp.ui.style.data.CrappUIStyleData;
+import crapp.ui.style.types.CrappUIStyleDefaultTagType;
+import helper.kits.StringKit;
 import crapp.ui.composite.builtin.ButtonableComposite;
 import crapp.ui.composite.builtin.OverEffectComposite;
 import crapp.ui.composite.builtin.OverlayComposite;
@@ -18,6 +20,8 @@ class CrappUIContextMenu extends CrappUIDisplay {
 
     public function new() {
         super();
+
+        this.tag = CrappUIStyleDefaultTagType.CONTEXT_MENU;
     }
 
     override function setup() {
@@ -73,12 +77,14 @@ class CrappUIContextMenu extends CrappUIDisplay {
         return maxWidth;
     }
 
-    public function addMenu(label:String, action:()->Void, ?style:CrappUIStyleData):Void {
+    public function addMenu(label:String, action:()->Void, ?tag:String, ?variant:String):Void {
         var item:CrappUIContextMenuItem = new CrappUIContextMenuItem(label, () -> {
             this.composite.get(OverlayComposite).close();
             action();
         });
-        if (style != null) item.style = style;
+
+        if (!StringKit.isEmpty(tag)) item.tag = tag;
+        if (!StringKit.isEmpty(variant)) item.variant = variant;
 
         this.items.push(item);
         this.addChild(item);
@@ -96,10 +102,12 @@ class CrappUIContextMenu extends CrappUIDisplay {
         super.kill();
     }
 
-    public static function open(reference:PriDisplay, items:Array<{label:String, action:()->Void, ?style:CrappUIStyleData}>):Void {
+    public static function open(reference:PriDisplay, items:Array<{label:String, action:()->Void, ?tag:String, ?variant:String}>):CrappUIContextMenu {
         var menu:CrappUIContextMenu = new CrappUIContextMenu();
-        for (item in items) menu.addMenu(item.label, item.action, item.style);
+        for (item in items) menu.addMenu(item.label, item.action, item.tag, item.variant);
         menu.openAt(reference);
+
+        return menu;
     }
 
 }
@@ -127,6 +135,7 @@ private class CrappUIContextMenuItem extends CrappUIDisplay {
         this.composite.add(ButtonableComposite);
 
         this.displayLabel = new CrappUIText();
+        this.displayLabel.tag = null;
         this.displayLabel.text = this.label;
         this.displayLabel.align = PriFontStyleAlign.LEFT;
         this.displayLabel.weight = PriFontStyleWeight.THICK600;
@@ -140,8 +149,8 @@ private class CrappUIContextMenuItem extends CrappUIDisplay {
     override private function paint():Void {
         this.composite.get(OverEffectComposite).updateDisplay();
 
-        var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
-
+        var style:CrappUIStyle = this.composite.get(OverEffectComposite).style;
+        
         this.height = this.displayLabel.height + style.space * 2;
         
         this.displayLabel.x = style.space;

@@ -12,5 +12,5 @@ enum abstract CrappUIStyleDefaultTagType(String) from String to String {
     var LINE;
     var MODAL;
     var DIALOG;
-    
+    var CONTEXT_MENU;
 }

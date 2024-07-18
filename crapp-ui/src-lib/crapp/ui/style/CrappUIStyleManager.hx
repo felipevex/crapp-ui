@@ -140,7 +140,7 @@ class CrappUIStyleManager {
 
     public function doPropagateChanges():Void {
         if (this.display == null) return;
-
+        
         var event:PriEvent = new PriEvent(CrappUIEventType.STYLE_CHANGE, true, false);
         this.display.dispatchEvent(event);
     }
