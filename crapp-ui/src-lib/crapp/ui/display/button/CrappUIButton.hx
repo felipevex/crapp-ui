@@ -1,13 +1,12 @@
 package crapp.ui.display.button;
 
+import crapp.ui.style.types.CrappUIStyleFontWeightType;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import crapp.ui.composite.builtin.ButtonableComposite;
 import crapp.ui.composite.builtin.OverEffectComposite;
 import tricks.layout.LayoutSize;
 import tricks.layout.LayoutElement;
 import priori.style.font.PriFontStyleAlign;
-import priori.style.font.PriFontStyleWeight;
-import priori.types.PriTransitionType;
 import priori.style.border.PriBorderStyle;
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.CrappUIStyle;
@@ -71,7 +70,7 @@ class CrappUIButton extends CrappUIDisplay {
         this.displayLabel = new CrappUIText();
         this.displayLabel.tag = null;
         this.displayLabel.align = PriFontStyleAlign.CENTER;
-        this.displayLabel.weight = PriFontStyleWeight.THICK600;
+        this.displayLabel.weight = CrappUIStyleFontWeightType.BOLD;
 
         this.addChildList([
             this.displayLabel
