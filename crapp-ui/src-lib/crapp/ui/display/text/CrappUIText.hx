@@ -1,5 +1,6 @@
 package crapp.ui.display.text;
 
+import crapp.ui.style.types.CrappUIStyleFontWeightType;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import tricks.layout.LayoutSize;
 import priori.style.font.PriFontStyle;
@@ -30,7 +31,8 @@ class CrappUIText extends CrappUIDisplay {
     public var multiLine(get, set):Bool;
     public var selectable(get, set):Bool;
     public var align(get, set):PriFontStyleAlign;
-    public var weight(get, set):PriFontStyleWeight;
+    
+    @:isVar public var weight(default, set):CrappUIStyleFontWeightType;
 
     public var size(default, set):CrappUISizeReference = CrappUISizeReference.BASE;
 
@@ -173,8 +175,9 @@ class CrappUIText extends CrappUIDisplay {
         this.label.fontSize = style.size * this.size;
 
         var fontStyle:PriFontStyle = style.font;
-        if (fontStyle.weight == null) fontStyle.weight = this.weight;
+        if (this.weight == null) fontStyle.weight = this.weight.toPriWheight();
         if (fontStyle.align == null) fontStyle.align = this.align;
+
         this.label.fontStyle = fontStyle;
         
         this.label.endBatchUpdate();
@@ -196,9 +199,9 @@ class CrappUIText extends CrappUIDisplay {
         return value;
     }
 
-    private function get_weight():PriFontStyleWeight return this.label.weight;
-	private function set_weight(value:PriFontStyleWeight):PriFontStyleWeight {
-		this.label.weight = value;
+    private function set_weight(value:CrappUIStyleFontWeightType):CrappUIStyleFontWeightType {
+        this.weight = value;
+		this.updateDisplay();
         return value;
 	}
 }

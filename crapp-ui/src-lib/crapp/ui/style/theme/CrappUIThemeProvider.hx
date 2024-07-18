@@ -1,5 +1,6 @@
 package crapp.ui.style.theme;
 
+import crapp.ui.style.types.CrappUIStyleFontWeightType;
 import crapp.ui.event.CrappUIEventType;
 import haxe.ds.StringMap;
 import helper.kits.StringKit;
@@ -30,6 +31,7 @@ class CrappUIThemeProvider {
             size : 13.0,
             space : 10,
             font_family : 'Saira, Open Sans',
+            font_weight : CrappUIStyleFontWeightType.NORMAL,
             corners : 6,
             on_focus_weight : 0.06
         };
@@ -117,6 +119,7 @@ class CrappUIThemeProvider {
             size : mergeWith.size != null ? mergeWith.size : mergeFrom.size,
             space : mergeWith.space != null ? mergeWith.space : mergeFrom.space,
             font_family : mergeWith.font_family != null ? mergeWith.font_family : mergeFrom.font_family,
+            font_weight : mergeWith.font_weight != null ? mergeWith.font_weight : mergeFrom.font_weight,
             corners : mergeWith.corners != null ? mergeWith.corners : mergeFrom.corners,
             on_focus_weight : mergeWith.on_focus_weight != null ? mergeWith.on_focus_weight : mergeFrom.on_focus_weight
         };

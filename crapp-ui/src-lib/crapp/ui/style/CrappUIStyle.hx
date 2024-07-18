@@ -1,5 +1,6 @@
 package crapp.ui.style;
 
+import crapp.ui.style.types.CrappUIStyleFontWeightType;
 import crapp.ui.style.data.CrappUIStyleData;
 import priori.style.font.PriFontStyle;
 
@@ -12,6 +13,7 @@ class CrappUIStyle {
     public var size:Float;
     public var space:Float;
     public var fontFamily:String;
+    public var fontWeight:CrappUIStyleFontWeightType;
     public var corners:Float;
 
     public var font(get, null):PriFontStyle;
@@ -27,6 +29,7 @@ class CrappUIStyle {
             size : this.size,
             space : this.space,
             font_family : this.fontFamily,
+            font_weight: this.fontWeight,
             corners : this.corners,
             on_focus_weight : this.onFocusWeight
         };
@@ -44,6 +47,7 @@ class CrappUIStyle {
         if (value.size != null) this.size = value.size;
         if (value.space != null) this.space = value.space;
         if (value.font_family != null) this.fontFamily = value.font_family;
+        if (value.font_weight != null) this.fontWeight = value.font_weight;
         if (value.corners != null) this.corners = value.corners;
         if (value.on_focus_weight != null) this.onFocusWeight = value.on_focus_weight;
 
@@ -57,7 +61,8 @@ class CrappUIStyle {
     private function get_font():PriFontStyle {
         return new PriFontStyle(
             this.onColor.color, 
-            this.fontFamily
+            this.fontFamily,
+            this.fontWeight != null ? this.fontWeight.toPriWheight() : null
         );
     }
 

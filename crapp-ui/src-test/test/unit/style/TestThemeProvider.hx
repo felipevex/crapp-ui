@@ -1,5 +1,6 @@
 package test.unit.style;
 
+import crapp.ui.style.types.CrappUIStyleFontWeightType;
 import crapp.ui.style.data.CrappUIThemeData;
 import crapp.ui.style.data.CrappUIStyleData;
 import utest.Assert;
@@ -19,6 +20,7 @@ class TestThemeProvider extends Test {
             size : 13.0,
             space : 10,
             font_family : 'Saira, Open Sans',
+            font_weight: CrappUIStyleFontWeightType.NORMAL,
             corners : 6,
             on_focus_weight : 0.06
         }
@@ -35,6 +37,7 @@ class TestThemeProvider extends Test {
             size : 15.0,
             space : 10,
             font_family : 'Saira, Open Sans',
+            font_weight: CrappUIStyleFontWeightType.NORMAL,
             corners : 6,
             on_focus_weight : 0.06
         }
@@ -58,6 +61,7 @@ class TestThemeProvider extends Test {
             size : 13.0,
             space : 10,
             font_family : 'Saira, Open Sans',
+            font_weight: CrappUIStyleFontWeightType.NORMAL,
             corners : 6,
             on_focus_weight : 0.06
         }
@@ -91,6 +95,7 @@ class TestThemeProvider extends Test {
             size : 13.0,
             space : 10,
             font_family : 'Saira, Open Sans',
+            font_weight: CrappUIStyleFontWeightType.NORMAL,
             corners : 6,
             on_focus_weight : 0.06
         }
@@ -127,6 +132,7 @@ class TestThemeProvider extends Test {
             size : 13.0,
             space : 10,
             font_family : 'Saira, Open Sans',
+            font_weight: CrappUIStyleFontWeightType.NORMAL,
             corners : 6,
             on_focus_weight : 0.06
         }
@@ -168,6 +174,7 @@ class TestThemeProvider extends Test {
             size : 15.0,
             space : 10,
             font_family : 'Saira, Open Sans',
+            font_weight: CrappUIStyleFontWeightType.NORMAL,
             corners : 6,
             on_focus_weight : 0.06
         }
@@ -216,6 +223,7 @@ class TestThemeProvider extends Test {
             size : 15.0,
             space : 10,
             font_family : 'Saira, Open Sans',
+            font_weight: CrappUIStyleFontWeightType.NORMAL,
             corners : 6,
             on_focus_weight : 0.06
         }
