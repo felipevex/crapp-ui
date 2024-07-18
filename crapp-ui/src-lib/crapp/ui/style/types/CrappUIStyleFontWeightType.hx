@@ -9,9 +9,11 @@ enum abstract CrappUIStyleFontWeightType(String) {
     var NORMAL;
     var BOLD;
     var BOLDER;
-    
+
     @:to
     public function toPriWheight():PriFontStyleWeight {
+        if (this == null) return null;
+
         return switch (this.toLowerCase()) {
             case 'lighter': return PriFontStyleWeight.THICK100;
             case 'light': return PriFontStyleWeight.THICK300;
@@ -25,6 +27,8 @@ enum abstract CrappUIStyleFontWeightType(String) {
 
     @:from
     public static function fromPriWheight(value:PriFontStyleWeight):CrappUIStyleFontWeightType {
+        if (value == null) return null;
+        
         return switch (value) {
             case PriFontStyleWeight.LIGHTER | PriFontStyleWeight.THICK100: return CrappUIStyleFontWeightType.LIGHTER;
             case PriFontStyleWeight.THICK200 | PriFontStyleWeight.THICK300: return CrappUIStyleFontWeightType.LIGHT;
