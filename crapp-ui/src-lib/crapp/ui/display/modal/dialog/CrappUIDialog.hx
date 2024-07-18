@@ -59,7 +59,7 @@ class CrappUIDialog extends CrappUIModal {
         if (!StringKit.isEmpty(this.data.title)) {
             this.title = new CrappUIText();
             this.title.hLayoutSize = LayoutSize.FLEX;
-            this.title.uiSize = CrappUISizeReference.EXTRA;
+            this.title.size = CrappUISizeReference.EXTRA;
             this.title.selectable = true;
             this.title.tag = null;
             this.title.autoSize = false;

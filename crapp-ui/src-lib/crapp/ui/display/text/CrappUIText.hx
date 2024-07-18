@@ -32,7 +32,7 @@ class CrappUIText extends CrappUIDisplay {
     public var align(get, set):PriFontStyleAlign;
     public var weight(get, set):PriFontStyleWeight;
 
-    public var uiSize(default, set):Float = CrappUISizeReference.BASE;
+    public var size(default, set):CrappUISizeReference = CrappUISizeReference.BASE;
 
     private var lastSettedWidth:Float;
     private var lastSettedHeight:Float;
@@ -55,8 +55,8 @@ class CrappUIText extends CrappUIDisplay {
         return super.set_hLayoutSize(value);
     }
 
-    private function set_uiSize(value:Float):Float {
-        this.uiSize = value;
+    private function set_size(value:CrappUISizeReference):CrappUISizeReference {
+        this.size = value;
         this.updateDisplay();
         return value;
     }
@@ -170,7 +170,7 @@ class CrappUIText extends CrappUIDisplay {
         var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
         
         this.label.startBatchUpdate();
-        this.label.fontSize = style.size * this.uiSize;
+        this.label.fontSize = style.size * this.size;
 
         var fontStyle:PriFontStyle = style.font;
         if (fontStyle.weight == null) fontStyle.weight = this.weight;
