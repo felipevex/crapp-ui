@@ -17,17 +17,12 @@ class CrappUILine extends CrappUIDisplay {
         super();
 
         this.clipping = false;
-        
+
         this.orientation = CrappUILineOrientationType.HORIZONTAL;
 
         this.tag = CrappUIStyleDefaultTagType.LINE;
     }
-
-    override function setup() {
-        super.setup();
-        this.bgColor = 0xffffff;
-    }
-
+    
     private function set_orientation(value:CrappUILineOrientationType):CrappUILineOrientationType {
         if (value == null || value == this.orientation) return value;
         this.orientation = value;
