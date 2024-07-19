@@ -3,43 +3,47 @@ package crapp.ui.display.line;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.display.line.types.CrappUILineStyleType;
-import priori.geom.PriColor;
 import crapp.ui.display.line.types.CrappUILineOrientationType;
 
 class CrappUILine extends CrappUIDisplay {
 
-    private var lineColor:PriColor = 0;
-    private var pretendedSize:Float = 100;
+    private var size:Float = 100;
     
     @:isVar public var thickness(default, set):Float = 1;
     @:isVar public var lineStyle(default, set):CrappUILineStyleType = CrappUILineStyleType.SOLID;
-    @:isVar public var orientation(default, set):CrappUILineOrientationType = CrappUILineOrientationType.HORIZONTAL;
+    @:isVar public var orientation(default, set):CrappUILineOrientationType;
 
     public function new() {
         super();
 
         this.clipping = false;
-        super.set_height(0);
-        super.set_width(100);
+        
+        this.orientation = CrappUILineOrientationType.HORIZONTAL;
 
         this.tag = CrappUIStyleDefaultTagType.LINE;
     }
 
+    override function setup() {
+        super.setup();
+        this.bgColor = 0xffffff;
+    }
+
     private function set_orientation(value:CrappUILineOrientationType):CrappUILineOrientationType {
         if (value == null || value == this.orientation) return value;
+        this.orientation = value;
 
-        switch (this.orientation) {
+        var size:Float = this.size;
+
+        switch (value) {
             case HORIZONTAL : {
-                super.set_height(this.pretendedSize);
-                super.set_width(0);
+                this.height = 0;
+                this.width = size;
             }
             case VERTICAL : {
-                super.set_width(this.pretendedSize);
-                super.set_height(0);
+                this.width = 0;
+                this.height = size;
             }
         }
-
-        this.orientation = value;
 
         this.dh.styles.remove("border-top-color");
         this.dh.styles.remove("border-top-width");
@@ -72,22 +76,20 @@ class CrappUILine extends CrappUIDisplay {
 
     override private function paint():Void {
         super.paint();
-
-        var style:CrappUIStyleData = this.style;
-        this.lineColor = style.on_color;
-
         this.updateLineStyle();   
     }
 
     private function updateLineStyle():Void {
+        var style:CrappUIStyleData = this.style;
+
         switch (this.orientation) {
             case HORIZONTAL : {
-                this.dh.styles.set("border-top-color", this.lineColor.toString());
+                this.dh.styles.set("border-top-color", style.on_color.toString());
                 this.dh.styles.set("border-top-width", '${this.thickness}px');
                 this.dh.styles.set("border-top-style", this.lineStyle);
             }
             case VERTICAL : {
-                this.dh.styles.set("border-left-color", this.lineColor.toString());
+                this.dh.styles.set("border-left-color", style.on_color.toString());
                 this.dh.styles.set("border-left-width", '${this.thickness}px');
                 this.dh.styles.set("border-left-style", this.lineStyle);
             }
@@ -97,25 +99,15 @@ class CrappUILine extends CrappUIDisplay {
     }
 
     override private function set_width(value:Float):Float {
-        this.pretendedSize = value;
-        if (this.orientation == CrappUILineOrientationType.VERTICAL) return value;
-        else return super.set_width(value);
-    }
-
-    override private function get_width():Float {
-        if (this.orientation == CrappUILineOrientationType.VERTICAL) return 0;
-        else return super.get_width();
+        this.size = value;
+        super.set_width(this.orientation == CrappUILineOrientationType.HORIZONTAL ? value : 0);
+        return value;
     }
 
     override private function set_height(value:Float):Float {
-        this.pretendedSize = value;
-        if (this.orientation == CrappUILineOrientationType.HORIZONTAL) return value;
-        else return super.set_height(value);
-    }
-
-    override private function get_height():Float {
-        if (this.orientation == CrappUILineOrientationType.HORIZONTAL) return 0;
-        else return super.get_height();
+        this.size = value;
+        super.set_height(this.orientation == CrappUILineOrientationType.VERTICAL ? value : 0);
+        return value;
     }
 
 }
