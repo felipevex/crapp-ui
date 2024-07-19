@@ -4,7 +4,6 @@ import crapp.ui.style.types.CrappUIStyleFontWeightType;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import tricks.layout.LayoutSize;
 import priori.style.font.PriFontStyle;
-import priori.style.font.PriFontStyleWeight;
 import priori.style.font.PriFontStyleAlign;
 import priori.event.PriEvent;
 import priori.event.PriFocusEvent;
@@ -182,9 +181,14 @@ class CrappUIText extends CrappUIDisplay {
         this.label.endBatchUpdate();
         
         if (!this.autoSize) this.label.width = Math.round(this.width);
-        else super.set_width(Math.round(this.label.width));
+        else this.setSize(Math.round(this.label.width), null);
+        
+        this.setSize(null, Math.round(this.label.height));
+    }
 
-        super.set_height(Math.round(this.label.height));
+    private function setSize(width:Float, height:Float):Void {
+        if (width != null) super.set_width(width);
+        if (height != null) super.set_height(height);
     }
 
     override private function set_width(value:Float):Float {
