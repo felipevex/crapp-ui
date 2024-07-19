@@ -20,9 +20,7 @@ import crapp.ui.interfaces.ICrappUIStyleObject;
 
 class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
     
-    @:noCompletion 
-    private var _z:Float = 0;
-    public var z(get, set):Float;
+    @:isVar public var z(default, set):Float = 0;
 
     private var styleManager:CrappUIStyleManager;
 
@@ -73,7 +71,17 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
         return !this.isPortraitDisplay();
     }
 
-    private function get_z():Float return this._z;
+    override private function updateDepth():Void {
+        if (this.dh.parent == null) return;
+        
+        this.dh.depth = this.dh.parent.dh.depth - 1;
+        this.dh.styles.set("z-index", Std.string(this.dh.depth + Math.floor(this.z)));
+        
+        if (this.dh.elementBorder != null) this.dh.elementBorder.style.zIndex = Std.string(this.dh.depth + Math.floor(this.z));
+
+        this.__updateStyle();
+    }
+
     private function set_z(value:Float):Float {
         var val:Float = value;
         
@@ -81,11 +89,10 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
         else val = value;
 
         if (val == this.z) return value;
-        else this._z = val;
-
-        this.dh.styles.set("z-index", Std.string(this.dh.depth + Math.floor(this._z)));
-        if (this.dh.elementBorder != null) this.dh.elementBorder.style.zIndex = Std.string(this.dh.depth + Math.floor(this._z));
+        else this.z = val;
         
+        this.updateDepth();
+
         if (val > 0) {
             // hard shadow
             var keyLight:PriShadowStyle = new PriShadowStyle()
