@@ -55,14 +55,15 @@ class CrappUIInput<T> extends CrappUIDisplay {
         }
     }
 
-	public function validateError():Void {
-		if (this.hasError()) {
-            this.createErrorMessage();
-            this.displayError.visible = true;
+	public function validateAndDisplayError():Void {
+		try {
+			this.validate();
+			if (this.displayError != null) this.displayError.visible = false;
+		} catch (e:String) {
+			this.createErrorMessage();
+			this.displayError.visible = true;
 			this.displayError.text = this.getErrorMessage();
-        } else {
-            if (this.displayError != null) this.displayError.visible = false;
-        }
+		}
 	}
 
 	public function hasError():Bool {
