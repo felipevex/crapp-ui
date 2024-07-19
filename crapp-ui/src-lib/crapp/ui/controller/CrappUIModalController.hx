@@ -96,11 +96,10 @@ class CrappUIModalController {
         item.background.top = 0;
         item.background.bottom = 0;
         item.background.bgColor = 0x000000;
-        item.background.allowTransition(PriTransitionType.ALPHA, 0.15);
-        item.background.z = 8;
+        item.background.allowTransition(PriTransitionType.ALPHA, 0.1);
 
         item.modal.alpha = 0;
-        item.modal.allowTransition(PriTransitionType.ALPHA, 0.2);
+        item.modal.allowTransition(PriTransitionType.ALPHA, 0.15);
 
         for (o in this.modals) {
             if (o.modal == item.modal) item.modal.disabled = false;

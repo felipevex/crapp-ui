@@ -30,11 +30,19 @@ class SceneDialog extends CrappUIScene {
             message: 'Hello World',
             title: 'Title',
             buttons: [
-                { label: 'CANCELAR', action: () -> { trace('Cancel'); } },
+                { label: 'OUTRA', action: this.openModal },
                 { label: 'CONTINUAR', action: () -> { trace('OK'); } }
             ]
         });
         
         this.btLongMessage.actions.onClick = CrappUIDialog.openMessage.bind("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi placerat felis eu est ultrices, at sagittis neque malesuada. Vivamus magna urna, ultricies suscipit massa nec, lobortis porta odio. Sed et euismod leo.", "Longa Mensagem");
+    }
+
+    private function openModal():Void {
+        CrappUIDialog.openMessage('Janela 1');
+
+        haxe.Timer.delay(() -> {
+            CrappUIDialog.openMessage('Janela 2');
+        }, 1000);
     }
 }
