@@ -1,6 +1,7 @@
 package front.scene.composite;
 
-import crapp.ui.style.CrappUIStyle;
+import crapp.ui.composite.builtin.ScrollerComposite;
+import crapp.ui.display.layout.CrappUILayotable;
 import crapp.ui.display.app.CrappUIScene;
 
 @priori('
@@ -36,4 +37,13 @@ class SceneScrollerComposite extends CrappUIScene {
         super.setup();
     }
 
+}
+
+class LayoutWithScroller extends CrappUILayotable {
+    
+    override function setup() {
+        super.setup();
+
+        this.composite.add(ScrollerComposite);
+    }
 }
