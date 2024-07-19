@@ -148,6 +148,8 @@ class CrappUITextInput extends CrappUIInput<String> {
     inline private function runDelayedChangeEvent():Void {
         this.killTimer();
         if (this.actions.onDelayedChange != null) this.actions.onDelayedChange();
+        
+        if (this.autoValidation) this.validateError();
     }
 
     private function killTimer():Void {

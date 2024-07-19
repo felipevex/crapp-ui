@@ -1,5 +1,7 @@
 package front.scene.input;
 
+import crapp.ui.style.theme.CrappUIThemeProvider;
+import helper.kits.StringKit;
 import crapp.ui.display.app.CrappUIScene;
 
 @priori('
@@ -18,6 +20,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUITextInput id="inputChangeDelay" label="TEST CHANGE WITH DELAY" />
             <private:CrappUITextInput id="red" />
             <private:CrappUITextInput label="PASSWORD" password=":true" />
+            <private:CrappUITextInput id="email" label="TEST EMAIL ERROR" />
             <private:CrappUILayotable vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
                 <private:CrappUITextInput hLayoutSize="FLEX" />
                 <private:CrappUITextInput hLayoutSize="FLEX" />
@@ -31,6 +34,8 @@ class SceneInputText extends CrappUIScene {
     
     override function setup() {
 
+        this.theme = "InputTheme";
+
         this.inputChange.actions.onChange = () -> this.inputChange.label = this.inputChange.value;
         this.inputChangeDelay.actions.onDelayedChange = () -> this.inputChangeDelay.label = this.inputChangeDelay.value;
         
@@ -38,6 +43,27 @@ class SceneInputText extends CrappUIScene {
             color: 0xFF0000,
             on_color: 0xFFFFFF
         };
+
+        this.email.addValidation((value:String) -> {
+            if (!StringKit.isEmail(value)) throw "Invalid Email";
+        });
+
+        CrappUIThemeProvider.get().setTheme({
+            theme : "InputTheme",
+            tags: [
+                {
+                    tag : "TEXT_ICON",
+                    variants : [
+                        {
+                            variant: "ERROR",
+                            color: 0xFF0000,
+                            on_color: 0xFFFFFF,
+                            size : 10
+                        }
+                    ]
+                }
+            ]
+        });
     }
 
 }
