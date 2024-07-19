@@ -8,10 +8,10 @@ import crapp.ui.display.app.CrappUIScene;
 <priori>
     <imports>
         <crapp.ui.display.button.CrappUIButton />
-        <crapp.ui.display.layout.CrappUILayotable />
+        <crapp.ui.display.container.CrappUIScrollable />
     </imports>
     <view>
-        <private:CrappUILayotable hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
+        <private:CrappUIScrollable hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
             <private:CrappUIButton id="testStyle" label="STYLE" />
             <private:CrappUIButton id="testText" label="TEXTS" />
             <private:CrappUIButton id="testButton" label="BUTTONS - BUTTON" />
@@ -27,7 +27,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton id="testLineVertical" label="LINE - VERTICAL" />
             <private:CrappUIButton id="testModalDialog" label="MODAL - DIALOG" />
             <private:CrappUIButton id="testIcon" label="ICON" />
-        </private:CrappUILayotable>
+        </private:CrappUIScrollable>
     </view>
 </priori>
 ')
@@ -35,7 +35,7 @@ class SceneHome extends CrappUIScene {
     
     override function setup() {
         super.setup();
-
+        
         this.testStyle.actions.onClick = () -> PriSceneManager.singleton().navigate('style');
         this.testText.actions.onClick = () -> PriSceneManager.singleton().navigate('text');
         this.testButton.actions.onClick = () -> PriSceneManager.singleton().navigate('button/button');
