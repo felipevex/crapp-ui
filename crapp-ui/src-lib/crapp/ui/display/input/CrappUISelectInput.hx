@@ -99,7 +99,9 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
         var font:PriFontStyle = style.font;
 
         this.labelDisplay.fontStyle = font;
+
         this.input.fontStyle = font;
+        this.input.fontSize = style.size;
 
         this.paintBackground(style);
         this.paintBorder(style);
@@ -110,9 +112,6 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
             + (this.input.height * CrappUISizeReference.SMALL)
             + style.space / 2;
 
-        this.input.fontSize = style.size;
-        //this.input.width = this.width - (style.space * 3.5);
-        //this.input.centerX = this.width/2;
         this.input.x = (style.space * 3.5) / 2;
         this.input.width = this.width - this.input.x;
         this.input.maxY = this.height - style.space;

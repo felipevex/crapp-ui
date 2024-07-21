@@ -19,6 +19,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUITextInput id="inputChange" label="TEST INPUT CHANGE" />
             <private:CrappUITextInput id="inputChangeDelay" label="TEST CHANGE WITH DELAY" />
             <private:CrappUITextInput id="red" />
+            <private:CrappUITextInput id="small" />
             <private:CrappUITextInput label="PASSWORD" password=":true" />
             <private:CrappUITextInput id="email" label="TEST EMAIL ERROR" />
             <private:CrappUILayotable vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
@@ -43,7 +44,13 @@ class SceneInputText extends CrappUIScene {
             color: 0xFF0000,
             on_color: 0xFFFFFF
         };
-
+        
+        haxe.Timer.delay(() -> {
+            this.small.style = {
+                size: 10
+            }
+        }, 2000);
+        
         this.email.addValidation((value:String) -> {
             if (!StringKit.isEmail(value)) throw "Invalid Email";
         });

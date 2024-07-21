@@ -12,12 +12,14 @@ import crapp.ui.display.app.CrappUIScene;
     </imports>
     <view>
         <private:CrappUILayotable id="container" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
-            <CrappUISelectInput id="select1" data:Literal="this.selectData" type="<InputSelectData>" />
-            <CrappUISelectInput id="select2" data:Literal="this.selectData" type="<InputSelectData>" label="Write Other Label" />
-            <CrappUISelectInput id="select3" data:Literal="this.selectData" type="<InputSelectData>" label="Change the Value Label" labelField="value" />
-            <CrappUISelectInput id="select4" data:Literal="this.selectData" type="<InputSelectData>" />
-            <CrappUISelectInput id="select5" data:Literal="this.selectData" type="<InputSelectData>" />
-            <CrappUISelectInput id="select6" data:Literal="this.selectData" type="<InputSelectData>" />
+            <CrappUISelectInput data:Literal="this.selectData" type="<InputSelectData>" />
+            <CrappUISelectInput data:Literal="this.selectData" type="<InputSelectData>" label="Write Other Label" />
+            <CrappUISelectInput data:Literal="this.selectData" type="<InputSelectData>" label="Change the Value Label" labelField="value" />
+            <CrappUISelectInput id="red" data:Literal="this.selectData" type="<InputSelectData>" />
+            <CrappUISelectInput id="small" data:Literal="this.selectData" type="<InputSelectData>" />
+            <CrappUISelectInput id="inputChange" data:Literal="this.selectData" type="<InputSelectData>" />
+            <CrappUISelectInput id="inputChangeDelay" data:Literal="this.selectData" type="<InputSelectData>" />
+            
             <private:CrappUILayotable id="distribute" vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
                 <CrappUISelectInput type="<InputSelectData>" hLayoutSize="FLEX" />
                 <CrappUISelectInput type="<InputSelectData>" hLayoutSize="FLEX" />
@@ -41,19 +43,23 @@ class SceneInputSelect extends CrappUIScene {
 
     override function setup() {
 
-        var style:CrappUIStyleData = {
+        red.style = {
             color: 0xFF0000,
-            on_color: 0xFFFFFF    
+            on_color: 0xFFFFFF
         }
 
-        select4.style = style;
+        haxe.Timer.delay(() -> {
+            this.small.style = {
+                size: 10
+            }
+        }, 2000);
 
-        select5.actions.onChange = () -> {
-            select5.label = select5.value.label;
+        inputChange.actions.onChange = () -> {
+            inputChange.label = inputChange.value.label;
         }
 
-        select6.actions.onDelayedChange = () -> {
-            select6.label = select6.value.label;
+        inputChangeDelay.actions.onDelayedChange = () -> {
+            inputChangeDelay.label = inputChangeDelay.value.label;
         }
     }
 

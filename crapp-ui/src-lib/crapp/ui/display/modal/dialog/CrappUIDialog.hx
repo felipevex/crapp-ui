@@ -2,12 +2,10 @@ package crapp.ui.display.modal.dialog;
 
 import crapp.ui.display.button.CrappUIButton;
 import tricks.layout.LayoutSize;
-import tricks.layout.LayoutDistribution;
 import helper.kits.StringKit;
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.display.modal.dialog.data.CrappUIDialogData;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
-import tricks.layout.LayoutAlignment;
 import crapp.ui.style.CrappUIStyle;
 import crapp.ui.display.text.CrappUIText;
 

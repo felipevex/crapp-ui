@@ -73,7 +73,9 @@ class CrappUITextInput extends CrappUIInput<String> {
         var font:PriFontStyle = style.font;
 
         this.labelDisplay.fontStyle = font;
+
         this.input.fontStyle = font;
+        this.input.fontSize = style.size;
 
         this.paintBackground(style);
         this.paintBorder(style);
@@ -83,8 +85,7 @@ class CrappUITextInput extends CrappUIInput<String> {
             + (style.space * 2) 
             + (this.input.height * CrappUISizeReference.SMALL)
             + style.space / 2;
-
-        this.input.fontSize = style.size;
+        
         this.input.width = this.width - (style.space * 3.5);
         this.input.centerX = this.width/2;
         this.input.maxY = this.height - style.space;
