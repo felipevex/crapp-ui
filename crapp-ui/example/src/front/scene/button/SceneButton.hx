@@ -14,6 +14,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton />
             <private:CrappUIButton label="MY LABEL" />
             <private:CrappUIButton id="red" />
+            <private:CrappUIButton id="small" />
             <private:CrappUIButton autoSize=":false" width="200" />
             <private:CrappUILayotable vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
                 <private:CrappUIButton hLayoutSize="FLEX" />
@@ -28,13 +29,17 @@ class SceneButton extends CrappUIScene {
     
     override function setup() {
         super.setup();
-
-        var style:CrappUIStyleData = {
+        
+        this.red.style = {
             color: 0xFF0000,
             on_color: 0xFFFFFF
         }
 
-        this.red.style = style;
+        haxe.Timer.delay(() -> {
+            this.small.style = {
+                size: 10
+            }
+        }, 2000);
     }
 
 }

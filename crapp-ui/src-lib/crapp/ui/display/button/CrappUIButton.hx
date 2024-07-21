@@ -1,6 +1,5 @@
 package crapp.ui.display.button;
 
-import crapp.ui.style.types.CrappUIStyleFontWeightType;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import crapp.ui.composite.builtin.ButtonableComposite;
 import crapp.ui.composite.builtin.OverEffectComposite;
@@ -68,6 +67,7 @@ class CrappUIButton extends CrappUIDisplay {
         this.composite.add(ButtonableComposite);
 
         this.displayLabel = new CrappUIText();
+        this.displayLabel.actions.onResize = this.updateDisplay;
         this.displayLabel.tag = null;
         this.displayLabel.align = PriFontStyleAlign.CENTER;
 

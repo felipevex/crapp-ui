@@ -1,10 +1,9 @@
 package crapp.ui.display;
 
-import crapp.ui.event.CrappUIEventType;
+import priori.event.PriEvent;
 import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.style.CrappUIStyleManager;
 import priori.app.PriApp;
-import priori.event.PriEvent;
 import priori.style.shadow.PriShadowStyle;
 import priori.style.border.PriBorderStyle;
 import priori.view.builder.PriBuilder;
@@ -60,6 +59,11 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
         super();
 
         this.styleManager.start(this);
+    }
+
+    override private function ___onResize(e:PriEvent):Void {
+        this.updateDisplay();
+        if (this.actions.onResize != null) this.actions.onResize();
     }
 
     public function isPortraitDisplay():Bool {
