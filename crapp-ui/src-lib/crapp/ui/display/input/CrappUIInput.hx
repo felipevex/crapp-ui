@@ -1,5 +1,6 @@
 package crapp.ui.display.input;
 
+import priori.types.PriTransitionType;
 import priori.fontawesome.FontAwesomeIconType;
 import crapp.ui.display.text.CrappUITextIcon;
 import helper.kits.StringKit;
@@ -24,6 +25,7 @@ class CrappUIInput<T> extends CrappUIDisplay {
 		if (this.displayError != null) return;
 
 		this.displayError = new CrappUITextIcon();
+		this.displayError.visible = false;
 		this.displayError.right = 0;
 		this.displayError.top = 0;
 		this.displayError.variant = "ERROR";
@@ -61,8 +63,20 @@ class CrappUIInput<T> extends CrappUIDisplay {
 			if (this.displayError != null) this.displayError.visible = false;
 		} catch (e:String) {
 			this.createErrorMessage();
-			this.displayError.visible = true;
 			this.displayError.text = this.getErrorMessage();
+
+			if (!this.displayError.visible) {
+				this.displayError.visible = true;
+
+				this.displayError.allowTransition(PriTransitionType.Y, null);
+				this.displayError.y = - this.displayError.height;
+				
+				haxe.Timer.delay(() -> {
+					this.displayError.allowTransition(PriTransitionType.Y, 0.12);
+					this.displayError.top = 0;
+				}, 0);
+				
+			}
 		}
 	}
 

@@ -47,10 +47,10 @@ class CrappUITextIcon extends CrappUIText {
 
         this.label.startBatchUpdate();
 
+        this.label.fontSize = style.size * this.size;
         this.label.x = this.iconDisplay.maxX + space * 0.5;
         this.label.y = space;
-        this.label.fontSize = style.size * this.size;
-
+        
         if (this.weight != null) fontStyle.weight = this.weight.toPriWheight();
         if (fontStyle.align == null) fontStyle.align = this.align;
 
