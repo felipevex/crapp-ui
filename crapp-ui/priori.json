@@ -6,7 +6,7 @@
   "meta" : [],
 
   "link" : [
-    "<link rel=\"preload\" href=\"font/saira.css\" as=\"style\" >",
+    "<link rel=\"stylesheet\" href=\"font/saira.css\" as=\"style\" >",
 
     "<script type=\"text/javascript\" src=\"js/tinycolor-min.js\"></script>",
 
