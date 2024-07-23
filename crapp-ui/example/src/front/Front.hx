@@ -1,6 +1,7 @@
 package front;
 
-import priori.style.font.PriFontStyle;
+import crapp.ui.fonts.CrappUIFonts;
+import priori.font.PriFontProvider;
 import crapp.ui.display.app.CrappUIApp;
 
 @priori('
@@ -38,13 +39,13 @@ class Front extends CrappUIApp {
 
     public function new() {
         super();
-        
-        PriFontStyle.DEFAULT_FAMILY = 'Saira, Open Sans';
     }
 
     override function onLoad() {
         super.onLoad();
-
-        this.init();
+        
+        CrappUIFonts.loadSaira();
+        PriFontProvider.get().load(this.init);
     }
+
 }

@@ -6,8 +6,6 @@
   "meta" : [],
 
   "link" : [
-    "<link rel=\"stylesheet\" href=\"font/saira.css\" as=\"style\" >",
-
     "<script type=\"text/javascript\" src=\"js/tinycolor-min.js\"></script>",
 
     "<script src=\"js/FileSaver.js\"></script>",

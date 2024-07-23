@@ -35,7 +35,7 @@ class CrappUIThemeProvider {
             corners : 6,
             on_focus_weight : 0.06
         };
-
+        
         result = this.mergeStyles(result, style);
 
         DEFAULT_STYLE = result;
