@@ -1,5 +1,6 @@
 package crapp.ui.display.input;
 
+import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import priori.types.PriTransitionType;
 import priori.geom.PriColor;
 import priori.fontawesome.FontAwesomeIconType;
@@ -34,6 +35,8 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
     public function new() {
         super();
 
+        this.tag = CrappUIStyleDefaultTagType.SELECT_INPUT;
+
         this.data = [];
         this.width = 300;
 
@@ -60,7 +63,8 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
         return value;
     }
 
-    override private function get_value():T return this.input.selected;
+    override private function get_value():T return this.input.selectedIndex == 0 ? null : this.input.selected;
+
 	override private function set_value(value:T):T {
         if (value == null) return value;
 		this.input.selected = value;
@@ -178,6 +182,8 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
         this.delayedChangeTimer = Timer.delay(this.runDelayedChangeEvent, 600);
         if (this.actions.onChange != null) this.actions.onChange();
         this.dispatchEvent(new PriEvent(PriEvent.CHANGE));
+
+        if (this.autoValidation) this.validateAndDisplayError();
     }
 
     private function onFocus(e:PriFocusEvent):Void {

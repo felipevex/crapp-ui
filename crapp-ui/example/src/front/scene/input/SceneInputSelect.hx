@@ -1,5 +1,6 @@
 package front.scene.input;
 
+import crapp.ui.style.theme.CrappUIThemeProvider;
 import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.display.input.CrappUISelectInput;
 import crapp.ui.display.app.CrappUIScene;
@@ -19,6 +20,7 @@ import crapp.ui.display.app.CrappUIScene;
             <CrappUISelectInput id="small" data:Literal="this.selectData" type="<InputSelectData>" />
             <CrappUISelectInput id="inputChange" data:Literal="this.selectData" type="<InputSelectData>" />
             <CrappUISelectInput id="inputChangeDelay" data:Literal="this.selectData" type="<InputSelectData>" />
+            <CrappUISelectInput id="inputError" label="ERROR TEST" data:Literal="this.selectData" type="<InputSelectData>" />
             
             <private:CrappUILayotable id="distribute" vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
                 <CrappUISelectInput type="<InputSelectData>" hLayoutSize="FLEX" />
@@ -43,6 +45,8 @@ class SceneInputSelect extends CrappUIScene {
 
     override function setup() {
 
+        this.theme = "InputTheme";
+
         red.style = {
             color: 0xFF0000,
             on_color: 0xFFFFFF
@@ -61,6 +65,27 @@ class SceneInputSelect extends CrappUIScene {
         inputChangeDelay.actions.onDelayedChange = () -> {
             inputChangeDelay.label = inputChangeDelay.value.label;
         }
+
+        this.inputError.addValidation((value:InputSelectData) -> {
+            if (value == null) throw "Value is required";
+        });
+
+        CrappUIThemeProvider.get().setTheme({
+            theme : "InputTheme",
+            tags: [
+                {
+                    tag : "TEXT_ICON",
+                    variants : [
+                        {
+                            variant: "ERROR",
+                            color: 0xFF0000,
+                            on_color: 0xFFFFFF,
+                            size : 10
+                        }
+                    ]
+                }
+            ]
+        });
     }
 
 }

@@ -13,7 +13,7 @@ class CrappUIInput<T> extends CrappUIDisplay {
 	private var validatorsErrorMessage:String;
 	private var validators:Array<(value:T)->Void>;
 	private var displayError:CrappUITextIcon;
-
+	
 	public function new() {
 		this.validators = [];
 		this.validatorsErrorMessage = '';
@@ -41,8 +41,9 @@ class CrappUIInput<T> extends CrappUIDisplay {
 
 	private function validate():Void {
         var value:T = this.value;
-
+		
         for (validator in this.validators) {
+			
             try {
                 validator(value);
 				this.validatorsErrorMessage = "";

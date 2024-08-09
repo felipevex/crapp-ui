@@ -1,5 +1,6 @@
 package crapp.ui.display.input;
 
+import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import priori.types.PriTransitionType;
 import haxe.Timer;
 import priori.event.PriKeyboardEvent;
@@ -25,6 +26,8 @@ class CrappUITextInput extends CrappUIInput<String> {
 
     public function new() {
         super();
+
+        this.tag = CrappUIStyleDefaultTagType.TEXT_INPUT;
 
         this.width = 300;
 

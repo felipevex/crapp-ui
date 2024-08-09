@@ -1,4 +1,4 @@
-FROM haxe:4.3.3-bullseye
+FROM haxe:4.3.5-bullseye
 
 ENV LANG=en_US.utf8
 ENV LANGUAGE=en_US.UTF-8
