@@ -22,6 +22,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUITextInput id="small" />
             <private:CrappUITextInput label="PASSWORD" password=":true" />
             <private:CrappUITextInput id="email" label="TEST EMAIL ERROR" />
+            <private:CrappUITextInput id="noborder" label="NO BORDER" />
             <private:CrappUILayotable vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
                 <private:CrappUITextInput hLayoutSize="FLEX" />
                 <private:CrappUITextInput hLayoutSize="FLEX" />
@@ -43,6 +44,10 @@ class SceneInputText extends CrappUIScene {
         this.red.style = {
             color: 0xFF0000,
             on_color: 0xFFFFFF
+        };
+
+        this.noborder.style = {
+            prevent_border : true
         };
         
         haxe.Timer.delay(() -> {

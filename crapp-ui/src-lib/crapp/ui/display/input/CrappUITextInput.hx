@@ -19,7 +19,7 @@ class CrappUITextInput extends CrappUIInput<String> {
     private var labelDisplay:PriText;
     private var input:PriFormInputText;
     private var delayedChangeTimer:Timer;
-
+    
     @:isVar public var label(default, set):String = "LABEL";
 
     public var password(get, set):Bool;

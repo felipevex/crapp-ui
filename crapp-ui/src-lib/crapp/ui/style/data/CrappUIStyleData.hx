@@ -8,6 +8,8 @@ typedef CrappUIStyleData = {
     
     @:optional var size:Float;
     @:optional var space:Float;
+
+    @:optional var prevent_border:Bool;
     
     @:optional var corners:Float;
     @:optional var on_focus_weight:Float;

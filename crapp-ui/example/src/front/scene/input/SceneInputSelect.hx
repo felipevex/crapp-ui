@@ -21,6 +21,7 @@ import crapp.ui.display.app.CrappUIScene;
             <CrappUISelectInput id="inputChange" data:Literal="this.selectData" type="<InputSelectData>" />
             <CrappUISelectInput id="inputChangeDelay" data:Literal="this.selectData" type="<InputSelectData>" />
             <CrappUISelectInput id="inputError" label="ERROR TEST" data:Literal="this.selectData" type="<InputSelectData>" />
+            <CrappUISelectInput id="noborder" data:Literal="this.selectData" type="<InputSelectData>" label="NO BORDER" />
             
             <private:CrappUILayotable id="distribute" vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
                 <CrappUISelectInput type="<InputSelectData>" hLayoutSize="FLEX" />
@@ -50,6 +51,10 @@ class SceneInputSelect extends CrappUIScene {
         red.style = {
             color: 0xFF0000,
             on_color: 0xFFFFFF
+        }
+
+        noborder.style = {
+            prevent_border : true
         }
 
         haxe.Timer.delay(() -> {

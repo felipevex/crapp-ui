@@ -16,7 +16,6 @@ class CrappUIButton extends CrappUIDisplay {
     private var displayLabel:CrappUIText;
 
     @:isVar public var autoSize(default, set):Bool = true;
-    @:isVar public var showBorder(default, set):Bool = true;
     
     public var label(get, set):String;
 
@@ -94,19 +93,14 @@ class CrappUIButton extends CrappUIDisplay {
         return value;
     }
 
-    private function set_showBorder(value:Bool):Bool {
-        this.showBorder = value;
-        this.updateDisplay();
-        return value;
-    }
-
     override private function paint():Void {
         this.composite.get(OverEffectComposite).updateDisplay();
         
         var style:CrappUIStyle = this.composite.get(OverEffectComposite).style;
+        trace(style.preventBorder);
 
         this.corners = [Math.round(CrappUISizeReference.TINY * style.corners)];
-        this.border = !showBorder || style.onColor.brightness >= style.color.brightness
+        this.border = style.preventBorder || style.onColor.brightness >= style.color.brightness
             ? null
             : new PriBorderStyle(2, style.onColor.color);
 

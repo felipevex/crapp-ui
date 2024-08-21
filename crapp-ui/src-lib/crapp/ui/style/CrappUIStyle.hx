@@ -15,7 +15,8 @@ class CrappUIStyle {
     public var fontFamily:String;
     public var fontWeight:CrappUIStyleFontWeightType;
     public var corners:Float;
-
+    public var preventBorder:Bool;
+    
     public var font(get, null):PriFontStyle;
 
     public var onFocusWeight:Float = 0.06;
@@ -31,7 +32,8 @@ class CrappUIStyle {
             font_family : this.fontFamily,
             font_weight: this.fontWeight,
             corners : this.corners,
-            on_focus_weight : this.onFocusWeight
+            on_focus_weight : this.onFocusWeight,
+            prevent_border : this.preventBorder
         };
     }
 
@@ -50,6 +52,7 @@ class CrappUIStyle {
         if (value.font_weight != null) this.fontWeight = value.font_weight;
         if (value.corners != null) this.corners = value.corners;
         if (value.on_focus_weight != null) this.onFocusWeight = value.on_focus_weight;
+        if (value.prevent_border != null) this.preventBorder = value.prevent_border;
 
         return value;
     }

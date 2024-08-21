@@ -22,7 +22,8 @@ class TestThemeProvider extends Test {
             font_family : 'Saira, Open Sans',
             font_weight: CrappUIStyleFontWeightType.NORMAL,
             corners : 6,
-            on_focus_weight : 0.06
+            on_focus_weight : 0.06,
+            prevent_border : false
         }
 
         var valueMergeWith:CrappUIStyleData = {
@@ -39,7 +40,8 @@ class TestThemeProvider extends Test {
             font_family : 'Saira, Open Sans',
             font_weight: CrappUIStyleFontWeightType.NORMAL,
             corners : 6,
-            on_focus_weight : 0.06
+            on_focus_weight : 0.06,
+            prevent_border : false
         }
 
         var result:CrappUIStyleData;
@@ -63,7 +65,8 @@ class TestThemeProvider extends Test {
             font_family : 'Saira, Open Sans',
             font_weight: CrappUIStyleFontWeightType.NORMAL,
             corners : 6,
-            on_focus_weight : 0.06
+            on_focus_weight : 0.06,
+            prevent_border : false
         }
 
         var result:CrappUIStyleData;
@@ -97,7 +100,8 @@ class TestThemeProvider extends Test {
             font_family : 'Saira, Open Sans',
             font_weight: CrappUIStyleFontWeightType.NORMAL,
             corners : 6,
-            on_focus_weight : 0.06
+            on_focus_weight : 0.06,
+            prevent_border : false
         }
 
         var result:CrappUIStyleData;
@@ -134,7 +138,8 @@ class TestThemeProvider extends Test {
             font_family : 'Saira, Open Sans',
             font_weight: CrappUIStyleFontWeightType.NORMAL,
             corners : 6,
-            on_focus_weight : 0.06
+            on_focus_weight : 0.06,
+            prevent_border : false
         }
 
         var result:CrappUIStyleData;
@@ -176,7 +181,8 @@ class TestThemeProvider extends Test {
             font_family : 'Saira, Open Sans',
             font_weight: CrappUIStyleFontWeightType.NORMAL,
             corners : 6,
-            on_focus_weight : 0.06
+            on_focus_weight : 0.06,
+            prevent_border : false
         }
 
         var result:CrappUIStyleData;
@@ -225,7 +231,8 @@ class TestThemeProvider extends Test {
             font_family : 'Saira, Open Sans',
             font_weight: CrappUIStyleFontWeightType.NORMAL,
             corners : 6,
-            on_focus_weight : 0.06
+            on_focus_weight : 0.06,
+            prevent_border : false
         }
 
         var result:CrappUIStyleData;

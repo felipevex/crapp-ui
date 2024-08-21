@@ -33,7 +33,8 @@ class CrappUIThemeProvider {
             font_family : 'Saira, Open Sans',
             font_weight : CrappUIStyleFontWeightType.NORMAL,
             corners : 6,
-            on_focus_weight : 0.06
+            on_focus_weight : 0.06,
+            prevent_border : false
         };
         
         result = this.mergeStyles(result, style);
@@ -121,7 +122,8 @@ class CrappUIThemeProvider {
             font_family : mergeWith.font_family != null ? mergeWith.font_family : mergeFrom.font_family,
             font_weight : mergeWith.font_weight != null ? mergeWith.font_weight : mergeFrom.font_weight,
             corners : mergeWith.corners != null ? mergeWith.corners : mergeFrom.corners,
-            on_focus_weight : mergeWith.on_focus_weight != null ? mergeWith.on_focus_weight : mergeFrom.on_focus_weight
+            on_focus_weight : mergeWith.on_focus_weight != null ? mergeWith.on_focus_weight : mergeFrom.on_focus_weight,
+            prevent_border : mergeWith.prevent_border != null ? mergeWith.prevent_border : mergeFrom.prevent_border
         };
     }
 

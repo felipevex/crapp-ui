@@ -253,13 +253,15 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
     }
 
     inline private function paintBorder(style:CrappUIStyle):Void {
-        this.border = new PriBorderStyle(2, style.onColor.color.mix(style.color.color, 0.5));
+        this.border = style.preventBorder
+            ? null 
+            : new PriBorderStyle(2, style.onColor.color.mix(style.color.color, 0.5));
     }
 
     inline private function paintCorners(style:CrappUIStyle, size:CrappUISizeReference):Void {
         this.corners = [Math.round(style.corners * size.toFloat())];
     }
-
+    
     override function kill() {
         this.composite.reset();
         for (c in this.composite) c.kill();

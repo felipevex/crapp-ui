@@ -16,6 +16,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton id="red" />
             <private:CrappUIButton id="small" />
             <private:CrappUIButton autoSize=":false" width="200" />
+            <private:CrappUIButton id="noborder" label="NO BORDER" />
             <private:CrappUILayotable vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
                 <private:CrappUIButton hLayoutSize="FLEX" />
                 <private:CrappUIButton hLayoutSize="FLEX" />
@@ -35,6 +36,10 @@ class SceneButton extends CrappUIScene {
             on_color: 0xFFFFFF
         }
 
+        this.noborder.style = {
+            prevent_border : true
+        }
+        
         haxe.Timer.delay(() -> {
             this.small.style = {
                 size: 10
