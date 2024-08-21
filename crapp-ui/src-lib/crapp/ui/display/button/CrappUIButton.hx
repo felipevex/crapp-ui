@@ -97,8 +97,7 @@ class CrappUIButton extends CrappUIDisplay {
         this.composite.get(OverEffectComposite).updateDisplay();
         
         var style:CrappUIStyle = this.composite.get(OverEffectComposite).style;
-        trace(style.preventBorder);
-
+        
         this.corners = [Math.round(CrappUISizeReference.TINY * style.corners)];
         this.border = style.preventBorder || style.onColor.brightness >= style.color.brightness
             ? null
