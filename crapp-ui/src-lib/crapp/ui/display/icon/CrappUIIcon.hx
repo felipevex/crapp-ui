@@ -1,5 +1,6 @@
 package crapp.ui.display.icon;
 
+import js.html.Element;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.data.CrappUIStyleData;
@@ -11,7 +12,7 @@ class CrappUIIcon extends CrappUIDisplay {
     @:isVar public var icon(get, set):FontAwesomeIconType = FontAwesomeIconType.COG;
     @:isVar public var size(default, set):CrappUISizeReference = CrappUISizeReference.LARGE;
 
-    private var iconDisplay:FontAwesomeIcon;
+    private var iconDisplay:FixedIcon;
 
     public function new() {
         super();
@@ -22,7 +23,10 @@ class CrappUIIcon extends CrappUIDisplay {
     override function setup() {
         super.setup();
 
-        this.iconDisplay = new FontAwesomeIcon(this.icon);
+        this.clipping = false;
+
+        this.iconDisplay = new FixedIcon(this.icon);
+        this.iconDisplay.clipping = false;
 
         this.addChildList([
             this.iconDisplay
@@ -61,5 +65,30 @@ class CrappUIIcon extends CrappUIDisplay {
         this.size = value;
         this.updateDisplay();
         return value;
+    }
+}
+
+private class FixedIcon extends FontAwesomeIcon {
+    override private function updateIcon():Void {
+
+        this.dh.jselement.innerHTML = '<i class="${this.icon}"></i>';
+
+        this.getFontAwesome().dom.i2svg(
+            {
+                node : this.dh.jselement,
+
+                callback:function():Void {
+
+                    var svg:Element = this.dh.jselement.getElementsByTagName("svg").item(0);
+
+                    if (svg != null) {
+                        svg.style.width = "100%";
+                        svg.style.height = "100%";
+                        svg.style.top = "0px";
+                        svg.style.position = "absolute";
+                    }
+                }
+            }
+        );
     }
 }
