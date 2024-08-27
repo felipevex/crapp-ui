@@ -18,6 +18,7 @@ import crapp.ui.display.app.CrappUIApp;
         <route scene="front.scene.text.SceneTextIcon" route="text/icon" />
         <route scene="front.scene.button.SceneButton" route="button/button" />
         <route scene="front.scene.button.SceneButtonIcon" route="button/icon" />
+        <route scene="front.scene.button.SceneButtonSurface" route="button/surface" />
         <route scene="front.scene.input.SceneInputText" route="input/text" />
         <route scene="front.scene.input.SceneInputSelect" route="input/select" />
         <route scene="front.scene.style.SceneStyle" route="style" />
