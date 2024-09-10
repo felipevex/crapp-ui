@@ -31,6 +31,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
     @:isVar public var data(default, set):Array<T>;
 
     public var labelField(get, set):String;
+    public var labelFieldFunction(get, set):(value:T)->String;
 
     public function new() {
         super();
@@ -47,6 +48,18 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
     private function set_labelField(value:String):String {
         if (value == null) return value;
         this.input.labelField = value;
+        return value;
+    }
+
+    private function get_labelFieldFunction():(value:T)->String return this.input.labelFieldFunction;
+    private function set_labelFieldFunction(value:(value:T)->String):(value:T)->String {
+        if (value == null) return value;
+        
+        this.input.labelFieldFunction = (v:T) -> {
+            if (Std.isOfType(v, String) && Std.string(v) == '') return '';
+            return value(v);
+        };
+
         return value;
     }
 

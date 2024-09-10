@@ -22,6 +22,7 @@ import crapp.ui.display.app.CrappUIScene;
             <CrappUISelectInput id="inputChangeDelay" data:Literal="this.selectData" type="<InputSelectData>" />
             <CrappUISelectInput id="inputError" label="ERROR TEST" data:Literal="this.selectData" type="<InputSelectData>" />
             <CrappUISelectInput id="noborder" data:Literal="this.selectData" type="<InputSelectData>" label="NO BORDER" />
+            <CrappUISelectInput id="labelFunc" data:Literal="this.selectData" type="<InputSelectData>" label="LABEL FUNCTION" />
             
             <private:CrappUILayotable id="distribute" vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
                 <CrappUISelectInput type="<InputSelectData>" hLayoutSize="FLEX" />
@@ -55,6 +56,10 @@ class SceneInputSelect extends CrappUIScene {
 
         noborder.style = {
             prevent_border : true
+        }
+
+        this.labelFunc.labelFieldFunction = (value:InputSelectData) -> {
+            return 'Double ${value.value} -> ${value.value * 2}';
         }
 
         haxe.Timer.delay(() -> {
