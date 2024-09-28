@@ -2,10 +2,8 @@ package crapp.ui.display.input;
 
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import priori.types.PriTransitionType;
-import priori.geom.PriColor;
 import priori.fontawesome.FontAwesomeIconType;
 import priori.fontawesome.FontAwesomeIcon;
-import priori.fontawesome.PriFAIcon;
 import js.Browser;
 import priori.view.form.PriFormSelect;
 import haxe.Timer;
@@ -24,8 +22,9 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
     private var labelDisplay:PriText;
     private var input:PriFormSelect;
     private var delayedChangeTimer:Timer;
-
     private var arrow:FontAwesomeIcon;
+
+    @:isVar public var allowNoSelection(default, set):Bool = true;
 
     @:isVar public var label(default, set):String = "LABEL";
     @:isVar public var data(default, set):Array<T>;
@@ -42,6 +41,16 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
         this.width = 300;
 
         haxe.Timer.delay(this.allowTransition.bind(PriTransitionType.BACKGROUND_COLOR, 0.2), 1);
+    }
+
+    private function set_allowNoSelection(value:Bool):Bool {
+        if (value == null || this.allowNoSelection == value) return value;
+
+        this.allowNoSelection = value;
+        var data = this.data;
+        this.data = data;
+
+        return value;
     }
 
     private function get_labelField():String return this.input.labelField;
@@ -68,7 +77,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
         this.data = value;
 
         var content:Array<Dynamic> = [];
-        content.push("");
+        if (this.allowNoSelection) content.push("");
         if (this.data != null) for (item in this.data) content.push(item);
 
         this.input.data = content;
@@ -76,7 +85,11 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
         return value;
     }
 
-    override private function get_value():T return this.input.selectedIndex == 0 ? null : this.input.selected;
+    override private function get_value():T {
+        return this.input.selectedIndex == 0 && this.allowNoSelection
+            ? null : 
+            this.input.selected;
+    }
 
 	override private function set_value(value:T):T {
         if (value == null) return value;
@@ -160,10 +173,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
     }
 
     inline private function hasContentOrSelection():Bool {
-        // if (this.input.hasFocus()) return true;
-        // else 
-        
-        if (this.input.selected != null && this.input.selectedIndex > 0) return true;
+        if (this.input.selected != null && (!this.allowNoSelection || this.input.selectedIndex > 0)) return true;
         else return false;
     }
 

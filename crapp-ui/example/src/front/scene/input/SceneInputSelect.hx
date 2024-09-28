@@ -23,7 +23,7 @@ import crapp.ui.display.app.CrappUIScene;
             <CrappUISelectInput id="inputError" label="ERROR TEST" data:Literal="this.selectData" type="<InputSelectData>" />
             <CrappUISelectInput id="noborder" data:Literal="this.selectData" type="<InputSelectData>" label="NO BORDER" />
             <CrappUISelectInput id="labelFunc" data:Literal="this.selectData" type="<InputSelectData>" label="LABEL FUNCTION" />
-            
+            <CrappUISelectInput id="forceSelection" data:Literal="this.selectData" type="<InputSelectData>" label="FORCE SELECTION" />
             <private:CrappUILayotable id="distribute" vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
                 <CrappUISelectInput type="<InputSelectData>" hLayoutSize="FLEX" />
                 <CrappUISelectInput type="<InputSelectData>" hLayoutSize="FLEX" />
@@ -79,6 +79,8 @@ class SceneInputSelect extends CrappUIScene {
         this.inputError.addValidation((value:InputSelectData) -> {
             if (value == null) throw "Value is required";
         });
+
+        this.forceSelection.allowNoSelection = false;
 
         CrappUIThemeProvider.get().setTheme({
             theme : "InputTheme",
