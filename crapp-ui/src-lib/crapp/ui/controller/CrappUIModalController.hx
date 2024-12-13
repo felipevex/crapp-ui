@@ -1,5 +1,6 @@
 package crapp.ui.controller;
 
+import priori.style.filter.PriFilterStyle;
 import priori.scene.PriSceneManagerEvents;
 import tricks.layout.LayoutAlignment;
 import crapp.ui.display.layout.CrappUILayotable;
@@ -15,6 +16,11 @@ import priori.app.PriApp;
 
 @:access(crapp.ui.display.modal.CrappUIModal)
 class CrappUIModalController {
+
+    public static var USE_BLUR:Bool = false;
+    public static var BLUR_STRENGTH:Int = 5;
+    public static var BACKGROUND_ALPHA:Float = 0.3;
+    public static var BACKGROUND_COLOR:Int = 0x000000;
     
     private static var _singleton:CrappUIModalController;
 
@@ -95,19 +101,18 @@ class CrappUIModalController {
         item.background.right = 0;
         item.background.top = 0;
         item.background.bottom = 0;
-        item.background.bgColor = 0x000000;
+        item.background.bgColor = BACKGROUND_COLOR;
         item.background.allowTransition(PriTransitionType.ALPHA, 0.1);
 
         item.modal.alpha = 0;
         item.modal.allowTransition(PriTransitionType.ALPHA, 0.15);
 
         for (o in this.modals) {
-            if (o.modal == item.modal) item.modal.disabled = false;
-            else o.modal.disabled = true;
+            if (o.modal == item.modal) this.enableModal(o);
+            else this.disableModal(o);
         }
 
-        PriApp.g().setFocus();
-        PriSceneManager.use().holder.disabled = true;
+        this.blockSceneHolder();
 
         this.modalContainer.addChildList([
             item.background,
@@ -118,9 +123,34 @@ class CrappUIModalController {
         item.modal.onOpenModal();
 
         haxe.Timer.delay(function():Void {
-            item.background.alpha = 0.3;
+            item.background.alpha = BACKGROUND_ALPHA;
             item.modal.alpha = 1;
         }, 5);
+    }
+
+    inline private function blockSceneHolder():Void {
+        PriApp.g().setFocus();
+        PriSceneManager.use().holder.disabled = true;
+        if (USE_BLUR) PriSceneManager.use().holder.filter = new PriFilterStyle().setBlur(BLUR_STRENGTH);
+    }
+
+    inline private function releaseSceneHolder():Void {
+        PriSceneManager.use().holder.disabled = false;
+        PriSceneManager.use().holder.filter = null;
+    }
+
+    inline private function disableModal(modal:CrappUIModalElement):Void {
+        if (modal.modal.disabled) return;
+
+        modal.modal.disabled = true;
+        if (USE_BLUR) modal.modal.filter = new PriFilterStyle().setBlur(BLUR_STRENGTH);
+    }
+
+    inline private function enableModal(modal:CrappUIModalElement):Void {
+        if (!modal.modal.disabled) return;
+
+        modal.modal.disabled = false;
+        modal.modal.filter = null;
     }
 
     public function remove(modal:CrappUIModal):Void {
@@ -149,8 +179,8 @@ class CrappUIModalController {
 
         this.modals.remove(item);
 
-        if (this.modals.length == 0) PriSceneManager.use().holder.disabled = false;
-        else this.modals[this.modals.length-1].modal.disabled = false;
+        if (this.modals.length == 0) this.releaseSceneHolder();
+        else this.enableModal(this.modals[this.modals.length-1]);
 
         item.modal.onCloseModal();
         item.background.kill();
