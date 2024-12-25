@@ -226,7 +226,7 @@ class CrappUIModalController {
     }
 
     private function onCloseModal(e:PriEvent):Void {
-        if (Std.is(e.target, PriEvent)) {
+        if (Std.is(e.target, CrappUIModal)) {
             var o:CrappUIModal = cast e.target;
             this.remove(o);
         }
