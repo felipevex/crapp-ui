@@ -1,5 +1,6 @@
 package crapp.ui.display.input;
 
+import crapp.ui.composite.builtin.DisabledEffectComposite;
 import priori.types.PriTransitionType;
 import priori.fontawesome.FontAwesomeIconType;
 import crapp.ui.display.text.CrappUITextIcon;
@@ -19,6 +20,18 @@ class CrappUIInput<T> extends CrappUIDisplay {
 		this.validatorsErrorMessage = '';
 
 		super();
+	}
+
+	override function setup() {
+		this.composite.add(DisabledEffectComposite);
+
+		super.setup();
+	}
+
+	override function paint() {
+		this.composite.get(DisabledEffectComposite).updateDisplay();
+		
+		super.paint();
 	}
 
 	private function createErrorMessage():Void {

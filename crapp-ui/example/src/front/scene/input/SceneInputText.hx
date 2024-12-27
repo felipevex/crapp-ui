@@ -16,6 +16,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUITextInput width="100" />
             <private:CrappUITextInput value="Value Pre Defined" />
             <private:CrappUITextInput label="Write your label here" />
+            <private:CrappUITextInput label="Disabled" disabled=":true" />
             <private:CrappUITextInput id="inputChange" label="TEST INPUT CHANGE" />
             <private:CrappUITextInput id="inputChangeDelay" label="TEST CHANGE WITH DELAY" />
             <private:CrappUITextInput id="red" />

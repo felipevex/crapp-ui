@@ -15,6 +15,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton label="MY LABEL" />
             <private:CrappUIButton id="red" />
             <private:CrappUIButton id="small" />
+            <private:CrappUIButton label="DISABLED" disabled=":true" />
             <private:CrappUIButton autoSize=":false" width="200" />
             <private:CrappUIButton id="noborder" label="NO BORDER" />
             <private:CrappUILayotable vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >

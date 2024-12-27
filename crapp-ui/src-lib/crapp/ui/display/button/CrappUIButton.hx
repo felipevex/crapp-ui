@@ -1,5 +1,6 @@
 package crapp.ui.display.button;
 
+import crapp.ui.composite.builtin.DisabledEffectComposite;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import crapp.ui.composite.builtin.ButtonableComposite;
 import crapp.ui.composite.builtin.OverEffectComposite;
@@ -65,6 +66,7 @@ class CrappUIButton extends CrappUIDisplay {
     override function setup() {
         this.composite.add(OverEffectComposite);
         this.composite.add(ButtonableComposite);
+        this.composite.add(DisabledEffectComposite);
 
         this.displayLabel = new CrappUIText();
         this.displayLabel.actions.onResize = this.updateDisplay;
@@ -74,6 +76,7 @@ class CrappUIButton extends CrappUIDisplay {
         this.addChildList([
             this.displayLabel
         ]);
+
     }
 
     private function set_autoSize(value:Bool):Bool {
@@ -93,8 +96,23 @@ class CrappUIButton extends CrappUIDisplay {
         return value;
     }
 
+    private function paint_drawThisSize(autoSize:Bool, space:Float):Void {
+        this.height = this.displayLabel.height + space * 2;
+
+        if (autoSize) this.width = this.displayLabel.width + space * 3.5;
+        else this.displayLabel.width = this.width - space * 3.5;
+    }
+
+    private function paint_drawLabelPosition(autoSize:Bool, space:Float):Void {
+        this.displayLabel.startBatchUpdate();
+        this.displayLabel.centerY = this.height/2 + 1;
+        this.displayLabel.centerX = this.width/2;
+        this.displayLabel.endBatchUpdate();
+    }
+
     override private function paint():Void {
         this.composite.get(OverEffectComposite).updateDisplay();
+        this.composite.get(DisabledEffectComposite).updateDisplay();
         
         var style:CrappUIStyle = this.composite.get(OverEffectComposite).style;
         
@@ -103,17 +121,8 @@ class CrappUIButton extends CrappUIDisplay {
             ? null
             : new PriBorderStyle(2, style.onColor.color);
 
-        if (this.autoSize) {
-            this.height = this.displayLabel.height + style.space * 2;
-            this.width = this.displayLabel.width + style.space * 3.5;
-        } else {
-            this.displayLabel.width = this.width - style.space * 3.5;
-        }
-        
-        this.displayLabel.startBatchUpdate();
-        this.displayLabel.centerY = this.height/2 + 1;
-        this.displayLabel.centerX = this.width/2;
-        this.displayLabel.endBatchUpdate();
+        this.paint_drawThisSize(this.autoSize, style.space);
+        this.paint_drawLabelPosition(this.autoSize, style.space);
     }
 
 }

@@ -16,6 +16,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton id="testText" label="TEXTS" />
             <private:CrappUIButton id="testTextIcon" label="TEXTS - ICON" />
             <private:CrappUIButton id="testButton" label="BUTTONS - BUTTON" />
+            <private:CrappUIButton id="testButtonIconText" label="BUTTONS - BUTTON ICON TEXT" />
             <private:CrappUIButton id="testButtonIcon" label="BUTTONS - ICON" />
             <private:CrappUIButton id="testButtonSurface" label="BUTTONS - SURFACE" />
             <private:CrappUIButton id="testInputText" label="INPUT - TEXT" />
@@ -42,6 +43,7 @@ class SceneHome extends CrappUIScene {
         this.testText.actions.onClick = () -> PriSceneManager.singleton().navigate('text');
         this.testTextIcon.actions.onClick = () -> PriSceneManager.singleton().navigate('text/icon');
         this.testButton.actions.onClick = () -> PriSceneManager.singleton().navigate('button/button');
+        this.testButtonIconText.actions.onClick = () -> PriSceneManager.singleton().navigate('button/icon/text');
         this.testButtonIcon.actions.onClick = () -> PriSceneManager.singleton().navigate('button/icon');
         this.testButtonSurface.actions.onClick = () -> PriSceneManager.singleton().navigate('button/surface');
         this.testInputText.actions.onClick = () -> PriSceneManager.singleton().navigate('input/text');

@@ -16,6 +16,7 @@ import crapp.ui.display.app.CrappUIScene;
             <CrappUISelectInput data:Literal="this.selectData" type="<InputSelectData>" />
             <CrappUISelectInput data:Literal="this.selectData" type="<InputSelectData>" label="Write Other Label" />
             <CrappUISelectInput data:Literal="this.selectData" type="<InputSelectData>" label="Change the Value Label" labelField="value" />
+            <CrappUISelectInput data:Literal="this.selectData" disabled=":true" type="<InputSelectData>" label="Disabled" labelField="value" />
             <CrappUISelectInput id="red" data:Literal="this.selectData" type="<InputSelectData>" />
             <CrappUISelectInput id="small" data:Literal="this.selectData" type="<InputSelectData>" />
             <CrappUISelectInput id="inputChange" data:Literal="this.selectData" type="<InputSelectData>" />

@@ -1,5 +1,6 @@
 package crapp.ui.display;
 
+import crapp.ui.event.CrappUIEventType;
 import priori.event.PriEvent;
 import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.style.CrappUIStyleManager;
@@ -58,6 +59,9 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
         
         super();
 
+        // prevent icon render bug - i dont know why
+        this.addEventListener(CrappUIEventType.STYLE_CHANGE, (e) -> {});
+        
         this.styleManager.start(this);
     }
 
@@ -147,7 +151,9 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
 
     override function set_disabled(value:Bool):Bool {
         this.mouseEnabled = !value;
-        return super.set_disabled(value);
+        var result:Bool = super.set_disabled(value);
+        this.updateDisplay();
+        return result;
     }
 
     function get_layout():LayoutElement<CrappUIDisplay> {

@@ -9,7 +9,7 @@ import priori.fontawesome.FontAwesomeIcon;
 
 class CrappUIIcon extends CrappUIDisplay {
 
-    @:isVar public var icon(get, set):FontAwesomeIconType = FontAwesomeIconType.COG;
+    @:isVar public var icon(default, set):FontAwesomeIconType = FontAwesomeIconType.COG;
     @:isVar public var size(default, set):CrappUISizeReference = CrappUISizeReference.LARGE;
 
     private var iconDisplay:FixedIcon;
@@ -21,6 +21,7 @@ class CrappUIIcon extends CrappUIDisplay {
     }
 
     override function setup() {
+        
         super.setup();
 
         this.clipping = false;
@@ -45,7 +46,6 @@ class CrappUIIcon extends CrappUIDisplay {
         this.setDisplaySize(this.iconDisplay.width, this.iconDisplay.height);
     }
 
-    private function get_icon():FontAwesomeIconType return this.icon;
     private function set_icon(value:FontAwesomeIconType):FontAwesomeIconType {
         if (value == null || value == this.icon) return value;
         this.icon = value;

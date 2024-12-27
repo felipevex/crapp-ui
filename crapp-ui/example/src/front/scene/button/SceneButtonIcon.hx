@@ -22,6 +22,8 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButtonIcon size:L="CrappUISizeReference.EXTRA" />
             <private:CrappUIButtonIcon size:L="CrappUISizeReference.LARGE" />
             <private:CrappUIButtonIcon size:L="CrappUISizeReference.XLARGE" />
+            
+            <private:CrappUIButtonIcon icon:L="FontAwesomeIconType.BAN" disabled=":true" />
 
             <private:CrappUIButtonIcon icon:L="FontAwesomeIconType.THUMBS_UP" />
             <private:CrappUIButtonIcon id="button" icon:L="FontAwesomeIconType.VOLUME_UP" z="3" />
