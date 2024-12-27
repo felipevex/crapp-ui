@@ -39,6 +39,7 @@ class CrappUIButtonIconText extends CrappUIButton {
         super.setup();
 
         this.iconDisplay = new CrappUIIcon();
+        this.iconDisplay.tag = null;
         this.iconDisplay.size = CrappUISizeReference.EXTRA;
 
         this.addChild(this.iconDisplay);
