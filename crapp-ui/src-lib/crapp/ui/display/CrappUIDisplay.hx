@@ -59,9 +59,6 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
         
         super();
 
-        // prevent icon render bug - i dont know why
-        this.addEventListener(CrappUIEventType.STYLE_CHANGE, (e) -> {});
-        
         this.styleManager.start(this);
     }
 
