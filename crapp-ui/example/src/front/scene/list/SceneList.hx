@@ -27,6 +27,7 @@ import crapp.ui.display.app.CrappUIScene;
 class SceneList extends CrappUIScene {
     
     override function setup() {
+        
         this.list.data = [
             { id: 1, name: "Item 1" },
             { id: 2, name: "Item 2" },
@@ -49,6 +50,7 @@ class SceneList extends CrappUIScene {
             { id: 19, name: "Item 19" },
             { id: 20, name: "Item 20" }
         ];
+        
     }
 }
 
@@ -79,7 +81,7 @@ private class ListChildren extends CrappUIListChild<ListChildrenData> {
     }
 
     override function updateData():Void {
-        this.label.text = this.data.name;
+        this.label.text = this.data.name + ' (${this.list.data.length} total)';
         this.bgColor = this.index % 2 == 0 ? 0xDDDDDD : 0xADADAD;
     }
 
