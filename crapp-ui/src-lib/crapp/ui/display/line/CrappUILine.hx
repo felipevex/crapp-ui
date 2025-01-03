@@ -31,11 +31,11 @@ class CrappUILine extends CrappUIDisplay {
 
         switch (value) {
             case HORIZONTAL : {
-                this.height = 0;
+                this.height = this.thickness;
                 this.width = size;
             }
             case VERTICAL : {
-                this.width = 0;
+                this.width = this.thickness;
                 this.height = size;
             }
         }
@@ -56,6 +56,12 @@ class CrappUILine extends CrappUIDisplay {
         if (value == null) return value;
 
         this.thickness = value;
+
+        switch (this.orientation) {
+            case HORIZONTAL : this.height = this.thickness;
+            case VERTICAL : this.width = this.thickness;
+        }
+
         this.updateDisplay();
         return value;
     }
@@ -104,5 +110,15 @@ class CrappUILine extends CrappUIDisplay {
         super.set_height(this.orientation == CrappUILineOrientationType.VERTICAL ? value : 0);
         return value;
     }
+
+    override private function get_width():Float return switch (this.orientation) {
+        case HORIZONTAL : super.get_width();
+        case VERTICAL : this.thickness;
+    };
+    
+    override private function get_height():Float return switch (this.orientation) {
+        case HORIZONTAL : this.thickness;
+        case VERTICAL : super.get_height();
+    };
 
 }
