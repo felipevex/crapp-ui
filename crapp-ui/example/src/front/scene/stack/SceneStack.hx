@@ -48,8 +48,8 @@ class SceneStack extends CrappUIScene {
 
         
 
-        this.stack.setDefaultStackChidlClass(StackChild);
-        this.stack.addStacks(data);
+        this.stack.defaultChild = StackChild;
+        this.stack.data = data;
         
 
         haxe.Timer.delay(this.stack.clearStack, 4000);

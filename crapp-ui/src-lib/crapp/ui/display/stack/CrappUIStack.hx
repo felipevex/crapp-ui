@@ -6,11 +6,28 @@ import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.CrappUIStyle;
 import crapp.ui.display.layout.CrappUILayotable;
 
+
+@priori('
+<priori>
+    <imports>
+        
+    </imports>
+    <view 
+        vLayoutAlignment="MIN" 
+        vLayoutDistribution="SIDE" 
+        vLayoutGap="0" 
+        vLayoutSize="FIT" 
+        defaultChild:L="CrappUIStackChild"
+    >
+    </view>
+</priori>
+')
 class CrappUIStack extends CrappUILayotable {
 
     private var stacks:Array<CrappUIDisplay>;
 
-    private var defaultStackChildClass:Class<Dynamic>;
+    @:isVar public var defaultChild(default, set):Class<CrappUIStackChild<Any>>;
+    public var data(null, set):Array<Any>;
 
     public function new() {
         this.stacks = [];
@@ -20,15 +37,23 @@ class CrappUIStack extends CrappUILayotable {
         this.tag = CrappUIStyleDefaultTagType.STACK;
     }
 
+
+    private function set_defaultChild(value:Class<CrappUIStackChild<Any>>):Class<CrappUIStackChild<Any>> {
+        if (value == null) return value;
+        this.defaultChild = value;
+        return value;
+    }
+
+    private function set_data(value:Array<Any>):Array<Any> {
+        if (value == null) return value;
+        this.clearStack();
+        this.addStacks(value);
+        return value;
+        
+    }
+
     override private function setup():Void {
         super.setup();
-
-        this.setDefaultStackChidlClass(CrappUIStackChild);
-
-        this.vLayoutAlignment = MIN;
-        this.vLayoutDistribution = SIDE;
-        this.vLayoutGap = 0;
-        this.vLayoutSize = FIT;
     }
 
     override private function paint():Void {
@@ -48,12 +73,8 @@ class CrappUIStack extends CrappUILayotable {
 
     }
 
-    public function setDefaultStackChidlClass<T>(stackChildClass:Class<CrappUIStackChild<T>>):Void {
-        this.defaultStackChildClass = stackChildClass;
-    }
-
     public function addStacks<T>(data:Array<T>):Void {
-        for (data in data) this.addStackItem(data, cast this.defaultStackChildClass);
+        for (data in data) this.addStackItem(data, cast this.defaultChild);
     }
 
     public function addStackItem<T>(data:T, stackChildClass:Class<CrappUIStackChild<T>>):Void {
