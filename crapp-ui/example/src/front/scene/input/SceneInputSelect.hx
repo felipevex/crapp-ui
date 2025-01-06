@@ -1,7 +1,6 @@
 package front.scene.input;
 
 import crapp.ui.style.theme.CrappUIThemeProvider;
-import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.display.input.CrappUISelectInput;
 import crapp.ui.display.app.CrappUIScene;
 
