@@ -24,6 +24,10 @@ class OverEffectComposite extends CrappUIComposite {
         this.display.bgColor = bgColor;
     }
 
+    public function reset():Void {
+        if (this.tapController != null) this.tapController.reset();
+    }
+
     override function setup() {
         this.tapController = new CrappUITapController(this.display, this.updateDisplay);
         
