@@ -25,6 +25,17 @@ class CrappUITapController {
         this.initializeEvents();
     }
 
+    public function reset():Void {
+        if (this.o == null) return;
+        
+        this.isDown = false;
+        this.isOver = false;
+        this.isFocused = false;
+
+        PriApp.g().removeEventListener(PriTapEvent.TAP_UP, this.onUp);
+        PriApp.g().removeEventListener(PriTapEvent.TOUCH_UP, this.onUp);
+    }
+
     private function initializeEvents():Void {
         this.o.addEventListener(PriMouseEvent.MOUSE_OVER, this.onOverIn);
         this.o.addEventListener(PriMouseEvent.MOUSE_OUT, this.onOverOut);
@@ -38,69 +49,67 @@ class CrappUITapController {
     }
 
     private function onOverIn(e:PriEvent):Void {
-        if (!this.isOver) {
-            this.isOver = true;
-            this.doUpdate();
-        }
+        if (this.isOver) return;
+    
+        this.isOver = true;
+        this.doUpdate();
     }
 
     private function onOverOut(e:PriEvent):Void {
-        if (this.isOver) {
-            this.isOver = false;
-            this.doUpdate();
-        }
+        if (!this.isOver) return;
+
+        this.isOver = false;
+        this.doUpdate();
     }
 
     private function onFocusIn(e:PriEvent):Void {
-        if (!this.isFocused) {
-            this.isFocused = true;
-            this.doUpdate();
-        }
+        if (this.isFocused) return;
+
+        this.isFocused = true;
+        this.doUpdate();
     }
 
     private function onFocusOut(e:PriEvent):Void {
         this.o.removeFocus();
 
-        if (this.isFocused) {
-            this.isFocused = false;
-            this.doUpdate();
-        }
+        if (!this.isFocused) return;
+
+        this.isFocused = false;
+        this.doUpdate();
     }
 
     private function onDown(e:PriEvent):Void {
-        if (!this.isDown) {
-            this.isDown = true;
-            this.isFocused = true;
-            
-            PriApp.g().addEventListener(PriTapEvent.TOUCH_UP, this.onUp);
-            PriApp.g().addEventListener(PriTapEvent.TAP_UP, this.onUp);
+        if (this.isDown) return;
+    
+        this.isDown = true;
+        this.isFocused = true;
+        
+        PriApp.g().addEventListener(PriTapEvent.TOUCH_UP, this.onUp);
+        PriApp.g().addEventListener(PriTapEvent.TAP_UP, this.onUp);
 
-            this.doUpdate();
-        }
+        this.doUpdate();
     }
 
     private function onUp(e:PriEvent):Void {
-        if (this.isDown) {
-            this.isDown = false;
+        if (!this.isDown) return;
+    
+        this.isDown = false;
 
-            PriApp.g().setFocus();
+        PriApp.g().setFocus();
 
-            // this.isOver = false;
-            this.isFocused = false;
+        // this.isOver = false;
+        this.isFocused = false;
 
-            haxe.Timer.delay(
-                function():Void {
-                    if (this.o == null) return;
-                    if (this.o.disabled || !this.o.hasApp()) {
-                        this.isOver = false;
-                        this.isFocused = false;
-                    }
+        haxe.Timer.delay(() -> {
+            if (this.o == null) return;
+            if (this.o.disabled || !this.o.hasApp()) {
+                this.isOver = false;
+                this.isFocused = false;
+            }
 
-                    if (this.doUpdate != null) this.doUpdate();
-                },
-                10
-            );
-        }
+            if (this.doUpdate != null) this.doUpdate();
+
+        }, 10);
 
         PriApp.g().removeEventListener(PriTapEvent.TAP_UP, this.onUp);
         PriApp.g().removeEventListener(PriTapEvent.TOUCH_UP, this.onUp);
