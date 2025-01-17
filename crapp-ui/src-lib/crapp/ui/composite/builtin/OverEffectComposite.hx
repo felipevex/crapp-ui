@@ -1,5 +1,6 @@
 package crapp.ui.composite.builtin;
 
+import crapp.ui.style.CrappUIColor;
 import crapp.ui.style.CrappUIStyle;
 import priori.geom.PriColor;
 import crapp.ui.controller.CrappUITapController;
@@ -10,18 +11,31 @@ class OverEffectComposite extends CrappUIComposite {
     public var tapController:CrappUITapController;
     public var style:CrappUIStyle;
 
+    public var mixFocusColor(default, set):Bool = false;
+
     public function updateDisplay():Void {
         this.style = CrappUIStyle.fromData(this.display.style);
 
-        var overColor:PriColor = this.tapController.isDown
-            ? this.style.onFocusColor().darker
-            : this.style.onFocusColor();
-
         var bgColor:PriColor = (this.tapController.isOver || this.tapController.isFocused)
-            ? overColor
+            ? this.tapController.isDown
+                ? this.mixFocusColor
+                    ? new CrappUIColor(this.style.color.color.mix(this.style.onColor.color, this.style.onFocusWeight)).darker
+                    : this.style.onFocusColor().darker
+                : this.mixFocusColor
+                    ? this.style.color.color.mix(this.style.onColor.color, this.style.onFocusWeight)
+                    : this.style.onFocusColor()
             : this.style.color.color;
         
         this.display.bgColor = bgColor;
+    }
+
+    private function set_mixFocusColor(value:Bool):Bool {
+        if (value == null) return value;
+        
+        this.mixFocusColor = value;
+        this.updateDisplay();
+        
+        return value;
     }
 
     public function reset():Void {
