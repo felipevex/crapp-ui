@@ -3,7 +3,7 @@ package crapp.ui.controller;
 import priori.style.filter.PriFilterStyle;
 import priori.scene.PriSceneManagerEvents;
 import tricks.layout.LayoutAlignment;
-import crapp.ui.display.layout.CrappUILayotable;
+import crapp.ui.display.layout.CrappUILayout;
 import crapp.ui.display.CrappUIDisplay;
 import crapp.ui.display.modal.CrappUIModal;
 import priori.event.PriEvent;
@@ -30,10 +30,10 @@ class CrappUIModalController {
     }
 
     private var modals:Array<CrappUIModalElement> = [];
-    private var modalContainer:CrappUILayotable;
+    private var modalContainer:CrappUILayout;
 
     private function new() {
-        this.modalContainer = new CrappUILayotable();
+        this.modalContainer = new CrappUILayout();
         this.modalContainer.left = 0;
         this.modalContainer.top = 0;
         this.modalContainer.right = 0;

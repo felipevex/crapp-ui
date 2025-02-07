@@ -6,10 +6,10 @@ import crapp.ui.display.app.CrappUIScene;
 <priori>
     <imports>
         <crapp.ui.display.text.CrappUIText />
-        <crapp.ui.display.layout.CrappUILayotable />
+        <crapp.ui.display.layout.CrappUILayout />
     </imports>
     <view>
-        <private:CrappUILayotable hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
+        <private:CrappUILayout hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
             <private:CrappUIText />
             <private:CrappUIText text="This is a loooooooong text" />
             <private:CrappUIText id="textStyle" text="This is a text with style" />
@@ -17,7 +17,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIText autoSize=":false" multiLine=":true" width="150" text="This is a loooooooong text with multiline on" />
             <private:CrappUIText selectable=":true" text="This is a selectable text" />
             <private:CrappUIText editable=":true" text="This is an editable text" />
-        </private:CrappUILayotable>
+        </private:CrappUILayout>
     </view>
 </priori>
 ')

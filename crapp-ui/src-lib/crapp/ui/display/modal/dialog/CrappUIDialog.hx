@@ -13,23 +13,23 @@ import crapp.ui.display.text.CrappUIText;
 <priori>
     <imports>
         <crapp.ui.display.button.CrappUIButton />
-        <crapp.ui.display.layout.CrappUILayotable />
+        <crapp.ui.display.layout.CrappUILayout />
     </imports>
     <view>
-        <private:CrappUILayotable id="container" vLayoutGap="10" vLayoutDistribution="SIDE" >
+        <private:CrappUILayout id="container" vLayoutGap="10" vLayoutDistribution="SIDE" >
             
-            <private:CrappUILayotable id="textContainer" hLayoutSize="FLEX" vLayoutDistribution="SIDE" vLayoutSize="FIT" >
+            <private:CrappUILayout id="textContainer" hLayoutSize="FLEX" vLayoutDistribution="SIDE" vLayoutSize="FIT" >
                 <!-- TEXTS -->
-            </private:CrappUILayotable>
+            </private:CrappUILayout>
 
-            <private:CrappUILayotable hLayoutSize="FLEX" vLayoutSize="FLEX" >
-            </private:CrappUILayotable>
+            <private:CrappUILayout hLayoutSize="FLEX" vLayoutSize="FLEX" >
+            </private:CrappUILayout>
 
-            <private:CrappUILayotable id="buttonContainer" hLayoutSize="FLEX" hLayoutGap="10" hLayoutAlignment="MAX" vLayoutAlignment="CENTER" hLayoutDistribution="SIDE" vLayoutSize="FIT" >
+            <private:CrappUILayout id="buttonContainer" hLayoutSize="FLEX" hLayoutGap="10" hLayoutAlignment="MAX" vLayoutAlignment="CENTER" hLayoutDistribution="SIDE" vLayoutSize="FIT" >
                 <!-- BUTTONS -->
-            </private:CrappUILayotable>
+            </private:CrappUILayout>
 
-        </private:CrappUILayotable>
+        </private:CrappUILayout>
     </view>
 </priori>
 ')

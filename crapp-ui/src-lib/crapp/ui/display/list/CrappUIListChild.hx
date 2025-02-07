@@ -1,8 +1,8 @@
 package crapp.ui.display.list;
 
-import crapp.ui.display.layout.CrappUILayotable;
+import crapp.ui.display.layout.CrappUILayout;
 
-class CrappUIListChild<T> extends CrappUILayotable {
+class CrappUIListChild<T> extends CrappUILayout {
 
     @:isVar public var data(default, set):T;
 

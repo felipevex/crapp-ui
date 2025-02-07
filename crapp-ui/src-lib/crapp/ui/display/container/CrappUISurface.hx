@@ -2,9 +2,9 @@ package crapp.ui.display.container;
 
 import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
-import crapp.ui.display.layout.CrappUILayotable;
+import crapp.ui.display.layout.CrappUILayout;
 
-class CrappUISurface extends CrappUILayotable {
+class CrappUISurface extends CrappUILayout {
     
     public function new() {
         super();

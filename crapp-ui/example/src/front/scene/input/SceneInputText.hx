@@ -8,10 +8,10 @@ import crapp.ui.display.app.CrappUIScene;
 <priori>
     <imports>
         <crapp.ui.display.input.CrappUITextInput />
-        <crapp.ui.display.layout.CrappUILayotable />
+        <crapp.ui.display.layout.CrappUILayout />
     </imports>
     <view>
-        <private:CrappUILayotable hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
+        <private:CrappUILayout hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
             <private:CrappUITextInput />
             <private:CrappUITextInput width="100" />
             <private:CrappUITextInput value="Value Pre Defined" />
@@ -24,12 +24,12 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUITextInput label="PASSWORD" password=":true" />
             <private:CrappUITextInput id="email" label="TEST EMAIL ERROR" />
             <private:CrappUITextInput id="noborder" label="NO BORDER" />
-            <private:CrappUILayotable vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
+            <private:CrappUILayout vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
                 <private:CrappUITextInput hLayoutSize="FLEX" />
                 <private:CrappUITextInput hLayoutSize="FLEX" />
                 <private:CrappUITextInput hLayoutSize="FLEX" />
-            </private:CrappUILayotable>
-        </private:CrappUILayotable>
+            </private:CrappUILayout>
+        </private:CrappUILayout>
     </view>
 </priori>
 ')

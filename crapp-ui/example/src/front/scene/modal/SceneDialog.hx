@@ -7,14 +7,14 @@ import crapp.ui.display.app.CrappUIScene;
 <priori>
     <imports>
         <crapp.ui.display.button.CrappUIButton />
-        <crapp.ui.display.layout.CrappUILayotable />
+        <crapp.ui.display.layout.CrappUILayout />
     </imports>
     <view>
-        <CrappUILayotable vLayoutAlignment="CENTER" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="0" right="0" top="0" bottom="0" >
+        <CrappUILayout vLayoutAlignment="CENTER" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="0" right="0" top="0" bottom="0" >
             <private:CrappUIButton id="btMessage" label="Open Message" />
             <private:CrappUIButton id="btMessageWithTitle" label="Open Message with Title" />
             <private:CrappUIButton id="btLongMessage" label="Open Long Message" />
-        </CrappUILayotable>
+        </CrappUILayout>
     </view>
 </priori>
 ')

@@ -9,10 +9,10 @@ import crapp.ui.display.app.CrappUIScene;
 <priori>
     <imports>
         <crapp.ui.display.button.CrappUIButtonIcon />
-        <crapp.ui.display.layout.CrappUILayotable />
+        <crapp.ui.display.layout.CrappUILayout />
     </imports>
     <view>
-        <private:CrappUILayotable hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
+        <private:CrappUILayout hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
             <private:CrappUIButtonIcon />
 
             <private:CrappUIButtonIcon size:L="CrappUISizeReference.TINY" />
@@ -27,7 +27,7 @@ import crapp.ui.display.app.CrappUIScene;
 
             <private:CrappUIButtonIcon icon:L="FontAwesomeIconType.THUMBS_UP" />
             <private:CrappUIButtonIcon id="button" icon:L="FontAwesomeIconType.VOLUME_UP" z="3" />
-        </private:CrappUILayotable>
+        </private:CrappUILayout>
     </view>
 </priori>
 ')

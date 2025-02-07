@@ -5,7 +5,7 @@ import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import crapp.ui.display.line.CrappUILine;
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.CrappUIStyle;
-import crapp.ui.display.layout.CrappUILayotable;
+import crapp.ui.display.layout.CrappUILayout;
 
 
 @priori('
@@ -23,7 +23,7 @@ import crapp.ui.display.layout.CrappUILayotable;
     </view>
 </priori>
 ')
-class CrappUIStack extends CrappUILayotable {
+class CrappUIStack extends CrappUILayout {
 
     private var stackLength:Int = 0;
 

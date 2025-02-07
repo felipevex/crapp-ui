@@ -1,9 +1,9 @@
 package crapp.ui.display.container;
 
 import crapp.ui.composite.builtin.ScrollerComposite;
-import crapp.ui.display.layout.CrappUILayotable;
+import crapp.ui.display.layout.CrappUILayout;
 
-class CrappUIScrollable extends CrappUILayotable {
+class CrappUIScrollable extends CrappUILayout {
     
     override function setup() {
         super.setup();

@@ -5,12 +5,12 @@ import crapp.ui.display.app.CrappUIScene;
 @priori('
 <priori>
     <imports>
-        <crapp.ui.display.layout.CrappUILayotable />
+        <crapp.ui.display.layout.CrappUILayout />
         <crapp.ui.display.image.CrappUIImage />
         <crapp.ui.display.text.CrappUIText />
     </imports>
     <view>
-        <CrappUILayotable hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
+        <CrappUILayout hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
             <CrappUIImage />
             <CrappUIText text="Image without src" />
 
@@ -38,7 +38,7 @@ import crapp.ui.display.app.CrappUIScene;
             <CrappUIImage src="./image/logo.png" resize="REAL" effect="GRAYSCALE" />
             <CrappUIText text="GRAYSCALE" />
 
-        </CrappUILayotable>
+        </CrappUILayout>
     </view>
 </priori>
 ')

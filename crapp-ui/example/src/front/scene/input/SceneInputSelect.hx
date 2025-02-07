@@ -7,11 +7,11 @@ import crapp.ui.display.app.CrappUIScene;
 @priori('
 <priori>
     <imports>
-        <crapp.ui.display.layout.CrappUILayotable />
+        <crapp.ui.display.layout.CrappUILayout />
         <crapp.ui.display.input.CrappUISelectInput />
     </imports>
     <view>
-        <private:CrappUILayotable id="container" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
+        <private:CrappUILayout id="container" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
             <CrappUISelectInput data:Literal="this.selectData" type="<InputSelectData>" />
             <CrappUISelectInput data:Literal="this.selectData" type="<InputSelectData>" label="Write Other Label" />
             <CrappUISelectInput data:Literal="this.selectData" type="<InputSelectData>" label="Change the Value Label" labelField="value" />
@@ -24,12 +24,12 @@ import crapp.ui.display.app.CrappUIScene;
             <CrappUISelectInput id="noborder" data:Literal="this.selectData" type="<InputSelectData>" label="NO BORDER" />
             <CrappUISelectInput id="labelFunc" data:Literal="this.selectData" type="<InputSelectData>" label="LABEL FUNCTION" />
             <CrappUISelectInput id="forceSelection" data:Literal="this.selectData" type="<InputSelectData>" label="FORCE SELECTION" />
-            <private:CrappUILayotable id="distribute" vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
+            <private:CrappUILayout id="distribute" vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
                 <CrappUISelectInput type="<InputSelectData>" hLayoutSize="FLEX" />
                 <CrappUISelectInput type="<InputSelectData>" hLayoutSize="FLEX" />
                 <CrappUISelectInput type="<InputSelectData>" hLayoutSize="FLEX" />
-            </private:CrappUILayotable>
-        </private:CrappUILayotable>
+            </private:CrappUILayout>
+        </private:CrappUILayout>
     </view>
 </priori>
 ')

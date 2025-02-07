@@ -6,14 +6,14 @@ import crapp.ui.display.app.CrappUIScene;
 @priori('
 <priori>
     <imports>
-        <crapp.ui.display.layout.CrappUILayotable />
+        <crapp.ui.display.layout.CrappUILayout />
         <crapp.ui.display.container.CrappUISurface />
     </imports>
     <view>
-        <CrappUILayotable hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
+        <CrappUILayout hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
             <CrappUISurface id="suf1" />
             <CrappUISurface id="suf2" variant="other-surface" />
-        </CrappUILayotable>
+        </CrappUILayout>
     </view>
 </priori>
 ')

@@ -7,10 +7,10 @@ import crapp.ui.display.app.CrappUIScene;
 <priori>
     <imports>
         <crapp.ui.display.button.CrappUIButton />
-        <crapp.ui.display.layout.CrappUILayotable />
+        <crapp.ui.display.layout.CrappUILayout />
     </imports>
     <view>
-        <private:CrappUILayotable hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
+        <private:CrappUILayout hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
             <private:CrappUIButton />
             <private:CrappUIButton label="MY LABEL" />
             <private:CrappUIButton id="red" />
@@ -18,12 +18,12 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton label="DISABLED" disabled=":true" />
             <private:CrappUIButton autoSize=":false" width="200" />
             <private:CrappUIButton id="noborder" label="NO BORDER" />
-            <private:CrappUILayotable vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
+            <private:CrappUILayout vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
                 <private:CrappUIButton hLayoutSize="FLEX" />
                 <private:CrappUIButton hLayoutSize="FLEX" />
                 <private:CrappUIButton hLayoutSize="FLEX" />
-            </private:CrappUILayotable>
-        </private:CrappUILayotable>
+            </private:CrappUILayout>
+        </private:CrappUILayout>
     </view>
 </priori>
 ')

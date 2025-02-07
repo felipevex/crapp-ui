@@ -5,11 +5,11 @@ import crapp.ui.display.app.CrappUIScene;
 @priori('
 <priori>
     <imports>
-        <crapp.ui.display.layout.CrappUILayotable />
+        <crapp.ui.display.layout.CrappUILayout />
         <crapp.ui.display.line.CrappUILine />
     </imports>
     <view>
-        <CrappUILayotable hLayoutAlignment="CENTER" vLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="20" left="20" right="20" top="20" bottom="20" >
+        <CrappUILayout hLayoutAlignment="CENTER" vLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="20" left="20" right="20" top="20" bottom="20" >
             
             <CrappUILine />
             <CrappUILine width="200" />
@@ -27,7 +27,7 @@ import crapp.ui.display.app.CrappUIScene;
             <CrappUILine hLayoutSize="FLEX" thickness="2" lineStyle="DASHED" />
             <CrappUILine hLayoutSize="FLEX" thickness="4" lineStyle="DASHED" />
 
-        </CrappUILayotable>
+        </CrappUILayout>
     </view>
 </priori>
 ')

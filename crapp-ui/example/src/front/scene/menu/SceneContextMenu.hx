@@ -9,7 +9,7 @@ import crapp.ui.display.app.CrappUIScene;
 <priori>
     <imports>
         <crapp.ui.display.button.CrappUIButtonIcon />
-        <crapp.ui.display.layout.CrappUILayotable />
+        <crapp.ui.display.layout.CrappUILayout />
     </imports>
     <view>
         <private:CrappUIButtonIcon id="b1" centerX:Paint="this.width/2" centerY:Paint="this.height/2" />

@@ -1,12 +1,12 @@
 package crapp.ui.display.modal;
 
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
-import crapp.ui.display.layout.CrappUILayotable;
+import crapp.ui.display.layout.CrappUILayout;
 import priori.event.PriEvent;
 import crapp.ui.controller.CrappUIModalController;
 import priori.view.PriDisplay;
 
-class CrappUIModal extends CrappUILayotable {
+class CrappUIModal extends CrappUILayout {
 
     @:isVar public var allowCloseModal(get, set):Bool = true;
     @:isVar public var allowCloseModalWithEsc(get, set):Bool = true;

@@ -9,41 +9,41 @@ import crapp.ui.display.app.CrappUIScene;
 <priori>
     <imports>
         <crapp.ui.display.button.CrappUIButton />
-        <crapp.ui.display.layout.CrappUILayotable />
+        <crapp.ui.display.layout.CrappUILayout />
         <crapp.ui.display.text.CrappUIText />
     </imports>
     <view>
-        <private:CrappUILayotable hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
-            <private:CrappUILayotable bgColor="0xF8D8D8" id="boxRed" left="0" right="0" vLayoutSize="FIT" hLayoutAlignment="CENTER" >
+        <private:CrappUILayout hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
+            <private:CrappUILayout bgColor="0xF8D8D8" id="boxRed" left="0" right="0" vLayoutSize="FIT" hLayoutAlignment="CENTER" >
                 <private:CrappUIButton />
-            </private:CrappUILayotable>
+            </private:CrappUILayout>
 
-            <private:CrappUILayotable bgColor="0xE8F9CC" hLayoutDistribution="JUSTIFY" id="boxGreen" left="0" right="0" vLayoutSize="FIT" hLayoutAlignment="CENTER" >
-                <private:CrappUILayotable bgColor="0xB7B0F9" id="boxBlue" vLayoutSize="FIT" width="200" hLayoutAlignment="CENTER" >
+            <private:CrappUILayout bgColor="0xE8F9CC" hLayoutDistribution="JUSTIFY" id="boxGreen" left="0" right="0" vLayoutSize="FIT" hLayoutAlignment="CENTER" >
+                <private:CrappUILayout bgColor="0xB7B0F9" id="boxBlue" vLayoutSize="FIT" width="200" hLayoutAlignment="CENTER" >
                     <private:CrappUIButton />
-                </private:CrappUILayotable>
+                </private:CrappUILayout>
                 <private:CrappUIButton />
-            </private:CrappUILayotable>
+            </private:CrappUILayout>
 
-            <CrappUILayotable left="0" right="0" vLayoutSize="FIT" hLayoutDistribution="SIDE">
-                <CrappUILayotable id="c1" theme="dark" hLayoutSize="FLEX" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" vLayoutSize="FIT" >
+            <CrappUILayout left="0" right="0" vLayoutSize="FIT" hLayoutDistribution="SIDE">
+                <CrappUILayout id="c1" theme="dark" hLayoutSize="FLEX" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" vLayoutSize="FIT" >
                     <private:CrappUIText text="Theme Dark" />
                     <CrappUIButton />
                     <CrappUIButton variant="LIGHTER" />
-                </CrappUILayotable>
-                <CrappUILayotable id="c2" theme="red" hLayoutSize="FLEX" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" vLayoutSize="FIT" >
+                </CrappUILayout>
+                <CrappUILayout id="c2" theme="red" hLayoutSize="FLEX" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" vLayoutSize="FIT" >
                     <private:CrappUIText text="Theme Red" />
                     <CrappUIButton />
-                </CrappUILayotable>
-            </CrappUILayotable>
+                </CrappUILayout>
+            </CrappUILayout>
 
-            <CrappUILayotable theme="OTHER" hLayoutSize="FLEX" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" vLayoutSize="FIT" >
+            <CrappUILayout theme="OTHER" hLayoutSize="FLEX" hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" vLayoutSize="FIT" >
                 <CrappUIButton />
                 <CrappUIButton tag="OTHER_TAG" />
                 <CrappUIButton tag="INVALID_TAG" />
-            </CrappUILayotable>
+            </CrappUILayout>
 
-        </private:CrappUILayotable>
+        </private:CrappUILayout>
     </view>
 </priori>
 ')

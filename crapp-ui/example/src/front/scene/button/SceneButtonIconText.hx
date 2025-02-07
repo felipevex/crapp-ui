@@ -7,10 +7,10 @@ import crapp.ui.display.app.CrappUIScene;
 <priori>
     <imports>
         <crapp.ui.display.button.CrappUIButtonIconText />
-        <crapp.ui.display.layout.CrappUILayotable />
+        <crapp.ui.display.layout.CrappUILayout />
     </imports>
     <view>
-        <private:CrappUILayotable hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
+        <private:CrappUILayout hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
             <private:CrappUIButtonIconText />
             <private:CrappUIButtonIconText label="MY LABEL" />
             <private:CrappUIButtonIconText id="red" label="CUBE" icon:L="FontAwesomeIconType.CUBE" />
@@ -20,12 +20,12 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButtonIconText label="ROTATION DISABLED" disabled=":true" rotateIcon=":true" />
             <private:CrappUIButtonIconText autoSize=":false" width="200" />
             <private:CrappUIButtonIconText id="noborder" label="NO BORDER" />
-            <private:CrappUILayotable vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
+            <private:CrappUILayout vLayoutSize="FIT" hLayoutSize="FLEX" hLayoutDistribution="SIDE" hLayoutGap="10" >
                 <private:CrappUIButtonIconText hLayoutSize="FLEX" />
                 <private:CrappUIButtonIconText hLayoutSize="FLEX" />
                 <private:CrappUIButtonIconText hLayoutSize="FLEX" />
-            </private:CrappUILayotable>
-        </private:CrappUILayotable>
+            </private:CrappUILayout>
+        </private:CrappUILayout>
     </view>
 </priori>
 ')
