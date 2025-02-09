@@ -1,12 +1,12 @@
 package crapp.ui.display.button;
 
+import crapp.ui.display.icon.types.CrappUIIconType;
 import crapp.ui.style.CrappUISizeReference;
-import priori.fontawesome.FontAwesomeIconType;
 import crapp.ui.display.icon.CrappUIIcon;
 
 class CrappUIButtonIconText extends CrappUIButton {
     
-    public var icon(get, set):FontAwesomeIconType;
+    public var icon(get, set):CrappUIIconType;
 
     public var rotationSpeed:Float = 0.5;
     @:isVar public var rotateIcon(default, set):Bool = false;
@@ -66,8 +66,8 @@ class CrappUIButtonIconText extends CrappUIButton {
         return value;
     }
 
-    private function get_icon():FontAwesomeIconType return this.iconDisplay.icon;
-    private function set_icon(value:FontAwesomeIconType):FontAwesomeIconType {
+    private function get_icon():CrappUIIconType return this.iconDisplay.icon;
+    private function set_icon(value:CrappUIIconType):CrappUIIconType {
         this.iconDisplay.icon = value;
         this.updateDisplay();
         return value;

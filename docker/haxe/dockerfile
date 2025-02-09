@@ -46,7 +46,6 @@ RUN yes | haxelib install PBKDF2
 RUN yes | haxelib install jQueryExtern
 RUN yes | haxelib install datetime
 RUN yes | haxelib install haxe-crypto
-RUN yes | haxelib --skip-dependencies git priori-fontawesome https://github.com/triture/priori-fontawesome.git      master
 RUN yes | haxelib --skip-dependencies git apirock https://github.com/triture/apirock.git                            master
 RUN yes | haxelib --skip-dependencies git priori https://github.com/triture/priori.git                              feature/new_builder
 RUN yes | haxelib --skip-dependencies git util-kit https://github.com/triture/util-kit.git

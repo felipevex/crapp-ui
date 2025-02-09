@@ -2,7 +2,6 @@ package front.scene.button;
 
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.data.CrappUIStyleData;
-import priori.fontawesome.FontAwesomeIconType;
 import crapp.ui.display.app.CrappUIScene;
 
 @priori('
@@ -23,10 +22,10 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButtonIcon size:L="CrappUISizeReference.LARGE" />
             <private:CrappUIButtonIcon size:L="CrappUISizeReference.XLARGE" />
             
-            <private:CrappUIButtonIcon icon:L="FontAwesomeIconType.BAN" disabled=":true" />
+            <private:CrappUIButtonIcon icon="BAN" disabled=":true" />
 
-            <private:CrappUIButtonIcon icon:L="FontAwesomeIconType.THUMBS_UP" />
-            <private:CrappUIButtonIcon id="button" icon:L="FontAwesomeIconType.VOLUME_UP" z="3" />
+            <private:CrappUIButtonIcon icon="THUMBS_UP" />
+            <private:CrappUIButtonIcon id="button" icon="VOLUME_UP" z="3" />
         </private:CrappUILayout>
     </view>
 </priori>

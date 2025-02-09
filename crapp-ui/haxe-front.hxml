@@ -5,7 +5,6 @@
 -lib actuate
 -lib anonstruct
 -lib util-kit
--lib priori-fontawesome
 
 -cp example/src
 -cp src-lib

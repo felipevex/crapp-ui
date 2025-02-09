@@ -21,8 +21,8 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIIcon size:L="CrappUISizeReference.EXTRA" />
             <private:CrappUIIcon size:L="CrappUISizeReference.LARGE" />
             <private:CrappUIIcon size:L="CrappUISizeReference.XLARGE" />
-
-            <private:CrappUIIcon icon:L="FontAwesomeIconType.THUMBS_UP" />
+            
+            <private:CrappUIIcon icon="THUMBS_UP" />
 
         </private:CrappUILayout>
     </view>

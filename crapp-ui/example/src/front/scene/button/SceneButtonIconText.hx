@@ -1,6 +1,5 @@
 package front.scene.button;
 
-import priori.fontawesome.FontAwesomeIconType;
 import crapp.ui.display.app.CrappUIScene;
 
 @priori('
@@ -13,7 +12,7 @@ import crapp.ui.display.app.CrappUIScene;
         <private:CrappUILayout hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
             <private:CrappUIButtonIconText />
             <private:CrappUIButtonIconText label="MY LABEL" />
-            <private:CrappUIButtonIconText id="red" label="CUBE" icon:L="FontAwesomeIconType.CUBE" />
+            <private:CrappUIButtonIconText id="red" label="CUBE" icon="CUBE" />
             <private:CrappUIButtonIconText id="small" />
             <private:CrappUIButtonIconText label="DISABLED" disabled=":true" />
             <private:CrappUIButtonIconText label="ROTATION" rotateIcon=":true" />

@@ -2,7 +2,6 @@ package crapp.ui.display.input;
 
 import crapp.ui.composite.builtin.DisabledEffectComposite;
 import priori.types.PriTransitionType;
-import priori.fontawesome.FontAwesomeIconType;
 import crapp.ui.display.text.CrappUITextIcon;
 import helper.kits.StringKit;
 
@@ -42,7 +41,7 @@ class CrappUIInput<T> extends CrappUIDisplay {
 		this.displayError.right = 0;
 		this.displayError.top = 0;
 		this.displayError.variant = "ERROR";
-		this.displayError.icon = FontAwesomeIconType.EXCLAMATION_TRIANGLE;
+		this.displayError.icon = EXCLAMATION_TRIANGLE;
 		
 		this.addChild(this.displayError);
 	}

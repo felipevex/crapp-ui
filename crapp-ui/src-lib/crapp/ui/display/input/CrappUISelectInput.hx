@@ -1,9 +1,9 @@
 package crapp.ui.display.input;
 
+import crapp.ui.display.icon.types.CrappUIIconType;
+import priori.fontawesome.FixedIcon;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import priori.types.PriTransitionType;
-import priori.fontawesome.FontAwesomeIconType;
-import priori.fontawesome.FontAwesomeIcon;
 import js.Browser;
 import priori.view.form.PriFormSelect;
 import haxe.Timer;
@@ -17,12 +17,13 @@ import priori.event.PriTapEvent;
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.CrappUIStyle;
 
+@:access(crapp.ui.display.icon)
 class CrappUISelectInput<T> extends CrappUIInput<T> {
     
     private var labelDisplay:PriText;
     private var input:PriFormSelect;
     private var delayedChangeTimer:Timer;
-    private var arrow:FontAwesomeIcon;
+    private var arrow:FixedIcon;
 
     @:isVar public var allowNoSelection(default, set):Bool = true;
 
@@ -113,7 +114,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
 
         this.input = this.createInputSelect();
 
-        this.arrow = new FontAwesomeIcon(FontAwesomeIconType.CARET_DOWN);
+        this.arrow = new FixedIcon(CrappUIIconType.CARET_DOWN);
 
         this.addChildList([
             this.input,

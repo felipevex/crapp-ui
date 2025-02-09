@@ -1,20 +1,20 @@
 package crapp.ui.display.text;
 
+import crapp.ui.display.icon.types.CrappUIIconType;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import crapp.ui.style.CrappUISizeReference;
 import priori.style.font.PriFontStyle;
 import crapp.ui.style.CrappUIStyle;
-import priori.fontawesome.FontAwesomeIconType;
 import crapp.ui.display.icon.CrappUIIcon;
 
 class CrappUITextIcon extends CrappUIText {
     
     private var iconDisplay:CrappUIIcon;
     
-    @:isVar public var icon(get, set):FontAwesomeIconType;
+    @:isVar public var icon(get, set):CrappUIIconType;
 
-    private function get_icon():FontAwesomeIconType return this.iconDisplay.icon;
-    private function set_icon(value:FontAwesomeIconType):FontAwesomeIconType return this.iconDisplay.icon = value;
+    private function get_icon():CrappUIIconType return this.iconDisplay.icon;
+    private function set_icon(value:CrappUIIconType):CrappUIIconType return this.iconDisplay.icon = value;
 
     public function new() {
         super();
