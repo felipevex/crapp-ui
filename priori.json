@@ -21,8 +21,7 @@
     "datetime",
     "actuate",
     "anonstruct",
-    "util-kit",
-    "priori-fontawesome"
+    "util-kit"
   ],
 
   "template" : "crapp-ui/template",
