@@ -3,9 +3,15 @@
 
   "lang" : "pt-br",
 
-  "meta" : [],
+  "meta" : [
+    "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src * data: blob: ws: wss: gap://ready file://*; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * ws: wss:;\" >"
+  ],
 
   "link" : [
+    "<link rel=\"stylesheet\" href=\"fontawesome_5_15_4/css/all.min.css\">",
+    "<script defer src=\"fontawesome_5_15_4/js/all.min.js\"></script>",
+    "<script type=\"text/javascript\" src=\"fontawesome_5_15_4/priori-fontawesome5.js\"></script>",
+
     "<script type=\"text/javascript\" src=\"js/tinycolor-min.js\"></script>",
 
     "<script src=\"js/FileSaver.js\"></script>",
