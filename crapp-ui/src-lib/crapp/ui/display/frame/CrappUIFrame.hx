@@ -1,12 +1,14 @@
 package crapp.ui.display.frame;
 
+import js.html.Window;
 import priori.event.PriEvent;
 import priori.view.PriFrame;
 
-
+@:access(priori.view.PriFrame)
 class CrappUIFrame extends CrappUIDisplay {
 
     public var src(get, set):String;
+    public var window(get, null):Window;
     
     private var frame:PriFrame;
     
@@ -29,6 +31,7 @@ class CrappUIFrame extends CrappUIDisplay {
         this.frame.height = this.height;
     }
 
+    inline private function get_window():Window return this.frame._iframe.contentWindow;
 
     inline private function set_src(value:String):String return this.frame.url = value;
 	inline private function get_src():String return this.frame.url;
