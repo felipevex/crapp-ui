@@ -31,6 +31,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton id="testLineVertical" label="LINE - VERTICAL" />
             <private:CrappUIButton id="testModalDialog" label="MODAL - DIALOG" />
             <private:CrappUIButton id="testIcon" label="ICON" />
+            <private:CrappUIButton id="testFrame" label="FRAME" />
         </private:CrappUIScrollable>
     </view>
 </priori>
@@ -59,6 +60,7 @@ class SceneHome extends CrappUIScene {
         this.testLineVertical.actions.onClick = () -> PriSceneManager.singleton().navigate('line/vertical');
         this.testModalDialog.actions.onClick = () -> PriSceneManager.singleton().navigate('modal/dialog');
         this.testIcon.actions.onClick = () -> PriSceneManager.singleton().navigate('icon');
+        this.testFrame.actions.onClick = () -> PriSceneManager.singleton().navigate('frame');
         
     }
 }

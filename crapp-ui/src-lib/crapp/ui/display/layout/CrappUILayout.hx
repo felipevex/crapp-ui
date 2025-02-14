@@ -37,7 +37,7 @@ class CrappUILayout extends CrappUIDisplay {
                 layout.height = 0;
             }
         }
-
+        
         return layout;
     }
 
