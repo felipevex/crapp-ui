@@ -1,10 +1,10 @@
 package crapp.ui.display.text;
 
+import crapp.ui.style.types.CrappUIStyleFontAlignType;
 import crapp.ui.style.types.CrappUIStyleFontWeightType;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import tricks.layout.LayoutSize;
 import priori.style.font.PriFontStyle;
-import priori.style.font.PriFontStyleAlign;
 import priori.event.PriEvent;
 import priori.event.PriFocusEvent;
 import priori.event.PriKeyboardEvent;
@@ -29,7 +29,7 @@ class CrappUIText extends CrappUIDisplay {
     public var autoSize(get, set):Bool;
     public var multiLine(get, set):Bool;
     public var selectable(get, set):Bool;
-    public var align(get, set):PriFontStyleAlign;
+    public var align(get, set):CrappUIStyleFontAlignType;
     
     @:isVar public var weight(default, set):CrappUIStyleFontWeightType;
     @:isVar public var size(default, set):CrappUISizeReference = CrappUISizeReference.BASE;
@@ -72,8 +72,8 @@ class CrappUIText extends CrappUIDisplay {
     override private function set_testIdentifier(value:String):String return this.label.testIdentifier=value;
     override private function get_testIdentifier():String return this.label.testIdentifier;
 
-    private function get_align():PriFontStyleAlign return this.label.align;
-    private function set_align(value:PriFontStyleAlign):PriFontStyleAlign return this.label.align = value;
+    private function get_align():CrappUIStyleFontAlignType return this.label.align;
+    private function set_align(value:CrappUIStyleFontAlignType):CrappUIStyleFontAlignType return this.label.align = value;
 
     override public function hasFocus():Bool return this.label.hasFocus();
 

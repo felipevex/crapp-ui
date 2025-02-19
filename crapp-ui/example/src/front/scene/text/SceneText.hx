@@ -14,6 +14,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIText text="This is a loooooooong text" />
             <private:CrappUIText id="textStyle" text="This is a text with style" />
             <private:CrappUIText autoSize=":false" width="150" text="This is a loooooooong text with autosize off" />
+            <private:CrappUIText autoSize=":false" width="150" text="right align" align="RIGHT" />
             <private:CrappUIText autoSize=":false" multiLine=":true" width="150" text="This is a loooooooong text with multiline on" />
             <private:CrappUIText selectable=":true" text="This is a selectable text" />
             <private:CrappUIText editable=":true" text="This is an editable text" />
