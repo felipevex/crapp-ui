@@ -13,6 +13,7 @@ services:
             - ./docker/shared:/docker-shared
             - ./docker/haxe:/docker-haxe
             - ./crapp-ui:/crapp-ui
+            - ./docs:/crapp-ui/docs
 
     nginx:
         restart: always

@@ -3,7 +3,10 @@
 yes | haxelib git dox https://github.com/HaxeFoundation/dox.git
 
 rm -rf ./build/docs
-rm -rf ./docs
+
+cd ./docs
+rm -rf ./*
+cd ..
 
 haxe haxe-dox.hxml
 
