@@ -4,6 +4,8 @@ class RouteBrowserHost {
 
     public var onRouteChange:()->Void;
 
+    private var overCallTimer:haxe.Timer;
+
     public function new() {
         this.registerChangeHashEvent();
     }
@@ -17,7 +19,17 @@ class RouteBrowserHost {
         return hash;
     }
 
-    inline private function callChange():Void if (this.onRouteChange != null) this.onRouteChange();
+    inline private function callChange():Void {
+        if (this.overCallTimer != null) {
+            this.overCallTimer.stop();
+            this.overCallTimer.run = null;
+            this.overCallTimer = null;
+        }
+
+        this.overCallTimer = haxe.Timer.delay(() -> {
+            if (this.onRouteChange != null) this.onRouteChange();
+        }, 10);
+    }
 
     private function registerChangeHashEvent():Void {
         if (js.Browser.window.addEventListener == null) return;
@@ -34,8 +46,8 @@ class RouteBrowserHost {
     
     public function navigate(path:String):Void {
         path = this.sanitizePath(path);
-        
-        if (js.Browser.location.hash == path) haxe.Timer.delay(this.callChange, 10);
+
+        if (js.Browser.location.hash == path) this.callChange();
         else js.Browser.location.hash = path;
     }
 

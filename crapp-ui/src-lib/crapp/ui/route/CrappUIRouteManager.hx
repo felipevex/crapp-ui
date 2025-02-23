@@ -1,5 +1,6 @@
 package crapp.ui.route;
 
+import helper.kits.StringKit;
 import crapp.ui.route.browser.RouteBrowserHost;
 import crapp.ui.display.app.CrappUIScene;
 import priori.app.PriApp;
@@ -57,7 +58,7 @@ class CrappUIRouteManager {
             if (route.path == '**') starRoute = route;
             if (!route.path.match(path).matched) continue;
             
-            return route;
+            if (StringKit.isEmpty(route.scope) || this.hasScope(route.scope)) return route;
         }
 
         return starRoute;
@@ -87,15 +88,15 @@ class CrappUIRouteManager {
     private function instantiateScene(route:RouteItem):Void {
         this.killScene();
 
+        if (route == null) return;
+
         this.scene = Type.createInstance(route.scene, []);
         this.scene.left = 0;
         this.scene.top = 0;
         this.scene.right = 0;
         this.scene.bottom = 0;
 
-        PriApp.g().addChild(this.scene);
-
-        if (route.path == '**') this.host.overwriteRoute('');
+        PriApp.g().addChild(this.scene);    
     }
 
     inline public function navigateBack():Void this.host.navigateBack();
