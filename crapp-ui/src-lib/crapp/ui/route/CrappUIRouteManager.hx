@@ -6,11 +6,27 @@ import crapp.ui.display.app.CrappUIScene;
 import priori.app.PriApp;
 import util.kit.path.Path;
 
+/**
+ * Classe CrappUIRouteManager é responsável por gerenciar as rotas e escopos
+ * da aplicação. Esta classe implementa o padrão Singleton, garantindo que apenas
+ * uma instância seja utilizada durante a execução do programa.
+ *
+ * Suas principais responsabilidades incluem:
+ *   - Registrar novas rotas juntamente com suas cenas associadas.
+ *   - Navegar entre as rotas definidas (anterior, próxima, substituir e recarregar).
+ *   - Gerenciar os escopos de acesso das rotas.
+ *   - Instanciar e destruir cenas de forma apropriada conforme as alterações nas rotas.
+ */
 class CrappUIRouteManager {
     
     // SINGLETON
     private static var _singleton:CrappUIRouteManager;
 
+    /**
+     * Retorna a instância única de CrappUIRouteManager.
+     * 
+     * @return instância do CrappUIRouteManager.
+     */
     public static function use():CrappUIRouteManager {
         if (_singleton == null) _singleton = new CrappUIRouteManager();
         return _singleton;
@@ -31,6 +47,9 @@ class CrappUIRouteManager {
         this.reset();
     }
 
+    /**
+     * Reinicia as rotas e escopos, além de destruir a cena atual.
+     */
     public function reset():Void {
         this.routes = [];
         this.scopes = [];
@@ -45,6 +64,13 @@ class CrappUIRouteManager {
         }
     }
 
+    /**
+     * Registra uma nova rota no gerenciador de rotas.
+     * 
+     * @param path  Caminho da rota.
+     * @param scene Classe da cena associada à rota.
+     * @param scope (Opcional) Escopo da rota.
+     */
     public function register<T>(path:Path<T>, scene:Class<CrappUIScene<T>>, ?scope:String):Void {
         if (path == null || scene == null) return;
 
@@ -75,11 +101,29 @@ class CrappUIRouteManager {
         this.instantiateScene(route);
     }
 
+    /**
+     * Verifica se o escopo informado existe na sessão.
+     *
+     * @param scope Escopo a ser verificado.
+     * @return True se o escopo existir, caso contrário false.
+     */
     public function hasScope(scope:String):Bool return this.scopes.indexOf(scope) >= 0;
+
+    /**
+     * Adiciona um novo escopo à sessão.
+     *
+     * @param scope Escopo a ser adicionado.
+     */
     public function addScope(scope:String):Void {
         if (scope == null || this.scopes.indexOf(scope) >= 0) return;
         this.scopes.push(scope);
     }
+
+    /**
+     * Remove o escopo especificado da sessão.
+     *
+     * @param scope Escopo a ser removido.
+     */
     public function removeScope(scope:String):Void {
         if (scope == null) return;
         this.scopes.remove(scope);
@@ -99,13 +143,40 @@ class CrappUIRouteManager {
         PriApp.g().addChild(this.scene);    
     }
 
+    /**
+     * Navega para a rota anterior.
+     */
     inline public function navigateBack():Void this.host.navigateBack();
+
+    /**
+     * Navega para a próxima rota.
+     */
     inline public function navigateForward():Void this.host.navigateForward();
+
+    /**
+     * Navega para a rota especificada.
+     *
+     * @param path Caminho para onde navegar.
+     */
     inline public function navigate(path:String):Void this.host.navigate(path);
     
+    /**
+     * Recarrega a rota atual. Caso a cena já esteja instanciada, ela será recriada.
+     */
     inline public function reload():Void this.onRouteChange();
-    inline public function replace(path:String):Void this.host.replace(path);
 
+    /**
+     * Substitui a rota atual pela rota especificada.
+     *
+     * @param path Caminho para substituir a rota atual.
+     */
+    inline public function replace(path:String):Void this.host.replace(path);
+    
+    /**
+     * Extrai o parâmetro da rota atual.
+     *
+     * @return Parâmetro extraído da rota ou null parâmetros.
+     */
     public function routeParam():Null<Dynamic> {
         if (this.routes.length == 0) return null;
 
