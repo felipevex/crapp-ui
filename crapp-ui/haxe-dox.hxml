@@ -1,0 +1,22 @@
+
+-D doc-gen
+--no-output
+
+-lib jQueryExtern
+-lib priori
+-lib datetime
+-lib actuate
+-lib anonstruct
+-lib util-kit
+
+-cp src-lib
+-cp example/src
+
+--macro include('util')
+
+--macro include('helper', true, ["helper.kits.CommandLineKit", "helper.kits.FileKit", "helper.kits.ValidatorKit"])
+
+--main front.Front
+
+-xml ./build/docs/crapp-ui.xml
+-js ./build/docs/build.js
