@@ -1,5 +1,6 @@
 package front.scene.button;
 
+import util.kit.nothing.Nothing;
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.display.app.CrappUIScene;
@@ -30,7 +31,7 @@ import crapp.ui.display.app.CrappUIScene;
     </view>
 </priori>
 ')
-class SceneButtonIcon extends CrappUIScene {
+class SceneButtonIcon extends CrappUIScene<Nothing> {
     
     override function setup() {
         super.setup();

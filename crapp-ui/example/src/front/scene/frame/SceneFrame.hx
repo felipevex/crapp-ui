@@ -1,5 +1,6 @@
 package front.scene.frame;
 
+import util.kit.nothing.Nothing;
 import crapp.ui.display.app.CrappUIScene;
 
 @priori('
@@ -17,7 +18,7 @@ import crapp.ui.display.app.CrappUIScene;
     </view>
 </priori>
 ')
-class SceneFrame extends CrappUIScene {
+class SceneFrame extends CrappUIScene<Nothing> {
     
     override function setup() {
         super.setup();

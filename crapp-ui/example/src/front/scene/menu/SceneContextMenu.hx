@@ -1,5 +1,6 @@
 package front.scene.menu;
 
+import util.kit.nothing.Nothing;
 import crapp.ui.style.theme.CrappUIThemeProvider;
 import crapp.ui.style.data.CrappUIThemeData;
 import crapp.ui.display.menu.CrappUIContextMenu;
@@ -20,7 +21,7 @@ import crapp.ui.display.app.CrappUIScene;
     </view>
 </priori>
 ')
-class SceneContextMenu extends CrappUIScene {
+class SceneContextMenu extends CrappUIScene<Nothing> {
     
     override function setup() {
         super.setup();

@@ -1,5 +1,6 @@
 package front.scene.container;
 
+import util.kit.nothing.Nothing;
 import crapp.ui.style.theme.CrappUIThemeProvider;
 import crapp.ui.display.app.CrappUIScene;
 
@@ -17,7 +18,7 @@ import crapp.ui.display.app.CrappUIScene;
     </view>
 </priori>
 ')
-class SceneSurface extends CrappUIScene {
+class SceneSurface extends CrappUIScene<Nothing> {
     
     override function setup() {
         super.setup();

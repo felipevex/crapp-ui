@@ -1,5 +1,6 @@
 package front.scene.style;
 
+import util.kit.nothing.Nothing;
 import crapp.ui.style.theme.CrappUIThemeProvider;
 import crapp.ui.style.data.CrappUIThemeData;
 import crapp.ui.style.CrappUIStyle;
@@ -47,12 +48,11 @@ import crapp.ui.display.app.CrappUIScene;
     </view>
 </priori>
 ')
-class SceneStyle extends CrappUIScene {
+class SceneStyle extends CrappUIScene<Nothing> {
 
-    public function new(data:Dynamic) {
+    public function new() {
         this.registerTheme();
-
-        super(data);
+        super();
     }
     
     override function setup() {

@@ -1,8 +1,9 @@
 package front.scene.home;
 
-import priori.scene.PriSceneManager;
+import crapp.ui.route.CrappUIRouteManager;
+import front.route.FrontRoute;
+import util.kit.nothing.Nothing;
 import crapp.ui.display.app.CrappUIScene;
-
 
 @priori('
 <priori>
@@ -32,35 +33,39 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton id="testModalDialog" label="MODAL - DIALOG" />
             <private:CrappUIButton id="testIcon" label="ICON" />
             <private:CrappUIButton id="testFrame" label="FRAME" />
+            <private:CrappUIButton id="testRoute" label="ROUTE" />
+            <private:CrappUIButton id="testRouteParametric" label="ROUTE - PARAMETRIC" />
         </private:CrappUIScrollable>
     </view>
 </priori>
 ')
-class SceneHome extends CrappUIScene {
+class SceneHome extends CrappUIScene<Nothing> {
     
     override function setup() {
         super.setup();
         
-        this.testStyle.actions.onClick = () -> PriSceneManager.singleton().navigate('style');
-        this.testText.actions.onClick = () -> PriSceneManager.singleton().navigate('text');
-        this.testTextIcon.actions.onClick = () -> PriSceneManager.singleton().navigate('text/icon');
-        this.testButton.actions.onClick = () -> PriSceneManager.singleton().navigate('button/button');
-        this.testButtonIconText.actions.onClick = () -> PriSceneManager.singleton().navigate('button/icon/text');
-        this.testButtonIcon.actions.onClick = () -> PriSceneManager.singleton().navigate('button/icon');
-        this.testButtonSurface.actions.onClick = () -> PriSceneManager.singleton().navigate('button/surface');
-        this.testInputText.actions.onClick = () -> PriSceneManager.singleton().navigate('input/text');
-        this.testInputSelect.actions.onClick = () -> PriSceneManager.singleton().navigate('input/select');
-        this.testCompositeScroller.actions.onClick = () -> PriSceneManager.singleton().navigate('composite/scroller');
-        this.testList.actions.onClick = () -> PriSceneManager.singleton().navigate('list');
-        this.testStack.actions.onClick = () -> PriSceneManager.singleton().navigate('stack');
-        this.testMenuContext.actions.onClick = () -> PriSceneManager.singleton().navigate('menu/context');
-        this.testImage.actions.onClick = () -> PriSceneManager.singleton().navigate('image');
-        this.testSurface.actions.onClick = () -> PriSceneManager.singleton().navigate('container/surface');
-        this.testLineHorizontal.actions.onClick = () -> PriSceneManager.singleton().navigate('line/horizontal');
-        this.testLineVertical.actions.onClick = () -> PriSceneManager.singleton().navigate('line/vertical');
-        this.testModalDialog.actions.onClick = () -> PriSceneManager.singleton().navigate('modal/dialog');
-        this.testIcon.actions.onClick = () -> PriSceneManager.singleton().navigate('icon');
-        this.testFrame.actions.onClick = () -> PriSceneManager.singleton().navigate('frame');
+        this.testStyle.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneStyle);
+        this.testText.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneText);
+        this.testTextIcon.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneTextIcon);
+        this.testButton.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneButton);
+        this.testButtonIconText.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneButtonIconText);
+        this.testButtonIcon.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneButtonIcon);
+        this.testButtonSurface.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneButtonSurface);
+        this.testInputText.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneInputText);
+        this.testInputSelect.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneInputSelect);
+        this.testCompositeScroller.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneScrollerComposite);
+        this.testList.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneList);
+        this.testStack.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneStack);
+        this.testMenuContext.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneContextMenu);
+        this.testImage.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneImage);
+        this.testSurface.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneSurface);
+        this.testLineHorizontal.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneLineHorizontal);
+        this.testLineVertical.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneLineVertical);
+        this.testModalDialog.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneDialog);
+        this.testIcon.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneIcon);
+        this.testFrame.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneFrame);
+        this.testRoute.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneRoute);
+        this.testRouteParametric.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneRouteParametric.build({id: 1, name: 'Hello World'}));
         
     }
 }

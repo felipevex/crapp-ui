@@ -1,5 +1,6 @@
 package front.scene.input;
 
+import util.kit.nothing.Nothing;
 import crapp.ui.style.theme.CrappUIThemeProvider;
 import helper.kits.StringKit;
 import crapp.ui.display.app.CrappUIScene;
@@ -33,7 +34,7 @@ import crapp.ui.display.app.CrappUIScene;
     </view>
 </priori>
 ')
-class SceneInputText extends CrappUIScene {
+class SceneInputText extends CrappUIScene<Nothing> {
     
     override function setup() {
 

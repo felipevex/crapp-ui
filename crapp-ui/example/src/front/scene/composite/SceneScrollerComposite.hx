@@ -1,5 +1,6 @@
 package front.scene.composite;
 
+import util.kit.nothing.Nothing;
 import crapp.ui.composite.builtin.ScrollerComposite;
 import crapp.ui.display.layout.CrappUILayout;
 import crapp.ui.display.app.CrappUIScene;
@@ -31,7 +32,7 @@ import crapp.ui.display.app.CrappUIScene;
     </view>
 </priori>
 ')
-class SceneScrollerComposite extends CrappUIScene {
+class SceneScrollerComposite extends CrappUIScene<Nothing> {
     
     override function setup() {
         super.setup();

@@ -1,5 +1,6 @@
 package crapp.ui.display.app;
 
+import crapp.ui.route.CrappUIRouteManager;
 import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.style.CrappUIStyleManager;
 import crapp.ui.interfaces.ICrappUIStyleObject;
@@ -77,7 +78,8 @@ class CrappUIApp extends PriApp implements ICrappUIStyleObject {
 
     public function init():Void {
         this.__priAppRoutes();
-        PriSceneManager.singleton().navigateToCurrent();
+        
+        CrappUIRouteManager.use().reload();
     }
 
     function get_theme():String return this.styleManager.getTheme();

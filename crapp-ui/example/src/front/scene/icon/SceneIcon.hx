@@ -1,5 +1,6 @@
 package front.scene.icon;
 
+import util.kit.nothing.Nothing;
 import crapp.ui.style.CrappUISizeReference;
 import priori.fontawesome.FontAwesomeIconType;
 import crapp.ui.display.app.CrappUIScene;
@@ -28,7 +29,7 @@ import crapp.ui.display.app.CrappUIScene;
     </view>
 </priori>
 ')
-class SceneIcon extends CrappUIScene {
+class SceneIcon extends CrappUIScene<Nothing> {
     
     override function setup() {
         super.setup();

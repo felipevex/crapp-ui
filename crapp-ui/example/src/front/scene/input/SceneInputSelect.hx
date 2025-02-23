@@ -1,5 +1,6 @@
 package front.scene.input;
 
+import util.kit.nothing.Nothing;
 import crapp.ui.style.theme.CrappUIThemeProvider;
 import crapp.ui.display.input.CrappUISelectInput;
 import crapp.ui.display.app.CrappUIScene;
@@ -33,7 +34,7 @@ import crapp.ui.display.app.CrappUIScene;
     </view>
 </priori>
 ')
-class SceneInputSelect extends CrappUIScene {
+class SceneInputSelect extends CrappUIScene<Nothing> {
 
     var selectData:Array<InputSelectData> = [
         { label: "Option 1", value: 1 },

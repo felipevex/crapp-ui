@@ -1,5 +1,6 @@
 package front.scene.text;
 
+import util.kit.nothing.Nothing;
 import crapp.ui.display.app.CrappUIScene;
 
 @priori('
@@ -22,7 +23,7 @@ import crapp.ui.display.app.CrappUIScene;
     </view>
 </priori>
 ')
-class SceneText extends CrappUIScene {
+class SceneText extends CrappUIScene<Nothing> {
     
     override function setup() {
         super.setup();

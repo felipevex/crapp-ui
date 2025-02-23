@@ -1,5 +1,6 @@
 package front.scene.list;
 
+import util.kit.nothing.Nothing;
 import crapp.ui.display.text.CrappUIText;
 import crapp.ui.display.list.CrappUIListChild;
 import crapp.ui.display.list.CrappUIList;
@@ -24,7 +25,7 @@ import crapp.ui.display.app.CrappUIScene;
     </view>
 </priori>
 ')
-class SceneList extends CrappUIScene {
+class SceneList extends CrappUIScene<Nothing> {
     
     override function setup() {
         

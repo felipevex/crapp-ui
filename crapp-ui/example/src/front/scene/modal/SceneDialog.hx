@@ -1,5 +1,6 @@
 package front.scene.modal;
 
+import util.kit.nothing.Nothing;
 import crapp.ui.display.modal.dialog.CrappUIDialog;
 import crapp.ui.display.app.CrappUIScene;
 
@@ -18,7 +19,7 @@ import crapp.ui.display.app.CrappUIScene;
     </view>
 </priori>
 ')
-class SceneDialog extends CrappUIScene {
+class SceneDialog extends CrappUIScene<Nothing> {
     
 
     override function setup() {
