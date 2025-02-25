@@ -1,13 +1,12 @@
 package crapp.ui.controller;
 
+import crapp.ui.route.CrappUIRouteManager;
 import priori.style.filter.PriFilterStyle;
-import priori.scene.PriSceneManagerEvents;
 import tricks.layout.LayoutAlignment;
 import crapp.ui.display.layout.CrappUILayout;
 import crapp.ui.display.CrappUIDisplay;
 import crapp.ui.display.modal.CrappUIModal;
 import priori.event.PriEvent;
-import priori.scene.PriSceneManager;
 import priori.types.PriTransitionType;
 import priori.system.PriKey;
 import priori.event.PriKeyboardEvent;
@@ -42,7 +41,7 @@ class CrappUIModalController {
         this.modalContainer.hLayoutAlignment = LayoutAlignment.CENTER;
         this.modalContainer.vLayoutAlignment = LayoutAlignment.CENTER;
 
-        PriSceneManager.use().addEventListener(PriSceneManagerEvents.CHANGE_SCENE, this.onChangeScene);
+        CrappUIRouteManager.use().addEventListener(PriEvent.CHANGE, this.onChangeScene);
     }
 
     private function onChangeScene(e:PriEvent):Void {
@@ -130,13 +129,14 @@ class CrappUIModalController {
 
     inline private function blockSceneHolder():Void {
         PriApp.g().setFocus();
-        PriSceneManager.use().holder.disabled = true;
-        if (USE_BLUR) PriSceneManager.use().holder.filter = new PriFilterStyle().setBlur(BLUR_STRENGTH);
+        
+        CrappUIRouteManager.use().holder.disabled = true;
+        if (USE_BLUR) CrappUIRouteManager.use().holder.filter = new PriFilterStyle().setBlur(BLUR_STRENGTH);
     }
 
     inline private function releaseSceneHolder():Void {
-        PriSceneManager.use().holder.disabled = false;
-        PriSceneManager.use().holder.filter = null;
+        CrappUIRouteManager.use().holder.disabled = false;
+        CrappUIRouteManager.use().holder.filter = null;
     }
 
     inline private function disableModal(modal:CrappUIModalElement):Void {

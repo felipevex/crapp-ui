@@ -1,5 +1,8 @@
 package crapp.ui.route;
 
+import priori.event.PriEvent;
+import priori.event.PriEventDispatcher;
+import crapp.ui.display.CrappUIDisplay;
 import helper.kits.StringKit;
 import crapp.ui.route.browser.RouteBrowserHost;
 import crapp.ui.display.app.CrappUIScene;
@@ -16,8 +19,12 @@ import util.kit.path.Path;
  *   - Navegar entre as rotas definidas (anterior, próxima, substituir e recarregar).
  *   - Gerenciar os escopos de acesso das rotas.
  *   - Instanciar e destruir cenas de forma apropriada conforme as alterações nas rotas.
+ *
+ * Eventos Emitidos:
+ *   - PriEvent.CHANGE: Este evento é disparado na função onRouteChange() sempre
+ *     que a rota é alterada e uma nova cena é instanciada.
  */
-class CrappUIRouteManager {
+class CrappUIRouteManager extends PriEventDispatcher {
     
     // SINGLETON
     private static var _singleton:CrappUIRouteManager;
@@ -36,11 +43,18 @@ class CrappUIRouteManager {
 
     private var host:RouteBrowserHost;
     private var routes:Array<RouteItem>;
+
+    private var routeHolder:CrappUIDisplay;
+
     private var scopes:Array<String>;
 
     private var scene:CrappUIScene<Dynamic>;
 
+    public var holder(get, null):CrappUIDisplay;
+
     private function new() {
+        super();
+
         this.host = new RouteBrowserHost();
         this.host.onRouteChange = this.onRouteChange;
 
@@ -54,6 +68,20 @@ class CrappUIRouteManager {
         this.routes = [];
         this.scopes = [];
         this.killScene();
+
+        if (this.routeHolder != null) {
+            routeHolder.removeFromParent();
+            routeHolder.kill();
+            routeHolder = null;
+        }
+
+        routeHolder = new CrappUIDisplay();
+        routeHolder.left = 0;
+        routeHolder.top = 0;
+        routeHolder.right = 0;
+        routeHolder.bottom = 0;
+
+        PriApp.g().addChild(routeHolder);
     }
 
     inline private function killScene():Void {
@@ -63,6 +91,8 @@ class CrappUIRouteManager {
             this.scene = null;
         }
     }
+
+    inline private function get_holder():CrappUIDisplay return this.routeHolder;
 
     /**
      * Registra uma nova rota no gerenciador de rotas.
@@ -99,6 +129,8 @@ class CrappUIRouteManager {
         if (route == null) return;
 
         this.instantiateScene(route);
+
+        this.dispatchEvent(new PriEvent(PriEvent.CHANGE, false, false));
     }
 
     /**
@@ -140,7 +172,7 @@ class CrappUIRouteManager {
         this.scene.right = 0;
         this.scene.bottom = 0;
 
-        PriApp.g().addChild(this.scene);    
+        this.holder.addChild(this.scene);   
     }
 
     /**
