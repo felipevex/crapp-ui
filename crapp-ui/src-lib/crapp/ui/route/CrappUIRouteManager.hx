@@ -10,29 +10,27 @@ import priori.app.PriApp;
 import util.kit.path.Path;
 
 /**
- * Classe CrappUIRouteManager é responsável por gerenciar as rotas e escopos
- * da aplicação. Esta classe implementa o padrão Singleton, garantindo que apenas
- * uma instância seja utilizada durante a execução do programa.
- *
- * Suas principais responsabilidades incluem:
- *   - Registrar novas rotas juntamente com suas cenas associadas.
- *   - Navegar entre as rotas definidas (anterior, próxima, substituir e recarregar).
- *   - Gerenciar os escopos de acesso das rotas.
- *   - Instanciar e destruir cenas de forma apropriada conforme as alterações nas rotas.
- *
- * Eventos Emitidos:
- *   - PriEvent.CHANGE: Este evento é disparado na função onRouteChange() sempre
- *     que a rota é alterada e uma nova cena é instanciada.
- */
+    A classe **CrappUIRouteManager** é responsável por gerenciar as rotas e escopos da aplicação.  
+    Esta classe implementa o padrão *Singleton*, garantindo que apenas uma instância seja utilizada durante a execução do programa.
+
+    #### Responsabilidades:
+    - **Registrar novas rotas**: Associa caminhos (rotas) às respectivas classes de cena.
+    - **Navegar entre rotas**: Permite navegar para trás, para frente, recarregar a rota atual ou substituir a rota através do host.
+    - **Gerenciar os escopos**: Controla os escopos de acesso das rotas, permitindo verificar, adicionar e remover escopos.
+    - **Instanciar e destruir cenas**: Cria ou elimina cenas conforme a alteração das rotas, garantindo que a cena atual seja corretamente destruída antes de instanciar uma nova.
+
+    #### Eventos Emitidos:
+    - **PriEvent.CHANGE**: Disparado na função onRouteChange() sempre que uma nova cena é instanciada, indicando que houve mudança de rota.
+*/
 class CrappUIRouteManager extends PriEventDispatcher {
     
     // SINGLETON
     private static var _singleton:CrappUIRouteManager;
 
     /**
-     * Retorna a instância única de CrappUIRouteManager.
-     * 
-     * @return instância do CrappUIRouteManager.
+        Retorna a instância única de CrappUIRouteManager (padrão Singleton).
+
+        @return instância do CrappUIRouteManager.
      */
     public static function use():CrappUIRouteManager {
         if (_singleton == null) _singleton = new CrappUIRouteManager();
@@ -50,6 +48,13 @@ class CrappUIRouteManager extends PriEventDispatcher {
 
     private var scene:CrappUIScene<Dynamic>;
 
+    /**
+        Getter para o holder que armazena a cena instanciada.
+
+        @return Instância de CrappUIDisplay que contém a cena atual.
+
+        O holder (routeHolder) é o container utilizado para adicionar a cena instanciada durante a navegação.
+     */
     public var holder(get, null):CrappUIDisplay;
 
     private function new() {
@@ -62,7 +67,12 @@ class CrappUIRouteManager extends PriEventDispatcher {
     }
 
     /**
-     * Reinicia as rotas e escopos, além de destruir a cena atual.
+        Reinicia as rotas e os escopos da aplicação. Essa função:
+        - Limpa as rotas e escopos.
+        - Destrói (mata) a cena atual, se existir.
+        - Remove e recria o routeHolder, que é o container onde as cenas são adicionadas.
+
+        Este método é fundamental para garantir que o estado do roteamento seja limpo antes de atribuir novas cenas.
      */
     public function reset():Void {
         this.routes = [];
@@ -95,15 +105,14 @@ class CrappUIRouteManager extends PriEventDispatcher {
     inline private function get_holder():CrappUIDisplay return this.routeHolder;
 
     /**
-     * Registra uma nova rota no gerenciador de rotas.
-     * 
-     * @param path  Caminho da rota.
-     * @param scene Classe da cena associada à rota.
-     * @param scope (Opcional) Escopo da rota.
+        Registra uma nova rota no gerenciador.
+        Ao registrar uma rota, a associação entre o caminho e a cena é armazenada para ser utilizada na navegação.
+        @param path Caminho da rota (instância de Path<T>).
+        @param scene Classe da cena associada à rota.
+        @param scope (Opcional) Escopo de acesso para a rota.
      */
     public function register<T>(path:Path<T>, scene:Class<CrappUIScene<T>>, ?scope:String):Void {
         if (path == null || scene == null) return;
-
         this.routes.push({path: path, scene: scene, scope: scope});
     }
 
@@ -134,17 +143,20 @@ class CrappUIRouteManager extends PriEventDispatcher {
     }
 
     /**
-     * Verifica se o escopo informado existe na sessão.
-     *
-     * @param scope Escopo a ser verificado.
-     * @return True se o escopo existir, caso contrário false.
+        Verifica se o escopo informado existe na sessão atual.
+        Retorna true se o escopo existir, caso contrário, retorna false.
+        
+        @param scope Escopo a ser verificado.
+        @return True se o escopo existir; caso contrário, false.
      */
     public function hasScope(scope:String):Bool return this.scopes.indexOf(scope) >= 0;
 
     /**
-     * Adiciona um novo escopo à sessão.
-     *
-     * @param scope Escopo a ser adicionado.
+        Adiciona um novo escopo à sessão.
+        A adição de escopos permite controlar o acesso às rotas registradas de acordo com os privilégios definidos,
+        adicionando o escopo se ele não for nulo e ainda não estiver presente.
+    
+        @param scope Escopo a ser adicionado.
      */
     public function addScope(scope:String):Void {
         if (scope == null || this.scopes.indexOf(scope) >= 0) return;
@@ -152,9 +164,10 @@ class CrappUIRouteManager extends PriEventDispatcher {
     }
 
     /**
-     * Remove o escopo especificado da sessão.
-     *
-     * @param scope Escopo a ser removido.
+        Remove o escopo especificado da sessão.
+        Esta função gerencia os privilégios de acesso removendo escopos que não são mais válidos.
+    
+        @param scope Escopo a ser removido.
      */
     public function removeScope(scope:String):Void {
         if (scope == null) return;
@@ -176,45 +189,53 @@ class CrappUIRouteManager extends PriEventDispatcher {
     }
 
     /**
-     * Navega para a rota anterior.
+        Navega para a rota anterior, utilizando a funcionalidade do host.
+
+        Essa função é utilizada para "voltar" na navegação realizada.
      */
     inline public function navigateBack():Void this.host.navigateBack();
 
     /**
-     * Navega para a próxima rota.
+        Navega para a próxima rota, utilizando a funcionalidade do host.
+        
+        Permite avançar na navegação historicamente armazenada.
      */
     inline public function navigateForward():Void this.host.navigateForward();
 
     /**
-     * Navega para a rota especificada.
-     *
-     * @param path Caminho para onde navegar.
+        Navega para a rota especificada, alterando a rota atual para a rota informada.
+
+        @param path Caminho para onde realizar a navegação.
      */
     inline public function navigate(path:String):Void this.host.navigate(path);
     
     /**
-     * Recarrega a rota atual. Caso a cena já esteja instanciada, ela será recriada.
+        Recarrega a rota atual. Caso a cena já esteja instanciada, esta será destruída e uma nova instância será criada.
+        Esse método é útil para atualizar a cena sem alterar o histórico de navegação.
+        
+        @return void
      */
     inline public function reload():Void this.onRouteChange();
 
     /**
-     * Substitui a rota atual pela rota especificada.
-     *
-     * @param path Caminho para substituir a rota atual.
+        Substitui a rota atual pela rota especificada.
+        Essa funcionalidade é útil quando se deseja substituir a cena atual sem manter o histórico da rota anterior.
+
+        @param path Caminho da nova rota que substituirá a rota atual.
+        @return void
      */
     inline public function replace(path:String):Void this.host.replace(path);
     
     /**
-     * Extrai o parâmetro da rota atual.
-     *
-     * @return Parâmetro extraído da rota ou null parâmetros.
+        Extrai e retorna o parâmetro da rota atual.
+        Utiliza o método extract do objeto Path associado para obter os parâmetros dinamicamente definidos na URL.
+    
+        @return Parâmetro extraído da rota atual ou null, caso não haja parâmetros.
      */
     public function routeParam():Null<Dynamic> {
         if (this.routes.length == 0) return null;
-
         var path:String = this.host.getPath();
         var route:RouteItem = this.findRouteByPath(path);
-        
         return route.path.extract(path);
     }
 }

@@ -1,6 +1,5 @@
 package crapp.ui.display;
 
-import crapp.ui.event.CrappUIEventType;
 import priori.event.PriEvent;
 import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.style.CrappUIStyleManager;
@@ -18,39 +17,118 @@ import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.composite.CrappUICompositeManager;
 import crapp.ui.interfaces.ICrappUIStyleObject;
 
+/**
+   A classe CrappUIDisplay tem como finalidade renderizar um componente visual na aplicação.
+
+   #### Responsabilidades:
+   - **Gerenciamento de Estilo**: Aplicar e atualizar temas, cores, bordas, sombras e demais configurações visuais.
+   - **Manipulação de Composição**: Agregar e propagar mudanças entre os elementos visuais através de um gerenciador composto.
+   - **Interação com Eventos**: Responder a eventos de redimensionamento e atualização para manter a exibição atualizada.
+   #### Eventos Emitidos:
+   - **PriEvent.RESIZE**: Disparado quando o componente detecta uma alteração de tamanho.
+**/
 class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
-    
+
+    /**
+       Variável que define a profundidade do componente na árvore de exibição e projeta uma sombra obre os outros componentes.
+       @default 0
+    **/
     @:isVar public var z(default, set):Float = 0;
 
     private var styleManager:CrappUIStyleManager;
 
+    /**
+       Propriedade que define o tema utilizado pelo componente.
+    **/
     public var theme(get, set):String;
+
+    /**
+       Propriedade que define a tag identificadora do componente para aplicação de estilos.
+    **/
     public var tag(get, set):String;
+
+    /**
+       Propriedade que define a variante de estilo utilizada pelo componente.
+    **/
     public var variant(get, set):String;
+
+    /**
+       Propriedade que armazena os dados de estilo do componente. É possível também aplicar uma sobreposição dos estilos ao aplicar um valor.
+       Defina style `null` para remover a sobreposição.
+    **/
     public var style(get, set):CrappUIStyleData;
 
     /**
-     * indica que o elemento tem um constraint horizontal para valores de left e right
-     */
+       Indica se o componente possui restrição horizontal definida.
+    **/
     public var hasHorizontalConstraint(get, null):Bool;
-    
+
     /**
-      * indica que o elemento tem um constraint vertical para valores de top e bottom
-      */
+       Indica se o componente possui restrição vertical definida.
+    **/
     public var hasVerticalConstraint(get, null):Bool;
 
+    /**
+       Agrupa as ações associadas ao componente.
+    **/
     @:isVar public var actions(get, null):CrappUIActionsResource;
 
+    /**
+       Propriedade que representa o layout do componente, definindo posição, dimensões e filhos.
+    **/
     public var layout(get, set):LayoutElement<CrappUIDisplay>;
-    @:isVar public var vLayoutSize(default, set):LayoutSize = LayoutSize.FIXED;
+
+    /**
+       Propriedade que define o tamanho horizontal do layout.
+       @default LayoutSize.FIXED
+    **/
     @:isVar public var hLayoutSize(default, set):LayoutSize = LayoutSize.FIXED;
+
+    /**
+       Propriedade que define o tamanho vertical do layout.
+       @default LayoutSize.FIXED
+    **/
+    @:isVar public var vLayoutSize(default, set):LayoutSize = LayoutSize.FIXED;
+
+    /**
+       Propriedade que define a distribuição horizontal dos elementos do layout.
+       @default LayoutDistribution.NONE
+    **/
     @:isVar public var hLayoutDistribution(default, set):LayoutDistribution = LayoutDistribution.NONE;
+
+    /**
+       Propriedade que define a distribuição vertical dos elementos do layout.
+       @default LayoutDistribution.NONE
+    **/
     @:isVar public var vLayoutDistribution(default, set):LayoutDistribution = LayoutDistribution.NONE;
+
+    /**
+       Propriedade que define o alinhamento horizontal dos elementos do layout.
+       @default LayoutAlignment.NONE
+    **/
     @:isVar public var hLayoutAlignment(default, set):LayoutAlignment = LayoutAlignment.NONE;
+
+    /**
+       Propriedade que define o alinhamento vertical dos elementos do layout.
+       @default LayoutAlignment.NONE
+    **/
     @:isVar public var vLayoutAlignment(default, set):LayoutAlignment = LayoutAlignment.NONE;
+
+    /**
+       Define o espaçamento horizontal entre os elementos do layout.
+       @default 0.0
+    **/
     @:isVar public var hLayoutGap(default, set):Float = 0.0;
+
+    /**
+       Define o espaçamento vertical entre os elementos do layout.
+       @default 0.0
+    **/
     @:isVar public var vLayoutGap(default, set):Float = 0.0;
-    
+
+    /**
+       Gerencia a composição dos elementos visuais e as transições aplicadas ao componente.
+    **/
     public var composite:CrappUICompositeManager;
 
     public function new() {
@@ -67,11 +145,19 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
         if (this.actions.onResize != null) this.actions.onResize();
     }
 
+    /**
+       Retorna true se o componente estiver em modo retrato.
+       @returns Booleano indicando se a exibição está em modo retrato.
+    **/
     public function isPortraitDisplay():Bool {
         if (PriApp.g().width >= PriApp.g().height) return false;
         return true;
     }
 
+    /**
+       Retorna true se o componente estiver em modo paisagem.
+       @returns Booleano indicando se a exibição está em modo paisagem.
+    **/
     public function isLandscapeDisplay():Bool {
         return !this.isPortraitDisplay();
     }
@@ -127,13 +213,24 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
     }
 
     function get_style():CrappUIStyleData return this.styleManager.getStyle();
+
+    /**
+       Define os dados de estilo do componente e atualiza o gerenciador de estilo.
+       @param value Novos dados de estilo a serem aplicados.
+       @returns CrappUIStyleData com os dados de estilo atualizados.
+    **/
 	function set_style(value:CrappUIStyleData):CrappUIStyleData return this.styleManager.setStyle(value);
-    
+
     function get_theme():String return this.styleManager.getTheme();
+
     function set_theme(value:String):String return this.styleManager.setTheme(value);
+
     function get_tag():String return this.styleManager.getTag();
+
     function set_tag(value:String):String return this.styleManager.setTag(value);
+
     function get_variant():String return this.styleManager.getVariant();
+
     function set_variant(value:String):String return this.styleManager.setVariant(value);
     
     override public function addChildList(childList:Array<Dynamic>):Void {
@@ -264,7 +361,7 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
     private function paintCorners(style:CrappUIStyle, size:CrappUISizeReference):Void {
         this.corners = [Math.round(style.corners * size.toFloat())];
     }
-    
+
     override function kill() {
         this.composite.reset();
         for (c in this.composite) c.kill();

@@ -1,3 +1,10 @@
+/**
+   A classe CrappUIModalController tem como finalidade gerenciar a exibição, o comportamento e a remoção dos modais na aplicação.
+   #### Responsabilidades:
+   - Gerenciar a adição e remoção de modais sobrepostos na interface.
+   - Controlar as transições visuais e efeitos (como alteração de alfa e aplicação de blur) durante a exibição dos modais.
+   - Integrar os modais com o gerenciamento de foco e com o sistema de rotas da aplicação.
+**/
 package crapp.ui.controller;
 
 import crapp.ui.route.CrappUIRouteManager;
@@ -16,13 +23,36 @@ import priori.app.PriApp;
 @:access(crapp.ui.display.modal.CrappUIModal)
 class CrappUIModalController {
 
+    /**
+       Esta variável indica se deve ser aplicado um efeito de blur aos modais.
+       @default false
+    **/
     public static var USE_BLUR:Bool = false;
+
+    /**
+       Determina a intensidade do efeito de blur aplicado aos modais.
+       @default 5
+    **/
     public static var BLUR_STRENGTH:Int = 5;
+
+    /**
+       Define o nível de transparência do fundo dos modais.
+       @default 0.3
+    **/
     public static var BACKGROUND_ALPHA:Float = 0.3;
+
+    /**
+       Define a cor de fundo utilizada nos elementos de exibição dos modais.
+       @default 0x000000
+    **/
     public static var BACKGROUND_COLOR:Int = 0x000000;
     
     private static var _singleton:CrappUIModalController;
 
+    /**
+       Retorna a instância única (singleton) do controlador de modais.
+       @return Instância de CrappUIModalController
+    **/
     public static function use():CrappUIModalController {
         if (_singleton == null) _singleton = new CrappUIModalController();
         return _singleton;
@@ -56,23 +86,41 @@ class CrappUIModalController {
         PriApp.g().removeChild(this.modalContainer);
     }
 
+    /**
+       Retorna o container de exibição utilizado para agregar os modais.
+       @return Instância de CrappUIDisplay que contém os modais
+    **/
     public function getContainer():CrappUIDisplay {
         return this.modalContainer;
     }
 
+    /**
+       Fecha o modal que está no topo da pilha de modais.
+    **/
     public function closeTopMostModal():Void {
         if (this.modals.length > 0) this.remove(this.modals[this.modals.length - 1].modal);
     }
 
+    /**
+       Fecha todos os modais atualmente abertos.
+    **/
     public function closeAllModals():Void {
         while (this.modals.length > 0) this.remove(this.modals[0].modal);
     }
 
+    /**
+       Tenta fechar o modal pai associado ao elemento de exibição informado.
+       @param element Objeto do tipo CrappUIDisplay que pode possuir um modal pai
+    **/
     public function tryToCloseParentModal(element:CrappUIDisplay):Void {
         if (element == null) return;
         element.dispatchEvent(new PriEvent(PriEvent.CLOSE, false, true));
     }
 
+    /**
+       Adiciona um novo modal à pilha de modais e inicia sua exibição com as transições e efeitos configurados.
+       @param modal Instância de CrappUIModal a ser exibida
+    **/
     public function add(modal:CrappUIModal):Void {
         if (modal == null) return;
         
@@ -153,6 +201,10 @@ class CrappUIModalController {
         modal.modal.filter = null;
     }
 
+    /**
+       Remove o modal especificado da pilha, encerrando sua exibição e revertendo as configurações de foco e filtro do fundo.
+       @param modal Instância de CrappUIModal a ser removida
+    **/
     public function remove(modal:CrappUIModal):Void {
         if (modal == null) return;
 
