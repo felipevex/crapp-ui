@@ -8,8 +8,6 @@ import priori.style.shadow.PriShadowStyle;
 import priori.style.border.PriBorderStyle;
 import priori.view.builder.PriBuilder;
 import tricks.layout.LayoutElement;
-import tricks.layout.LayoutAlignment;
-import tricks.layout.LayoutDistribution;
 import tricks.layout.LayoutSize;
 import crapp.ui.resource.CrappUIActionsResource;
 import crapp.ui.style.CrappUIStyle;
@@ -89,42 +87,6 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
        @default LayoutSize.FIXED
     **/
     @:isVar public var vLayoutSize(default, set):LayoutSize = LayoutSize.FIXED;
-
-    /**
-       Propriedade que define a distribuição horizontal dos elementos do layout.
-       @default LayoutDistribution.NONE
-    **/
-    @:isVar public var hLayoutDistribution(default, set):LayoutDistribution = LayoutDistribution.NONE;
-
-    /**
-       Propriedade que define a distribuição vertical dos elementos do layout.
-       @default LayoutDistribution.NONE
-    **/
-    @:isVar public var vLayoutDistribution(default, set):LayoutDistribution = LayoutDistribution.NONE;
-
-    /**
-       Propriedade que define o alinhamento horizontal dos elementos do layout.
-       @default LayoutAlignment.NONE
-    **/
-    @:isVar public var hLayoutAlignment(default, set):LayoutAlignment = LayoutAlignment.NONE;
-
-    /**
-       Propriedade que define o alinhamento vertical dos elementos do layout.
-       @default LayoutAlignment.NONE
-    **/
-    @:isVar public var vLayoutAlignment(default, set):LayoutAlignment = LayoutAlignment.NONE;
-
-    /**
-       Define o espaçamento horizontal entre os elementos do layout.
-       @default 0.0
-    **/
-    @:isVar public var hLayoutGap(default, set):Float = 0.0;
-
-    /**
-       Define o espaçamento vertical entre os elementos do layout.
-       @default 0.0
-    **/
-    @:isVar public var vLayoutGap(default, set):Float = 0.0;
 
     /**
        Gerencia a composição dos elementos visuais e as transições aplicadas ao componente.
@@ -264,29 +226,32 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
         }
 
         layout.horizontal = {
-            gap : this.hLayoutGap,
+            gap : 0,
             size : this.hLayoutSize,
-            alignment : this.hLayoutAlignment,
-            distribution : this.hLayoutDistribution
+            alignment : MIN,
+            distribution : NONE
         }
         
         layout.vertical = {
-            gap : this.vLayoutGap,
+            gap : 0,
             size : this.vLayoutSize,
-            alignment : this.vLayoutAlignment,
-            distribution : this.vLayoutDistribution
+            alignment : MIN,
+            distribution : NONE
         }
 
         return layout;
 	}
 
     function set_layout(value:LayoutElement<CrappUIDisplay>):LayoutElement<CrappUIDisplay> {
+        
+        this.startBatchUpdate();
         if (!this.hasHorizontalConstraint) this.x = value.x;
         if (!this.hasVerticalConstraint) this.y = value.y;
 
         if (!this.hasHorizontalConstraint) this.width = value.width;
         if (!this.hasVerticalConstraint) this.height = value.height;
-        
+        this.endBatchUpdate();
+
         return value;
     }
 
@@ -311,42 +276,6 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
         this.updateDisplay();
         return value;
 	}
-
-	function set_hLayoutDistribution(value:LayoutDistribution):LayoutDistribution {
-		this.hLayoutDistribution = value;
-        this.updateDisplay();
-        return value;
-	}
-
-	function set_vLayoutDistribution(value:LayoutDistribution):LayoutDistribution {
-		this.vLayoutDistribution = value;
-        this.updateDisplay();
-        return value;
-	}
-
-	function set_hLayoutAlignment(value:LayoutAlignment):LayoutAlignment {
-		this.hLayoutAlignment = value;
-        this.updateDisplay();
-        return value;
-	}
-
-	function set_vLayoutAlignment(value:LayoutAlignment):LayoutAlignment {
-		this.vLayoutAlignment = value;
-        this.updateDisplay();
-        return value;
-	}
-
-    function set_hLayoutGap(value:Float):Float {
-        this.hLayoutGap = value;
-        this.updateDisplay();
-        return value;
-    }
-
-    function set_vLayoutGap(value:Float):Float {
-        this.vLayoutGap = value;
-        this.updateDisplay();
-        return value;
-    }
 
     private function paintBackground(style:CrappUIStyle):Void {
         this.bgColor = style.color.color;
