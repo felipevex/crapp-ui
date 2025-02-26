@@ -9,9 +9,10 @@
   "releasenote": "",
   "contributors": [ "felipevex" ],
   "dependencies": {
+    "priori" : "git:https://github.com/triture/priori#1a8215be88e93004848851f3238f86ac0cae8b0e",
     "datetime" : "",
-    "util-kit" : "",
-    "anonstruct" : "",
+    "util-kit" : "git:https://github.com/triture/util-kit",
+    "anonstruct" : "git:https://github.com/triture/anonstruct",
     "actuate" : ""
   }
 }
