@@ -17,6 +17,24 @@ import priori.event.PriTapEvent;
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.CrappUIStyle;
 
+/**
+    Componente de entrada de formulário do tipo seleção (dropdown). Fornece uma interface para seleção de um valor 
+    a partir de uma lista de opções.
+    
+    #### Responsabilidades:
+    - **Entrada de dados por seleção**: Permite ao usuário escolher um valor entre várias opções predefinidas em um menu dropdown.
+    - **Apresentação visual adaptativa**: Ajusta a exibição do componente conforme o estado (com foco, com valor selecionado).
+    - **Validação de dados**: Realiza a validação automática dos dados quando configurado.
+    - **Notificação de mudanças**: Notifica sobre alterações no valor selecionado.
+    
+    #### Eventos Emitidos:
+    - **PriEvent.CHANGE**: Emitido quando o valor do campo de seleção é alterado pelo usuário.
+    
+    #### Ações Acionadas:
+    - **actions.onChange**: Acionada quando o valor do campo de seleção é alterado.
+    - **actions.onDelayedChange**: Acionada após um breve atraso quando o valor é alterado ou quando o campo perde o foco.
+    - **actions.onSubmit**: Acionada quando a tecla ENTER é pressionada enquanto o campo está em foco.
+**/
 @:access(crapp.ui.display.icon)
 class CrappUISelectInput<T> extends CrappUIInput<T> {
     
@@ -25,14 +43,51 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
     private var delayedChangeTimer:Timer;
     private var arrow:FixedIcon;
 
+    /**
+        Define se o componente deve permitir a não seleção de nenhum item.
+        Quando `true`, uma opção vazia será adicionada ao início da lista.
+        
+        @default true
+    **/
     @:isVar public var allowNoSelection(default, set):Bool = true;
 
+    /**
+        Texto de rótulo que será exibido no campo de seleção.
+        
+        @default "LABEL"
+    **/
     @:isVar public var label(default, set):String = "LABEL";
+    
+    /**
+        Conjunto de dados que serão exibidos como opções para seleção.
+        
+        @default []
+    **/
     @:isVar public var data(default, set):Array<T>;
 
+    /**
+        Nome do campo nos objetos de `data` que será usado como texto de exibição.
+        
+        @see labelFieldFunction
+    **/
     public var labelField(get, set):String;
+    
+    /**
+        Função que determina como o texto de uma opção será exibido no componente.
+        Recebe um objeto do tipo `T` e deve retornar uma string que o representa.
+        
+        Se não for definida pelo usuário, o componente tentará converter diretamente
+        o objeto para string usando a conversão padrão do Haxe. Para objetos complexos, 
+        é recomendável definir esta função para garantir uma representação adequada.
+        
+        @see labelField
+    **/
     public var labelFieldFunction(get, set):(value:T)->String;
 
+    /**
+        Cria uma nova instância do componente de entrada do tipo seleção.
+        Inicializa com uma largura padrão de 300 pixels e define o estilo base.
+    **/
     public function new() {
         super();
 

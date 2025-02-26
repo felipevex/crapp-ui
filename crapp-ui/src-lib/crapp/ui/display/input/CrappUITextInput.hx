@@ -14,16 +14,41 @@ import priori.event.PriTapEvent;
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.CrappUIStyle;
 
+/**
+   A classe `CrappUITextInput` tem como finalidade gerenciar a entrada de texto simples no componente de UI.
+   #### Responsabilidades:
+   - **Gerenciar Entrada de Texto**: controla e valida a entrada de dados utilizando `PriFormInputText` e atualiza a exibição do rótulo.
+   - **Atualização Visual**: renderiza o fundo, borda e cantos conforme o estilo definido em `CrappUIStyle` e ajusta o layout dos elementos.
+   #### Eventos Emitidos:
+   - **PriEvent.CHANGE**: emitido quando o valor da entrada é alterado.
+   - **PriEvent.RESIZE**: emitido quando há alteração no tamanho do componente após a renderização.
+   #### Ações Acionadas:
+   - **actions.onSubmit**: acionada quando a tecla `ENTER` é pressionada.
+   - **actions.onChange**: acionada quando ocorre uma alteração instantânea no valor.
+   - **actions.onDelayedChange**: acionada após um atraso na alteração do valor, permitindo validações automáticas.
+**/
 class CrappUITextInput extends CrappUIInput<String> {
     
     private var labelDisplay:PriText;
     private var input:PriFormInputText;
     private var delayedChangeTimer:Timer;
     
+    /**
+       Variável pública que define o rótulo exibido no campo de entrada.
+       @default "LABEL"
+    **/
     @:isVar public var label(default, set):String = "LABEL";
 
+    /**
+       Propriedade pública que indica se o campo de entrada deve tratar o valor como senha.
+    **/
     public var password(get, set):Bool;
 
+    /**
+       Construtor da classe `CrappUITextInput` que inicializa o componente de entrada de texto.
+       Define o `tag` como `TEXT_INPUT` e configura a largura padrão para 300.
+       @default width = 300
+    **/
     public function new() {
         super();
 
