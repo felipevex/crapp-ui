@@ -8,21 +8,21 @@ import priori.view.form.PriFormFileDrop;
 import js.html.Console;
 
 /**
-    A classe CrappUIFileDropInput tem como finalidade gerenciar um componente de interface que possibilita a inserção de arquivos através do mecanismo de arrastar e soltar.
+    A classe `CrappUIFileDropInput` tem como finalidade gerenciar um componente de interface que possibilita a inserção de arquivos através do mecanismo de arrastar e soltar.
     #### Responsabilidades:
     - Gerenciar eventos de arrastar, soltar e detecção de arquivos.
     - Atualizar a interface gráfica conforme a interação do usuário.
     #### Eventos Emitidos:
-    - PriDragEvent.DRAG_ENTER: Evento disparado quando um arquivo é arrastado para a área de drop.
-    - PriDragEvent.DRAG_LEAVE: Evento disparado quando o arquivo arrastado sai da área de drop.
-    - PriEvent.CHANGE: Evento disparado quando um arquivo é solto na área ou o usuário seleciona um arquivo.
+    - `PriDragEvent.DRAG_ENTER`: Evento disparado quando um arquivo é arrastado para a área de drop.
+    - `PriDragEvent.DRAG_LEAVE`: Evento disparado quando o arquivo arrastado sai da área de drop.
+    - `PriEvent.CHANGE`: Evento disparado quando um arquivo é solto na área ou o usuário seleciona um arquivo.
 **/
 @:access(priori.view.form.PriFormFileDrop)
 class CrappUIFileDropInput extends CrappUIInput<String> {
     
     /**
         Variável que armazena os tipos de arquivos aceitos.
-        @default null
+        @default `null`
     **/
     public var acceptFiles(default, set):Array<String>;
 
@@ -78,8 +78,8 @@ class CrappUIFileDropInput extends CrappUIInput<String> {
     }
 
     /**
-        Método que lê o arquivo selecionado e retorna seus dados em forma de Bytes através do callback fornecido.
-        @param onRead Função callback que recebe os dados lidos como Bytes.
+        Método que lê o arquivo selecionado e retorna seus dados em forma de `Bytes` através do callback fornecido.
+        @param onRead Função callback que recebe os dados lidos como `Bytes`.
     **/
     public function readFileBytes(onRead:(data:Bytes)->Void):Void {
         this.input.getDataAsBytes(0, (data:BytesData) -> {
