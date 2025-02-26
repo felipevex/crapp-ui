@@ -21,7 +21,7 @@ services:
             context: ./docker/nginx/
             dockerfile: dockerfile
             args:
-                - LOCAL_DOMAIN=priori.crapp_ui
+                - LOCAL_DOMAIN=priori.crapp_ui localhost
         volumes:
             - ./crapp-ui/build:/etc/nginx/conf.d/build
         ports:
