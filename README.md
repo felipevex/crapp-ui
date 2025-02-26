@@ -114,7 +114,7 @@ crapp-ui/
 
 ## Contribuindo
 
-Contribuições são bem-vindas! Por favor, leia o CONTRIBUTING.md para detalhes sobre nosso código de conduta e o processo de submissão de pull requests.
+Contribuições são bem-vindas!
 
 ### Desenvolvimento
 
@@ -138,7 +138,6 @@ Este projeto está licenciado sob a licença MIT - veja o arquivo LICENSE para d
 ## Contato
 
 - Mantenedor do Projeto: [Felipe Peternella](https://github.com/felipevex)
-- Website: [https://crapp-ui.io](https://crapp-ui.io)
 
 ---
 
