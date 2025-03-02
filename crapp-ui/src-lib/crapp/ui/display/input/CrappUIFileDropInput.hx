@@ -112,6 +112,8 @@ class CrappUIFileDropInput extends CrappUIInput<String> {
     private function onFieldDrop(e:PriEvent):Void {
         this.dispatchEvent(new PriEvent(e.type));
         if (this.actions.onChange != null) this.actions.onChange();
+
+        if (this.autoValidation) this.validateAndDisplayError();
     }
 
     private function set_acceptFiles(value:Array<String>):Array<String> {
