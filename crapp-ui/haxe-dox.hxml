@@ -12,7 +12,7 @@
 -cp src-lib
 -cp example/src
 
---macro include('crapp.ui.display')
+--macro include('crapp.ui', true, ["crapp.ui.macros"])
 --macro include('util')
 
 --macro include('helper', true, ["helper.kits.CommandLineKit", "helper.kits.FileKit", "helper.kits.ValidatorKit"])
