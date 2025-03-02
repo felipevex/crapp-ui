@@ -32,12 +32,6 @@ class CrappUITextInput extends CrappUIInput<String> {
     private var labelDisplay:PriText;
     private var input:PriFormInputText;
     private var delayedChangeTimer:Timer;
-    
-    /**
-       Variável pública que define o rótulo exibido no campo de entrada.
-       @default "LABEL"
-    **/
-    @:isVar public var label(default, set):String = "LABEL";
 
     /**
        Propriedade pública que indica se o campo de entrada deve tratar o valor como senha.
@@ -194,8 +188,8 @@ class CrappUITextInput extends CrappUIInput<String> {
     }
 
     private function onTap(e:PriTapEvent):Void this.setFocus();
-
-	function set_label(value:String):String {
+    
+	override function set_label(value:String):String {
         if (value == null) return value;
         this.label = value;
         this.labelDisplay.text = value;

@@ -52,13 +52,6 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
     @:isVar public var allowNoSelection(default, set):Bool = true;
 
     /**
-        Texto de rótulo que será exibido no campo de seleção.
-        
-        @default "LABEL"
-    **/
-    @:isVar public var label(default, set):String = "LABEL";
-    
-    /**
         Conjunto de dados que serão exibidos como opções para seleção.
         
         @default []
@@ -293,7 +286,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
 
     private function onTap(e:PriTapEvent):Void this.setFocus();
 
-	function set_label(value:String):String {
+	override function set_label(value:String):String {
         if (value == null) return value;
         this.label = value;
         this.labelDisplay.text = value;

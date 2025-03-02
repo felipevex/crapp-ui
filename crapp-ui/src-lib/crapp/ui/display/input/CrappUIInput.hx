@@ -26,6 +26,12 @@ class CrappUIInput<T> extends CrappUIDisplay {
     **/
     public var autoValidation:Bool = true;
 
+    /**
+       Variável pública que define o rótulo exibido no campo de entrada.
+       @default "LABEL"
+    **/
+    @:isVar public var label(default, set):String = "LABEL";
+
     private var validatorsErrorMessage:String;
     private var validators:Array<(value:T)->Void>;
     private var displayError:CrappUITextIcon;
@@ -35,6 +41,12 @@ class CrappUIInput<T> extends CrappUIDisplay {
         this.validatorsErrorMessage = '';
         super();
     }
+
+    function set_label(value:String):String {
+        if (value == null) return value;
+        this.label = value;
+        return value;
+	}
 
     override function setup() {
         this.composite.add(DisabledEffectComposite);
