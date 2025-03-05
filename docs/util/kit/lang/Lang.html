@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en"><!-- use theme color or fallback -->
+<!--use textcolor from settings, otherwise create a contrasting color to theme color-->
+<head><meta charset="utf-8"/><link href="../../../bootstrap/css/bootstrap.min.css" rel="stylesheet"/><link href="../../../bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"/><link href="../../../bootstrap/css/bootstrap-select.min.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,700italic,400italic" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600,600italic,400" rel="stylesheet" type="text/css"/><link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet" type="text/css"/><script src="../../../jquery-3.6.0.min.js"></script><script src="../../../bootstrap/js/bootstrap.min.js"></script><script src="../../../bootstrap/js/bootstrap-select.min.js"></script><link href="../../../styles.css" rel="stylesheet"/><link href="../../../extra-styles.css" rel="stylesheet"/><link href="../../../haxe-nav.css" rel="stylesheet"/><link href="../../../dark-mode.css" rel="stylesheet"/><script>var dox = {rootPath: "../../../",platforms: ["crapp-ui"]};</script><script src="../../../nav.js"></script><script src="../../../index.js"></script><link rel="icon" href="../../../favicon.ico" type="image/x-icon"/><title>util.kit.lang.Lang - Crapp UI Docs</title><meta name="description" content="&lt;code&gt;&lt;a href=&quot;../../../util/kit/lang/Lang.html#Lang&quot;&gt;Lang&lt;/a&gt;&lt;/code&gt; oferece um sistema de internacionalização que permite carregar e acessar textos traduzidos
+através de enums gerados dinamicamente a partir de arquivos de recursos."/></head><body><script>/* Here to prevent flash of unstyled content */let systemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;if ((!localStorage.theme && systemDarkMode) || localStorage.theme == "dark") {document.body.style.backgroundColor = "#111";document.body.style.opacity = "0";document.addEventListener("DOMContentLoaded", function(event) {toggleTheme();document.body.style.backgroundColor = "";document.body.style.opacity = "";});}</script><style>
+.navbar .brand {
+	display: inline-block;
+	float: none;
+	text-shadow: 0 0 0 transparent;
+}
+</style><nav class="nav"><div class="navbar"><div class="navbar-inner" style="background:#FAFAFA; border-bottom:1px solid rgba(0,0,0,.09)"><div class="container"><a class="brand" style="color:#000000" href="../../../">Crapp UI Docs</a><a href="#" id="theme-toggle" class="brand" style="color:#000000" onclick="toggleTheme()" title="Toggle Dark Mode"><i class="fa fa-moon-o"></i></a></div></div></div></nav><div class="container main-content"><div class="row-fluid"><div class="span3"><div class="well sidebar-nav"><form class="form-search" id="searchForm"><div class="input-prepend input-block-level"><span class="add-on"><i class="fa fa-search"></i></span><input id="search" type="text" placeholder="Filter (Ctrl+P)" autocomplete="off"/></div></form></div><div class="well sidebar-nav" id="explorer"><div id="nav"></div></div></div><div class="span9"><div class="page-header"><h1><small>enum abstract</small> Lang(<a class="type" title="String - The basic String class." href="../../../String.html">String</a>)</h1><h4><small>package <a href="../../../util/kit/lang/index.html">util.kit.lang</a></small></h4><h4></h4><span class="label label-meta label-meta-enum" title="Defines finite value sets to abstract definitions.">@:enum</span><span class="label label-meta label-meta-build" title="Builds a class or enum from a macro.">@:build(util.kit.lang.LangMacro.build())</span></div><div class="body"><div class="doc doc-main"><p><code><a href="../../../util/kit/lang/Lang.html#Lang">Lang</a></code> oferece um sistema de internacionalização que permite carregar e acessar textos traduzidos
+através de enums gerados dinamicamente a partir de arquivos de recursos.</p>
+<p>A abordagem recomendada é usar arquivos JSON embarcados como recursos e acessar as chaves através 
+dos valores de enum gerados automaticamente pela macro.</p>
+<p>É recomendado usar esta classe tanto por importação direta quanto como <a href="https://haxe.org/manual/lf-static-extension.html">extensão estática</a>:</p>
+<pre><code class="prettyprint haxe">// Importação normal
+import util.kit.lang.Lang;
+
+// Extensão estática
+using util.kit.lang.Lang;</code></pre>
+<h4>Exemplos de uso com recursos embarcados:</h4><ol><li>Configuração dos recursos no arquivo de compilação (ex: build.hxml):</li></ol>
+<pre><code class="prettyprint hxml">--resource res/lang-pt.json@lang-pt
+--resource res/lang-en.json@lang-en</code></pre><ol><li>Carregando um idioma e acessando valores através de enum:</li></ol>
+<pre><code class="prettyprint haxe">// Carrega o dicionário em português
+Lang.setLanguage("PT");
+
+// Acessando valores através de enums gerados automaticamente
+var saudacao = Lang.GREETING; // "Olá mundo!"
+
+// Alternando para inglês
+Lang.setLanguage("EN");
+var greeting = Lang.GREETING; // "Hello world!"</code></pre><ol><li>Usando placeholders para substituição dinâmica:</li></ol>
+<pre><code class="prettyprint haxe">// Usando o método params()
+var msg = Lang.WELCOME.params("João", "5");  // "Bem-vindo, João! Você tem 5 mensagens."
+
+// Outra forma seria:
+var msg = "WELCOME".lang("João", "5");  // Usando extensão estática</code></pre><ol><li>Acessando valores aninhados:</li></ol>
+<pre><code class="prettyprint haxe">// Os valores aninhados são automaticamente transformados em enums com underscores
+var erro = Lang.MESSAGES_ERRORS_NOT_FOUND;  // "Registro não encontrado"
+
+// Acessando valores de array (também gera enum)
+var domingo = Lang.DAYS_0;  // "Domingo"
+var sexta = Lang.DAYS_5;    // "Sexta"</code></pre>
+<h4>Estrutura do arquivo de recursos JSON:</h4>
+<pre><code class="prettyprint json">{
+    "GREETING": "Olá mundo!",
+    "WELCOME": "Bem-vindo, $v! Você tem $v mensagens.",
+    "MESSAGES": {
+        "SUCCESS": "Operação realizada com sucesso",
+        "ERRORS": {
+            "NOT_FOUND": "Registro não encontrado",
+            "FORBIDDEN": "Acesso negado"
+        }
+    },
+    "DAYS": ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
+}</code></pre>
+<p>Note que todas as chaves são tratadas como case-insensitive. Portanto, "welcome", "Welcome" e "WELCOME" são 
+consideradas a mesma chave.</p>
+<h4>Responsabilidades:</h4><ul><li><strong>Geração automática de enums</strong>: Cria enums a partir da estrutura dos arquivos JSON de idioma</li><li><strong>Carregamento de recursos embarcados</strong>: Carrega dicionários a partir de recursos JSON</li><li><strong>Gerenciamento de dicionário de strings</strong>: Armazena e organiza textos associados a chaves específicas</li><li><strong>Substituição de placeholders</strong>: Substitui marcadores de texto (<code>$v</code>) por valores dinâmicos </li><li><strong>Suporte a estruturas aninhadas</strong>: Permite organizar o dicionário em estruturas hierárquicas e arrays</li><li><strong>Normalização de chaves</strong>: Converte todas as chaves para maiúsculas para tornar o sistema case-insensitive</li></ul>
+<h4>Forma alternativa (legado):</h4>
+<p>Também é possível carregar dicionários diretamente através de objetos:</p>
+<pre><code class="prettyprint haxe">// Carregando dicionário manualmente
+var dictionary = {
+    GREETING: "Olá mundo!",
+    FAREWELL: "Adeus!"
+};
+Lang.load(dictionary);
+
+// Acessando valores
+var texto = Lang.lang("GREETING"); // "Olá mundo!"</code></pre></div><h3 class="section">Static methods</h3><div class="fields"><div class="field "><a name="lang"></a><h3 class="anchor"><code><span class="label label-static">static</span><span class="label label-inline">inline</span><a href="#lang"><span class="identifier">lang</span></a>(<span style="white-space:nowrap">key:<a class="type" title="String - The basic String class." href="../../../String.html">String</a>,</span> <span style="white-space:nowrap">rest:<a class="type" title="haxe.Rest - A special type that represents a &quot;rest&quot; function argument." href="../../../haxe/Rest.html">Rest</a>&lt;<a class="type" title="String - The basic String class." href="../../../String.html">String</a>&gt;</span>):<a class="type" title="String - The basic String class." href="../../../String.html">String</a></code></h3><div class="doc"><p>Obtém um texto do dicionário a partir de uma chave e substitui os marcadores de 
+posição (<code>$v</code>) pelos parâmetros fornecidos.</p>
+<p>Os marcadores <code>$v</code> no texto serão substituídos sequencialmente pelos valores fornecidos.
+Se um valor for <code>null</code>, ele será substituído por uma string vazia.</p><p class="javadoc">Parameters:</p><table class="table table-bordered params"><tr><th style="width:25%;"><code>key:String</code></th><td><p>A chave que identifica o texto no dicionário</p></td></tr><tr><th style="width:25%;"><code>rest:String</code></th><td><p>Valores que serão usados para substituir os marcadores <code>$v</code> no texto</p></td></tr></table><p class="javadoc">Returns:</p><div class="indent inline-content"><p>String O texto processado com as substituições ou uma string vazia se a chave não existir</p></div></div></div><div class="field "><a name="load"></a><h3 class="anchor"><code><span class="label label-static">static</span><a href="#load"><span class="identifier">load</span></a>(<span style="white-space:nowrap">data:<a class="type" title="Dynamic - Dynamic is a special type which is compatible with all other types." href="../../../Dynamic.html">Dynamic</a></span>):<a class="type" title="Void - The standard Void type." href="../../../Void.html">Void</a></code></h3><div class="doc"><p>Carrega dados no dicionário de internacionalização.
+Os dados podem ser estruturados como objetos aninhados ou arrays.
+Todas as chaves são convertidas para acesso case-insensitive.</p>
+<p>Esta função é principalmente usada internamente pelo método <code>setLanguage()</code>,
+mas também pode ser utilizada para carregar dicionários manualmente quando
+necessário.</p><p class="javadoc">Parameters:</p><table class="table table-bordered params"><tr><th style="width:25%;"><code>data:Dynamic</code></th><td><p>Objeto contendo os dados a serem carregados no dicionário</p></td></tr></table></div></div><div class="field "><a name="setLanguage"></a><h3 class="anchor"><code><span class="label label-static">static</span><a href="#setLanguage"><span class="identifier">setLanguage</span></a>(<span style="white-space:nowrap">language:<a class="type" title="String - The basic String class." href="../../../String.html">String</a></span>):<a class="type" title="Void - The standard Void type." href="../../../Void.html">Void</a></code></h3><div class="doc"><p>Carrega um dicionário de idioma a partir de recursos embarcados.</p>
+<p>Esta é a forma recomendada de usar a classe Lang. Os arquivos de idioma são
+carregados a partir de recursos embarcados e as chaves são acessadas através
+dos valores de enum gerados automaticamente pela macro.</p>
+<p>Esta função busca por recursos com o padrão de nome 'lang-XX', onde XX é o código do idioma 
+(por exemplo, PT, EN, ES). Quando encontra o idioma solicitado, carrega automaticamente o 
+dicionário correspondente.</p>
+<h4>Como configurar os arquivos de idioma:</h4><ol><li>Crie arquivos JSON para cada idioma seguindo a estrutura:</li></ol>
+<pre><code class="prettyprint json">{
+    "GREETING": "Olá mundo!",
+    "WELCOME": "Bem-vindo, $v!",
+    "MESSAGES": {
+        "SUCCESS": "Operação realizada com sucesso",
+        "ERROR": "Ocorreu um erro"
+    }
+}</code></pre><ol><li>Adicione os arquivos como recursos embarcados no seu arquivo de compilação:</li></ol>
+<pre><code class="prettyprint hxml">--resource res/lang-pt.json@lang-pt
+--resource res/lang-en.json@lang-en</code></pre><ol><li>Use os enums gerados para acessar os textos:</li></ol>
+<pre><code class="prettyprint haxe">// Carrega o idioma
+Lang.setLanguage("PT");
+
+// Acessa textos via enum
+trace(Lang.GREETING);                   // "Olá mundo!"
+trace(Lang.WELCOME.params("João"));     // "Bem-vindo, João!"
+trace(Lang.MESSAGES_SUCCESS);           // "Operação realizada com sucesso"</code></pre>
+<p>Se o idioma solicitado não for encontrado, a função emitirá um aviso no console e o dicionário atual não será alterado.</p><p class="javadoc">Parameters:</p><table class="table table-bordered params"><tr><th style="width:25%;"><code>language:String</code></th><td><p>Código do idioma a ser carregado (ex: "PT", "EN", "ES")</p></td></tr></table></div></div></div><h3 class="section">Methods</h3><div class="fields"><div class="field "><a name="key"></a><h3 class="anchor"><code><a href="#key"><span class="identifier">key</span></a>(<span style="white-space:nowrap">this:<a class="type" title="String - The basic String class." href="../../../String.html">String</a></span>):<a class="type" title="String - The basic String class." href="../../../String.html">String</a></code></h3><div class="doc"><p>Retorna a chave do enum como uma string.</p>
+<p>Útil para casos em que você precisa da chave literal em vez do valor traduzido.</p><p class="javadoc">Returns:</p><div class="indent inline-content"><p>String A chave de enum como string</p></div></div></div><div class="field "><a name="params"></a><h3 class="anchor"><code><a href="#params"><span class="identifier">params</span></a>(<span style="white-space:nowrap">this:<a class="type" title="String - The basic String class." href="../../../String.html">String</a>,</span> <span style="white-space:nowrap">rest:<a class="type" title="haxe.Rest - A special type that represents a &quot;rest&quot; function argument." href="../../../haxe/Rest.html">Rest</a>&lt;<a class="type" title="String - The basic String class." href="../../../String.html">String</a>&gt;</span>):<a class="type" title="String - The basic String class." href="../../../String.html">String</a></code></h3><div class="doc"><p>Aplica parâmetros a um texto que contém placeholders.</p>
+<p>Este método é usado principalmente com os valores de enum para substituir 
+os marcadores <code>$v</code> por valores dinâmicos.</p>
+<p>Exemplo:</p>
+<pre><code class="prettyprint haxe">// Com o texto "Olá, $v! Você tem $v mensagens."
+var msg = Lang.WELCOME.params("João", "5");
+// Resultado: "Olá, João! Você tem 5 mensagens."</code></pre><p class="javadoc">Parameters:</p><table class="table table-bordered params"><tr><th style="width:25%;"><code>rest:String</code></th><td><p>Valores que serão usados para substituir os marcadores <code>$v</code></p></td></tr></table><p class="javadoc">Returns:</p><div class="indent inline-content"><p>String O texto com os placeholders substituídos pelos valores fornecidos</p></div></div></div></div></div></div></div></div><footer class="section site-footer" style="background:#FAFAFA"><div class="container"><div class="copyright"><p style="color:#000000">&copy; 2025 &nbsp;</p></div></div></footer><script src="../../../highlighter.js"></script><link href="../../../highlighter.css" rel="stylesheet"/></body></html>

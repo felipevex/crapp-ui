@@ -1,7 +1,7 @@
 package crapp.ui.macros;
 
-import builder.helper.BuilderMacroHelper;
 #if macro
+import builder.helper.BuilderMacroHelper;
 import haxe.macro.PositionTools;
 import haxe.xml.Parser.XmlParserException;
 import haxe.macro.TypeTools;
@@ -15,12 +15,9 @@ import haxe.macro.Expr.Access;
 import haxe.macro.Expr.Field;
 import haxe.macro.Context;
 import haxe.macro.Expr;
-#end
 
 class CrappUIMacroApp {
     
-    #if macro
-
     static public function loadPrioriXML():Xml {
         var val:String = null;
         var xml:Xml = null;
@@ -210,7 +207,6 @@ class CrappUIMacroApp {
 
         return fields;
     }
-    #end
 
 }
 
@@ -239,3 +235,5 @@ private class XmlAccessHelper {
         return result;
     }
 }
+
+#end
