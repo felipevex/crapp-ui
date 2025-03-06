@@ -24,13 +24,13 @@ import priori.app.PriApp;
 class CrappUIModalController {
 
     /**
-       Esta variável indica se deve ser aplicado um efeito de blur aos modais.
+       Esta variável indica se deve ser aplicado um efeito de blur no conteudo em background quando um modal for acionado.
        @default false
     **/
     public static var USE_BLUR:Bool = false;
 
     /**
-       Determina a intensidade do efeito de blur aplicado aos modais.
+       Determina a intensidade do efeito de blur.
        @default 5
     **/
     public static var BLUR_STRENGTH:Int = 5;
@@ -59,17 +59,14 @@ class CrappUIModalController {
     }
 
     private var modals:Array<CrappUIModalElement> = [];
-    private var modalContainer:CrappUILayout;
+    private var modalContainer:CrappUIDisplay;
 
     private function new() {
-        this.modalContainer = new CrappUILayout();
+        this.modalContainer = new CrappUIDisplay();
         this.modalContainer.left = 0;
         this.modalContainer.top = 0;
         this.modalContainer.right = 0;
         this.modalContainer.bottom = 0;
-
-        this.modalContainer.hLayoutAlignment = LayoutAlignment.CENTER;
-        this.modalContainer.vLayoutAlignment = LayoutAlignment.CENTER;
 
         CrappUIRouteManager.use().addEventListener(PriEvent.CHANGE, this.onChangeScene);
     }
@@ -128,43 +125,32 @@ class CrappUIModalController {
         modal.addEventListener(PriEvent.CLOSE, this.onCloseModal);
 
         var currentIndex:Int = -1;
-        for (i in 0 ... this.modals.length) if (this.modals[i].modal == modal) currentIndex = i;
+        for (i in 0 ... this.modals.length) if (this.modals[i].modal == modal) {
+            currentIndex = i;
+            break;
+        }
 
         var item:CrappUIModalElement = currentIndex >= 0
             ? this.modals[currentIndex]
-            : {
-                modal : modal,
-                background : new CrappUIDisplay()
-            };
+            : this.createModalStructure(modal);
 
-        if (currentIndex >= 0) this.modals.remove(item);
+        if (currentIndex >= 0) {
+            this.modals.remove(item);
+            item.content.alpha = 0.0;
+        }
+
         this.modals.push(item);
-
-        item.background.removeEventListener(PriTapEvent.TAP, this.onTapBackground);
-        item.background.addEventListener(PriTapEvent.TAP, this.onTapBackground);
-        item.background.pointer = false;
-        item.background.alpha = 0.0;
-        item.background.left = 0;
-        item.background.right = 0;
-        item.background.top = 0;
-        item.background.bottom = 0;
-        item.background.bgColor = BACKGROUND_COLOR;
-        item.background.allowTransition(PriTransitionType.ALPHA, 0.1);
-
-        item.modal.alpha = 0;
-        item.modal.allowTransition(PriTransitionType.ALPHA, 0.15);
-
+        
         for (o in this.modals) {
             if (o.modal == item.modal) this.enableModal(o);
             else this.disableModal(o);
         }
 
+        item.content.alpha = 1.0;
+
         this.blockSceneHolder();
 
-        this.modalContainer.addChildList([
-            item.background,
-            item.modal
-        ]);
+        this.modalContainer.addChild(item.content);
 
         this.updateContainer();
         item.modal.onOpenModal();
@@ -173,6 +159,39 @@ class CrappUIModalController {
             item.background.alpha = BACKGROUND_ALPHA;
             item.modal.alpha = 1;
         }, 5);
+    }
+
+    private function createModalStructure(modal):CrappUIModalElement {
+        var result:CrappUIModalElement = {
+            modal : modal,
+            content : new CrappUILayout(),
+            background : new CrappUIDisplay()
+        }
+
+        result.background.addEventListener(PriTapEvent.TAP, this.onTapBackground);
+        result.background.pointer = false;
+        result.background.bgColor = BACKGROUND_COLOR;
+        result.background.alpha = BACKGROUND_ALPHA;
+        result.background.left = 0;
+        result.background.right = 0;
+        result.background.top = 0;
+        result.background.bottom = 0;
+
+
+        result.content.hLayoutAlignment = LayoutAlignment.CENTER;
+        result.content.vLayoutAlignment = LayoutAlignment.CENTER;
+        result.content.alpha = 0.0;
+        result.content.allowTransition(PriTransitionType.ALPHA, 0.18);
+        result.content.left = 0;
+        result.content.right = 0;
+        result.content.top = 0;
+        result.content.bottom = 0;
+        result.content.addChildList([
+            result.background,
+            result.modal
+        ]);
+
+        return result;
     }
 
     inline private function blockSceneHolder():Void {
@@ -188,17 +207,17 @@ class CrappUIModalController {
     }
 
     inline private function disableModal(modal:CrappUIModalElement):Void {
-        if (modal.modal.disabled) return;
+        if (modal.content.disabled) return;
 
-        modal.modal.disabled = true;
-        if (USE_BLUR) modal.modal.filter = new PriFilterStyle().setBlur(BLUR_STRENGTH);
+        modal.content.disabled = true;
+        if (USE_BLUR) modal.content.filter = new PriFilterStyle().setBlur(BLUR_STRENGTH);
     }
 
     inline private function enableModal(modal:CrappUIModalElement):Void {
-        if (!modal.modal.disabled) return;
+        if (!modal.content.disabled) return;
 
-        modal.modal.disabled = false;
-        modal.modal.filter = null;
+        modal.content.disabled = false;
+        modal.content.filter = null;
     }
 
     /**
@@ -222,12 +241,11 @@ class CrappUIModalController {
 
         var item:CrappUIModalElement = this.modals[index];
 
-        item.background.removeEventListener(PriTapEvent.TAP, this.onTapBackground);
+        item.content.removeFromParent();
+        item.modal.removeFromParent();
 
-        this.modalContainer.removeChildList([
-            item.modal,
-            item.background
-        ]);
+        item.content.kill();
+        item.background.kill();
 
         this.modals.remove(item);
 
@@ -235,7 +253,6 @@ class CrappUIModalController {
         else this.enableModal(this.modals[this.modals.length-1]);
 
         item.modal.onCloseModal();
-        item.background.kill();
 
         this.updateContainer();
     }
@@ -287,5 +304,6 @@ class CrappUIModalController {
 
 private typedef CrappUIModalElement = {
     var background:CrappUIDisplay;
+    var content:CrappUILayout;
     var modal:CrappUIModal;
 }
