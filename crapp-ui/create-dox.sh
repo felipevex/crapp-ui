@@ -13,4 +13,6 @@ haxe haxe-dox.hxml
 haxelib run dox                                         \
     --title "Crapp UI Docs"                             \
     -i ./build/docs -o ./docs                           \
-    -ex ^front -ex ^helper.display -ex ^datetime        
+    -in ^crapp                                          \
+    -in ^priori                                         \
+    -in ^tricks

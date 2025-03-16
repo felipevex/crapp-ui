@@ -1,5 +1,6 @@
 package crapp.ui.display;
 
+import priori.geom.PriColor;
 import priori.event.PriEvent;
 import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.style.CrappUIStyleManager;
@@ -32,6 +33,20 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
        @default 0
     **/
     @:isVar public var z(default, set):Float = 0;
+
+    /**
+       Define se o componente deve exibir sombra com base no valor de profundidade (z).
+       Quando verdadeiro, uma sombra será projetada de acordo com o valor de z.
+       @default true
+    **/
+    @:isVar public var zShadow(default, set):Bool = true;
+    
+    /**
+       Define a cor da sombra projetada pelo componente quando zShadow é verdadeiro.
+       A opacidade e intensidade da sombra são calculadas com base no valor de z.
+       @default 0x000000 (preto)
+    **/
+    @:isVar public var zShadowColor(default, set):PriColor = 0x000000;
 
     private var styleManager:CrappUIStyleManager;
 
@@ -135,6 +150,45 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
         this.__updateStyle();
     }
 
+    private function updateZShadow():Void {
+        if (!this.zShadow || this.z <= 0) {
+            this.shadow = null;
+            return;
+        }
+        
+        var val:Float = this.z;
+        
+        // hard shadow
+        var keyLight:PriShadowStyle = new PriShadowStyle()
+        .setColor(this.zShadowColor)
+        .setVerticalOffset(0.2 + val * 0.9)
+        .setBlur(0.2 + val * 0.8 + (val*val) * 0.04)
+        .setOpacity((val + 14 + val * 0.4 - (val*val*0.05)) / 100)
+        .setSpread(0.3 - val * 0.1);
+
+        // soft shadow
+        var ambientLight:PriShadowStyle = new PriShadowStyle()
+        .setColor(this.zShadowColor)
+        .setVerticalOffset(0)
+        .setBlur(val * 2)
+        .setOpacity((val + 5 + val * 0.11 - (val*val*0.03)) / 100)
+        .setSpread(0);
+
+        this.shadow = [keyLight, ambientLight];
+    }
+
+    private function set_zShadow(value:Bool):Bool {
+        this.zShadow = value;
+        this.updateZShadow();
+        return value;
+    }
+    
+    private function set_zShadowColor(value:PriColor):PriColor {
+        this.zShadowColor = value;
+        this.updateZShadow();
+        return value;
+    }
+
     private function set_z(value:Float):Float {
         var val:Float = value;
         
@@ -143,28 +197,9 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
 
         if (val == this.z) return value;
         else this.z = val;
-        
+
         this.updateDepth();
-
-        if (val > 0) {
-            // hard shadow
-            var keyLight:PriShadowStyle = new PriShadowStyle()
-                .setVerticalOffset(0.2 + val * 0.9)
-                .setBlur(0.2 + val * 0.8 + (val*val) * 0.04)
-                .setOpacity((val + 14 + val * 0.4 - (val*val*0.05)) / 100)
-                .setSpread(0.3 - val * 0.1);
-
-            // soft shadow
-            var ambientLight:PriShadowStyle = new PriShadowStyle()
-                .setVerticalOffset(0)
-                .setBlur(val * 2)
-                .setOpacity((val + 5 + val * 0.11 - (val*val*0.03)) / 100)
-                .setSpread(0);
-
-            this.shadow = [keyLight, ambientLight];
-        } else {
-            this.shadow = null;
-        }
+        this.updateZShadow();
 
         return value;
     }
