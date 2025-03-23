@@ -1,7 +1,6 @@
 package front;
 
 import front.route.FrontRoute;
-import crapp.ui.route.CrappUIRouteManager;
 import crapp.ui.fonts.CrappUIFonts;
 import priori.font.PriFontProvider;
 import crapp.ui.display.app.CrappUIApp;

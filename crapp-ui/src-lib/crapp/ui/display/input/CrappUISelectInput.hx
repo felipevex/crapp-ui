@@ -186,14 +186,11 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
         this.paintBorder(style);
         this.paintCorners(style, CrappUISizeReference.SMALL);
         
-        this.height = this.input.height 
-            + (style.space * 2) 
-            + (this.input.height * CrappUISizeReference.SMALL)
-            + style.space / 2;
+        this.height = this.calculateNormalHeight();
 
         this.input.x = (style.space * 3.5) / 2;
         this.input.width = this.width - this.input.x;
-        this.input.maxY = this.height - style.space;
+        this.input.y = this.height - style.size * 1.485 - style.space;
 
         this.arrow.size = style.size;
         this.arrow.color = style.onColor.color;
@@ -288,8 +285,9 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
 
 	override function set_label(value:String):String {
         if (value == null) return value;
-        this.label = value;
-        this.labelDisplay.text = value;
+        super.set_label(value);
+        
+        this.labelDisplay.text = this.label;
         this.updateDisplay();
         return value;
 	}

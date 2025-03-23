@@ -1,5 +1,6 @@
 package crapp.ui.display.input;
 
+import priori.view.form.PriFormTextArea;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import priori.types.PriTransitionType;
 import haxe.Timer;
@@ -8,16 +9,15 @@ import priori.system.PriKey;
 import priori.style.font.PriFontStyle;
 import priori.event.PriFocusEvent;
 import priori.event.PriEvent;
-import priori.view.form.PriFormInputText;
 import priori.view.text.PriText;
 import priori.event.PriTapEvent;
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.CrappUIStyle;
 
 /**
-   A classe `CrappUITextInput` tem como finalidade gerenciar a entrada de texto simples no componente de UI.
+   A classe `CrappUITextAreaInput` tem como finalidade gerenciar a entrada de texto multi-linha no componente de UI.
    #### Responsabilidades:
-   - **Gerenciar Entrada de Texto**: controla e valida a entrada de dados utilizando `PriFormInputText` e atualiza a exibição do rótulo.
+   - **Gerenciar Entrada de Texto Multi-linha**: controla e valida a entrada de dados utilizando `PriFormTextArea` e atualiza a exibição do rótulo.
    - **Atualização Visual**: renderiza o fundo, borda e cantos conforme o estilo definido em `CrappUIStyle` e ajusta o layout dos elementos.
    #### Eventos Emitidos:
    - **PriEvent.CHANGE**: emitido quando o valor da entrada é alterado.
@@ -27,26 +27,21 @@ import crapp.ui.style.CrappUIStyle;
    - **actions.onChange**: acionada quando ocorre uma alteração instantânea no valor.
    - **actions.onDelayedChange**: acionada após um atraso na alteração do valor, permitindo validações automáticas.
 **/
-class CrappUITextInput extends CrappUIInput<String> {
+class CrappUITextAreaInput extends CrappUIInput<String> {
     
     private var labelDisplay:PriText;
-    private var input:PriFormInputText;
+    private var input:PriFormTextArea;
     private var delayedChangeTimer:Timer;
-
+    
     /**
-       Propriedade pública que indica se o campo de entrada deve tratar o valor como senha.
-    **/
-    public var password(get, set):Bool;
-
-    /**
-       Construtor da classe `CrappUITextInput` que inicializa o componente de entrada de texto.
-       Define o `tag` como `TEXT_INPUT` e configura a largura padrão para 300.
+       Construtor da classe `CrappUITextAreaInput` que inicializa o componente de área de texto.
+       Define o `tag` como `TEXT_AREA_INPUT` e configura a largura padrão para 300.
        @default width = 300
     **/
     public function new() {
         super();
 
-        this.tag = CrappUIStyleDefaultTagType.TEXT_INPUT;
+        this.tag = CrappUIStyleDefaultTagType.TEXT_AREA_INPUT;
 
         this.width = 300;
 
@@ -60,12 +55,6 @@ class CrappUITextInput extends CrappUIInput<String> {
         this.updateDisplay();
         return value;
 	}
-
-    private function get_password():Bool return this.input.password;
-    private function set_password(value:Bool):Bool {
-        this.input.password = value;
-        return value;
-    }
 
     override function setup() {
         super.setup();
@@ -103,11 +92,13 @@ class CrappUITextInput extends CrappUIInput<String> {
         this.paintBorder(style);
         this.paintCorners(style, CrappUISizeReference.SMALL);
         
-        this.height = this.calculateNormalHeight();
+        var normalHeight:Float = this.calculateNormalHeight();
+        var space:Float = style.space * 3.5/2;
         
-        this.input.width = this.width - (style.space * 3.5);
-        this.input.centerX = this.width/2;
-        this.input.y = this.height - style.size * 1.485 - style.space;
+        this.input.width = this.width - space;
+        this.input.x = space;
+        this.input.y = normalHeight - style.size * 1.485 - style.space;
+        this.input.height = this.height - this.input.y;
 
         if (this.hasFocus()) this.bgColor = style.onFocusColor();
         
@@ -122,7 +113,7 @@ class CrappUITextInput extends CrappUIInput<String> {
 
             this.labelDisplay.width = this.width - (style.space * 3.5);
             this.labelDisplay.centerX = this.width/2;
-            this.labelDisplay.centerY = this.height/2;
+            this.labelDisplay.centerY = normalHeight/2;
         }
         
     }
@@ -133,12 +124,14 @@ class CrappUITextInput extends CrappUIInput<String> {
         else return false;
     }
 
-    private function createForm():PriFormInputText {
-        var input:PriFormInputText = new PriFormInputText();
+    private function createForm():PriFormTextArea {
+        var input:PriFormTextArea = new PriFormTextArea();
         input.addEventListener(PriKeyboardEvent.KEY_DOWN, this.onKeyDown);
         input.addEventListener(PriEvent.CHANGE, this.onFieldChange);
         input.addEventListener(PriFocusEvent.FOCUS_IN, this.onFocus);
         input.addEventListener(PriFocusEvent.FOCUS_OUT, this.onFocus);
+
+        @:privateAccess input._baseElement.css('overflow', 'auto');
 
         return input;
     }
@@ -192,6 +185,7 @@ class CrappUITextInput extends CrappUIInput<String> {
         
         this.labelDisplay.text = this.label;
         this.updateDisplay();
+
         return value;
 	}
 

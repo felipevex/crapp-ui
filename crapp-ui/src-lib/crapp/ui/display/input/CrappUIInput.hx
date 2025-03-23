@@ -1,5 +1,6 @@
 package crapp.ui.display.input;
 
+import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.composite.builtin.DisabledEffectComposite;
 import priori.types.PriTransitionType;
 import crapp.ui.display.text.CrappUITextIcon;
@@ -44,9 +45,18 @@ class CrappUIInput<T> extends CrappUIDisplay {
 
     function set_label(value:String):String {
         if (value == null) return value;
-        this.label = value;
+        this.label = StringKit.removeBreaks(value);
         return value;
 	}
+
+    private function calculateNormalHeight():Float {
+        var styleSize:Float = this.style.size;
+        var styleSpace:Float = this.style.space;
+        var baseSize:Float = styleSize * 1.485;
+        var size:Float = baseSize + styleSpace * 2.5 + baseSize * CrappUISizeReference.SMALL; 
+        
+        return size;
+    }
 
     override function setup() {
         this.composite.add(DisabledEffectComposite);
