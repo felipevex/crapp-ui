@@ -7,6 +7,11 @@ import priori.style.font.PriFontStyle;
 import crapp.ui.style.CrappUIStyle;
 import crapp.ui.display.icon.CrappUIIcon;
 
+@priori('
+<priori>
+    <view tag:L="CrappUIStyleDefaultTagType.TEXT_ICON" />
+</priori>
+')
 class CrappUITextIcon extends CrappUIText {
     
     private var iconDisplay:CrappUIIcon;
@@ -15,12 +20,6 @@ class CrappUITextIcon extends CrappUIText {
 
     private function get_icon():CrappUIIconType return this.iconDisplay.icon;
     private function set_icon(value:CrappUIIconType):CrappUIIconType return this.iconDisplay.icon = value;
-
-    public function new() {
-        super();
-
-        this.tag = CrappUIStyleDefaultTagType.TEXT_ICON;
-    }
 
     override function setup() {
         super.setup();

@@ -11,6 +11,11 @@ import priori.view.PriDisplay;
  * interface da aplicação. A classe gerencia a abertura e o fechamento dos modais,
  * integrando-se com o controlador CrappUIModalController.
  */
+ @priori('
+<priori>
+    <view tag:L="CrappUIStyleDefaultTagType.MODAL" />
+</priori>
+')
 class CrappUIModal extends CrappUILayout {
 
     /**
@@ -23,17 +28,6 @@ class CrappUIModal extends CrappUILayout {
      */
     @:isVar public var allowCloseModalWithEsc(get, set):Bool = true;
     
-    /**
-     * Construtor da classe CrappUIModal.
-     *
-     * Inicializa o layout e define o estilo do modal para o tipo MODAL.
-     */
-    public function new() {
-        super();
-        
-        this.tag = CrappUIStyleDefaultTagType.MODAL;
-    }
-
     /**
      * Abre o modal.
      *

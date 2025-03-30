@@ -6,18 +6,17 @@ import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.data.CrappUIStyleData;
 
+@priori('
+<priori>
+    <view tag:L="CrappUIStyleDefaultTagType.ICON" />
+</priori>
+')
 class CrappUIIcon extends CrappUIDisplay {
 
     @:isVar public var icon(default, set):CrappUIIconType = CrappUIIconType.COG;
     @:isVar public var size(default, set):CrappUISizeReference = CrappUISizeReference.LARGE;
 
     private var iconDisplay:FixedIcon;
-
-    public function new() {
-        super();
-        
-        this.tag = CrappUIStyleDefaultTagType.ICON;
-    }
 
     override function setup() {
         

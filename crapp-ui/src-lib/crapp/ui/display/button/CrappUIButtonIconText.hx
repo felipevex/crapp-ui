@@ -4,6 +4,11 @@ import crapp.ui.display.icon.types.CrappUIIconType;
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.display.icon.CrappUIIcon;
 
+@priori('
+<priori>
+    <view />
+</priori>
+')
 class CrappUIButtonIconText extends CrappUIButton {
     
     public var icon(get, set):CrappUIIconType;

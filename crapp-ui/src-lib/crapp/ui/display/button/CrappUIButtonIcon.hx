@@ -8,12 +8,12 @@ import crapp.ui.composite.builtin.OverEffectComposite;
 import tricks.layout.LayoutElement;
 import crapp.ui.style.CrappUIStyle;
 
+@priori('
+<priori>
+    <view tag:L="CrappUIStyleDefaultTagType.BUTTON_ICON" />
+</priori>
+')
 class CrappUIButtonIcon extends CrappUIIcon {
-    
-    public function new() {
-        super();
-        this.tag = CrappUIStyleDefaultTagType.BUTTON_ICON;
-    }
 
     override function get_layout():LayoutElement<CrappUIDisplay> {
         var layout = super.get_layout();

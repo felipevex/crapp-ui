@@ -13,7 +13,7 @@ import crapp.ui.display.layout.CrappUILayout;
     <imports>
         
     </imports>
-    <view 
+    <view tag:L="CrappUIStyleDefaultTagType.STACK"
         vLayoutAlignment="MIN" 
         vLayoutDistribution="SIDE" 
         vLayoutGap="0" 
@@ -29,12 +29,7 @@ class CrappUIStack extends CrappUILayout {
 
     @:isVar public var defaultChild(default, set):Class<CrappUIStackChild<Any>>;
     public var data(null, set):Array<Any>;
-
-    public function new() {
-        super();
-        this.tag = CrappUIStyleDefaultTagType.STACK;
-    }
-
+    
     private function set_defaultChild(value:Class<CrappUIStackChild<Any>>):Class<CrappUIStackChild<Any>> {
         if (value == null) return value;
         this.defaultChild = value;

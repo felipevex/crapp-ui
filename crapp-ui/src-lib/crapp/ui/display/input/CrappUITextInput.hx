@@ -27,6 +27,14 @@ import crapp.ui.style.CrappUIStyle;
    - **actions.onChange**: acionada quando ocorre uma alteração instantânea no valor.
    - **actions.onDelayedChange**: acionada após um atraso na alteração do valor, permitindo validações automáticas.
 **/
+@priori('
+<priori>
+    <view 
+        tag:L="CrappUIStyleDefaultTagType.TEXT_INPUT" 
+        width="300" 
+    />
+</priori>
+')
 class CrappUITextInput extends CrappUIInput<String> {
     
     private var labelDisplay:PriText;
@@ -45,11 +53,6 @@ class CrappUITextInput extends CrappUIInput<String> {
     **/
     public function new() {
         super();
-
-        this.tag = CrappUIStyleDefaultTagType.TEXT_INPUT;
-
-        this.width = 300;
-
         haxe.Timer.delay(this.allowTransition.bind(PriTransitionType.BACKGROUND_COLOR, 0.2), 1);
     }
 

@@ -2,6 +2,11 @@ package crapp.ui.display.list;
 
 import crapp.ui.display.layout.CrappUILayout;
 
+@priori('
+<priori>
+    <view />
+</priori>
+')
 class CrappUIListChild<T> extends CrappUILayout {
 
     @:isVar public var data(default, set):T;

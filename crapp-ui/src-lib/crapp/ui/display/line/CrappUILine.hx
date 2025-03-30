@@ -5,6 +5,15 @@ import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.display.line.types.CrappUILineStyleType;
 import crapp.ui.display.line.types.CrappUILineOrientationType;
 
+@priori('
+<priori>
+    <view 
+        tag:L="CrappUIStyleDefaultTagType.LINE" 
+        clipping=":false" 
+        orientation="HORIZONTAL"
+        />
+</priori>
+')
 class CrappUILine extends CrappUIDisplay {
 
     private var size:Float = 100;
@@ -13,16 +22,6 @@ class CrappUILine extends CrappUIDisplay {
     @:isVar public var lineStyle(default, set):CrappUILineStyleType = CrappUILineStyleType.SOLID;
     @:isVar public var orientation(default, set):CrappUILineOrientationType;
 
-    public function new() {
-        super();
-
-        this.clipping = false;
-
-        this.orientation = CrappUILineOrientationType.HORIZONTAL;
-
-        this.tag = CrappUIStyleDefaultTagType.LINE;
-    }
-    
     private function set_orientation(value:CrappUILineOrientationType):CrappUILineOrientationType {
         if (value == null || value == this.orientation) return value;
         this.orientation = value;

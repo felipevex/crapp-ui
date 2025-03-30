@@ -4,6 +4,11 @@ import crapp.ui.composite.builtin.ScrollerComposite;
 import priori.event.PriEvent;
 import priori.view.PriDisplay;
 
+@priori('
+<priori>
+    <view />
+</priori>
+')
 class CrappUIList<T> extends CrappUIDisplay {
 
     @:isVar public var rowHeight(default, set):Float = 40;
@@ -13,10 +18,6 @@ class CrappUIList<T> extends CrappUIDisplay {
     private var scrollerSpacer:PriDisplay;
     
     private var childPool:Array<CrappUIListChild<T>> = [];
-
-    public function new() {
-        super();
-    }
 
     private function get_childClass():Class<CrappUIListChild<T>> {
         return this.childClass == null ? CrappUIListChild : this.childClass;

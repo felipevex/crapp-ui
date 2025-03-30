@@ -1,5 +1,10 @@
 package crapp.ui.display.stack;
 
+@priori('
+<priori>
+    <view />
+</priori>
+')
 class CrappUIStackChild<T> extends CrappUIDisplay {
     
     @:isVar public var data(default, set):T;

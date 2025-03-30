@@ -6,16 +6,11 @@ import crapp.ui.composite.builtin.OverEffectComposite;
 
 @priori('
 <priori>
-    <view tag:L="CrappUIStyleDefaultTagType.BUTTON_SURFACE" >
-    </view>
+    <view tag:L="CrappUIStyleDefaultTagType.BUTTON_SURFACE" />
 </priori>
 ')
 class CrappUIButtonSurface extends CrappUIDisplay {
     
-    public function new() {
-        super();
-    }
-
     override function setup() {
         this.composite.add(OverEffectComposite);
         this.composite.add(ButtonableComposite);

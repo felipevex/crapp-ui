@@ -12,6 +12,11 @@ import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.CrappUIStyle;
 import crapp.ui.display.text.CrappUIText;
 
+@priori('
+<priori>
+    <view tag:L="CrappUIStyleDefaultTagType.BUTTON" />
+</priori>
+')
 class CrappUIButton extends CrappUIDisplay {
     
     private var displayLabel:CrappUIText;
@@ -22,8 +27,6 @@ class CrappUIButton extends CrappUIDisplay {
 
     public function new() {
         super();
-        
-        this.tag = CrappUIStyleDefaultTagType.BUTTON;
         
         this.label = 'BUTTON';
     }

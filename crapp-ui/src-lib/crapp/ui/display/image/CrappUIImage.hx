@@ -7,6 +7,11 @@ import crapp.ui.display.CrappUIDisplay;
 import crapp.ui.display.image.types.CrappUIImageEffectType;
 import crapp.ui.display.image.types.CrappUIImageResizeType;
 
+@priori('
+<priori>
+    <view />
+</priori>
+')
 class CrappUIImage extends CrappUIDisplay {
     
     public var resize(default, set):CrappUIImageResizeType = AUTO_HEIGHT;

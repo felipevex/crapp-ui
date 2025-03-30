@@ -17,6 +17,11 @@ import tricks.layout.LayoutElement;
    #### Eventos Emitidos:
    - PriEvent.RESIZE: emitido pelos elementos internos para indicar mudanças de tamanho, acionando a atualização do layout.
 **/
+@priori('
+<priori>
+    <view />
+</priori>
+')
 class CrappUILayout extends CrappUIDisplay {
     
     private var invalid:Bool;

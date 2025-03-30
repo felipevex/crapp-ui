@@ -36,7 +36,7 @@ import crapp.ui.display.text.CrappUIText;
         <crapp.ui.display.button.CrappUIButton />
         <crapp.ui.display.layout.CrappUILayout />
     </imports>
-    <view>
+    <view tag:L="CrappUIStyleDefaultTagType.DIALOG" allowCloseModal=":false" allowCloseModalWithEsc=":false" >
         <private:CrappUILayout id="container" vLayoutGap="10" vLayoutDistribution="SIDE" >
             
             <private:CrappUILayout id="textContainer" hLayoutSize="FLEX" vLayoutDistribution="SIDE" vLayoutSize="FIT" >
@@ -60,16 +60,10 @@ class CrappUIDialog extends CrappUIModal {
 
     private var title:CrappUIText;
     private var text:CrappUIText;
-
+    
     private function new(data:CrappUIDialogData) {
         this.data = data;
-
         super();
-
-        this.tag = CrappUIStyleDefaultTagType.DIALOG;
-
-        this.allowCloseModal = false;
-        this.allowCloseModalWithEsc = false;
     }
 
     /**

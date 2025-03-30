@@ -13,16 +13,15 @@ import priori.style.font.PriFontStyleWeight;
 import priori.style.font.PriFontStyleAlign;
 import crapp.ui.display.text.CrappUIText;
 
+@priori('
+<priori>
+    <view tag:L="CrappUIStyleDefaultTagType.CONTEXT_MENU" />
+</priori>
+')
 class CrappUIContextMenu extends CrappUIDisplay {
 
     private var ref:PriDisplay;
     private var items:Array<CrappUIContextMenuItem>;
-
-    public function new() {
-        super();
-
-        this.tag = CrappUIStyleDefaultTagType.CONTEXT_MENU;
-    }
 
     override function setup() {
         super.setup();

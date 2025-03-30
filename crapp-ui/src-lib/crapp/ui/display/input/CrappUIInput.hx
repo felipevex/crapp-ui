@@ -13,6 +13,11 @@ A classe `CrappUIInput` tem como finalidade gerenciar a entrada de dados, permit
 #### Eventos Emitidos:
 - Nenhum evento explícito definido.
 **/
+@priori('
+<priori>
+    <view />
+</priori>
+')
 class CrappUIInput<T> extends CrappUIDisplay {
     
     /**

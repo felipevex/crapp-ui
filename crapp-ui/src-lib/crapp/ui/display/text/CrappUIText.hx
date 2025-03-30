@@ -15,7 +15,7 @@ import crapp.ui.display.CrappUIDisplay;
 
 @priori('
 <priori>
-    <view>
+    <view tag:L="CrappUIStyleDefaultTagType.TEXT" >
         <private:priori.view.text.PriText id="label"/>
     </view>
 </priori>
@@ -41,11 +41,7 @@ class CrappUIText extends CrappUIDisplay {
 
     public function new() {
         super();
-        
-        this.tag = CrappUIStyleDefaultTagType.TEXT;
-
         this.clipping = false;
-        
         this.label.clipping = false;
         this.label.text = this.__textValue;
     }

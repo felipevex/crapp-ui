@@ -4,14 +4,13 @@ import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import crapp.ui.display.layout.CrappUILayout;
 
+@priori('
+<priori>
+    <view tag:L="CrappUIStyleDefaultTagType.SURFACE" />
+</priori>
+')
 class CrappUISurface extends CrappUILayout {
     
-    public function new() {
-        super();
-
-        this.tag = CrappUIStyleDefaultTagType.SURFACE;
-    }
-
     override public function paint():Void {
         super.paint();
         

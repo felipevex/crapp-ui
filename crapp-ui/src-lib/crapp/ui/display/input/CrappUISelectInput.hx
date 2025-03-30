@@ -36,6 +36,14 @@ import crapp.ui.style.CrappUIStyle;
     - **actions.onSubmit**: Acionada quando a tecla ENTER é pressionada enquanto o campo está em foco.
 **/
 @:access(crapp.ui.display.icon)
+@priori('
+<priori>
+    <view 
+        tag:L="CrappUIStyleDefaultTagType.SELECT_INPUT" 
+        width="300" 
+    />
+</priori>
+')
 class CrappUISelectInput<T> extends CrappUIInput<T> {
     
     private var labelDisplay:PriText;
@@ -83,12 +91,6 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
     **/
     public function new() {
         super();
-
-        this.tag = CrappUIStyleDefaultTagType.SELECT_INPUT;
-
-        this.data = [];
-        this.width = 300;
-
         haxe.Timer.delay(this.allowTransition.bind(PriTransitionType.BACKGROUND_COLOR, 0.2), 1);
     }
 

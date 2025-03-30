@@ -18,6 +18,11 @@ import js.html.Console;
     - `PriEvent.CHANGE`: Evento disparado quando um arquivo é solto na área ou o usuário seleciona um arquivo.
 **/
 @:access(priori.view.form.PriFormFileDrop)
+@priori('
+<priori>
+    <view />
+</priori>
+')
 class CrappUIFileDropInput extends CrappUIInput<String> {
     
     /**

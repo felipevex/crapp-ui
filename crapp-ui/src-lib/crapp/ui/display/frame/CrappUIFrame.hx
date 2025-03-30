@@ -5,6 +5,11 @@ import priori.event.PriEvent;
 import priori.view.PriFrame;
 
 @:access(priori.view.PriFrame)
+@priori('
+<priori>
+    <view />
+</priori>
+')
 class CrappUIFrame extends CrappUIDisplay {
 
     public var src(get, set):String;
