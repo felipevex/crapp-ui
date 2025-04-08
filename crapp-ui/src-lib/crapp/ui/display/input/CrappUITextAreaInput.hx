@@ -98,7 +98,8 @@ class CrappUITextAreaInput extends CrappUIInput<String> {
         var normalHeight:Float = this.calculateNormalHeight();
         var space:Float = style.space * 3.5/2;
         
-        this.input.width = this.width - space;
+        @:privateAccess this.input._baseElement.css('padding-right', '15px');
+        this.input.width = this.width - space - 15;
         this.input.x = space;
         this.input.y = normalHeight - style.size * 1.485 - style.space;
         this.input.height = this.height - this.input.y;
