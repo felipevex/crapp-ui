@@ -14,22 +14,16 @@ import crapp.ui.display.text.CrappUIText;
 
 @priori('
 <priori>
-    <view tag:L="CrappUIStyleDefaultTagType.BUTTON" />
+    <view tag:L="CrappUIStyleDefaultTagType.BUTTON" >
+        <private:CrappUIText id="displayLabel" text="BUTTON" />
+    </view>
 </priori>
 ')
 class CrappUIButton extends CrappUIDisplay {
     
-    private var displayLabel:CrappUIText;
-
     @:isVar public var autoSize(default, set):Bool = true;
     
     public var label(get, set):String;
-
-    public function new() {
-        super();
-        
-        this.label = 'BUTTON';
-    }
 
     override function get_layout():LayoutElement<CrappUIDisplay> {
         var layout = super.get_layout();
@@ -71,15 +65,9 @@ class CrappUIButton extends CrappUIDisplay {
         this.composite.add(ButtonableComposite);
         this.composite.add(DisabledEffectComposite);
 
-        this.displayLabel = new CrappUIText();
         this.displayLabel.actions.onResize = this.updateDisplay;
         this.displayLabel.tag = null;
         this.displayLabel.align = PriFontStyleAlign.CENTER;
-
-        this.addChildList([
-            this.displayLabel
-        ]);
-
     }
 
     private function set_autoSize(value:Bool):Bool {
@@ -91,7 +79,7 @@ class CrappUIButton extends CrappUIDisplay {
 
     private function get_label():String return this.displayLabel.text;
     private function set_label(value:String):String {
-        if (value == this.displayLabel.text || value == null) return value;
+        if (this.displayLabel == null || value == this.displayLabel.text || value == null) return value;
 
         this.displayLabel.text = value;
         this.updateDisplay();
