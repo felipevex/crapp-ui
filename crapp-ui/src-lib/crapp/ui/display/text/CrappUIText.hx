@@ -167,7 +167,7 @@ class CrappUIText extends CrappUIDisplay {
 
         var fontStyle:PriFontStyle = style.font;
         if (this.weight != null) fontStyle.weight = this.weight.toPriWheight();
-        if (this.isItalic != null) fontStyle.italic = PriFontStyleItalic.ITALIC;
+        if (this.isItalic == true) fontStyle.italic = PriFontStyleItalic.ITALIC;
         if (fontStyle.align == null) fontStyle.align = this.align;
 
         this.label.fontStyle = fontStyle;

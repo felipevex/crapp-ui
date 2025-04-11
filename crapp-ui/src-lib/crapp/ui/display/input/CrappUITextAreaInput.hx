@@ -32,7 +32,7 @@ import crapp.ui.style.CrappUIStyle;
 @priori('
 <priori>
     <view  tag:L="CrappUIStyleDefaultTagType.TEXT_AREA_INPUT" width="300" >
-        <CrappUIText id="explainDisplay" isItalic=":true" multiLine=":true" mouseEnabled=":false" autoSize=":false" text="" tag:L="null" />
+        <private:CrappUIText id="explainDisplay" isItalic=":true" multiLine=":true" mouseEnabled=":false" autoSize=":false" text="" tag:L="null" />
     </view>
 </priori>
 ')
