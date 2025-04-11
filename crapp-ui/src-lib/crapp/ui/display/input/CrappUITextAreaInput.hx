@@ -1,5 +1,7 @@
 package crapp.ui.display.input;
 
+import helper.kits.StringKit;
+import crapp.ui.display.text.CrappUIText;
 import priori.view.form.PriFormTextArea;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import priori.types.PriTransitionType;
@@ -29,10 +31,9 @@ import crapp.ui.style.CrappUIStyle;
 **/
 @priori('
 <priori>
-    <view 
-        tag:L="CrappUIStyleDefaultTagType.TEXT_AREA_INPUT" 
-        width="300" 
-    />
+    <view  tag:L="CrappUIStyleDefaultTagType.TEXT_AREA_INPUT" width="300" >
+        <CrappUIText id="explainDisplay" isItalic=":true" multiLine=":true" mouseEnabled=":false" autoSize=":false" text="" tag:L="null" />
+    </view>
 </priori>
 ')
 class CrappUITextAreaInput extends CrappUIInput<String> {
@@ -40,6 +41,24 @@ class CrappUITextAreaInput extends CrappUIInput<String> {
     private var labelDisplay:PriText;
     private var input:PriFormTextArea;
     private var delayedChangeTimer:Timer;
+
+    /**
+       Define um texto explicativo que é exibido quando o campo de entrada está vazio.
+       
+       #### Comportamento:
+       - É exibido como um texto de ajuda dentro da área de texto quando não há conteúdo
+       - Desaparece automaticamente quando o usuário começa a digitar ou quando o campo recebe foco
+       - É renderizado em estilo itálico e com cor mais clara para diferenciá-lo do texto de entrada
+       
+       #### Uso:
+       ```haxe
+       var textArea = new CrappUITextAreaInput();
+       textArea.explain = "Digite sua descrição aqui...";
+       ```
+       
+       @default explain = ""
+    **/
+    public var explain(default, set):String = "";
     
     /**
        Construtor da classe `CrappUITextAreaInput` que inicializa o componente de área de texto.
@@ -58,6 +77,17 @@ class CrappUITextAreaInput extends CrappUIInput<String> {
         this.updateDisplay();
         return value;
 	}
+
+    private function set_explain(value:String):String {
+        if (value == null) return value;
+
+        this.explain = value;
+        this.explainDisplay.text = value;
+
+        this.updateDisplay();
+
+        return value;
+    }
 
     override function setup() {
         super.setup();
@@ -106,7 +136,7 @@ class CrappUITextAreaInput extends CrappUIInput<String> {
 
         if (this.hasFocus()) this.bgColor = style.onFocusColor();
         
-        if (this.hasContentOrSelection()) {
+        if (this.hasContentOrSelection() || this.hasExplain()) {
             this.labelDisplay.fontSize = CrappUISizeReference.UNDER * style.size;
 
             this.labelDisplay.y = style.space;
@@ -119,7 +149,20 @@ class CrappUITextAreaInput extends CrappUIInput<String> {
             this.labelDisplay.centerX = this.width/2;
             this.labelDisplay.centerY = normalHeight/2;
         }
+
+        this.explainDisplay.visible = !this.hasContentOrSelection();
         
+        this.explainDisplay.style = {
+            on_color : style.color.isLight ? style.color.darken(0.5) : style.color.brighten(0.8),
+        }
+
+        this.explainDisplay.x = this.input.x;
+        this.explainDisplay.y = this.input.y;
+        this.explainDisplay.width = this.input.width - 15;
+    }
+
+    inline private function hasExplain():Bool {
+        return !StringKit.isEmpty(this.explain);
     }
 
     inline private function hasContentOrSelection():Bool {

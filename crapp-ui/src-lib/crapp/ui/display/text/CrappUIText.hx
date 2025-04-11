@@ -1,5 +1,6 @@
 package crapp.ui.display.text;
 
+import priori.style.font.PriFontStyleItalic;
 import crapp.ui.style.types.CrappUIStyleFontAlignType;
 import crapp.ui.style.types.CrappUIStyleFontWeightType;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
@@ -32,6 +33,7 @@ class CrappUIText extends CrappUIDisplay {
     public var align(get, set):CrappUIStyleFontAlignType;
     
     @:isVar public var weight(default, set):CrappUIStyleFontWeightType;
+    @:isVar public var isItalic(default, set):Bool = false;
     @:isVar public var size(default, set):CrappUISizeReference = CrappUISizeReference.BASE;
 
     private var lastSettedWidth:Float;
@@ -157,11 +159,6 @@ class CrappUIText extends CrappUIDisplay {
     private function get_selectable():Bool return this.label.selectable;
     private function set_selectable(value:Bool):Bool return this.label.selectable = value;
 
-
-    override function updateDisplay() {
-        super.updateDisplay();
-    }
-
     override private function paint():Void {
         var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
         
@@ -170,6 +167,7 @@ class CrappUIText extends CrappUIDisplay {
 
         var fontStyle:PriFontStyle = style.font;
         if (this.weight != null) fontStyle.weight = this.weight.toPriWheight();
+        if (this.isItalic != null) fontStyle.italic = PriFontStyleItalic.ITALIC;
         if (fontStyle.align == null) fontStyle.align = this.align;
 
         this.label.fontStyle = fontStyle;
@@ -203,4 +201,11 @@ class CrappUIText extends CrappUIDisplay {
 		this.updateDisplay();
         return value;
 	}
+
+    private function set_isItalic(value:Bool):Bool {
+        this.isItalic = value;
+        this.updateDisplay();
+        return value;
+    }
+
 }

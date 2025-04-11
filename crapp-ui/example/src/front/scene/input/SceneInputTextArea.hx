@@ -16,11 +16,12 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUITextAreaInput />
             <private:CrappUITextAreaInput width="100" />
             <private:CrappUITextAreaInput value="Value Pre Defined" />
+            <private:CrappUITextAreaInput label="Explain" explain="Write some explanation here" />
             <private:CrappUITextAreaInput label="Write your label here" />
             <private:CrappUITextAreaInput label="Disabled" disabled=":true" />
             <private:CrappUITextAreaInput id="inputChange" label="TEST INPUT CHANGE" />
             <private:CrappUITextAreaInput id="inputChangeDelay" label="TEST CHANGE WITH DELAY" />
-            <private:CrappUITextAreaInput id="red" />
+            <private:CrappUITextAreaInput id="red" explain="HERE" />
             <private:CrappUITextAreaInput id="small" />
             <private:CrappUITextAreaInput id="email" label="TEST EMAIL ERROR" />
             <private:CrappUITextAreaInput id="noborder" label="NO BORDER" />
