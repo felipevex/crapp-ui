@@ -153,7 +153,7 @@ class CrappUITextAreaInput extends CrappUIInput<String> {
         this.explainDisplay.visible = !this.hasContentOrSelection();
         
         this.explainDisplay.style = {
-            on_color : style.color.isLight ? style.color.darken(0.5) : style.color.brighten(0.8),
+            on_color : style.color.color.mix(style.color.isLight ? 0x000000 : 0xFFFFFF, 0.5),
         }
 
         this.explainDisplay.x = this.input.x;
