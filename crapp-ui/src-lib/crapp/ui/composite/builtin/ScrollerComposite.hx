@@ -39,6 +39,8 @@ class ScrollerComposite extends CrappUIComposite {
             this.display.dh.jselement.addEventListener('touchend', this.__onTouchEnd, true);
             this.display.dh.jselement.addEventListener('scroll', this.__onScrollUpdater, true);
         } else this.display.dh.jselement.onscroll = this.__onScrollUpdater;
+
+        this.updateScrollerView();
     }
 
     override public function kill():Void {
@@ -134,9 +136,9 @@ class ScrollerComposite extends CrappUIComposite {
                     this.display.dh.styles.set("overflow-y", "auto");
                 } else if (this.scrollerX) {
                     this.display.dh.styles.set("overflow-x", "auto");
-                    this.display.dh.styles.remove("overflow-y");
+                    this.display.dh.styles.set("overflow-y", "hidden");
                 } else if (this.scrollerY) {
-                    this.display.dh.styles.remove("overflow-x");
+                    this.display.dh.styles.set("overflow-x", "hidden");
                     this.display.dh.styles.set("overflow-y", "auto");
                 } else {
                     this.display.dh.styles.set("overflow-x", "hidden");

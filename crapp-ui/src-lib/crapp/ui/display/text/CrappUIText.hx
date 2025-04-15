@@ -1,5 +1,6 @@
 package crapp.ui.display.text;
 
+import crapp.ui.composite.builtin.ScrollerComposite;
 import priori.style.font.PriFontStyleItalic;
 import crapp.ui.style.types.CrappUIStyleFontAlignType;
 import crapp.ui.style.types.CrappUIStyleFontWeightType;
@@ -39,6 +40,8 @@ class CrappUIText extends CrappUIDisplay {
     private var lastSettedWidth:Float;
     private var lastSettedHeight:Float;
 
+    @:isVar public var maxHeight(default, set):Float;
+
     @:isVar public var isHTML(default, set):Bool = false;
 
     public function new() {
@@ -46,6 +49,17 @@ class CrappUIText extends CrappUIDisplay {
         this.clipping = false;
         this.label.clipping = false;
         this.label.text = this.__textValue;
+    }
+
+    private function set_maxHeight(value:Float):Float {
+        this.maxHeight = value;
+
+        this.composite.add(ScrollerComposite);
+        
+
+        this.updateDisplay();
+
+        return value;
     }
 
     override private function set_hLayoutSize(value:LayoutSize):LayoutSize {
@@ -174,10 +188,23 @@ class CrappUIText extends CrappUIDisplay {
         
         this.label.endBatchUpdate();
         
-        if (!this.autoSize) this.label.width = Math.round(this.width);
-        else this.setSize(Math.round(this.label.width), null);
+        // if (!this.autoSize) this.label.width = Math.round(this.width);
+        // else this.setSize(Math.round(this.label.width), null);
         
-        this.setSize(null, Math.round(this.label.height));
+        // this.setSize(null, Math.round(this.label.height));
+
+        if (!this.autoSize) {
+            this.label.width = this.width - 1;
+        } else {
+            var width:Float = this.label.width + 1;
+            this.setSize(Math.floor(width), null);
+        }
+        
+        var height:Float = this.label.height + 1;
+        
+        if (this.maxHeight != null && height > this.maxHeight) height = this.maxHeight;
+
+        this.setSize(null, Math.floor(height));
     }
 
     private function setSize(width:Float, height:Float):Void {
