@@ -138,7 +138,14 @@ class CrappUIDrag<T:CrappUIDragItem> extends CrappUIDisplay {
 
         for (box in boxes) {
 
-            var boxPoint:PriGeomPoint = new PriGeomPoint(box.x + box.width / 2, box.y + box.height / 2);
+            var bx:Float = box.x + box.width / 2;
+            var by:Float = box.height > element.height 
+                ? element.y < box.y
+                    ? box.y + box.height 
+                    : box.y 
+                : box.y + box.height / 2;
+
+            var boxPoint:PriGeomPoint = new PriGeomPoint(bx, by);
             var currDistance:Float = boxPoint.distanceFrom(elementPoint);
 
             if (currDistance < distance) {
