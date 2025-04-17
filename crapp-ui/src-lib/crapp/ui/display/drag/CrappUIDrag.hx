@@ -14,6 +14,8 @@ class CrappUIDrag<T:CrappUIDragItem> extends CrappUIDisplay {
     private var dragItems:Array<T> = [];
     private var draggingItem:T;
 
+    public var items(get, null):Array<T>;
+
     @:isVar public var dragAlign(get, set):(data:CrappUIDragAlignHelperData)->Array<PriGeomBox>;
 
     private function get_dragAlign():(data:CrappUIDragAlignHelperData)->Array<PriGeomBox> {
@@ -24,6 +26,8 @@ class CrappUIDrag<T:CrappUIDragItem> extends CrappUIDisplay {
     private function set_dragAlign(value:(data:CrappUIDragAlignHelperData)->Array<PriGeomBox>):(data:CrappUIDragAlignHelperData)->Array<PriGeomBox> {
         return this.dragAlign = value;
     }
+
+    private function get_items():Array<T> return this.dragItems.copy();
 
     public function addDragItem(item:T):Void {
         this.dragItems.push(item);

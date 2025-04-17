@@ -29,9 +29,12 @@ class SceneDrag extends CrappUIScene<Nothing> {
         this.dragSpace.addDragItem(new DragItem());
         this.dragSpace.addDragItem(new DragItem());
         this.dragSpace.addDragItem(new DragItem());
+
+        // this.dragSpace.items --> retorna a lista de itens com a nova ordenação.
     }
 
 }
+
 
 class DragItem extends CrappUIDragItem {
     
