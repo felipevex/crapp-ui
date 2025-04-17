@@ -1,9 +1,7 @@
 package crapp.ui.display.drag;
 
 import priori.event.PriEvent;
-import priori.event.PriDragEvent;
 import priori.geom.PriGeomPoint;
-import helper.kits.NumberKit;
 import crapp.ui.display.drag.CrappUIDragAlignHelper.CrappUIDragAlignHelperData;
 import priori.geom.PriGeomBox;
 import priori.app.PriApp;
@@ -108,7 +106,6 @@ class CrappUIDrag<T:CrappUIDragItem> extends CrappUIDisplay {
             var newIndex:Int = boxes.indexOf(box);
             
             if (newIndex != oldIndex) {
-                trace("Drag item moved from " + oldIndex + " to " + newIndex);
                 this.dragItems[oldIndex] = this.dragItems[newIndex];
                 this.dragItems[newIndex] = this.draggingItem;
 
