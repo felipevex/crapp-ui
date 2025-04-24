@@ -31,7 +31,11 @@ class CrappUIDrag<T:CrappUIDragItem> extends CrappUIDisplay {
         this.dragItems.push(item);
         this.addChild(item);
 
-        item.allowTransition(POSITION, 0.5);
+        haxe.Timer.delay(() -> {
+            item.allowTransition(POSITION, 0.5);
+        }, 10);
+        
+        item.dragAnchor.pointer = true;
         item.dragAnchor.addEventListener(PriTapEvent.TAP_DOWN, this.onDragStart.bind(item));
     }
 
