@@ -17,8 +17,7 @@
     "<script src=\"js/FileSaver.js\"></script>",
     "<script src=\"js/qrcode.min.js\"></script>",
     "<script src=\"js/pako.min.js\"></script>",
-    "<script src=\"js/chart.min.js\"></script>",
-    "<script src=\"socketio/socket.io.js\"></script>"
+    "<script src=\"js/chart.min.js\"></script>"
   ],
 
   "d_flags" : [],
