@@ -115,7 +115,7 @@ class CrappUILayout extends CrappUIDisplay {
         var layout = super.set_layout(value);
 
         if (layout.children != null) for (i in 0 ... layout.children.length) {
-            this.layout.children[i].ref.layout = layout.children[i];
+            layout.children[i].ref.layout = layout.children[i];
         }
         
         this.invalid = false;
