@@ -20,7 +20,7 @@ class CrappUIButtonIcon extends CrappUIIcon {
 
         layout.horizontal.size = FIXED;
         layout.vertical.size = FIXED;
-        
+
         return layout;
     }
 
@@ -47,7 +47,7 @@ class CrappUIButtonIcon extends CrappUIIcon {
         this.iconDisplay.color = style.onColor;
         this.iconDisplay.icon = this.icon;
         this.iconDisplay.size = style.size * this.size;
-        
+
         this.setDisplaySize(this.iconDisplay.maxX + space, this.iconDisplay.maxY + space);
     }
 }
