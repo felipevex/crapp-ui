@@ -43,17 +43,17 @@ class CrappUIForm {
 
     private var fields:Array<CrappUIInput<Dynamic>>;
     private var validators:Array<()->Void>;
-    
+
     /**
     Título do formulário usado para exibição em mensagens de erro.
-    
+
     @default 'Form'
     **/
     public var title:String = 'Form';
 
     /**
     Cria uma nova instância de `CrappUIForm`.
-    
+
     @param title Título opcional para o formulário
     **/
     public function new(?title:String) {
@@ -66,7 +66,7 @@ class CrappUIForm {
     /**
     Adiciona uma regra de validação a um campo do formulário. Se o campo ainda não estiver
     registrado no formulário, ele será adicionado automaticamente.
-    
+
     @param field O campo de entrada a ser validado
     @param rule A regra de validação a ser aplicada ao campo
     **/
@@ -76,20 +76,25 @@ class CrappUIForm {
         field.addValidation(rule);
     }
 
+    public function addFieldValidation<T>(field:CrappUIInput<T>, rule:(value:T)->Void):Void {
+        if (this.fields.indexOf(field) == -1) this.fields.push(field);
+        field.addValidation(rule);
+    }
+
     /**
     Adiciona uma função de validação personalizada ao formulário. Esta função deve lançar uma exceção
     quando a validação falhar, e a mensagem da exceção será exibida como erro.
-    
+
     @param validator Função que executa validação personalizada
     **/
     public function addValidationRule(validator:()->Void):Void {
         this.validators.push(validator);
     }
-    
+
     /**
     Verifica se o formulário contém erros de validação e, opcionalmente,
     exibe uma caixa de diálogo com as mensagens de erro.
-    
+
     @param showError Se verdadeiro, exibe um diálogo com as mensagens de erro
     @return Verdadeiro se há erros, falso caso contrário
     **/
@@ -112,14 +117,14 @@ class CrappUIForm {
                 CrappUIDialog.openMessage(message, this.title);
             }
         }
-        
+
         return hasError;
     }
 
     /**
     Coleta todos os erros de validação dos campos e validadores do formulário.
     Executa a validação em todos os campos e tenta executar todos os validadores personalizados.
-    
+
     @return Um array de objetos de erro contendo campo (opcional) e mensagem
     **/
     public function getErrors():Array<{?field:String, message:String}> {
