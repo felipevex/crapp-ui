@@ -20,11 +20,11 @@ import crapp.ui.display.app.CrappUIScene;
 </priori>
 ')
 class SceneDialog extends CrappUIScene<Nothing> {
-    
+
 
     override function setup() {
         super.setup();
-        
+
         this.btMessage.actions.onClick = CrappUIDialog.openMessage.bind('Hello World');
 
         this.btMessageWithTitle.actions.onClick = CrappUIDialog.openDialog.bind({
@@ -35,7 +35,7 @@ class SceneDialog extends CrappUIScene<Nothing> {
                 { label: 'CONTINUAR', action: () -> { trace('OK'); } }
             ]
         });
-        
+
         this.btLongMessage.actions.onClick = CrappUIDialog.openMessage.bind("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi placerat felis eu est ultrices, at sagittis neque malesuada. Vivamus magna urna, ultricies suscipit massa nec, lobortis porta odio. Sed et euismod leo.", "Longa Mensagem");
     }
 

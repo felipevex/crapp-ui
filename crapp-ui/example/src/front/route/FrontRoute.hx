@@ -5,7 +5,7 @@ import util.kit.nothing.Nothing;
 import util.kit.path.Path;
 
 class FrontRoute {
-    
+
     static public var pathInit:Path<Nothing> = '**';
     static public var pathSceneHome:Path<Nothing> = 'home';
     static public var pathSceneText:Path<Nothing> = 'text';
@@ -26,6 +26,7 @@ class FrontRoute {
     static public var pathSceneSurface:Path<Nothing> = 'container/surface';
     static public var pathSceneLineHorizontal:Path<Nothing> = 'line/horizontal';
     static public var pathSceneLineVertical:Path<Nothing> = 'line/vertical';
+    static public var pathSceneModal:Path<Nothing> = 'modal';
     static public var pathSceneDialog:Path<Nothing> = 'modal/dialog';
     static public var pathSceneIcon:Path<Nothing> = 'icon';
     static public var pathSceneFrame:Path<Nothing> = 'frame';
@@ -34,7 +35,7 @@ class FrontRoute {
     static public var pathSceneDrag:Path<Nothing> = 'drag';
 
     static public function registerAllScenes():Void {
-        
+
         CrappUIRouteManager.use().register(pathInit, front.scene.home.SceneHome);
         CrappUIRouteManager.use().register(pathSceneHome, front.scene.home.SceneHome);
         CrappUIRouteManager.use().register(pathSceneText, front.scene.text.SceneText);
@@ -55,6 +56,7 @@ class FrontRoute {
         CrappUIRouteManager.use().register(pathSceneSurface, front.scene.container.SceneSurface);
         CrappUIRouteManager.use().register(pathSceneLineHorizontal, front.scene.line.SceneLineHorizontal);
         CrappUIRouteManager.use().register(pathSceneLineVertical, front.scene.line.SceneLineVertical);
+        CrappUIRouteManager.use().register(pathSceneModal, front.scene.modal.SceneModal);
         CrappUIRouteManager.use().register(pathSceneDialog, front.scene.modal.SceneDialog);
         CrappUIRouteManager.use().register(pathSceneIcon, front.scene.icon.SceneIcon);
         CrappUIRouteManager.use().register(pathSceneFrame, front.scene.frame.SceneFrame);

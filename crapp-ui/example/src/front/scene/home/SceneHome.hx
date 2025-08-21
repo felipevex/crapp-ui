@@ -31,6 +31,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton id="testSurface" label="CONTAINER - SURFACE" />
             <private:CrappUIButton id="testLineHorizontal" label="LINE - HORIZONTAL" />
             <private:CrappUIButton id="testLineVertical" label="LINE - VERTICAL" />
+            <private:CrappUIButton id="testModal" label="MODAL" />
             <private:CrappUIButton id="testModalDialog" label="MODAL - DIALOG" />
             <private:CrappUIButton id="testIcon" label="ICON" />
             <private:CrappUIButton id="testFrame" label="FRAME" />
@@ -42,10 +43,10 @@ import crapp.ui.display.app.CrappUIScene;
 </priori>
 ')
 class SceneHome extends CrappUIScene<Nothing> {
-    
+
     override function setup() {
         super.setup();
-        
+
         this.testStyle.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneStyle);
         this.testText.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneText);
         this.testTextIcon.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneTextIcon);
@@ -64,12 +65,13 @@ class SceneHome extends CrappUIScene<Nothing> {
         this.testSurface.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneSurface);
         this.testLineHorizontal.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneLineHorizontal);
         this.testLineVertical.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneLineVertical);
+        this.testModal.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneModal);
         this.testModalDialog.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneDialog);
         this.testIcon.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneIcon);
         this.testFrame.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneFrame);
         this.testRoute.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneRoute);
         this.testRouteParametric.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneRouteParametric.build({id: 1, name: 'Hello World'}));
         this.testDrag.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneDrag);
-        
+
     }
 }
