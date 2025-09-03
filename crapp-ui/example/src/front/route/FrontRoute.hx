@@ -15,6 +15,7 @@ class FrontRoute {
     static public var pathSceneButtonIcon:Path<Nothing> = 'button/icon';
     static public var pathSceneButtonSurface:Path<Nothing> = 'button/surface';
     static public var pathSceneInputText:Path<Nothing> = 'input/text';
+    static public var pathSceneInputTextMask:Path<Nothing> = 'input/text/mask';
     static public var pathSceneInputTextArea:Path<Nothing> = 'input/textarea';
     static public var pathSceneInputSelect:Path<Nothing> = 'input/select';
     static public var pathSceneStyle:Path<Nothing> = 'style';
@@ -45,6 +46,7 @@ class FrontRoute {
         CrappUIRouteManager.use().register(pathSceneButtonIcon, front.scene.button.SceneButtonIcon);
         CrappUIRouteManager.use().register(pathSceneButtonSurface, front.scene.button.SceneButtonSurface);
         CrappUIRouteManager.use().register(pathSceneInputText, front.scene.input.SceneInputText);
+        CrappUIRouteManager.use().register(pathSceneInputTextMask, front.scene.input.SceneInputTextMask);
         CrappUIRouteManager.use().register(pathSceneInputTextArea, front.scene.input.SceneInputTextArea);
         CrappUIRouteManager.use().register(pathSceneInputSelect, front.scene.input.SceneInputSelect);
         CrappUIRouteManager.use().register(pathSceneStyle, front.scene.style.SceneStyle);
