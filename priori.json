@@ -17,7 +17,8 @@
     "<script src=\"js/FileSaver.js\"></script>",
     "<script src=\"js/qrcode.min.js\"></script>",
     "<script src=\"js/pako.min.js\"></script>",
-    "<script src=\"js/chart.min.js\"></script>"
+    "<script src=\"js/chart.min.js\"></script>",
+    "<script src=\"js/imask-dist-7.6.1.js\"></script>"
   ],
 
   "d_flags" : [],
