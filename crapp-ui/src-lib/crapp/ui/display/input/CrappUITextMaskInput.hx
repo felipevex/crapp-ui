@@ -20,6 +20,12 @@ class CrappUITextMaskInput extends CrappUITextInput {
     private var maskOptions:Dynamic;
 
     /**
+     * Propriedade pública que retorna o valor limpo sem a formatação da máscara.
+     * @return String - o valor do campo sem a formatação da máscara
+     */
+    public var valueUnmasked(get, never):String;
+
+    /**
        Propriedade pública que retorna o valor formatado com a máscara aplicada.
        @return String - o valor do campo com a formatação da máscara
     **/
@@ -106,6 +112,8 @@ class CrappUITextMaskInput extends CrappUITextInput {
         this.maskController.updateOptions(this.maskOptions);
     }
 
+    private function get_valueUnmasked():String return this.maskController.unmaskedValue;
+
     /**
        Getter privado para a propriedade `valueMasked`.
        @return String - o valor formatado com a máscara aplicada
@@ -113,10 +121,10 @@ class CrappUITextMaskInput extends CrappUITextInput {
     private function get_valueMasked():String return this.maskController.value;
 
     /**
-       Getter sobrescrito que retorna o valor limpo sem formatação da máscara.
-       @return String - o valor sem a formatação da máscara
+       Getter sobrescrito que retorna o valor limpo com formatação da máscara.
+       @return String - o valor com a formatação da máscara
     **/
-    override private function get_value():String return this.maskController.unmaskedValue;
+    override private function get_value():String return this.valueMasked;
 
     /**
        Setter sobrescrito para definir o valor do campo.
