@@ -8,7 +8,7 @@ import priori.event.PriMouseEvent;
 import priori.view.PriDisplay;
 
 class CrappUITapController {
-    
+
     public var isDown:Bool = false;
     public var isOver:Bool = false;
     public var isFocused:Bool = false;
@@ -19,7 +19,7 @@ class CrappUITapController {
     public function new(display:PriDisplay, doUpdate:Void->Void) {
         this.o = display;
         this.doUpdate = doUpdate;
-       
+
         this.o.focusable = true;
 
         this.initializeEvents();
@@ -27,7 +27,7 @@ class CrappUITapController {
 
     public function reset():Void {
         if (this.o == null) return;
-        
+
         this.isDown = false;
         this.isOver = false;
         this.isFocused = false;
@@ -39,10 +39,10 @@ class CrappUITapController {
     private function initializeEvents():Void {
         this.o.addEventListener(PriMouseEvent.MOUSE_OVER, this.onOverIn);
         this.o.addEventListener(PriMouseEvent.MOUSE_OUT, this.onOverOut);
-        
+
         this.o.addEventListener(PriTapEvent.TAP_DOWN, this.onDown);
         this.o.addEventListener(PriTapEvent.TOUCH_DOWN, this.onDown);
-        
+
         this.o.addEventListener(PriFocusEvent.FOCUS_IN, this.onFocusIn);
         this.o.addEventListener(PriFocusEvent.FOCUS_OUT, this.onFocusOut);
         this.o.addEventListener(PriTapEvent.TOUCH_MOVE, this.onFocusOut);
@@ -50,7 +50,7 @@ class CrappUITapController {
 
     private function onOverIn(e:PriEvent):Void {
         if (this.isOver) return;
-    
+
         this.isOver = true;
         this.doUpdate();
     }
@@ -66,6 +66,7 @@ class CrappUITapController {
         if (this.isFocused) return;
 
         this.isFocused = true;
+        this.isOver = true;
         this.doUpdate();
     }
 
@@ -74,30 +75,33 @@ class CrappUITapController {
 
         if (!this.isFocused) return;
 
+        this.isOver = false;
         this.isFocused = false;
         this.doUpdate();
     }
 
     private function onDown(e:PriEvent):Void {
         if (this.isDown) return;
-    
-        this.isDown = true;
-        this.isFocused = true;
-        
+
+        PriApp.g().removeEventListener(PriTapEvent.TAP_UP, this.onUp);
+        PriApp.g().removeEventListener(PriTapEvent.TOUCH_UP, this.onUp);
         PriApp.g().addEventListener(PriTapEvent.TOUCH_UP, this.onUp);
         PriApp.g().addEventListener(PriTapEvent.TAP_UP, this.onUp);
+
+        this.isDown = true;
+        this.isFocused = true;
+
 
         this.doUpdate();
     }
 
     private function onUp(e:PriEvent):Void {
         if (!this.isDown) return;
-    
+
         this.isDown = false;
 
         PriApp.g().setFocus();
 
-        // this.isOver = false;
         this.isFocused = false;
 
         haxe.Timer.delay(() -> {
@@ -118,7 +122,7 @@ class CrappUITapController {
     public function kill():Void {
         this.o.removeEventListener(PriMouseEvent.MOUSE_OVER, this.onOverIn);
         this.o.removeEventListener(PriMouseEvent.MOUSE_OUT, this.onOverOut);
-        
+
         this.o.removeEventListener(PriTapEvent.TAP_DOWN, this.onDown);
         this.o.removeEventListener(PriTapEvent.TOUCH_DOWN, this.onDown);
 
