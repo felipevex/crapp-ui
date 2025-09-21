@@ -3,7 +3,10 @@ package crapp.ui.style;
 import priori.geom.PriColor;
 
 class CrappUIColorSwatch {
-    
+
+    static private var shadesDarkCache:Map<PriColor, PriColor> = new Map<PriColor, PriColor>();
+    static private var shadesLightCache:Map<PriColor, PriColor> = new Map<PriColor, PriColor>();
+
     @:isVar public var color(default, null):PriColor;
     @:isVar public var brighter(default, null):PriColor;
     @:isVar public var darker(default, null):PriColor;
@@ -27,21 +30,29 @@ class CrappUIColorSwatch {
     }
 
     private function createDarkerShade():PriColor {
+        if (shadesDarkCache.exists(this.color)) return shadesDarkCache.get(this.color);
+
         var color:TinyColor = new TinyColor(this.color.toString());
-        
+
         color.darken(10);
         if (color.toHsl().s > 0.1) color.saturate(7);
-        
-        return PriColor.fromString(color.toHexString());
+
+        var result = PriColor.fromString(color.toHexString());
+        shadesDarkCache.set(this.color, result);
+        return result;
     }
 
     private function createBrighterShade():PriColor {
+        if (shadesLightCache.exists(this.color)) return shadesLightCache.get(this.color);
+
         var color:TinyColor = new TinyColor(this.color.toString());
-        
+
         color.lighten(color.isLight() ? 18 : 10);
         if (color.toHsl().s > 0.1) color.saturate(7);
-        
-        return PriColor.fromString(color.toHexString());
+
+        var result = PriColor.fromString(color.toHexString());
+        shadesLightCache.set(this.color, result);
+        return result;
     }
 
     private function get_gray():PriColor {
@@ -59,7 +70,7 @@ class CrappUIColorSwatch {
 private extern class TinyColor {
 
     public function new(?color:Dynamic, ?opts:Dynamic);
-    
+
     public function isValid():Bool;
 
     //String Representations
@@ -102,13 +113,13 @@ private extern class TinyColor {
     public static function complement():TinyColor;
 
     public function spin(amount:Float):TinyColor;
-    
+
     public static function triad():Array<TinyColor>;
     public static function tetrad():Array<TinyColor>;
     public static function splitcomplement():Array<TinyColor>;
     public static function analogous():Array<TinyColor>;
     public function monochromatic():Array<TinyColor>;
-    
+
     public static function readability(color1:TinyColor, color2:TinyColor):Float; // contrast ratio
     public static function readable(color1:TinyColor, color2:TinyColor):Bool;
     public static function mostReadable(baseColor:Dynamic, colorList:Array<Dynamic>):TinyColor;

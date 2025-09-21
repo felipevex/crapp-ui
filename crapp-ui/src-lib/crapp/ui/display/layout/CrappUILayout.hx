@@ -9,11 +9,11 @@ import tricks.layout.LayoutElement;
 
 /**
    A classe CrappUILayout tem como finalidade organizar visualmente os elementos filhos em um container, definindo a distribuição, o alinhamento e o espaçamento nos eixos horizontal e vertical.
-   
+
    #### Responsabilidades:
    - Gerenciar a disposição dos componentes visuais, aplicando configurações de distribuição, alinhamento e gaps para ajustar e redimensionar os elementos internos de forma responsiva.
    - Atualizar o layout quando eventos de redimensionamento dos componentes internos forem detectados.
-   
+
    #### Eventos Emitidos:
    - PriEvent.RESIZE: emitido pelos elementos internos para indicar mudanças de tamanho, acionando a atualização do layout.
 **/
@@ -23,59 +23,59 @@ import tricks.layout.LayoutElement;
 </priori>
 ')
 class CrappUILayout extends CrappUIDisplay {
-    
+
     private var invalid:Bool;
 
     /**
        Propriedade que define a distribuição horizontal dos elementos do layout.
-       
+
        @default LayoutDistribution.NONE
     **/
     @:isVar public var hLayoutDistribution(default, set):LayoutDistribution = LayoutDistribution.NONE;
 
     /**
        Propriedade que define a distribuição vertical dos elementos do layout.
-       
+
        @default LayoutDistribution.NONE
     **/
     @:isVar public var vLayoutDistribution(default, set):LayoutDistribution = LayoutDistribution.NONE;
 
     /**
        Propriedade que define o alinhamento horizontal dos elementos do layout.
-       
+
        @default LayoutAlignment.NONE
     **/
     @:isVar public var hLayoutAlignment(default, set):LayoutAlignment = LayoutAlignment.NONE;
 
     /**
        Propriedade que define o alinhamento vertical dos elementos do layout.
-       
+
        @default LayoutAlignment.NONE
     **/
     @:isVar public var vLayoutAlignment(default, set):LayoutAlignment = LayoutAlignment.NONE;
 
     /**
        Propriedade que define o espaçamento horizontal entre os elementos do layout.
-       
+
        @default 0.0
     **/
     @:isVar public var hLayoutGap(default, set):Float = 0.0;
 
     /**
        Propriedade que define o espaçamento vertical entre os elementos do layout.
-       
+
        @default 0.0
     **/
     @:isVar public var vLayoutGap(default, set):Float = 0.0;
-    
+
     public function new() {
         this.invalid = false;
         super();
     }
-    
+
     override function get_layout():LayoutElement<CrappUIDisplay> {
         var layout = super.get_layout();
-        
+
         layout.isContainer = true;
 
         layout.horizontal.distribution = this.hLayoutDistribution;
@@ -88,13 +88,13 @@ class CrappUILayout extends CrappUIDisplay {
 
         for (i in 0 ... this.numChildren) {
             var child = this.getChild(i);
-            
+
             if (!child.visible) continue;
             else if (!Std.isOfType(child, CrappUIDisplay)) continue;
 
             layout.children.push((cast(child, CrappUIDisplay)).layout);
         }
-        
+
         if (layout.children.length == 0) {
             if (layout.horizontal.size == LayoutSize.FIT) {
                 layout.horizontal.size = LayoutSize.FIXED;
@@ -105,11 +105,18 @@ class CrappUILayout extends CrappUIDisplay {
                 layout.height = 0;
             }
         }
-        
+
         return layout;
     }
 
+    private var forceRelayout:LayoutElement<CrappUIDisplay> = null;
+
     override function set_layout(value:LayoutElement<CrappUIDisplay>):LayoutElement<CrappUIDisplay> {
+        if (this.invalid) {
+            this.forceRelayout = value;
+            return layout;
+        }
+
         this.invalid = true;
 
         var layout = super.set_layout(value);
@@ -117,11 +124,19 @@ class CrappUILayout extends CrappUIDisplay {
         if (layout.children != null) for (i in 0 ... layout.children.length) {
             layout.children[i].ref.layout = layout.children[i];
         }
-        
+
         this.invalid = false;
+
+        if (this.forceRelayout != null) {
+            var cached = this.forceRelayout;
+            this.forceRelayout = null;
+            this.set_layout(cached);
+            return cached;
+        }
+
         return layout;
     }
-    
+
     override function paint() {
         if (this.invalid) return;
 
