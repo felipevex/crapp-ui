@@ -22,12 +22,19 @@ class CrappUIRadioInput<T> extends CrappUICheckInput<T> {
 
     @:isVar public var groupName(default, set):String;
 
+    public var group(get, never):CrappUIRadioGroupProxy<T>;
+
     override function setup():Void {
         super.setup();
 
         this.addEventListener(PriEvent.ADDED_TO_APP, this.onAddToApp);
         this.addEventListener(PriEvent.REMOVED_FROM_APP, this.onRemoveFromApp);
 
+    }
+
+    private function get_group():CrappUIRadioGroupProxy<T> {
+        if (this.groupName == null) return null;
+        return new CrappUIRadioGroupProxy<T>(this.groupName);
     }
 
     private function onAddToApp(e:PriEvent):Void {
@@ -53,7 +60,11 @@ class CrappUIRadioInput<T> extends CrappUICheckInput<T> {
     }
 
     override private function onTap(e:PriTapEvent):Void {
+        var oldValue:T = CrappUIRadioGroupManager.get().getGroupValue(this.groupName);
         this.isSelected = true;
+        var newValue:T = CrappUIRadioGroupManager.get().getGroupValue(this.groupName);
+
+        if (oldValue != newValue) CrappUIRadioGroupManager.get().dispatchChange(this.groupName);
     }
 
     override private function set_isSelected(value:Bool):Bool {
@@ -117,5 +128,41 @@ private class CrappUIRadioGroupManager {
         if (group == null || !this.groups.exists(group)) return [];
         return this.groups.get(group);
     }
+
+    public function dispatchChange(group:String):Void {
+        if (group == null) return;
+
+        var items = this.getItems(group);
+        for (item in items) if (item.actions.onChange != null) item.actions.onChange();
+    }
+
+    public function getGroupValue(group:String):Dynamic {
+        if (group == null) return null;
+
+        var items = this.getItems(group);
+        for (item in items) if (item.isSelected) return item.value;
+
+        return null;
+    }
+}
+
+private class CrappUIRadioGroupProxy<T> {
+
+    public var value(get, set):T;
+
+    private var groupName:String;
+
+    public function new(groupName:String) {
+        this.groupName = groupName;
+    }
+
+    private function get_value():T return CrappUIRadioGroupManager.get().getGroupValue(this.groupName);
+
+    private function set_value(value:T):T {
+        var items = CrappUIRadioGroupManager.get().getItems(this.groupName);
+        for (item in items) item.isSelected = (item.value == value);
+        return value;
+    }
+
 
 }
