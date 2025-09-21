@@ -33,6 +33,8 @@ class CrappUIRateInput extends CrappUIInput<Int> {
 
         this.buttons = [];
         this.recreateButtons();
+
+        this.clipping = false;
     }
 
     private function recreateButtons():Void {
@@ -74,6 +76,8 @@ class CrappUIRateInput extends CrappUIInput<Int> {
         if (currentValue != newValue) {
             if (this.actions.onChange != null) this.actions.onChange();
         }
+
+        if (this.autoValidation) this.validateAndDisplayError();
     }
 
     private function set_max(value:Int):Int {
@@ -110,8 +114,28 @@ class CrappUIRateInput extends CrappUIInput<Int> {
         return value;
     }
 
-    override function set_label(value:String):String {
-        return value;
+    override public function validateAndDisplayError():Void {
+        try {
+            this.validate();
+            if (this.displayError != null) this.displayError.visible = false;
+        } catch (e:String) {
+            this.createErrorMessage();
+            this.displayError.text = this.getErrorMessage();
+
+            if (!this.displayError.visible) {
+                this.displayError.visible = true;
+                this.displayError.allowTransition(ALPHA, null);
+
+                this.displayError.centerX = this.width / 2;
+                this.displayError.maxY = 0;
+                this.displayError.alpha = 0;
+
+                haxe.Timer.delay(() -> {
+                    this.displayError.allowTransition(ALPHA, 0.12);
+                    this.displayError.alpha = 1;
+                }, 0);
+            }
+        }
     }
 
     override function paint():Void {
@@ -123,63 +147,12 @@ class CrappUIRateInput extends CrappUIInput<Int> {
 
         this.container.hLayoutGap = space;
 
-        // var padding:Float = Math.floor(style.space / 3);
-
-        // var textHeight:Float = this.reference.height + (padding * 2);
-        // var iconHeight:Float = this.iconDisplay.height + (padding * 2);
-        // var referenceHeight:Float = Math.max(textHeight, iconHeight);
-
-        // if (StringKit.isEmpty(this.label)) {
-        //     this.width = this.height = referenceHeight;
-
-        //     this.iconDisplay.centerX = this.width / 2;
-        //     this.iconDisplay.centerY = this.height / 2;
-
-        //     this.bg.width = this.width;
-        //     this.bg.height = this.height;
-        //     this.bg.corners = [100];
-
-        //     return;
-        // }
-
-        // this.iconDisplay.x = padding;
-        // this.iconDisplay.centerY = referenceHeight / 2;
-
-        // this.labelDisplay.x = this.iconDisplay.maxX + space;
-        // this.labelDisplay.y = referenceHeight/2 - textHeight/2 + padding;
-
-        // this.height = Math.max(referenceHeight, this.labelDisplay.maxY + padding);
-        // this.width = this.labelDisplay.maxX + padding * 2;
-
-        // this.bg.width = this.width;
-        // this.bg.height = this.height;
-        // this.bg.corners = [Math.floor(this.iconDisplay.height / 2 + padding)];
-
         this.width = this.container.width;
         this.height = this.container.height;
 
-
+        if (this.displayError != null) {
+            this.displayError.centerX = this.width / 2;
+        }
     }
-
-    // private function onTap(e:PriTapEvent):Void {
-    //     this.isSelected = !this.isSelected;
-    // }
-
-    // private function get_isSelected():Bool return this.isSelected;
-    // private function set_isSelected(value:Bool):Bool {
-    //     if (value == null) return value;
-
-    //     this.isSelected = value;
-    //     this.updateSelectedIcon();
-
-    //     return value;
-    // }
-
-    // private function updateSelectedIcon():Void {
-    //     this.iconDisplay.icon = this.isSelected
-    //         ? CHECK_SQUARE_REGULAR
-    //         : SQUARE_REGULAR;
-    // }
-
 
 }

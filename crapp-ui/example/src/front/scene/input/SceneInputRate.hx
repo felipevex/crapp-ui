@@ -1,6 +1,5 @@
 package front.scene.input;
 
-import crapp.ui.display.input.CrappUICheckInput;
 import util.kit.nothing.Nothing;
 import crapp.ui.display.app.CrappUIScene;
 
