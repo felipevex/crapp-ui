@@ -19,13 +19,13 @@ A classe `CrappUIInput` tem como finalidade gerenciar a entrada de dados, permit
 </priori>
 ')
 class CrappUIInput<T> extends CrappUIDisplay {
-    
+
     /**
     Valor atual da entrada.
     @default (valor não definido)
     **/
     public var value(get, set):T;
-    
+
     /**
     Indica se a validação automática está habilitada.
     @default true
@@ -41,7 +41,7 @@ class CrappUIInput<T> extends CrappUIDisplay {
     private var validatorsErrorMessage:String;
     private var validators:Array<(value:T)->Void>;
     private var displayError:CrappUITextIcon;
-    
+
     public function new() {
         this.validators = [];
         this.validatorsErrorMessage = '';
@@ -58,8 +58,8 @@ class CrappUIInput<T> extends CrappUIDisplay {
         var styleSize:Float = this.style.size;
         var styleSpace:Float = this.style.space;
         var baseSize:Float = styleSize * 1.485;
-        var size:Float = baseSize + styleSpace * 2.5 + baseSize * CrappUISizeReference.SMALL; 
-        
+        var size:Float = baseSize + styleSpace * 2.5 + baseSize * CrappUISizeReference.SMALL;
+
         return size;
     }
 
@@ -83,7 +83,7 @@ class CrappUIInput<T> extends CrappUIDisplay {
         this.displayError.icon = EXCLAMATION_TRIANGLE;
         this.addChild(this.displayError);
     }
-    
+
     private function get_value():T throw new haxe.exceptions.NotImplementedException();
     private function set_value(value:T):T throw new haxe.exceptions.NotImplementedException();
 

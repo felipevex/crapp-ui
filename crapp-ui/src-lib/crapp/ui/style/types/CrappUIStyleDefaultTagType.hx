@@ -1,7 +1,7 @@
 package crapp.ui.style.types;
 
 enum abstract CrappUIStyleDefaultTagType(String) from String to String {
-    
+
     var BUTTON;
     var BUTTON_ICON;
     var BUTTON_SURFACE;
@@ -18,4 +18,6 @@ enum abstract CrappUIStyleDefaultTagType(String) from String to String {
     var DIALOG;
     var CONTEXT_MENU;
     var STACK;
+    var RADIO;
+    var CHECK;
 }

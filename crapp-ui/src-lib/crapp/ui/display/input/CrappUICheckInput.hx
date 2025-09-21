@@ -1,0 +1,116 @@
+package crapp.ui.display.input;
+
+import helper.kits.StringKit;
+import crapp.ui.composite.builtin.ButtonableComposite;
+import crapp.ui.composite.builtin.OverEffectComposite;
+import crapp.ui.composite.builtin.DisabledEffectComposite;
+import crapp.ui.display.text.CrappUIText;
+import crapp.ui.display.icon.CrappUIIcon;
+import crapp.ui.style.types.CrappUIStyleDefaultTagType;
+import priori.event.PriTapEvent;
+import crapp.ui.style.CrappUIStyle;
+import crapp.ui.display.CrappUIDisplay;
+
+@priori('
+<priori>
+    <view tag:L="CrappUIStyleDefaultTagType.CHECK" >
+        <private:CrappUIDisplay id="bg" />
+        <private:CrappUIIcon id="iconDisplay" tag:L="null" size="EXTRA" icon="" />
+
+        <private:CrappUIText id="labelDisplay" tag:L="null" text="LABEL" />
+        <private:CrappUIText id="reference" tag:L="null" alpha="0" mouseEnabled=":false" text="test" />
+    </view>
+</priori>
+')
+class CrappUICheckInput<T> extends CrappUIInput<T> {
+
+    @:isVar public var isSelected(get, set):Bool = false;
+
+    private var currentValue:T;
+
+    override function setup():Void {
+        this.composite.add(OverEffectComposite);
+        this.composite.add(ButtonableComposite);
+        this.composite.add(DisabledEffectComposite);
+
+        this.composite.get(OverEffectComposite).target = this.bg;
+        this.composite.get(OverEffectComposite).mixFocusColor = true;
+        this.composite.get(OverEffectComposite).isAlphaEffect = true;
+
+        super.setup();
+
+        this.addEventListener(PriTapEvent.TAP, this.onTap);
+        this.updateSelectedIcon();
+    }
+
+    override function get_value():T return this.currentValue;
+    override function set_value(value:T):T return this.currentValue = value;
+
+    override function set_label(value:String):String {
+        super.set_label(value);
+        this.labelDisplay.text = value;
+        this.updateDisplay();
+        return value;
+    }
+
+    override function paint():Void {
+        super.paint();
+
+        var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
+
+        var space:Float = style.space;
+        var padding:Float = Math.floor(style.space / 3);
+
+        var textHeight:Float = this.reference.height + (padding * 2);
+        var iconHeight:Float = this.iconDisplay.height + (padding * 2);
+        var referenceHeight:Float = Math.max(textHeight, iconHeight);
+
+        if (StringKit.isEmpty(this.label)) {
+            this.width = this.height = referenceHeight;
+
+            this.iconDisplay.centerX = this.width / 2;
+            this.iconDisplay.centerY = this.height / 2;
+
+            this.bg.width = this.width;
+            this.bg.height = this.height;
+            this.bg.corners = [100];
+
+            return;
+        }
+
+        this.iconDisplay.x = padding;
+        this.iconDisplay.centerY = referenceHeight / 2;
+
+        this.labelDisplay.x = this.iconDisplay.maxX + space;
+        this.labelDisplay.y = referenceHeight/2 - textHeight/2 + padding;
+
+        this.height = Math.max(referenceHeight, this.labelDisplay.maxY + padding);
+        this.width = this.labelDisplay.maxX + padding * 2;
+
+        this.bg.width = this.width;
+        this.bg.height = this.height;
+        this.bg.corners = [Math.floor(this.iconDisplay.height / 2 + padding)];
+    }
+
+    private function onTap(e:PriTapEvent):Void {
+        this.isSelected = !this.isSelected;
+    }
+
+    private function get_isSelected():Bool return this.isSelected;
+    private function set_isSelected(value:Bool):Bool {
+        if (value == null) return value;
+
+        this.isSelected = value;
+        this.updateSelectedIcon();
+
+        return value;
+    }
+
+    private function updateSelectedIcon():Void {
+        this.iconDisplay.icon = this.isSelected
+            ? CHECK_SQUARE_REGULAR
+            : SQUARE_REGULAR;
+    }
+
+
+}

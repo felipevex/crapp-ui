@@ -32,7 +32,7 @@ class CrappUIText extends CrappUIDisplay {
     public var multiLine(get, set):Bool;
     public var selectable(get, set):Bool;
     public var align(get, set):CrappUIStyleFontAlignType;
-    
+
     @:isVar public var weight(default, set):CrappUIStyleFontWeightType;
     @:isVar public var isItalic(default, set):Bool = false;
     @:isVar public var size(default, set):CrappUISizeReference = CrappUISizeReference.BASE;
@@ -55,7 +55,7 @@ class CrappUIText extends CrappUIDisplay {
         this.maxHeight = value;
 
         this.composite.add(ScrollerComposite);
-        
+
 
         this.updateDisplay();
 
@@ -72,7 +72,7 @@ class CrappUIText extends CrappUIDisplay {
         this.updateDisplay();
         return value;
     }
-    
+
     private function set_isHTML(value:Bool):Bool {
         this.isHTML = value;
         var text:String = this.__textValue;
@@ -104,14 +104,14 @@ class CrappUIText extends CrappUIDisplay {
 
     private function onChange(e:PriEvent):Void {
         this.__textValue = this.label.text;
-        
+
         this.dispatchEvent(new PriEvent(PriEvent.RESIZE));
-        
+
         if (this.actions.onChange != null) this.actions.onChange();
     }
 
     private function onFocus(e:PriFocusEvent):Void {
-        this.label.ellipsis = 
+        this.label.ellipsis =
             this.editable && e.type == PriFocusEvent.FOCUS_IN
             ? false
             : true;
@@ -175,7 +175,7 @@ class CrappUIText extends CrappUIDisplay {
 
     override private function paint():Void {
         var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
-        
+
         this.label.startBatchUpdate();
         this.label.fontSize = style.size * this.size;
 
@@ -185,12 +185,12 @@ class CrappUIText extends CrappUIDisplay {
         if (fontStyle.align == null) fontStyle.align = this.align;
 
         this.label.fontStyle = fontStyle;
-        
+
         this.label.endBatchUpdate();
-        
+
         // if (!this.autoSize) this.label.width = Math.round(this.width);
         // else this.setSize(Math.round(this.label.width), null);
-        
+
         // this.setSize(null, Math.round(this.label.height));
 
         if (!this.autoSize) {
@@ -199,9 +199,9 @@ class CrappUIText extends CrappUIDisplay {
             var width:Float = this.label.width + 1;
             this.setSize(Math.floor(width), null);
         }
-        
+
         var height:Float = this.label.height + 1;
-        
+
         if (this.maxHeight != null && height > this.maxHeight) height = this.maxHeight;
 
         this.setSize(null, Math.floor(height));
