@@ -12,11 +12,12 @@ import priori.view.PriFrame;
 ')
 class CrappUIFrame extends CrappUIDisplay {
 
+    public var html(null, set):String;
     public var src(get, set):String;
     public var window(get, null):Window;
-    
+
     private var frame:PriFrame;
-    
+
     override function setup() {
         super.setup();
 
@@ -40,6 +41,12 @@ class CrappUIFrame extends CrappUIDisplay {
 
     inline private function set_src(value:String):String return this.frame.url = value;
 	inline private function get_src():String return this.frame.url;
+
+    inline private function set_html(value:String):String {
+        if (value == null) return value;
+        this.frame.setHtml(value);
+        return value;
+    }
 
     inline private function reDispatch(e:PriEvent):Void this.dispatchEvent(new PriEvent(e.type));
 
