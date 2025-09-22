@@ -46,7 +46,7 @@ class CrappUIModalController {
        @default 0x000000
     **/
     public static var BACKGROUND_COLOR:Int = 0x000000;
-    
+
     private static var _singleton:CrappUIModalController;
 
     /**
@@ -120,7 +120,7 @@ class CrappUIModalController {
     **/
     public function add(modal:CrappUIModal):Void {
         if (modal == null) return;
-        
+
         modal.removeEventListener(PriEvent.CLOSE, this.onCloseModal);
         modal.addEventListener(PriEvent.CLOSE, this.onCloseModal);
 
@@ -140,7 +140,7 @@ class CrappUIModalController {
         }
 
         this.modals.push(item);
-        
+
         for (o in this.modals) {
             if (o.modal == item.modal) this.enableModal(o);
             else this.disableModal(o);
@@ -196,7 +196,7 @@ class CrappUIModalController {
 
     inline private function blockSceneHolder():Void {
         PriApp.g().setFocus();
-        
+
         CrappUIRouteManager.use().holder.disabled = true;
         if (USE_BLUR) CrappUIRouteManager.use().holder.filter = new PriFilterStyle().setBlur(BLUR_STRENGTH);
     }
@@ -236,7 +236,7 @@ class CrappUIModalController {
                 break;
             }
         }
-        
+
         if (index == -1) return;
 
         var item:CrappUIModalElement = this.modals[index];
@@ -274,8 +274,8 @@ class CrappUIModalController {
                 this.modals[this.modals.length - 1].modal.allowCloseModal &&
                 this.modals[this.modals.length - 1].modal.allowCloseModalWithEsc
             ) {
-                this.remove(this.modals[this.modals.length - 1].modal);
-            } 
+                this.tryToCloseParentModal(this.modals[this.modals.length - 1].modal);
+            }
         }
     }
 
