@@ -37,29 +37,29 @@ import crapp.ui.style.CrappUIStyle;
 </priori>
 ')
 class CrappUITextAreaInput extends CrappUIInput<String> {
-    
+
     private var labelDisplay:PriText;
     private var input:PriFormTextArea;
     private var delayedChangeTimer:Timer;
 
     /**
        Define um texto explicativo que é exibido quando o campo de entrada está vazio.
-       
+
        #### Comportamento:
        - É exibido como um texto de ajuda dentro da área de texto quando não há conteúdo
        - Desaparece automaticamente quando o usuário começa a digitar ou quando o campo recebe foco
        - É renderizado em estilo itálico e com cor mais clara para diferenciá-lo do texto de entrada
-       
+
        #### Uso:
        ```haxe
        var textArea = new CrappUITextAreaInput();
        textArea.explain = "Digite sua descrição aqui...";
        ```
-       
+
        @default explain = ""
     **/
     public var explain(default, set):String = "";
-    
+
     /**
        Construtor da classe `CrappUITextAreaInput` que inicializa o componente de área de texto.
        Define o `tag` como `TEXT_AREA_INPUT` e configura a largura padrão para 300.
@@ -124,10 +124,10 @@ class CrappUITextAreaInput extends CrappUIInput<String> {
         this.paintBackground(style);
         this.paintBorder(style);
         this.paintCorners(style, CrappUISizeReference.SMALL);
-        
+
         var normalHeight:Float = this.calculateNormalHeight();
         var space:Float = style.space * 3.5/2;
-        
+
         @:privateAccess this.input._baseElement.css('padding-right', '15px');
         this.input.width = this.width - space - 15;
         this.input.x = space;
@@ -135,7 +135,7 @@ class CrappUITextAreaInput extends CrappUIInput<String> {
         this.input.height = this.height - this.input.y;
 
         if (this.hasFocus()) this.bgColor = style.onFocusColor();
-        
+
         if (this.hasContentOrSelection() || this.hasExplain()) {
             this.labelDisplay.fontSize = CrappUISizeReference.UNDER * style.size;
 
@@ -151,7 +151,7 @@ class CrappUITextAreaInput extends CrappUIInput<String> {
         }
 
         this.explainDisplay.visible = !this.hasContentOrSelection();
-        
+
         this.explainDisplay.style = {
             on_color : style.color.color.mix(style.color.isLight ? 0x000000 : 0xFFFFFF, 0.5),
         }
@@ -173,7 +173,7 @@ class CrappUITextAreaInput extends CrappUIInput<String> {
 
     private function createForm():PriFormTextArea {
         var input:PriFormTextArea = new PriFormTextArea();
-        input.addEventListener(PriKeyboardEvent.KEY_DOWN, this.onKeyDown);
+
         input.addEventListener(PriEvent.CHANGE, this.onFieldChange);
         input.addEventListener(PriFocusEvent.FOCUS_IN, this.onFocus);
         input.addEventListener(PriFocusEvent.FOCUS_OUT, this.onFocus);
@@ -183,7 +183,7 @@ class CrappUITextAreaInput extends CrappUIInput<String> {
         return input;
     }
 
-    private function onKeyDown(e:PriKeyboardEvent):Void {
+    override private function onKeyDown(e:PriKeyboardEvent):Void {
         if (e.keycode != PriKey.ENTER) return;
         if (this.delayedChangeTimer != null) this.runDelayedChangeEvent();
         if (this.actions.onSubmit != null) this.actions.onSubmit();
@@ -193,7 +193,7 @@ class CrappUITextAreaInput extends CrappUIInput<String> {
         this.killTimer();
 
         this.delayedChangeTimer = Timer.delay(this.runDelayedChangeEvent, 600);
-        
+
         if (this.actions.onChange != null) this.actions.onChange();
 
         this.dispatchEvent(new PriEvent(PriEvent.CHANGE));
@@ -208,13 +208,13 @@ class CrappUITextAreaInput extends CrappUIInput<String> {
     inline private function runDelayedChangeEvent():Void {
         this.killTimer();
         if (this.actions.onDelayedChange != null) this.actions.onDelayedChange();
-        
+
         if (this.autoValidation) this.validateAndDisplayError();
     }
 
     private function killTimer():Void {
         if (this.delayedChangeTimer == null) return;
-        
+
         this.delayedChangeTimer.stop();
         this.delayedChangeTimer.run = null;
         this.delayedChangeTimer = null;
@@ -225,11 +225,11 @@ class CrappUITextAreaInput extends CrappUIInput<String> {
     }
 
     private function onTap(e:PriTapEvent):Void this.setFocus();
-    
+
 	override function set_label(value:String):String {
         if (value == null) return value;
         super.set_label(value);
-        
+
         this.labelDisplay.text = this.label;
         this.updateDisplay();
 

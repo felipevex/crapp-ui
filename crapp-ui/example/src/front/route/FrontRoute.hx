@@ -21,6 +21,7 @@ class FrontRoute {
     static public var pathSceneInputRadio:Path<Nothing> = 'input/radio';
     static public var pathSceneInputCheck:Path<Nothing> = 'input/check';
     static public var pathSceneInputRate:Path<Nothing> = 'input/rate';
+    static public var pathSceneInputToggle:Path<Nothing> = 'input/toggle';
     static public var pathSceneStyle:Path<Nothing> = 'style';
     static public var pathSceneScrollerComposite:Path<Nothing> = 'composite/scroller';
     static public var pathSceneList:Path<Nothing> = 'list';
@@ -55,6 +56,7 @@ class FrontRoute {
         CrappUIRouteManager.use().register(pathSceneInputRadio, front.scene.input.SceneInputRadio);
         CrappUIRouteManager.use().register(pathSceneInputCheck, front.scene.input.SceneInputCheck);
         CrappUIRouteManager.use().register(pathSceneInputRate, front.scene.input.SceneInputRate);
+        CrappUIRouteManager.use().register(pathSceneInputToggle, front.scene.input.SceneInputToggle);
         CrappUIRouteManager.use().register(pathSceneStyle, front.scene.style.SceneStyle);
         CrappUIRouteManager.use().register(pathSceneScrollerComposite, front.scene.composite.SceneScrollerComposite);
         CrappUIRouteManager.use().register(pathSceneList, front.scene.list.SceneList);

@@ -11,6 +11,16 @@ import priori.event.PriTapEvent;
 import crapp.ui.style.CrappUIStyle;
 import crapp.ui.display.CrappUIDisplay;
 
+/**
+    A classe `CrappUICheckInput` tem como finalidade fornecer um componente de interface gráfica para entrada de dados do tipo checkbox, permitindo ao usuário selecionar ou desselecionar uma opção através de interação visual e por teclado. O componente apresenta um ícone de checkbox acompanhado opcionalmente de um rótulo descritivo, oferecendo feedback visual de estado e efeitos de interação.
+
+    #### Responsabilidades:
+    - **Gerenciamento de Estado de Seleção**: Controla e mantém o estado selecionado/não selecionado do checkbox
+    - **Renderização Visual**: Exibe o ícone do checkbox e o rótulo de forma apropriada conforme o estado atual
+    - **Interação do Usuário**: Responde a eventos de toque/clique e navegação por teclado para alternar o estado
+    - **Feedback Visual**: Fornece efeitos visuais como hover e foco para melhorar a experiência do usuário
+    - **Layout Responsivo**: Calcula e ajusta automaticamente o posicionamento e dimensões dos elementos internos
+**/
 @priori('
 <priori>
     <view tag:L="CrappUIStyleDefaultTagType.CHECK" >
@@ -24,6 +34,10 @@ import crapp.ui.display.CrappUIDisplay;
 ')
 class CrappUICheckInput<T> extends CrappUIInput<T> {
 
+    /**
+        Propriedade que indica se o checkbox está atualmente selecionado ou não.
+        Quando alterada, automaticamente atualiza a representação visual do ícone do checkbox.
+    **/
     @:isVar public var isSelected(get, set):Bool = false;
 
     private var currentValue:T;
@@ -110,6 +124,10 @@ class CrappUICheckInput<T> extends CrappUIInput<T> {
         this.iconDisplay.icon = this.isSelected
             ? CHECK_SQUARE_REGULAR
             : SQUARE_REGULAR;
+    }
+
+    override private function onKeyboardActionable():Void {
+        this.isSelected = !this.isSelected;
     }
 
 

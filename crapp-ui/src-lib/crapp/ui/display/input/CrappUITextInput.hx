@@ -29,14 +29,14 @@ import crapp.ui.style.CrappUIStyle;
 **/
 @priori('
 <priori>
-    <view 
-        tag:L="CrappUIStyleDefaultTagType.TEXT_INPUT" 
-        width="300" 
+    <view
+        tag:L="CrappUIStyleDefaultTagType.TEXT_INPUT"
+        width="300"
     />
 </priori>
 ')
 class CrappUITextInput extends CrappUIInput<String> {
-    
+
     private var labelDisplay:PriText;
     private var input:PriFormInputText;
     private var delayedChangeTimer:Timer;
@@ -105,15 +105,15 @@ class CrappUITextInput extends CrappUIInput<String> {
         this.paintBackground(style);
         this.paintBorder(style);
         this.paintCorners(style, CrappUISizeReference.SMALL);
-        
+
         this.height = this.calculateNormalHeight();
-        
+
         this.input.width = this.width - (style.space * 3.5);
         this.input.centerX = this.width/2;
         this.input.y = this.height - style.size * 1.485 - style.space;
 
         if (this.hasFocus()) this.bgColor = style.onFocusColor();
-        
+
         if (this.hasContentOrSelection()) {
             this.labelDisplay.fontSize = CrappUISizeReference.UNDER * style.size;
 
@@ -127,7 +127,7 @@ class CrappUITextInput extends CrappUIInput<String> {
             this.labelDisplay.centerX = this.width/2;
             this.labelDisplay.centerY = this.height/2;
         }
-        
+
     }
 
     inline private function hasContentOrSelection():Bool {
@@ -138,7 +138,7 @@ class CrappUITextInput extends CrappUIInput<String> {
 
     private function createForm():PriFormInputText {
         var input:PriFormInputText = new PriFormInputText();
-        input.addEventListener(PriKeyboardEvent.KEY_DOWN, this.onKeyDown);
+
         input.addEventListener(PriEvent.CHANGE, this.onFieldChange);
         input.addEventListener(PriFocusEvent.FOCUS_IN, this.onFocus);
         input.addEventListener(PriFocusEvent.FOCUS_OUT, this.onFocus);
@@ -146,7 +146,7 @@ class CrappUITextInput extends CrappUIInput<String> {
         return input;
     }
 
-    private function onKeyDown(e:PriKeyboardEvent):Void {
+    override private function onKeyDown(e:PriKeyboardEvent):Void {
         if (e.keycode != PriKey.ENTER) return;
         if (this.delayedChangeTimer != null) this.runDelayedChangeEvent();
         if (this.actions.onSubmit != null) this.actions.onSubmit();
@@ -156,7 +156,7 @@ class CrappUITextInput extends CrappUIInput<String> {
         this.killTimer();
 
         this.delayedChangeTimer = Timer.delay(this.runDelayedChangeEvent, 600);
-        
+
         if (this.actions.onChange != null) this.actions.onChange();
 
         this.dispatchEvent(new PriEvent(PriEvent.CHANGE));
@@ -171,13 +171,13 @@ class CrappUITextInput extends CrappUIInput<String> {
     inline private function runDelayedChangeEvent():Void {
         this.killTimer();
         if (this.actions.onDelayedChange != null) this.actions.onDelayedChange();
-        
+
         if (this.autoValidation) this.validateAndDisplayError();
     }
 
     private function killTimer():Void {
         if (this.delayedChangeTimer == null) return;
-        
+
         this.delayedChangeTimer.stop();
         this.delayedChangeTimer.run = null;
         this.delayedChangeTimer = null;
@@ -188,11 +188,11 @@ class CrappUITextInput extends CrappUIInput<String> {
     }
 
     private function onTap(e:PriTapEvent):Void this.setFocus();
-    
+
 	override function set_label(value:String):String {
         if (value == null) return value;
         super.set_label(value);
-        
+
         this.labelDisplay.text = this.label;
         this.updateDisplay();
         return value;

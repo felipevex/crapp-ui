@@ -1,17 +1,19 @@
 package crapp.ui.display.input;
 
-import helper.kits.StringKit;
-import crapp.ui.composite.builtin.ButtonableComposite;
-import crapp.ui.composite.builtin.OverEffectComposite;
-import crapp.ui.composite.builtin.DisabledEffectComposite;
-import crapp.ui.display.text.CrappUIText;
-import crapp.ui.display.icon.CrappUIIcon;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import priori.event.PriEvent;
 import priori.event.PriTapEvent;
-import crapp.ui.style.CrappUIStyle;
-import crapp.ui.display.CrappUIDisplay;
 
+/**
+    A classe `CrappUIRadioInput` tem como finalidade fornecer um componente de interface gráfica para entrada de dados do tipo radio button, permitindo ao usuário selecionar uma única opção dentro de um grupo de opções mutuamente exclusivas. O componente estende a funcionalidade de `CrappUICheckInput` e adiciona o comportamento específico de agrupamento, onde apenas um elemento por grupo pode estar selecionado simultaneamente.
+
+    #### Responsabilidades:
+    - **Gerenciamento de Grupo**: Controla e mantém a associação do radio button a um grupo específico identificado por nome
+    - **Exclusividade de Seleção**: Garante que apenas um radio button por grupo esteja selecionado, desabilitando automaticamente os outros quando um é selecionado
+    - **Sincronização de Estado**: Sincroniza o estado de seleção com outros radio buttons do mesmo grupo através do `CrappUIRadioGroupManager`
+    - **Proxy de Grupo**: Fornece acesso simplificado às operações do grupo através da propriedade `group`
+    - **Ciclo de Vida**: Gerencia adequadamente a adição e remoção do componente em grupos quando é anexado ou removido da aplicação
+**/
 @priori('
 <priori>
     <view tag:L="CrappUIStyleDefaultTagType.RADIO" >
@@ -20,8 +22,19 @@ import crapp.ui.display.CrappUIDisplay;
 ')
 class CrappUIRadioInput<T> extends CrappUICheckInput<T> {
 
+    /**
+        Nome do grupo ao qual este radio button pertence. Radio buttons com o mesmo `groupName`
+        formam um grupo mutuamente exclusivo, onde apenas um pode estar selecionado por vez.
+        Quando alterado, o radio button é automaticamente removido do grupo anterior e
+        adicionado ao novo grupo especificado.
+    **/
     @:isVar public var groupName(default, set):String;
 
+    /**
+        Propriedade somente leitura que fornece acesso ao proxy do grupo deste radio button.
+        Retorna uma instância de `CrappUIRadioGroupProxy` que permite manipular o valor
+        selecionado do grupo de forma simplificada. Retorna `null` se `groupName` não estiver definido.
+    **/
     public var group(get, never):CrappUIRadioGroupProxy<T>;
 
     override function setup():Void {
@@ -87,6 +100,10 @@ class CrappUIRadioInput<T> extends CrappUICheckInput<T> {
         this.iconDisplay.icon = this.isSelected
             ? DOT_CIRCLE_REGULAR
             : CIRCLE_REGULAR;
+    }
+
+    override private function onKeyboardActionable():Void {
+        this.onTap(null);
     }
 
 }

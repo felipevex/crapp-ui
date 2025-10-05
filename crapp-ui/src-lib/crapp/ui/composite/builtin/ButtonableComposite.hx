@@ -5,7 +5,7 @@ import priori.event.PriTapEvent;
 import priori.event.PriKeyboardEvent;
 
 class ButtonableComposite extends CrappUIComposite {
-    
+
     private function onTapEvent(e:PriTapEvent):Void {
         if (this.display.actions.onClick != null) this.display.actions.onClick();
     }

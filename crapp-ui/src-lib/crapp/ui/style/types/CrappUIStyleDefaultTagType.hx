@@ -21,4 +21,5 @@ enum abstract CrappUIStyleDefaultTagType(String) from String to String {
     var RADIO;
     var CHECK;
     var RATE;
+    var TOGGLE;
 }

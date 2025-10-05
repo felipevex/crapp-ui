@@ -21,7 +21,7 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"vshaxe.haxe-extension-pack",
+				"nadako.vshaxe",
 				"alexkrechik.cucumberautocomplete",
 				"rebornix.ruby",
 				"github.copilot",

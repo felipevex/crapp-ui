@@ -6,6 +6,16 @@ import crapp.ui.display.icon.types.CrappUIIconType;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import crapp.ui.style.CrappUIStyle;
 
+/**
+    A classe `CrappUIRateInput` tem como finalidade fornecer um componente de interface para entrada de avaliações em formato de estrelas ou outros ícones. Este componente permite que o usuário selecione uma classificação através de cliques em botões visuais dispostos horizontalmente.
+
+    #### Responsabilidades:
+    - **Gerenciamento de Avaliação**: Controla o valor da classificação selecionada pelo usuário, permitindo valores de 0 até um máximo configurável
+    - **Interface Visual**: Renderiza botões com ícones que representam o estado da avaliação (preenchido ou vazio)
+    - **Interação do Usuário**: Processa cliques do usuário nos botões para alterar a classificação
+    - **Validação**: Fornece mecanismos de validação e exibição de erros para o componente
+    - **Customização**: Permite configuração de ícones, quantidade máxima de estrelas e comportamento de seleção
+*/
 @priori('
 <priori>
     <view tag:L="CrappUIStyleDefaultTagType.RATE" >
@@ -17,11 +27,29 @@ import crapp.ui.style.CrappUIStyle;
 ')
 class CrappUIRateInput extends CrappUIInput<Int> {
 
+    /**
+        Ícone utilizado para representar uma estrela selecionada/preenchida na avaliação.
+        Por padrão utiliza o ícone `STAR`.
+    */
     public var iconOn(default, set):CrappUIIconType = STAR;
+
+    /**
+        Ícone utilizado para representar uma estrela não selecionada/vazia na avaliação.
+        Por padrão utiliza o ícone `STAR_REGULAR`.
+    */
     public var iconOff(default, set):CrappUIIconType = STAR_REGULAR;
 
+    /**
+        Define se é permitido não ter nenhuma seleção ativa no componente.
+        Quando `true`, permite que o usuário clique na mesma estrela para desmarcar a seleção.
+        Por padrão é `false`.
+    */
     public var allowNoSelection:Bool = false;
 
+    /**
+        Número máximo de estrelas/ícones que serão exibidos no componente.
+        Por padrão são exibidas 5 estrelas.
+    */
     public var max(default, set):Int = 5;
 
     private var currentValue:Int = 0;

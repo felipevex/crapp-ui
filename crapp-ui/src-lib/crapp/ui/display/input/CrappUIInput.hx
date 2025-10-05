@@ -1,5 +1,7 @@
 package crapp.ui.display.input;
 
+import priori.system.PriKey;
+import priori.event.PriKeyboardEvent;
 import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.composite.builtin.DisabledEffectComposite;
 import priori.types.PriTransitionType;
@@ -66,6 +68,8 @@ class CrappUIInput<T> extends CrappUIDisplay {
     override function setup() {
         this.composite.add(DisabledEffectComposite);
         super.setup();
+
+        this.addEventListener(PriKeyboardEvent.KEY_DOWN, this.onKeyDown);
     }
 
     override function paint() {
@@ -153,4 +157,13 @@ class CrappUIInput<T> extends CrappUIDisplay {
     public function getErrorMessage():String {
         return this.validatorsErrorMessage;
     }
+
+    private function onKeyDown(e:PriKeyboardEvent):Void {
+        if (e.keycode == PriKey.SPACE || e.keycode == PriKey.ENTER) this.onKeyboardActionable();
+    }
+
+    private function onKeyboardActionable():Void {
+
+    }
+
 }

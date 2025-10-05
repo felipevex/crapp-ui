@@ -18,18 +18,18 @@ import crapp.ui.style.CrappUISizeReference;
 import crapp.ui.style.CrappUIStyle;
 
 /**
-    Componente de entrada de formulário do tipo seleção (dropdown). Fornece uma interface para seleção de um valor 
+    Componente de entrada de formulário do tipo seleção (dropdown). Fornece uma interface para seleção de um valor
     a partir de uma lista de opções.
-    
+
     #### Responsabilidades:
     - **Entrada de dados por seleção**: Permite ao usuário escolher um valor entre várias opções predefinidas em um menu dropdown.
     - **Apresentação visual adaptativa**: Ajusta a exibição do componente conforme o estado (com foco, com valor selecionado).
     - **Validação de dados**: Realiza a validação automática dos dados quando configurado.
     - **Notificação de mudanças**: Notifica sobre alterações no valor selecionado.
-    
+
     #### Eventos Emitidos:
     - **PriEvent.CHANGE**: Emitido quando o valor do campo de seleção é alterado pelo usuário.
-    
+
     #### Ações Acionadas:
     - **actions.onChange**: Acionada quando o valor do campo de seleção é alterado.
     - **actions.onDelayedChange**: Acionada após um breve atraso quando o valor é alterado ou quando o campo perde o foco.
@@ -38,14 +38,14 @@ import crapp.ui.style.CrappUIStyle;
 @:access(crapp.ui.display.icon)
 @priori('
 <priori>
-    <view 
-        tag:L="CrappUIStyleDefaultTagType.SELECT_INPUT" 
-        width="300" 
+    <view
+        tag:L="CrappUIStyleDefaultTagType.SELECT_INPUT"
+        width="300"
     />
 </priori>
 ')
 class CrappUISelectInput<T> extends CrappUIInput<T> {
-    
+
     private var labelDisplay:PriText;
     private var input:PriFormSelect;
     private var delayedChangeTimer:Timer;
@@ -54,33 +54,33 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
     /**
         Define se o componente deve permitir a não seleção de nenhum item.
         Quando `true`, uma opção vazia será adicionada ao início da lista.
-        
+
         @default true
     **/
     @:isVar public var allowNoSelection(default, set):Bool = true;
 
     /**
         Conjunto de dados que serão exibidos como opções para seleção.
-        
+
         @default []
     **/
     @:isVar public var data(default, set):Array<T>;
 
     /**
         Nome do campo nos objetos de `data` que será usado como texto de exibição.
-        
+
         @see labelFieldFunction
     **/
     public var labelField(get, set):String;
-    
+
     /**
         Função que determina como o texto de uma opção será exibido no componente.
         Recebe um objeto do tipo `T` e deve retornar uma string que o representa.
-        
+
         Se não for definida pelo usuário, o componente tentará converter diretamente
-        o objeto para string usando a conversão padrão do Haxe. Para objetos complexos, 
+        o objeto para string usando a conversão padrão do Haxe. Para objetos complexos,
         é recomendável definir esta função para garantir uma representação adequada.
-        
+
         @see labelField
     **/
     public var labelFieldFunction(get, set):(value:T)->String;
@@ -114,7 +114,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
     private function get_labelFieldFunction():(value:T)->String return this.input.labelFieldFunction;
     private function set_labelFieldFunction(value:(value:T)->String):(value:T)->String {
         if (value == null) return value;
-        
+
         this.input.labelFieldFunction = (v:T) -> {
             if (Std.isOfType(v, String) && Std.string(v) == '') return '';
             return value(v);
@@ -138,7 +138,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
 
     override private function get_value():T {
         return this.input.selectedIndex == 0 && this.allowNoSelection
-            ? null : 
+            ? null :
             this.input.selected;
     }
 
@@ -187,7 +187,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
         this.paintBackground(style);
         this.paintBorder(style);
         this.paintCorners(style, CrappUISizeReference.SMALL);
-        
+
         this.height = this.calculateNormalHeight();
 
         this.input.x = (style.space * 3.5) / 2;
@@ -199,7 +199,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
         this.arrow.maxX = this.input.maxX - style.space;
 
         if (this.hasFocus()) this.bgColor = style.onFocusColor();
-        
+
         if (this.hasContentOrSelection()) {
             this.labelDisplay.fontSize = CrappUISizeReference.UNDER * style.size;
 
@@ -217,7 +217,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
 
             this.arrow.centerY = this.labelDisplay.centerY;
         }
-        
+
     }
 
     inline private function hasContentOrSelection():Bool {
@@ -227,12 +227,11 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
 
     private function createInputSelect():PriFormSelect {
         var input:PriFormSelect = new PriFormSelect();
-        
+
         (cast input)._baseElement.css('apearance', 'none');
         (cast input)._baseElement.css('-moz-appearance', 'none');
         (cast input)._baseElement.css('-webkit-appearance', 'none');
 
-        input.addEventListener(PriKeyboardEvent.KEY_DOWN, this.onKeyDown);
         input.addEventListener(PriEvent.CHANGE, this.onFieldChange);
         input.addEventListener(PriFocusEvent.FOCUS_IN, this.onFocus);
         input.addEventListener(PriFocusEvent.FOCUS_OUT, this.onFocus);
@@ -240,7 +239,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
         return input;
     }
 
-    private function onKeyDown(e:PriKeyboardEvent):Void {
+    override private function onKeyDown(e:PriKeyboardEvent):Void {
         if (e.keycode != PriKey.ENTER) return;
         if (this.actions.onSubmit != null) this.actions.onSubmit();
     }
@@ -270,7 +269,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
 
     private function killTimer():Void {
         if (this.delayedChangeTimer == null) return;
-        
+
         this.delayedChangeTimer.stop();
         this.delayedChangeTimer.run = null;
         this.delayedChangeTimer = null;
@@ -288,7 +287,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
 	override function set_label(value:String):String {
         if (value == null) return value;
         super.set_label(value);
-        
+
         this.labelDisplay.text = this.label;
         this.updateDisplay();
         return value;
