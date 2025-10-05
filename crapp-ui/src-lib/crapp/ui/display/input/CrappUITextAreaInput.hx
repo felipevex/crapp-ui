@@ -201,9 +201,7 @@ class CrappUITextAreaInput extends CrappUIInput<String> {
 
     private function runPendingDelayedChange():Void {
         if (this.delayedChangeTimer == null) return;
-
         this.executeDelayedChangeAction(0);
-        if (this.autoValidation) this.validateAndDisplayError();
     }
 
     override function setFocus() {

@@ -184,10 +184,12 @@ class CrappUIInput<T> extends CrappUIDisplay {
             : delay;
 
         if (timerDelay <= 0) {
+            if (this.autoValidation) this.validateAndDisplayError();
             if (this.actions.onDelayedChange != null) this.actions.onDelayedChange();
         } else this.delayedChangeTimer = Timer.delay(() -> {
-            if (this.actions.onDelayedChange != null) this.actions.onDelayedChange();
             this.killTimer();
+            if (this.autoValidation) this.validateAndDisplayError();
+            if (this.actions.onDelayedChange != null) this.actions.onDelayedChange();
         }, timerDelay);
     }
 
