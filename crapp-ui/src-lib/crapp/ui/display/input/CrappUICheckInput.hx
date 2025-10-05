@@ -108,6 +108,7 @@ class CrappUICheckInput<T> extends CrappUIInput<T> {
 
     private function onTap(e:PriTapEvent):Void {
         this.isSelected = !this.isSelected;
+        this.executeChangeAction();
     }
 
     private function get_isSelected():Bool return this.isSelected;

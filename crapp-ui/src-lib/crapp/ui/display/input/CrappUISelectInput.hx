@@ -6,7 +6,6 @@ import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import priori.types.PriTransitionType;
 import js.Browser;
 import priori.view.form.PriFormSelect;
-import haxe.Timer;
 import priori.event.PriKeyboardEvent;
 import priori.system.PriKey;
 import priori.style.font.PriFontStyle;
@@ -48,7 +47,6 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
 
     private var labelDisplay:PriText;
     private var input:PriFormSelect;
-    private var delayedChangeTimer:Timer;
     private var arrow:FixedIcon;
 
     /**
@@ -247,10 +245,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
     private function onFieldChange(e:PriEvent):Void {
         this.updateDisplay();
 
-        this.killTimer();
-
-        this.delayedChangeTimer = Timer.delay(this.runDelayedChangeEvent, 600);
-        if (this.actions.onChange != null) this.actions.onChange();
+        this.executeChangeAction();
         this.dispatchEvent(new PriEvent(PriEvent.CHANGE));
 
         if (this.autoValidation) this.validateAndDisplayError();
@@ -259,20 +254,14 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
     private function onFocus(e:PriFocusEvent):Void {
         this.updateDisplay();
 
-        if (e.type == PriFocusEvent.FOCUS_OUT && this.delayedChangeTimer != null) this.runDelayedChangeEvent();
+        if (e.type == PriFocusEvent.FOCUS_OUT) this.runPendingDelayedChange();
     }
 
-    inline private function runDelayedChangeEvent():Void {
-        this.killTimer();
-        if (this.actions.onDelayedChange != null) this.actions.onDelayedChange();
-    }
-
-    private function killTimer():Void {
+    private function runPendingDelayedChange():Void {
         if (this.delayedChangeTimer == null) return;
 
-        this.delayedChangeTimer.stop();
-        this.delayedChangeTimer.run = null;
-        this.delayedChangeTimer = null;
+        this.executeDelayedChangeAction(0);
+        if (this.autoValidation) this.validateAndDisplayError();
     }
 
     override function setFocus() {
@@ -293,8 +282,4 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
         return value;
 	}
 
-    override function kill() {
-        this.killTimer();
-        super.kill();
-    }
 }

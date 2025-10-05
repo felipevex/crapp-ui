@@ -45,6 +45,10 @@ class SceneInputCheck extends CrappUIScene<Nothing> {
             size: 20
         }
 
+        this.o1.actions.onClick = () -> trace("Check 1 clicked", this.o1.isSelected);
+        this.o1.actions.onChange = () -> trace("Check 1 changed", this.o1.isSelected);
+        this.o1.actions.onDelayedChange = () -> trace("Check 1 delayed changed", this.o1.isSelected);
+
         this.o4.style = this.o5.style = this.o6.style = {
             on_color: 0x169216,
             size: 30

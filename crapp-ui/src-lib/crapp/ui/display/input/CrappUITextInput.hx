@@ -39,7 +39,6 @@ class CrappUITextInput extends CrappUIInput<String> {
 
     private var labelDisplay:PriText;
     private var input:PriFormInputText;
-    private var delayedChangeTimer:Timer;
 
     /**
        Propriedade pública que indica se o campo de entrada deve tratar o valor como senha.
@@ -148,39 +147,25 @@ class CrappUITextInput extends CrappUIInput<String> {
 
     override private function onKeyDown(e:PriKeyboardEvent):Void {
         if (e.keycode != PriKey.ENTER) return;
-        if (this.delayedChangeTimer != null) this.runDelayedChangeEvent();
+        this.runPendingDelayedChange();
         if (this.actions.onSubmit != null) this.actions.onSubmit();
     }
 
     private function onFieldChange(e:PriEvent):Void {
-        this.killTimer();
-
-        this.delayedChangeTimer = Timer.delay(this.runDelayedChangeEvent, 600);
-
-        if (this.actions.onChange != null) this.actions.onChange();
-
+        this.executeChangeAction();
         this.dispatchEvent(new PriEvent(PriEvent.CHANGE));
     }
 
     private function onFocus(e:PriFocusEvent):Void {
         this.updateDisplay();
-
-        if (e.type == PriFocusEvent.FOCUS_OUT && this.delayedChangeTimer != null) this.runDelayedChangeEvent();
+        if (e.type == PriFocusEvent.FOCUS_OUT) this.runPendingDelayedChange();
     }
 
-    inline private function runDelayedChangeEvent():Void {
-        this.killTimer();
-        if (this.actions.onDelayedChange != null) this.actions.onDelayedChange();
-
-        if (this.autoValidation) this.validateAndDisplayError();
-    }
-
-    private function killTimer():Void {
+    private function runPendingDelayedChange():Void {
         if (this.delayedChangeTimer == null) return;
 
-        this.delayedChangeTimer.stop();
-        this.delayedChangeTimer.run = null;
-        this.delayedChangeTimer = null;
+        this.executeDelayedChangeAction(0);
+        if (this.autoValidation) this.validateAndDisplayError();
     }
 
     override function setFocus() {
@@ -198,8 +183,4 @@ class CrappUITextInput extends CrappUIInput<String> {
         return value;
 	}
 
-    override function kill() {
-        this.killTimer();
-        super.kill();
-    }
 }

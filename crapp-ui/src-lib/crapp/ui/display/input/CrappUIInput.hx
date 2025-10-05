@@ -1,5 +1,6 @@
 package crapp.ui.display.input;
 
+import haxe.Timer;
 import priori.system.PriKey;
 import priori.event.PriKeyboardEvent;
 import crapp.ui.style.CrappUISizeReference;
@@ -43,6 +44,8 @@ class CrappUIInput<T> extends CrappUIDisplay {
     private var validatorsErrorMessage:String;
     private var validators:Array<(value:T)->Void>;
     private var displayError:CrappUITextIcon;
+
+    private var delayedChangeTimer:Timer;
 
     public function new() {
         this.validators = [];
@@ -166,4 +169,38 @@ class CrappUIInput<T> extends CrappUIDisplay {
 
     }
 
+    private function executeChangeAction():Void {
+        if (this.actions.onChange != null) this.actions.onChange();
+        this.executeDelayedChangeAction();
+    }
+
+    private function executeDelayedChangeAction(?delay:Int):Void {
+        this.killTimer();
+
+        var timerDelay:Int = delay == null
+            ? this.actions.delay == null
+                ? 600
+                : this.actions.delay
+            : delay;
+
+        if (timerDelay <= 0) {
+            if (this.actions.onDelayedChange != null) this.actions.onDelayedChange();
+        } else this.delayedChangeTimer = Timer.delay(() -> {
+            if (this.actions.onDelayedChange != null) this.actions.onDelayedChange();
+            this.killTimer();
+        }, timerDelay);
+    }
+
+    private function killTimer():Void {
+        if (this.delayedChangeTimer == null) return;
+
+        this.delayedChangeTimer.stop();
+        this.delayedChangeTimer.run = null;
+        this.delayedChangeTimer = null;
+    }
+
+    override function kill() {
+        this.killTimer();
+        super.kill();
+    }
 }
