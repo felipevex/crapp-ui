@@ -1,5 +1,6 @@
 package crapp.ui.display.menu;
 
+import crapp.ui.display.layout.CrappUILayout;
 import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import helper.kits.StringKit;
@@ -15,10 +16,12 @@ import crapp.ui.display.text.CrappUIText;
 
 @priori('
 <priori>
-    <view tag:L="CrappUIStyleDefaultTagType.CONTEXT_MENU" />
+    <view tag:L="CrappUIStyleDefaultTagType.CONTEXT_MENU" vLayoutDistribution="SIDE" vLayoutSize="FIT">
+        <!-- items here -->
+    </view>
 </priori>
 ')
-class CrappUIContextMenu extends CrappUIDisplay {
+class CrappUIContextMenu extends CrappUILayout {
 
     private var ref:PriDisplay;
     private var items:Array<CrappUIContextMenuItem>;
@@ -40,27 +43,16 @@ class CrappUIContextMenu extends CrappUIDisplay {
     private function setupAlphaIntro():Void {
         this.alpha = 0;
         this.allowTransition(PriTransitionType.ALPHA, 0.25);
-        haxe.Timer.delay(()->{this.alpha = 1;}, 0);
+        haxe.Timer.delay(()->{
+            this.alpha = 1;
+            this.width += 1;
+        }, 0);
     }
 
     override function paint() {
         super.paint();
 
-        var lastY:Float = 0;
-        var maxWidth:Float = this.getMaxItemWidth();
-
-        for (i in 0 ... this.items.length) {
-            var item:CrappUIContextMenuItem = this.items[i];
-
-            item.x = 0;
-            item.y = lastY;
-            item.width = maxWidth;
-
-            lastY = item.maxY;
-        }
-
-        this.width = maxWidth;
-        this.height = lastY;
+        this.width = this.getMaxItemWidth();
 
         this.composite.get(OverlayComposite).updatePositionByReference();
     }
@@ -70,7 +62,9 @@ class CrappUIContextMenu extends CrappUIDisplay {
 
         for (i in 0 ... this.items.length) {
             var item:CrappUIContextMenuItem = this.items[i];
-            maxWidth = Math.max(maxWidth, item.idealWidth());
+            var itemWidth:Float = item.idealWidth();
+
+            maxWidth = Math.max(maxWidth, itemWidth);
         }
 
         return maxWidth;
@@ -111,21 +105,29 @@ class CrappUIContextMenu extends CrappUIDisplay {
 
 }
 
-private class CrappUIContextMenuItem extends CrappUIDisplay {
-    
-    private var displayLabel:CrappUIText;
+
+@priori('
+<priori>
+    <view vLayoutAlignment="CENTER" hLayoutSize="FLEX">
+        <private:CrappUIText id="displayLabel" />
+    </view>
+</priori>
+')
+private class CrappUIContextMenuItem extends CrappUILayout {
 
     private var label:String;
 
     public function new(label:String, action:()->Void) {
         this.label = label;
         this.actions.onClick = action;
-        
+
         super();
     }
 
     public function idealWidth():Float {
         var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
+
+        trace(this.label, this.displayLabel.width, style.space);
         return this.displayLabel.width + style.space * 2;
     }
 
@@ -133,12 +135,9 @@ private class CrappUIContextMenuItem extends CrappUIDisplay {
         this.composite.add(OverEffectComposite);
         this.composite.add(ButtonableComposite);
 
-        this.displayLabel = new CrappUIText();
         this.displayLabel.tag = null;
+        this.displayLabel.variant = null;
         this.displayLabel.text = this.label;
-        this.displayLabel.align = PriFontStyleAlign.LEFT;
-        this.displayLabel.weight = PriFontStyleWeight.THICK600;
-        this.displayLabel.autoSize = true;
 
         this.addChildList([
             this.displayLabel
@@ -148,12 +147,10 @@ private class CrappUIContextMenuItem extends CrappUIDisplay {
     override private function paint():Void {
         this.composite.get(OverEffectComposite).updateDisplay();
 
-        var style:CrappUIStyle = this.composite.get(OverEffectComposite).style;
-        
+        var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
+
         this.height = this.displayLabel.height + style.space * 2;
-        
         this.displayLabel.x = style.space;
-        this.displayLabel.centerY = this.height/2 + 1;
     }
 
 }
