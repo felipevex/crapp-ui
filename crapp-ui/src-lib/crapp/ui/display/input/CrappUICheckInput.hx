@@ -40,6 +40,16 @@ class CrappUICheckInput<T> extends CrappUIInput<T> {
     **/
     @:isVar public var isSelected(get, set):Bool = false;
 
+    /**
+        Propriedade que controla o dimensionamento automático do componente.
+
+        Quando definida como `true` (padrão), o componente ajusta automaticamente sua largura
+        para acomodar o conteúdo do rótulo (label), permitindo que o texto seja exibido em uma
+        única linha. Quando definida como `false`, o componente mantém a largura definida
+        manualmente e o texto do rótulo pode quebrar em múltiplas linhas se necessário.
+    **/
+    @:isVar public var autoSize(default, set):Bool = true;
+
     private var currentValue:T;
 
     override function setup():Void {
@@ -59,6 +69,19 @@ class CrappUICheckInput<T> extends CrappUIInput<T> {
 
     override function get_value():T return this.currentValue;
     override function set_value(value:T):T return this.currentValue = value;
+
+    private function set_autoSize(value:Bool):Bool {
+        if (value == null) return value;
+
+        this.autoSize = value;
+
+        this.labelDisplay.autoSize = value;
+        this.labelDisplay.multiLine = !value;
+
+        this.updateDisplay();
+
+        return value;
+    }
 
     override function set_label(value:String):String {
         super.set_label(value);
@@ -98,8 +121,13 @@ class CrappUICheckInput<T> extends CrappUIInput<T> {
         this.labelDisplay.x = this.iconDisplay.maxX + space;
         this.labelDisplay.y = referenceHeight/2 - textHeight/2 + padding;
 
+        if (this.autoSize) {
+            this.width = this.labelDisplay.maxX + padding * 2;
+        } else {
+            this.labelDisplay.width = this.width - this.labelDisplay.x;
+        }
+
         this.height = Math.max(referenceHeight, this.labelDisplay.maxY + padding);
-        this.width = this.labelDisplay.maxX + padding * 2;
 
         this.bg.width = this.width;
         this.bg.height = this.height;

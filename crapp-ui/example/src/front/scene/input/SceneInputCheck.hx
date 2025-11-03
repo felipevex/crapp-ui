@@ -30,6 +30,10 @@ import crapp.ui.display.app.CrappUIScene;
 
             <CrappUILayout height="20" />
 
+            <CrappUICheckInput id="o7" value="4" label="THIS IS A BIG CHECK LABEL WITH AUTOSIZE FALSE" autoSize=":false" type="<Int>" />
+
+            <CrappUILayout height="20" />
+
         </private:CrappUILayout>
     </view>
 </priori>
@@ -53,6 +57,8 @@ class SceneInputCheck extends CrappUIScene<Nothing> {
             on_color: 0x169216,
             size: 30
         }
+
+        this.o7.width = 200;
 
     }
 

@@ -2,8 +2,6 @@ package front.scene.input;
 
 import crapp.ui.display.input.CrappUIRadioInput;
 import util.kit.nothing.Nothing;
-import crapp.ui.style.theme.CrappUIThemeProvider;
-import crapp.ui.display.input.CrappUISelectInput;
 import crapp.ui.display.app.CrappUIScene;
 
 @priori('
@@ -29,6 +27,10 @@ import crapp.ui.display.app.CrappUIScene;
             <CrappUIRadioInput id="o4" groupName="other_radio_2" value="1" type="<Int>" label="" />
             <CrappUIRadioInput id="o5" groupName="other_radio_2" value="2" type="<Int>" label="" />
             <CrappUIRadioInput id="o6" groupName="other_radio_2" value="3" type="<Int>" label="" />
+
+            <CrappUILayout height="20" />
+
+            <CrappUIRadioInput id="o7" value="4" groupName="nogroup" label="THIS IS A BIG CHECK LABEL WITH AUTOSIZE FALSE" autoSize=":false" type="<Int>" />
 
             <CrappUILayout height="20" />
 
@@ -75,6 +77,8 @@ class SceneInputRadio extends CrappUIScene<Nothing> {
             }, 2000);
 
         }, 4000);
+
+        this.o7.width = 200;
 
     }
 
