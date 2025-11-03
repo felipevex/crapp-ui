@@ -38,7 +38,7 @@ import crapp.ui.display.text.CrappUIText;
     </imports>
     <view tag:L="CrappUIStyleDefaultTagType.DIALOG" allowCloseModal=":false" allowCloseModalWithEsc=":false" >
         <private:CrappUILayout id="container" vLayoutGap="10" vLayoutDistribution="SIDE" >
-            
+
             <private:CrappUILayout id="textContainer" hLayoutSize="FLEX" vLayoutDistribution="SIDE" vLayoutSize="FIT" >
                 <!-- TEXTS -->
             </private:CrappUILayout>
@@ -55,19 +55,31 @@ import crapp.ui.display.text.CrappUIText;
 </priori>
 ')
 class CrappUIDialog extends CrappUIModal {
-    
+
     private var data:CrappUIDialogData;
 
     private var title:CrappUIText;
     private var text:CrappUIText;
-    
+
+    private var focusedButton:CrappUIButton;
+
     private function new(data:CrappUIDialogData) {
         this.data = data;
         super();
     }
 
+    override function onOpenModal() {
+        super.onOpenModal();
+        if (this.focusedButton != null) this.focusedButton.setFocus();
+    }
+
+    override function onCloseModal() {
+        if (this.actions.onClose != null) this.actions.onClose();
+        super.onCloseModal();
+    }
+
     /**
-     * Inicializa o diálogo configurando seus elementos principais: 
+     * Inicializa o diálogo configurando seus elementos principais:
      * - Se um título for definido, é criado um componente de texto para o título.
      * - Cria o corpo do diálogo com a mensagem passada.
      * - Adiciona os componentes ao container de texto e cria os botões se estes estiverem definidos.
@@ -92,7 +104,7 @@ class CrappUIDialog extends CrappUIModal {
         this.text.autoSize = false;
         this.text.multiLine = true;
         this.text.text = this.data.message;
-        
+
         this.textContainer.addChildList([
             this.title,
             this.text
@@ -114,6 +126,8 @@ class CrappUIDialog extends CrappUIModal {
                 this.close();
                 if (item.action != null) item.action();
             }
+
+            if (item.focused) this.focusedButton = button;
 
             buttons.push(button);
         }
@@ -156,7 +170,7 @@ class CrappUIDialog extends CrappUIModal {
         this.text.width = this.width - style.space * 2;
 
         this.height = Math.max(
-            minHeight, 
+            minHeight,
             this.textContainer.height + this.buttonContainer.height + space * 2 + style.space * 3 + 5
         );
     }
@@ -164,7 +178,7 @@ class CrappUIDialog extends CrappUIModal {
     /**
      * Método estático: openMessage
      *
-     * Abre um diálogo simples contendo uma mensagem e, opcionalmente, um título. Internamente, 
+     * Abre um diálogo simples contendo uma mensagem e, opcionalmente, um título. Internamente,
      * cria uma instância de CrappUIDialog com um botão padrão ("FECHAR") e exibe o diálogo.
      *
      * @param message A mensagem a ser exibida no diálogo.
@@ -173,12 +187,13 @@ class CrappUIDialog extends CrappUIModal {
      */
     static public function openMessage(message:String, ?title:String):CrappUIDialog {
         var dialog:CrappUIDialog = null;
-        
+
         dialog = new CrappUIDialog({
             message: message,
             title: title,
             buttons: [{
-                label: 'FECHAR'
+                label: 'FECHAR',
+                focused: true
             }]
         });
 
@@ -190,7 +205,7 @@ class CrappUIDialog extends CrappUIModal {
     /**
      * Método estático: openDialog
      *
-     * Abre um diálogo customizado, permitindo a utilização de botões com ações específicas conforme 
+     * Abre um diálogo customizado, permitindo a utilização de botões com ações específicas conforme
      * definido no objeto de dados fornecido.
      *
      * @param data Objeto contendo as configurações do diálogo. Deve incluir:

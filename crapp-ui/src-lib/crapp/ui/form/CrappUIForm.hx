@@ -114,7 +114,14 @@ class CrappUIForm {
                     else message += '- ' + error.message + '\n';
                 }
 
-                CrappUIDialog.openMessage(message, this.title);
+                CrappUIDialog.openMessage(message, this.title).actions.onClose = () -> {
+                    for (field in this.fields) {
+                        if (field.hasError()) {
+                            field.setFocus();
+                            break;
+                        }
+                    }
+                };
             }
         }
 

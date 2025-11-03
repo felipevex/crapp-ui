@@ -12,6 +12,8 @@ typedef CrappUIActionsResource = {
     @:optional var onResize:()->Void;
     @:optional var onDragEnter:()->Void;
     @:optional var onDragLeave:()->Void;
+    @:optional var onClose:()->Void;
+    @:optional var onOpen:()->Void;
 
     @:optional var delay:Int;
 }

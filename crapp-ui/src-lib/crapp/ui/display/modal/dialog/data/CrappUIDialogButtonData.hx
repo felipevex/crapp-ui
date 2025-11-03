@@ -5,4 +5,5 @@ typedef CrappUIDialogButtonData = {
 
     @:optional var action:()->Void; // null actions close the dialog
     @:optional var variant:String;
+    @:optional var focused:Bool;
 }
