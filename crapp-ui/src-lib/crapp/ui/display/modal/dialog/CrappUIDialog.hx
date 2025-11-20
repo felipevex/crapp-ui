@@ -41,10 +41,11 @@ import crapp.ui.display.text.CrappUIText;
 
             <private:CrappUILayout id="textContainer" hLayoutSize="FLEX" vLayoutDistribution="SIDE" vLayoutSize="FIT" >
                 <!-- TEXTS -->
+                <private:CrappUIText id="title" hLayoutSize="FLEX" size="EXTRA" selectable=":true" multiLine=":true" />
+                <private:CrappUIText id="text" hLayoutSize="FLEX" selectable=":true" multiLine=":true" />
             </private:CrappUILayout>
 
-            <private:CrappUILayout hLayoutSize="FLEX" vLayoutSize="FLEX" >
-            </private:CrappUILayout>
+            <private:CrappUILayout hLayoutSize="FLEX" vLayoutSize="FLEX" />
 
             <private:CrappUILayout id="buttonContainer" hLayoutSize="FLEX" hLayoutGap="10" hLayoutAlignment="MAX" vLayoutAlignment="CENTER" hLayoutDistribution="SIDE" vLayoutSize="FIT" >
                 <!-- BUTTONS -->
@@ -58,9 +59,6 @@ class CrappUIDialog extends CrappUIModal {
 
     private var data:CrappUIDialogData;
 
-    private var title:CrappUIText;
-    private var text:CrappUIText;
-
     private var focusedButton:CrappUIButton;
 
     private function new(data:CrappUIDialogData) {
@@ -71,6 +69,8 @@ class CrappUIDialog extends CrappUIModal {
     override function onOpenModal() {
         super.onOpenModal();
         if (this.focusedButton != null) this.focusedButton.setFocus();
+
+        haxe.Timer.delay(this.updateDisplay, 1);
     }
 
     override function onCloseModal() {
@@ -87,22 +87,10 @@ class CrappUIDialog extends CrappUIModal {
     override function setup() {
         super.setup();
 
-        if (!StringKit.isEmpty(this.data.title)) {
-            this.title = new CrappUIText();
-            this.title.hLayoutSize = LayoutSize.FLEX;
-            this.title.size = CrappUISizeReference.EXTRA;
-            this.title.selectable = true;
-            this.title.tag = null;
-            this.title.autoSize = false;
-            this.title.text = this.data.title;
-        }
+        this.title.tag = null;
+        this.title.text = this.data.title;
+        this.title.visible = !StringKit.isEmpty(this.data.title);
 
-        this.text = new CrappUIText();
-        this.text.hLayoutSize = LayoutSize.FLEX;
-        this.text.selectable = true;
-        this.text.tag = null;
-        this.text.autoSize = false;
-        this.text.multiLine = true;
         this.text.text = this.data.message;
 
         this.textContainer.addChildList([
@@ -152,8 +140,6 @@ class CrappUIDialog extends CrappUIModal {
 
         this.bgColor = style.color;
 
-        this.textContainer.vLayoutGap = style.space;
-
         this.container.left = space;
         this.container.right = space;
         this.container.top = space;
@@ -167,11 +153,11 @@ class CrappUIDialog extends CrappUIModal {
         this.z = 3;
         this.width = Math.min(maxWidth, style.size * 25);
 
-        this.text.width = this.width - style.space * 2;
+        this.textContainer.vLayoutGap = style.space;
 
         this.height = Math.max(
             minHeight,
-            this.textContainer.height + this.buttonContainer.height + space * 2 + style.space * 3 + 5
+            this.textContainer.height + this.buttonContainer.height + space * 3 + style.space * 3
         );
     }
 
