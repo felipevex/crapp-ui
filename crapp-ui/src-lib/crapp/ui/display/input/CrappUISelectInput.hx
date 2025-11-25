@@ -141,7 +141,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
     }
 
 	override private function set_value(value:T):T {
-        if (value == null) return value;
+        if (!this.allowNoSelection && value == null) return value;
 		this.input.selected = value;
         this.updateDisplay();
         return value;
