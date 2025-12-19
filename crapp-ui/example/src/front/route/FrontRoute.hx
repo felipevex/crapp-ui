@@ -38,6 +38,7 @@ class FrontRoute {
     static public var pathSceneRoute:Path<Nothing> = 'route';
     static public var pathSceneRouteParametric:Path<{id:Int, name:String}> = 'route/{id:Int}/{name:String}';
     static public var pathSceneDrag:Path<Nothing> = 'drag';
+    static public var pathSceneBadge:Path<Nothing> = 'badge';
 
     static public function registerAllScenes():Void {
 
@@ -73,6 +74,7 @@ class FrontRoute {
         CrappUIRouteManager.use().register(pathSceneRoute, front.scene.route.SceneRoute);
         CrappUIRouteManager.use().register(pathSceneRouteParametric, front.scene.route.SceneRouteParametric);
         CrappUIRouteManager.use().register(pathSceneDrag, front.scene.drag.SceneDrag);
+        CrappUIRouteManager.use().register(pathSceneBadge, front.scene.badge.SceneBadge);
 
     }
 }

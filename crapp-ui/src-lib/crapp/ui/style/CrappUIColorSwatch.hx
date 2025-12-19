@@ -23,6 +23,7 @@ class CrappUIColorSwatch {
 
     public function darken(amount:Float):PriColor return new TinyColor(this.color.toString()).darken(amount*100).toHexString();
     public function brighten(amount:Float):PriColor return new TinyColor(this.color.toString()).brighten(amount*100).toHexString();
+    public function saturate(amount:Float):PriColor return new TinyColor(this.color.toString()).saturate(amount*100).toHexString();
 
     private function createShades():Void {
         this.darker = this.createDarkerShade();
@@ -102,8 +103,8 @@ private extern class TinyColor {
     public function lighten(?amount:Float):TinyColor;   // 0 to 100
     public function brighten(?amount:Float):TinyColor;    // 0 to 100
     public function darken(?amount:Float):TinyColor;      // 0 to 100
-    public function desaturate(?amount:Int):TinyColor;  // 0 to 100
-    public function saturate(?amount:Int):TinyColor;    // 0 to 100
+    public function desaturate(?amount:Float):TinyColor;  // 0 to 100
+    public function saturate(?amount:Float):TinyColor;    // 0 to 100
     public function greyscale():TinyColor;
 
     public static function fromRatio(?color:Dynamic, ?opts:Dynamic):TinyColor;

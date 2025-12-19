@@ -4,7 +4,7 @@ import priori.geom.PriColor;
 import crapp.ui.style.CrappUIColorSwatch;
 
 abstract CrappUIColor(CrappUIColorSwatch) {
-    
+
     public var color(get, never):PriColor;
     public var brighter(get, never):PriColor;
     public var darker(get, never):PriColor;
@@ -24,7 +24,7 @@ abstract CrappUIColor(CrappUIColorSwatch) {
 
     @:from
     inline static function fromInt(color:Int):CrappUIColor return new CrappUIColor(color);
-    
+
     @:to
     inline function toInt():Int return this.color;
 
@@ -35,9 +35,10 @@ abstract CrappUIColor(CrappUIColorSwatch) {
     inline function get_isLight():Bool return this.isLight();
     inline function get_isDark():Bool return this.isDark();
 
-    inline function get_brightness():Int return this.brightness; 
+    inline function get_brightness():Int return this.brightness;
 
     inline public function darken(amount:Float):PriColor return this.darken(amount);
     inline public function brighten(amount:Float):PriColor return this.brighten(amount);
-    
+    inline public function saturate(amount:Float):PriColor return this.saturate(amount);
+
 }
