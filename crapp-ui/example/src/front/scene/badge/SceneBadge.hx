@@ -25,6 +25,7 @@ import crapp.ui.display.app.CrappUIScene;
                 <CrappUIBadge label="BADGE 6" />
                 <CrappUIBadge label="BADGE 7" />
                 <CrappUIBadge label="BADGE 8" />
+                <CrappUIBadge label="BADGE 9" />
             </CrappUILayout>
 
             <CrappUILayout hLayoutDistribution="SIDE" hLayoutGap="20" vLayoutSize="FIT" hLayoutSize="FIT" >
@@ -36,6 +37,7 @@ import crapp.ui.display.app.CrappUIScene;
                 <CrappUIBadge label="BADGE 6" color="0x432dd7"/>
                 <CrappUIBadge label="BADGE 7" color="0x8200db"/>
                 <CrappUIBadge label="BADGE 8" color="0xc6005c"/>
+                <CrappUIBadge label="BADGE 9" color="0x000000"/>
             </CrappUILayout>
 
             <CrappUILayout hLayoutDistribution="SIDE" hLayoutGap="20" vLayoutSize="FIT" hLayoutSize="FIT" >
@@ -47,6 +49,7 @@ import crapp.ui.display.app.CrappUIScene;
                 <CrappUIBadge label="BADGE 6" color="0x432dd7" style:L="{prevent_border:true}"/>
                 <CrappUIBadge label="BADGE 7" color="0x8200db" style:L="{prevent_border:true}"/>
                 <CrappUIBadge label="BADGE 8" color="0xc6005c" style:L="{prevent_border:true}"/>
+                <CrappUIBadge label="BADGE 9" color="0x000000" style:L="{prevent_border:true}"/>
             </CrappUILayout>
 
             <CrappUILayout hLayoutDistribution="SIDE" hLayoutGap="20" vLayoutSize="FIT" hLayoutSize="FIT" >
@@ -58,6 +61,7 @@ import crapp.ui.display.app.CrappUIScene;
                 <CrappUIBadge label="BADGE 6" color="0x432dd7" showCloseButton=":true"/>
                 <CrappUIBadge label="BADGE 7" color="0x8200db" showCloseButton=":true"/>
                 <CrappUIBadge label="BADGE 8" color="0xc6005c" showCloseButton=":true"/>
+                <CrappUIBadge label="BADGE 9" color="0x000000" showCloseButton=":true"/>
             </CrappUILayout>
 
             <CrappUILayout hLayoutDistribution="SIDE" hLayoutGap="20" vLayoutSize="FIT" hLayoutSize="FIT" >
@@ -69,6 +73,7 @@ import crapp.ui.display.app.CrappUIScene;
                 <CrappUIBadge label="BADGE 6" color="0x432dd7" style:L="{prevent_border:true}" showCloseButton=":true"/>
                 <CrappUIBadge label="BADGE 7" color="0x8200db" style:L="{prevent_border:true}" showCloseButton=":true"/>
                 <CrappUIBadge label="BADGE 8" color="0xc6005c" style:L="{prevent_border:true}" showCloseButton=":true"/>
+                <CrappUIBadge label="BADGE 9" color="0x000000" style:L="{prevent_border:true}" showCloseButton=":true"/>
             </CrappUILayout>
 
 

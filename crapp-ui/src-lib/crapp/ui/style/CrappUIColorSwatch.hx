@@ -64,6 +64,11 @@ class CrappUIColorSwatch {
 
     public function isLight():Bool return new TinyColor(this.color.toString()).isLight();
     public function isDark():Bool return new TinyColor(this.color.toString()).isDark();
+
+    public function isGrayScaled():Bool {
+        var hsl:HSL = new TinyColor(this.color.toString()).toHsl();
+        return hsl.s < 0.1;
+    }
 }
 
 

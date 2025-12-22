@@ -10,6 +10,7 @@ abstract CrappUIColor(CrappUIColorSwatch) {
     public var darker(get, never):PriColor;
     public var isLight(get, never):Bool;
     public var isDark(get, never):Bool;
+    public var isGrayScaled(get, never):Bool;
     public var brightness(get, never):Int;
 
     inline public function new(color:PriColor) {
@@ -34,6 +35,7 @@ abstract CrappUIColor(CrappUIColorSwatch) {
 
     inline function get_isLight():Bool return this.isLight();
     inline function get_isDark():Bool return this.isDark();
+    inline function get_isGrayScaled():Bool return this.isGrayScaled();
 
     inline function get_brightness():Int return this.brightness;
 

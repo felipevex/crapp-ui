@@ -36,12 +36,14 @@ class CrappUIBadge extends CrappUIDisplay {
     }
 
     private function set_label(value:String):String {
+        if (this.label == value) return value;
         this.label = value;
         this.displayLabel.text = value;
         return value;
     }
 
     private function set_color(value:PriColor):PriColor {
+        if (this.color == value) return value;
         this.color = value;
 
         if (value == null) this.displayLabel.style = null;
@@ -92,7 +94,10 @@ class CrappUIBadge extends CrappUIDisplay {
             ? 0.88
             : 0.95;
 
-        this.bgColor = new CrappUIColor(onColor.color.mix(0xFFFFFF, whiteMix)).saturate(0.4);
+        var cColor:CrappUIColor = new CrappUIColor(this.getPredominantColor().mix(0xFFFFFF, whiteMix));
+        if (!cColor.isGrayScaled) cColor = cColor.saturate(0.4);
+
+        this.bgColor = cColor.color;
 
         this.buttonDisplay.style = {
             on_color: onColor,
@@ -107,7 +112,10 @@ class CrappUIBadge extends CrappUIDisplay {
             return;
         }
 
-        var borderColor:PriColor = new CrappUIColor(this.getPredominantColor().mix(0xFFFFFF, 0.7)).saturate(0.2);
+        var cColor:CrappUIColor = new CrappUIColor(this.getPredominantColor().mix(0xFFFFFF, 0.7));
+        if (!cColor.isGrayScaled) cColor = cColor.saturate(0.2);
+
+        var borderColor:PriColor = cColor.color;
         this.border = new PriBorderStyle(1, borderColor);
     }
 
