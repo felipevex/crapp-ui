@@ -27,6 +27,9 @@ import crapp.ui.display.app.CrappUIScene;
             <CrappUIBadgeContainer type="<String>" id="container8" autoSize=":false" left="200" right="200" />
             <CrappUIBadgeContainer type="<String>" id="container9" autoSize=":false" hLayoutSize="FLEX" />
 
+            <CrappUIBadgeContainer type="<String>" id="container10" autoSize=":true" multiLine=":true" width="500"/>
+            <CrappUIBadgeContainer type="<String>" id="container11" autoSize=":true" multiLine=":true" left="200" right="200" />
+            <CrappUIBadgeContainer type="<String>" id="container12" autoSize=":false" multiLine=":true" width="250" height="125" />
 
         </private:CrappUILayout>
     </view>
@@ -63,6 +66,12 @@ class SceneBadgeContainer extends CrappUIScene<Nothing> {
         this.container9.data = fruits;
         this.container9.colors = colors;
 
+        this.container10.data = fruits;
+        this.container10.colors = colors;
+        this.container11.data = fruits;
+        this.container11.colors = colors;
+        this.container12.data = fruits;
+        this.container12.colors = colors;
     }
 
 

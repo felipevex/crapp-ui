@@ -21,8 +21,8 @@ class CrappUIBadgeContainer<T> extends CrappUIDisplay {
     public var data(default, set):Array<T>;
     public var colors(default, set):Array<PriColor> = [];
 
-    public var autoSize(default, set):Bool;
-    // public var multiLine(default, set):Bool;
+    public var autoSize(default, set):Bool = true;
+    public var multiLine(default, set):Bool = false;
 
     override function setup() {
         super.setup();
@@ -31,7 +31,7 @@ class CrappUIBadgeContainer<T> extends CrappUIDisplay {
 
         this.badges = [];
 
-        // this.bgColor = 0xcccccc;
+        this.bgColor = 0xcccccc;
     }
 
     private function updateHideBadge(hidedItems:Array<String>):Void {
@@ -52,19 +52,40 @@ class CrappUIBadgeContainer<T> extends CrappUIDisplay {
         return value;
     }
 
+    private function set_multiLine(value:Bool):Bool {
+        this.multiLine = value;
+        this.updateDisplay();
+        return value;
+    }
+
     override function paint() {
         var styleData:CrappUIStyleData = this.style;
         var style:CrappUIStyle = CrappUIStyle.fromData(styleData);
 
         var space:Float = style.space;
 
-        this.updateBadgesInline(space);
-        this.updateBadgesHiddens(space);
+        if (!this.multiLine) {
+            this.updateBadgesInline(space);
+            this.updateBadgesHiddens(space);
+        } else {
+            this.updateBadgesInBlock(space);
+            // this.updateBadgesHiddens(space);
+        }
+
+        // if (this.multiLine) this.updateBadgesInBlock(space);
+        // else this.updateBadgesInline(space);
+        // this.updateBadgesHiddens(space);
+
         this.updateBadgesColors();
 
         this.startBatchUpdate();
-        if (this.autoSize) this.width = this.getItemsWidth();
-        this.height = this.getItemsHeight();
+
+        var w:Float = this.getItemsWidth();
+        var h:Float = this.getItemsHeight();
+
+        if (w != null) this.width = w;
+        if (h != null) this.height = h;
+
         this.endBatchUpdate();
     }
 
@@ -74,6 +95,27 @@ class CrappUIBadgeContainer<T> extends CrappUIDisplay {
         for (badge in this.badges) {
             badge.x = lastX;
             lastX = badge.maxX + space;
+        }
+    }
+
+    private function updateBadgesInBlock(space:Float):Void {
+        var lastX:Float = 0;
+        var lastY:Float = 0;
+        var maxHeightInLine:Float = 0;
+
+        for (badge in this.badges) {
+
+            if (lastX > 0 && lastX + badge.width > this.width) {
+                lastX = 0;
+                lastY += maxHeightInLine + space;
+                maxHeightInLine = 0;
+            }
+
+            badge.x = lastX;
+            badge.y = lastY;
+
+            lastX = badge.maxX + space;
+            maxHeightInLine = Math.max(maxHeightInLine, badge.height);
         }
     }
 
@@ -127,12 +169,20 @@ class CrappUIBadgeContainer<T> extends CrappUIDisplay {
     }
 
     private function getItemsHeight():Float {
-        return this.hideBadge.height;
+        if (!this.autoSize) return null;
+        else if (!this.autoSize && !this.multiLine) return this.hideBadge.height;
+        else if (this.autoSize && this.badges.length == 0) return this.hideBadge.height;
+        else if (this.autoSize && this.multiLine) return this.badges[this.badges.length - 1].maxY;
+        else if (this.autoSize && !this.multiLine) return this.hideBadge.height;
+        else return null;
     }
 
     private function getItemsWidth():Float {
-        if (this.badges.length == 0) return 0;
-        return this.badges[this.badges.length - 1].maxX;
+        if (!this.autoSize) return null;
+        else if (this.autoSize && this.multiLine) return null;
+        else if (this.autoSize && !this.multiLine && this.badges.length == 0) return 0;
+        else if (this.autoSize && !this.multiLine && this.badges.length > 0) return this.badges[this.badges.length - 1].maxX;
+        else return null;
     }
 
     private function set_data(value:Array<T>):Array<T> {
