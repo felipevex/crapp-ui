@@ -1,5 +1,6 @@
 package crapp.ui.display.badge;
 
+import priori.event.PriEvent;
 import tricks.layout.LayoutSize;
 import helper.kits.NumberKit;
 import priori.geom.PriColor;
@@ -13,25 +14,25 @@ import crapp.ui.style.data.CrappUIStyleData;
     </view>
 </priori>
 ')
-class CrappUIBadgeContainer<T> extends CrappUIDisplay {
+class CrappUIBadgeContainer extends CrappUIDisplay {
 
     private var badges:Array<CrappUIBadge>;
     private var hideBadge:CrappUIBadge;
 
-    public var data(default, set):Array<T>;
+    public var data(default, set):Array<String>;
     public var colors(default, set):Array<PriColor> = [];
 
     public var autoSize(default, set):Bool = true;
     public var multiLine(default, set):Bool = false;
 
+    public var showCloseButton(default, set):Bool = false;
+
+    public var onClose:(value:String)->Void;
+
     override function setup() {
         super.setup();
-
         this.updateHideBadge([]);
-
         this.badges = [];
-
-        this.bgColor = 0xcccccc;
     }
 
     private function updateHideBadge(hidedItems:Array<String>):Void {
@@ -44,6 +45,13 @@ class CrappUIBadgeContainer<T> extends CrappUIDisplay {
         this.hideBadge.tooltip = hidedItems.join(', ');
         this.hideBadge.label = '+${hidedItems.length}';
         this.hideBadge.visible = hidedItems.length > 0;
+    }
+
+    private function set_showCloseButton(value:Bool):Bool {
+        this.showCloseButton = value;
+        for (badge in this.badges) badge.showCloseButton = value;
+        this.updateDisplay();
+        return value;
     }
 
     private function set_autoSize(value:Bool):Bool {
@@ -72,20 +80,13 @@ class CrappUIBadgeContainer<T> extends CrappUIDisplay {
             // this.updateBadgesHiddens(space);
         }
 
-        // if (this.multiLine) this.updateBadgesInBlock(space);
-        // else this.updateBadgesInline(space);
-        // this.updateBadgesHiddens(space);
-
         this.updateBadgesColors();
 
         this.startBatchUpdate();
-
         var w:Float = this.getItemsWidth();
         var h:Float = this.getItemsHeight();
-
         if (w != null) this.width = w;
         if (h != null) this.height = h;
-
         this.endBatchUpdate();
     }
 
@@ -152,6 +153,7 @@ class CrappUIBadgeContainer<T> extends CrappUIDisplay {
             }
         }
 
+        hidedItems.reverse();
         this.updateHideBadge(hidedItems);
 
     }
@@ -185,7 +187,7 @@ class CrappUIBadgeContainer<T> extends CrappUIDisplay {
         else return null;
     }
 
-    private function set_data(value:Array<T>):Array<T> {
+    private function set_data(value:Array<String>):Array<String> {
         this.data = value;
         this.buildTags();
         return value;
@@ -211,6 +213,8 @@ class CrappUIBadgeContainer<T> extends CrappUIDisplay {
         // Add missing badges
         while (this.badges.length < this.data.length) {
             var badge:CrappUIBadge = new CrappUIBadge();
+            badge.showCloseButton = this.showCloseButton;
+            badge.actions.onClose = this.onBadgeClose.bind(badge);
             this.badges.push(badge);
             badgesCreated.push(badge);
         }
@@ -227,6 +231,7 @@ class CrappUIBadgeContainer<T> extends CrappUIDisplay {
             this.badges[i].label = Std.string(this.data[i]);
         }
 
+        this.updateDisplay();
     }
 
     private function set_colors(value:Array<PriColor>):Array<PriColor> {
@@ -238,5 +243,11 @@ class CrappUIBadgeContainer<T> extends CrappUIDisplay {
     override private function set_hLayoutSize(value:LayoutSize):LayoutSize {
         if (value == FLEX) this.autoSize = false;
         return super.set_hLayoutSize(value);
+    }
+
+    private function onBadgeClose(badge:CrappUIBadge):Void {
+        if (this.onClose != null) this.onClose(badge.label);
+        if (this.actions.onClick != null) this.actions.onClick();
+        if (this.actions.onClose != null) this.actions.onClose();
     }
 }

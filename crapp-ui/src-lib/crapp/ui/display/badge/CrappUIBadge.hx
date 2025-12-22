@@ -33,12 +33,14 @@ class CrappUIBadge extends CrappUIDisplay {
 
     private function onCloseClick():Void {
         if (this.actions.onClick != null) this.actions.onClick();
+        if (this.actions.onClose != null) this.actions.onClose();
     }
 
     private function set_label(value:String):String {
         if (this.label == value) return value;
         this.label = value;
         this.displayLabel.text = value;
+        this.updateDisplay();
         return value;
     }
 

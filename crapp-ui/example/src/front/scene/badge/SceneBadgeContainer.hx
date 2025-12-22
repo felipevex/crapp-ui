@@ -15,21 +15,19 @@ import crapp.ui.display.app.CrappUIScene;
         <private:CrappUILayout hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="20" left="10" right="10" top="10" bottom="10" >
             <CrappUILayout height="0"/>
 
-            <CrappUIBadgeContainer type="<String>" id="container1" autoSize=":true" />
-            <CrappUIBadgeContainer type="<String>" id="container2" autoSize=":false" left="200" right="200" />
-            <CrappUIBadgeContainer type="<String>" id="container3" autoSize=":false" hLayoutSize="FLEX" />
+            <CrappUIBadgeContainer id="container1" autoSize=":true" />
+            <CrappUIBadgeContainer id="container2" autoSize=":false" left="200" right="200" />
+            <CrappUIBadgeContainer id="container3" autoSize=":false" hLayoutSize="FLEX" />
 
-            <CrappUIBadgeContainer type="<String>" id="container4" autoSize=":true" />
-            <CrappUIBadgeContainer type="<String>" id="container5" autoSize=":false" left="200" right="200" />
-            <CrappUIBadgeContainer type="<String>" id="container6" autoSize=":false" hLayoutSize="FLEX" />
+            <CrappUIBadgeContainer id="container4" showCloseButton=":true" hLayoutSize="FLEX" />
 
-            <CrappUIBadgeContainer type="<String>" id="container7" autoSize=":true" />
-            <CrappUIBadgeContainer type="<String>" id="container8" autoSize=":false" left="200" right="200" />
-            <CrappUIBadgeContainer type="<String>" id="container9" autoSize=":false" hLayoutSize="FLEX" />
+            <CrappUIBadgeContainer id="container7" autoSize=":true" />
+            <CrappUIBadgeContainer id="container8" autoSize=":false" left="200" right="200" />
+            <CrappUIBadgeContainer id="container9" autoSize=":false" hLayoutSize="FLEX" />
 
-            <CrappUIBadgeContainer type="<String>" id="container10" autoSize=":true" multiLine=":true" width="500"/>
-            <CrappUIBadgeContainer type="<String>" id="container11" autoSize=":true" multiLine=":true" left="200" right="200" />
-            <CrappUIBadgeContainer type="<String>" id="container12" autoSize=":false" multiLine=":true" width="250" height="125" />
+            <CrappUIBadgeContainer id="container10" autoSize=":true" multiLine=":true" width="500"/>
+            <CrappUIBadgeContainer id="container11" autoSize=":true" multiLine=":true" left="200" right="200" />
+            <CrappUIBadgeContainer id="container12" autoSize=":false" multiLine=":true" width="250" height="125" />
 
         </private:CrappUILayout>
     </view>
@@ -53,11 +51,11 @@ class SceneBadgeContainer extends CrappUIScene<Nothing> {
         this.container3.data = fruits;
 
         this.container4.data = fruits;
-        this.container4.colors = [0x008236];
-        this.container5.data = fruits;
-        this.container5.colors = [0x008236];
-        this.container6.data = fruits;
-        this.container6.colors = [0x008236];
+        this.container4.colors = colors;
+        this.container4.onClose = (value:String) -> {
+            trace('Closed badge: ' + value);
+            this.container4.data = this.container4.data.copy().filter((filterValue:String) -> filterValue == value ? false : true);
+        }
 
         this.container7.data = fruits;
         this.container7.colors = colors;
