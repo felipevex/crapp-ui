@@ -39,7 +39,7 @@ class CrappUIInput<T> extends CrappUIDisplay {
        Variável pública que define o rótulo exibido no campo de entrada.
        @default "LABEL"
     **/
-    @:isVar public var label(default, set):String = "LABEL";
+    @:isVar public var label(get, set):String = "LABEL";
 
     private var validatorsErrorMessage:String;
     private var validators:Array<(value:T)->Void>;
@@ -53,6 +53,7 @@ class CrappUIInput<T> extends CrappUIDisplay {
         super();
     }
 
+    function get_label():String return this.label;
     function set_label(value:String):String {
         if (value == null) return value;
         this.label = StringKit.removeBreaks(value);

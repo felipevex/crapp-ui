@@ -1,6 +1,5 @@
 package crapp.ui.display.badge;
 
-import priori.event.PriEvent;
 import tricks.layout.LayoutSize;
 import helper.kits.NumberKit;
 import priori.geom.PriColor;
@@ -9,9 +8,7 @@ import crapp.ui.style.data.CrappUIStyleData;
 
 @priori('
 <priori>
-    <view>
-
-    </view>
+    <view />
 </priori>
 ')
 class CrappUIBadgeContainer extends CrappUIDisplay {
@@ -33,6 +30,11 @@ class CrappUIBadgeContainer extends CrappUIDisplay {
         super.setup();
         this.updateHideBadge([]);
         this.badges = [];
+    }
+
+    private function getMaxRenderedLimit():Float {
+        if (this.hideBadge.visible) return this.hideBadge.maxX;
+        else return this.badges.length > 0 ? this.badges[this.badges.length - 1].maxX : 0;
     }
 
     private function updateHideBadge(hidedItems:Array<String>):Void {

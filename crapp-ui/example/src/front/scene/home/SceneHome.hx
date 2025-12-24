@@ -28,6 +28,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton id="testInputCheck" label="INPUT - CHECK" />
             <private:CrappUIButton id="testInputRate" label="INPUT - RATE" />
             <private:CrappUIButton id="testInputToggle" label="INPUT - TOGGLE" />
+            <private:CrappUIButton id="testInputBadge" label="INPUT - BADGE" />
             <private:CrappUIButton id="testCompositeScroller" label="COMPOSITE - SCROLLER" />
             <private:CrappUIButton id="testList" label="LIST" />
             <private:CrappUIButton id="testStack" label="STACK" />
@@ -69,6 +70,7 @@ class SceneHome extends CrappUIScene<Nothing> {
         this.testInputCheck.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneInputCheck);
         this.testInputRate.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneInputRate);
         this.testInputToggle.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneInputToggle);
+        this.testInputBadge.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneInputBadge);
         this.testCompositeScroller.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneScrollerComposite);
         this.testList.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneList);
         this.testStack.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneStack);

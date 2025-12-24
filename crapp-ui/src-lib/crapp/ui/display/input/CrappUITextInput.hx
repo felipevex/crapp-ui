@@ -1,5 +1,6 @@
 package crapp.ui.display.input;
 
+import helper.kits.CsvKit;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
 import priori.types.PriTransitionType;
 import haxe.Timer;
@@ -39,6 +40,9 @@ class CrappUITextInput extends CrappUIInput<String> {
 
     private var labelDisplay:PriText;
     private var input:PriFormInputText;
+
+    private var leftInputPadding:Float = 0;
+    private var forceHasContentState:Bool = false;
 
     /**
        Propriedade pública que indica se o campo de entrada deve tratar o valor como senha.
@@ -107,8 +111,10 @@ class CrappUITextInput extends CrappUIInput<String> {
 
         this.height = this.calculateNormalHeight();
 
-        this.input.width = this.width - (style.space * 3.5);
-        this.input.centerX = this.width/2;
+        var padding:Float = (style.space * 3.5) / 2;
+
+        this.input.width = this.width - (padding * 2) - this.leftInputPadding;
+        this.input.x = padding + this.leftInputPadding;
         this.input.y = this.height - style.size * 1.485 - style.space;
 
         if (this.hasFocus()) this.bgColor = style.onFocusColor();
@@ -117,20 +123,21 @@ class CrappUITextInput extends CrappUIInput<String> {
             this.labelDisplay.fontSize = CrappUISizeReference.UNDER * style.size;
 
             this.labelDisplay.y = style.space;
-            this.labelDisplay.width = this.width - (style.space * 3.5);
-            this.labelDisplay.centerX = this.width/2;
+            this.labelDisplay.width = this.width - (padding * 2);
+            this.labelDisplay.x = padding;
         } else {
             this.labelDisplay.fontSize = style.size;
 
-            this.labelDisplay.width = this.width - (style.space * 3.5);
-            this.labelDisplay.centerX = this.width/2;
+            this.labelDisplay.width = this.width - (padding * 2);
+            this.labelDisplay.x = padding;
             this.labelDisplay.centerY = this.height/2;
         }
 
     }
 
     inline private function hasContentOrSelection():Bool {
-        if (this.input.hasFocus()) return true;
+        if (this.forceHasContentState) return true;
+        else if (this.input.hasFocus()) return true;
         else if (this.input.value.length > 0) return true;
         else return false;
     }
