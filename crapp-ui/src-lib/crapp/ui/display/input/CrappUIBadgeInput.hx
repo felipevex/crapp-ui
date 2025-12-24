@@ -1,6 +1,6 @@
 package crapp.ui.display.input;
 
-import helper.kits.ArrayKit;
+import crapp.ui.style.CrappUIStyle;
 import priori.system.PriKey;
 import priori.event.PriKeyboardEvent;
 import helper.kits.StringKit;
@@ -35,10 +35,9 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
     public function new() {
         this.valueData = [];
         this.optionData = [];
+        this.badgeLabelTransformation = null; // set to default transformation
 
         super();
-
-        this.badgeLabelTransformation = null; // set to default
     }
 
     private function set_badgeLabelTransformation(value:(value:String)->String):(value:String)->String {
@@ -50,13 +49,12 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
         } else this.badgeLabelTransformation = value;
 
         return value;
-
     }
 
     override private function get_label():String return this.field.label;
     override private function set_label(value:String):String return this.field.label = value;
 
-    override private function get_value():Array<String> return this.valueData;
+    override private function get_value():Array<String> return this.valueData.copy();
 	override private function set_value(value:Array<String>):Array<String> {
         if (value == null) return value;
 
@@ -94,8 +92,6 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
         this.field.width = this.width;
         this.height = this.field.height;
 
-        this.badgeContainer.x = 10;
-
         this.updateRenderView();
     }
 
@@ -105,6 +101,11 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
     }
 
     private function updateRenderView():Void {
+        var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
+        var padding:Float = (style.space * 3.5) / 2;
+
+        this.badgeContainer.x = padding / 2;
+
         var maxWidth:Float = this.width * 0.8;
 
         this.badgeContainer.autoSize = true;
