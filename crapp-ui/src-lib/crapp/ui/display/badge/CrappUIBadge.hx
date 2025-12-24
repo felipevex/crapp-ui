@@ -20,7 +20,7 @@ import crapp.ui.display.CrappUIDisplay;
 ')
 class CrappUIBadge extends CrappUIDisplay {
 
-    public var label(default, set):String;
+    public var label(default, set):String = "";
     public var color(default, set):PriColor;
     public var showCloseButton(get, set):Bool;
 
@@ -37,7 +37,7 @@ class CrappUIBadge extends CrappUIDisplay {
     }
 
     private function set_label(value:String):String {
-        if (this.label == value) return value;
+        if (this.label == value || value == null) return value;
         this.label = value;
         this.displayLabel.text = value;
         this.updateDisplay();

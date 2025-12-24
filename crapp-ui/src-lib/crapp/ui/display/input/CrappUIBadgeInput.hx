@@ -1,5 +1,7 @@
 package crapp.ui.display.input;
 
+import priori.event.PriEvent;
+import priori.geom.PriColor;
 import crapp.ui.style.CrappUIStyle;
 import priori.system.PriKey;
 import priori.event.PriKeyboardEvent;
@@ -26,6 +28,7 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
     private var badgeContainer:CrappUIBadgeContainer;
 
     public var badgeLabelTransformation(default, set):(value:String)->String;
+    public var colors(get, set):Array<PriColor>;
 
     /**
        Construtor da classe `CrappUITextInput` que inicializa o componente de entrada de texto.
@@ -48,6 +51,12 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
 
         } else this.badgeLabelTransformation = value;
 
+        return value;
+    }
+
+    private function get_colors():Array<PriColor> return this.badgeContainer.colors.copy();
+    private function set_colors(value:Array<PriColor>):Array<PriColor> {
+        this.badgeContainer.colors = value?.copy();
         return value;
     }
 

@@ -1,5 +1,6 @@
 package front.scene.input;
 
+import priori.geom.PriColor;
 import crapp.ui.display.input.CrappUIBadgeInput;
 import util.kit.nothing.Nothing;
 import crapp.ui.style.theme.CrappUIThemeProvider;
@@ -15,10 +16,9 @@ import crapp.ui.display.app.CrappUIScene;
     <view>
         <private:CrappUILayout hLayoutAlignment="CENTER" vLayoutDistribution="SIDE" vLayoutGap="10" left="10" right="10" top="10" bottom="10" >
             <private:CrappUIBadgeInput />
-            <private:CrappUIBadgeInput label="Badge Input" />
-            <private:CrappUIBadgeInput width="500" />
             <private:CrappUIBadgeInput id="input1" label="Fruits" width="500" />
-            <private:CrappUIBadgeInput id="input2" label="Label Transformation" width="500" />
+            <private:CrappUIBadgeInput id="input2" label="Label Transformation" hLayoutSize="FLEX" />
+            <private:CrappUIBadgeInput id="input3" label="Colored Labels" hLayoutSize="FLEX" />
         </private:CrappUILayout>
     </view>
 </priori>
@@ -26,6 +26,14 @@ import crapp.ui.display.app.CrappUIScene;
 class SceneInputBadge extends CrappUIScene<Nothing> {
 
     override function setup() {
+
+        var colors:Array<PriColor> = [
+            0xe67d7d, 0xec933a, 0xFFF200, 0x56E03B, 0x17f6d8, 0x56a1ec, 0x7e54f1, 0xb460de, 0xe75ca9, 0xf36067,
+            0xc45a5a, 0xca7521, 0xC2B809, 0x1DA80E, 0x0baa95, 0x2165a9, 0x4d27b6, 0x7d24a9, 0xac2c72, 0xb3262d,
+            0x8d2a2a, 0x975412, 0x727E08, 0x16680D, 0x0d6f62, 0x103e6b, 0x301086, 0x561178, 0x690c3f, 0x740b11,
+            0x777777, 0x959595, 0x4F4F4F, 0x3B3B3B
+        ];
+
 
         this.input1.value = [
             "Apple",
@@ -44,6 +52,7 @@ class SceneInputBadge extends CrappUIScene<Nothing> {
         };
         this.input2.value = ["Hello World"];
 
+        this.input3.colors = colors;
 
 
         // this.theme = "InputTheme";
