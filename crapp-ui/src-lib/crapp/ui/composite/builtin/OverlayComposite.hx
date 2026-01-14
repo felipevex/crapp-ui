@@ -1,5 +1,6 @@
 package crapp.ui.composite.builtin;
 
+import priori.geom.PriGeomBox;
 import priori.geom.PriGeomPoint;
 import priori.view.PriDisplay;
 import priori.app.PriApp;
@@ -13,16 +14,16 @@ class OverlayComposite extends CrappUIComposite {
     public var autoCloseOnAppClick:Bool = false;
     public var autoPositionOnReference:Bool = false;
     public var autoPositionBorderOffset:Int = 15;
-    
+
     override function setup() {
-        
+
     }
 
     override function kill() {
         PriApp.g().removeEventListener(PriTapEvent.TAP_UP, this.onAutoClose);
         PriApp.g().removeEventListener(PriEvent.RESIZE, this.onAppResize);
         if (this.ref != null) this.ref.removeEventListener(PriEvent.REMOVED_FROM_APP, this.onAutoClose);
-        
+
         this.ref = null;
     }
 
@@ -30,20 +31,20 @@ class OverlayComposite extends CrappUIComposite {
         this.ref = reference;
 
         if (autoCloseOnAppClick) PriApp.g().addEventListener(PriTapEvent.TAP_UP, this.onAutoClose);
-        
+
         if (this.ref != null) {
             this.ref.addEventListener(PriEvent.REMOVED_FROM_APP, this.onAutoClose);
             if (autoPositionOnReference) PriApp.g().addEventListener(PriEvent.RESIZE, this.onAppResize);
         }
 
         PriApp.g().addChild(this.display);
-        
+
         if (autoPositionOnReference) this.updatePositionByReference();
     }
 
     public function close():Void {
         this.kill();
-        
+
         this.display.removeFromParent();
         this.display.kill();
         this.ref = null;
@@ -62,6 +63,21 @@ class OverlayComposite extends CrappUIComposite {
 
         if (this.display.maxX > (PriApp.g().width - this.autoPositionBorderOffset)) this.display.maxX = PriApp.g().width - this.autoPositionBorderOffset;
         if (this.display.maxY > (PriApp.g().height - this.autoPositionBorderOffset)) this.display.maxY = PriApp.g().height - this.autoPositionBorderOffset;
+    }
+
+    public function getReferencePosition():PriGeomBox {
+        if (this.ref == null) return null;
+
+        var point:PriGeomPoint = this.ref.localToGlobal(new PriGeomPoint(this.ref.x, this.ref.y));
+
+        var result:PriGeomBox = new PriGeomBox(
+            point.x,
+            point.y,
+            this.ref.width,
+            this.ref.height
+        );
+
+        return result;
     }
 
     private function onAutoClose(e:PriEvent):Void haxe.Timer.delay(this.close, 0);

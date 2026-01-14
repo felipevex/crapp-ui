@@ -19,6 +19,8 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIBadgeInput id="input2" label="Label Transformation" hLayoutSize="FLEX" />
             <private:CrappUIBadgeInput id="input3" label="Colored Labels" hLayoutSize="FLEX" />
             <private:CrappUIBadgeInput id="input4" label="On Change Print" hLayoutSize="FLEX" />
+            <private:CrappUIBadgeInput id="input5" label="Pre defined Option Data" hLayoutSize="FLEX" />
+            <private:CrappUIBadgeInput id="input6" label="Pre defined Option Data and cannot create new ones" hLayoutSize="FLEX" />
         </private:CrappUILayout>
     </view>
 </priori>
@@ -58,6 +60,23 @@ class SceneInputBadge extends CrappUIScene<Nothing> {
             trace('Current Badges: ' + this.input4.value);
         };
 
+
+        this.input5.data = [
+            "FIAT",
+            "Ford",
+            "Chevrolet",
+            "Volkswagen",
+            "Honda",
+            "Toyota",
+            "Hyundai",
+            "Nissan",
+            "Renault",
+            "Peugeot",
+            "Citroën"
+        ];
+
+        this.input6.data = this.input5.data;
+        this.input6.allowCreateValues = false;
 
         // this.theme = "InputTheme";
 

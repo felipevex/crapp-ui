@@ -35,6 +35,12 @@ class CrappUIMenu extends CrappUILayout {
     override function paint() {
         super.paint();
 
+        if (!this.autoSize) {
+            for (item in this.items) item.width = this.width;
+
+            return;
+        }
+
         var itemWidth:Float = this.minWidth == null ? 0 : this.minWidth;
         for (item in this.items) itemWidth = Math.max(itemWidth, item.idealWidth());
 
