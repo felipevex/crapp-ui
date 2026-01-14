@@ -27,6 +27,7 @@ class FrontRoute {
     static public var pathSceneScrollerComposite:Path<Nothing> = 'composite/scroller';
     static public var pathSceneList:Path<Nothing> = 'list';
     static public var pathSceneStack:Path<Nothing> = 'stack';
+    static public var pathSceneMenu:Path<Nothing> = 'menu';
     static public var pathSceneContextMenu:Path<Nothing> = 'menu/context';
     static public var pathSceneImage:Path<Nothing> = 'image';
     static public var pathSceneSurface:Path<Nothing> = 'container/surface';
@@ -66,6 +67,7 @@ class FrontRoute {
         CrappUIRouteManager.use().register(pathSceneList, front.scene.list.SceneList);
         CrappUIRouteManager.use().register(pathSceneStack, front.scene.stack.SceneStack);
         CrappUIRouteManager.use().register(pathSceneContextMenu, front.scene.menu.SceneContextMenu);
+        CrappUIRouteManager.use().register(pathSceneMenu, front.scene.menu.SceneMenu);
         CrappUIRouteManager.use().register(pathSceneImage, front.scene.image.SceneImage);
         CrappUIRouteManager.use().register(pathSceneSurface, front.scene.container.SceneSurface);
         CrappUIRouteManager.use().register(pathSceneLineHorizontal, front.scene.line.SceneLineHorizontal);

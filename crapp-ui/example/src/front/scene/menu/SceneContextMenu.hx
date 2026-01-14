@@ -22,7 +22,7 @@ import crapp.ui.display.app.CrappUIScene;
 </priori>
 ')
 class SceneContextMenu extends CrappUIScene<Nothing> {
-    
+
     override function setup() {
         super.setup();
 

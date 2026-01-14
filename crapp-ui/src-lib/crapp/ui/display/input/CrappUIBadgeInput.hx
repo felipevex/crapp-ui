@@ -88,10 +88,12 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
         this.badgeContainer = new CrappUIBadgeContainer();
         this.badgeContainer.showCloseButton = true;
         this.badgeContainer.onClose = this.onCloseBadge;
+        this.badgeContainer.zShadow = false;
+        this.badgeContainer.z = 1;
 
         this.addChildList([
-            this.field,
-            this.badgeContainer
+            this.badgeContainer,
+            this.field
         ]);
     }
 
@@ -107,6 +109,7 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
     private function onCloseBadge(tag:String):Void {
         this.valueData.remove(tag);
         this.updateRenderView();
+        this.dispatchChangeAction();
     }
 
     private function updateRenderView():Void {
@@ -153,6 +156,8 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
         this.field.value = "";
         this.valueData.push(inputValue);
         this.updateRenderView();
+
+        this.dispatchChangeAction();
     }
 
     private function removeLastBadge():Void {
@@ -160,6 +165,12 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
 
         this.valueData.pop();
         this.updateRenderView();
+
+        this.dispatchChangeAction();
+    }
+
+    private function dispatchChangeAction():Void {
+        if (this.actions.onChange != null) this.actions.onChange();
     }
 
 }

@@ -32,6 +32,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton id="testCompositeScroller" label="COMPOSITE - SCROLLER" />
             <private:CrappUIButton id="testList" label="LIST" />
             <private:CrappUIButton id="testStack" label="STACK" />
+            <private:CrappUIButton id="testMenu" label="MENU" />
             <private:CrappUIButton id="testMenuContext" label="MENU - CONTEXT" />
             <private:CrappUIButton id="testImage" label="IMAGE" />
             <private:CrappUIButton id="testSurface" label="CONTAINER - SURFACE" />
@@ -74,6 +75,7 @@ class SceneHome extends CrappUIScene<Nothing> {
         this.testCompositeScroller.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneScrollerComposite);
         this.testList.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneList);
         this.testStack.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneStack);
+        this.testMenu.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneMenu);
         this.testMenuContext.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneContextMenu);
         this.testImage.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneImage);
         this.testSurface.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneSurface);

@@ -3,7 +3,6 @@ package front.scene.input;
 import priori.geom.PriColor;
 import crapp.ui.display.input.CrappUIBadgeInput;
 import util.kit.nothing.Nothing;
-import crapp.ui.style.theme.CrappUIThemeProvider;
 import helper.kits.StringKit;
 import crapp.ui.display.app.CrappUIScene;
 
@@ -19,6 +18,7 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIBadgeInput id="input1" label="Fruits" width="500" />
             <private:CrappUIBadgeInput id="input2" label="Label Transformation" hLayoutSize="FLEX" />
             <private:CrappUIBadgeInput id="input3" label="Colored Labels" hLayoutSize="FLEX" />
+            <private:CrappUIBadgeInput id="input4" label="On Change Print" hLayoutSize="FLEX" />
         </private:CrappUILayout>
     </view>
 </priori>
@@ -53,6 +53,10 @@ class SceneInputBadge extends CrappUIScene<Nothing> {
         this.input2.value = ["Hello World"];
 
         this.input3.colors = colors;
+
+        this.input4.actions.onChange = () -> {
+            trace('Current Badges: ' + this.input4.value);
+        };
 
 
         // this.theme = "InputTheme";

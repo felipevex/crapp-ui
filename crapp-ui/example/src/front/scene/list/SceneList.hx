@@ -12,23 +12,23 @@ import crapp.ui.display.app.CrappUIScene;
         <crapp.ui.display.list.CrappUIList />
     </imports>
     <view>
-        <private:CrappUIList 
+        <private:CrappUIList
             id="list"
             type="<ListChildrenData>"
-            rowHeight="50" 
-            childClass:Literal="ListChildren" 
-            width="300" 
-            height="200" 
-            centerX:Paint="this.width/2" 
-            centerY:Paint="this.height/2" 
+            rowHeight="50"
+            childClass:Literal="ListChildren"
+            width="300"
+            height="200"
+            centerX:Paint="this.width/2"
+            centerY:Paint="this.height/2"
         />
     </view>
 </priori>
 ')
 class SceneList extends CrappUIScene<Nothing> {
-    
+
     override function setup() {
-        
+
         this.list.data = [
             { id: 1, name: "Item 1" },
             { id: 2, name: "Item 2" },
@@ -51,7 +51,7 @@ class SceneList extends CrappUIScene<Nothing> {
             { id: 19, name: "Item 19" },
             { id: 20, name: "Item 20" }
         ];
-        
+
     }
 }
 
