@@ -1,12 +1,12 @@
 package crapp.ui.display.input;
 
+import priori.event.PriTapEvent;
+import crapp.ui.display.icon.types.CrappUIIconType;
+import priori.fontawesome.FixedIcon;
 import helper.kits.TimerKit;
 import crapp.ui.display.container.CrappUIScrollable;
 import crapp.ui.composite.builtin.OverlayComposite;
-import crapp.ui.display.app.CrappUIApp;
 import crapp.ui.display.menu.CrappUIMenu;
-import helper.kits.ArrayKit;
-import priori.event.PriEvent;
 import priori.geom.PriColor;
 import crapp.ui.style.CrappUIStyle;
 import priori.system.PriKey;
@@ -39,6 +39,7 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
     public var allowCreateValues:Bool;
 
     private var menu:CrappUIBadgeInputMenu;
+    private var arrow:FixedIcon;
 
     @:isVar public var data(default, set):Array<String>;
 
@@ -83,6 +84,8 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
             if (!this.data.contains(val)) this.data.push(val);
         }
 
+        this.arrow.visible = this.data.length > 0;
+
         return value;
     }
 
@@ -110,6 +113,8 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
 
         this.field = new CrappUITextInput();
         this.field.addEventListener(PriKeyboardEvent.KEY_DOWN, this.onInputKeyDown);
+        this.field.addEventListener(PriTapEvent.TAP, this.onTap);
+        this.field.pointer = false;
 
         this.badgeContainer = new CrappUIBadgeContainer();
         this.badgeContainer.showCloseButton = true;
@@ -117,21 +122,35 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
         this.badgeContainer.zShadow = false;
         this.badgeContainer.z = 1;
 
-        // this.menu = new CrappUIMenu();
+        this.arrow = new FixedIcon(CrappUIIconType.CARET_DOWN);
+        this.arrow.visible = false;
+        this.arrow.mouseEnabled = false;
 
         this.addChildList([
             this.badgeContainer,
-            this.field
+            this.field,
+            this.arrow
         ]);
     }
 
     override function paint() {
         super.paint();
 
+        var style:CrappUIStyle = CrappUIStyle.fromData(this.style);
+
         this.field.width = this.width;
         this.height = this.field.height;
 
         this.updateRenderView();
+
+        this.arrow.size = style.size;
+        this.arrow.color = style.onColor.color;
+        this.arrow.maxX = this.width - style.space;
+        this.arrow.centerY = this.field.height/2;
+    }
+
+    private function onTap(e:PriTapEvent):Void {
+        this.openMenu(false);
     }
 
     private function onCloseBadge(tag:String):Void {
@@ -183,6 +202,8 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
         else if (e.keycode == PriKey.ARROW_DOWN) this.openMenu(true);
         else {
             TimerKit.delay('CrappUIBadgeInput', 80, () -> {
+                if (!this.field.hasFocus()) return;
+
                 if (this.menu != null) {
                     this.openMenu(false);
                 } else {

@@ -166,6 +166,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
         this.input = this.createInputSelect();
 
         this.arrow = new FixedIcon(CrappUIIconType.CARET_DOWN);
+        this.arrow.mouseEnabled = false;
 
         this.addChildList([
             this.input,
@@ -208,7 +209,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
             this.labelDisplay.width = this.width - (style.space * 3.5);
             this.labelDisplay.centerX = this.width/2;
 
-            this.arrow.centerY = this.input.centerY;
+            this.arrow.centerY = this.height/2;
         } else {
             this.labelDisplay.fontSize = style.size;
 
@@ -216,7 +217,7 @@ class CrappUISelectInput<T> extends CrappUIInput<T> {
             this.labelDisplay.centerX = this.width/2;
             this.labelDisplay.centerY = this.height/2;
 
-            this.arrow.centerY = this.labelDisplay.centerY;
+            this.arrow.centerY = this.height/2;
         }
 
     }
