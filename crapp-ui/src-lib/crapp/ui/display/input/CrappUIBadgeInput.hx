@@ -115,6 +115,7 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
         this.field.addEventListener(PriKeyboardEvent.KEY_DOWN, this.onInputKeyDown);
         this.field.addEventListener(PriTapEvent.TAP, this.onTap);
         this.field.pointer = false;
+        this.field.actions.onResize = this.updateDisplay;
 
         this.badgeContainer = new CrappUIBadgeContainer();
         this.badgeContainer.showCloseButton = true;

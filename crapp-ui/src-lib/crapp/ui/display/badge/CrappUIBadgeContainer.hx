@@ -173,7 +173,7 @@ class CrappUIBadgeContainer extends CrappUIDisplay {
     }
 
     private function getItemsHeight():Float {
-        if (!this.autoSize) return null;
+        if (!this.autoSize && this.multiLine) return null;
         else if (!this.autoSize && !this.multiLine) return this.hideBadge.height;
         else if (this.autoSize && this.badges.length == 0) return this.hideBadge.height;
         else if (this.autoSize && this.multiLine) return this.badges[this.badges.length - 1].maxY;
