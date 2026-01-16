@@ -42,6 +42,8 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
     private var menu:CrappUIBadgeInputMenu;
     private var arrow:FixedIcon;
 
+    public var breakChars:String;
+
     @:isVar public var data(default, set):Array<String>;
 
     /**
@@ -114,6 +116,7 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
 
         this.field = new CrappUITextInput();
         this.field.addEventListener(PriKeyboardEvent.KEY_DOWN, this.onInputKeyDown);
+        this.field.addEventListener(PriKeyboardEvent.KEY_UP, this.onInputKeyUp);
         this.field.addEventListener(PriFocusEvent.FOCUS_OUT, this.onFocusOut);
         this.field.addEventListener(PriTapEvent.TAP, this.onTap);
         this.field.pointer = false;
@@ -193,6 +196,33 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
         this.addBadgeFromInput();
     }
 
+    private function onInputKeyUp(e:PriKeyboardEvent):Void {
+        var ignoreCodes = [
+            PriKey.ENTER,
+            PriKey.ESC,
+            PriKey.ARROW_DOWN,
+            PriKey.TAB
+        ];
+
+        if (ignoreCodes.contains(e.keycode)) return;
+        if (!this.field.hasFocus()) return;
+
+
+        if (this.breakChars != null && this.breakChars.length > 0) {
+            var chars:Array<String> = this.breakChars.split("");
+            var input:String = this.field.value;
+
+            for (char in chars) if (input.indexOf(char) >= 0) {
+                this.addBadgeFromInput();
+                this.closeMenu();
+                return;
+            }
+        }
+
+        if (this.menu != null) this.openMenu();
+        else if (!StringKit.isEmpty(this.field.value)) this.openMenu();
+    }
+
     private function onInputKeyDown(e:PriKeyboardEvent):Void {
 
         if (e.keycode == PriKey.ENTER) {
@@ -218,15 +248,6 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
                 }
             });
         }
-        else {
-            TimerKit.delay('CrappUIBadgeInput', 80, () -> {
-                if (!this.field.hasFocus()) return;
-
-                if (this.menu != null) this.openMenu();
-                else if (!StringKit.isEmpty(this.field.value)) this.openMenu();
-            });
-        }
-
     }
 
     private function closeMenu():Void {
@@ -271,24 +292,27 @@ class CrappUIBadgeInput extends CrappUIInput<Array<String>> {
     }
 
     private function addBadgeFromInput():Void {
-        var inputValue:String = this.badgeLabelTransformation(this.field.value);
+        var input:String = this.field.value;
+        var values:Array<String> = StringKit.breakByChars(input, this.breakChars);
+        var hasChange:Bool = false;
 
-        if (StringKit.isEmpty(inputValue)) return;
-        else if (this.valueData.contains(inputValue)) {
-            this.field.value = "";
-            return;
-        }
+        for (value in values) {
+            var val:String = this.badgeLabelTransformation(value);
 
-        if (!this.allowCreateValues && (this.data == null || !this.data.contains(inputValue))) {
-            this.field.value = "";
-            return;
+            if (StringKit.isEmpty(val)) continue;
+            else if (this.valueData.contains(val)) continue;
+            else if (!this.allowCreateValues && (this.data == null || !this.data.contains(val))) continue;
+
+            hasChange = true;
+            this.valueData.push(val);
         }
 
         this.field.value = "";
-        this.valueData.push(inputValue);
-        this.updateRenderView();
 
-        this.dispatchChangeAction();
+        if (hasChange) {
+            this.updateRenderView();
+            this.dispatchChangeAction();
+        }
     }
 
     private function removeLastBadge():Void {

@@ -21,6 +21,8 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIBadgeInput id="input4" label="On Change Print" hLayoutSize="FLEX" />
             <private:CrappUIBadgeInput id="input5" label="Pre defined Option Data" hLayoutSize="FLEX" />
             <private:CrappUIBadgeInput id="input6" label="Pre defined Option Data and cannot create new ones" hLayoutSize="FLEX" />
+            <private:CrappUIBadgeInput id="input7" label="Break chars" hLayoutSize="FLEX" />
+            <private:CrappUIBadgeInput id="input8" label="Break chars block creation" hLayoutSize="FLEX" />
         </private:CrappUILayout>
     </view>
 </priori>
@@ -78,46 +80,13 @@ class SceneInputBadge extends CrappUIScene<Nothing> {
         this.input6.data = this.input5.data;
         this.input6.allowCreateValues = false;
 
-        // this.theme = "InputTheme";
+        this.input7.breakChars = " ,;"; // Adiciona vírgula, ponto e vírgula e espaço como caracteres de quebra
+        this.input7.data = this.input5.data;
 
-        // this.inputChange.actions.onChange = () -> this.inputChange.label = this.inputChange.value;
-        // this.inputChangeDelay.actions.onDelayedChange = () -> this.inputChangeDelay.label = this.inputChangeDelay.value;
+        this.input8.breakChars = " ,;"; // Adiciona vírgula, ponto e vírgula e espaço como caracteres de quebra
+        this.input8.data = this.input5.data;
+        this.input8.allowCreateValues = false;
 
-        // this.red.style = {
-        //     color: 0xFF0000,
-        //     on_color: 0xFFFFFF
-        // };
-
-        // this.noborder.style = {
-        //     prevent_border : true
-        // };
-
-        // haxe.Timer.delay(() -> {
-        //     this.small.style = {
-        //         size: 10
-        //     }
-        // }, 2000);
-
-        // this.email.addValidation((value:String) -> {
-        //     if (!StringKit.isEmail(value)) throw "Invalid Email";
-        // });
-
-        // CrappUIThemeProvider.get().setTheme({
-        //     theme : "InputTheme",
-        //     tags: [
-        //         {
-        //             tag : "TEXT_ICON",
-        //             variants : [
-        //                 {
-        //                     variant: "ERROR",
-        //                     color: 0xFF0000,
-        //                     on_color: 0xFFFFFF,
-        //                     size : 10
-        //                 }
-        //             ]
-        //         }
-        //     ]
-        // });
     }
 
 }
