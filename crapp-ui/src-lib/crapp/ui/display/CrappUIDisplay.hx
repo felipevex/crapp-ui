@@ -40,7 +40,12 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
        @default true
     **/
     @:isVar public var zShadow(default, set):Bool = true;
-    
+
+    public var isScreenSmall(get, never):Bool;
+    public var isScreenPortrait(get, never):Bool;
+    public var isScreenBig(get, never):Bool;
+    public var isScreenLandscape(get, never):Bool;
+
     /**
        Define a cor da sombra projetada pelo componente quando zShadow é verdadeiro.
        A opacidade e intensidade da sombra são calculadas com base no valor de z.
@@ -111,7 +116,7 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
     public function new() {
         this.composite = new CrappUICompositeManager(this);
         this.styleManager = new CrappUIStyleManager();
-        
+
         super();
 
         this.styleManager.start(this);
@@ -126,6 +131,7 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
        Retorna true se o componente estiver em modo retrato.
        @returns Booleano indicando se a exibição está em modo retrato.
     **/
+    @:deprecated("Use isScreenPortrait instead.")
     public function isPortraitDisplay():Bool {
         if (PriApp.g().width >= PriApp.g().height) return false;
         return true;
@@ -135,16 +141,22 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
        Retorna true se o componente estiver em modo paisagem.
        @returns Booleano indicando se a exibição está em modo paisagem.
     **/
+    @:deprecated("Use isScreenLandscape instead.")
     public function isLandscapeDisplay():Bool {
         return !this.isPortraitDisplay();
     }
 
+    inline private function get_isScreenSmall():Bool return (PriApp.g().width <= 768);
+    inline private function get_isScreenPortrait():Bool return (PriApp.g().width < PriApp.g().height);
+    inline private function get_isScreenBig():Bool return !this.isScreenSmall;
+    inline private function get_isScreenLandscape():Bool return !this.isScreenPortrait;
+
     override private function updateDepth():Void {
         if (this.dh.parent == null) return;
-        
+
         this.dh.depth = this.dh.parent.dh.depth - 1;
         this.dh.styles.set("z-index", Std.string(this.dh.depth + Math.floor(this.z)));
-        
+
         if (this.dh.elementBorder != null) this.dh.elementBorder.style.zIndex = Std.string(this.dh.depth + Math.floor(this.z));
 
         this.__updateStyle();
@@ -155,9 +167,9 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
             this.shadow = null;
             return;
         }
-        
+
         var val:Float = this.z;
-        
+
         // hard shadow
         var keyLight:PriShadowStyle = new PriShadowStyle()
         .setColor(this.zShadowColor)
@@ -182,7 +194,7 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
         this.updateZShadow();
         return value;
     }
-    
+
     private function set_zShadowColor(value:PriColor):PriColor {
         this.zShadowColor = value;
         this.updateZShadow();
@@ -191,7 +203,7 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
 
     private function set_z(value:Float):Float {
         var val:Float = value;
-        
+
         if (value == null || value < 0.1) val = 0;
         else val = value;
 
@@ -229,7 +241,7 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
     function get_variant():String return this.styleManager.getVariant();
 
     function set_variant(value:String):String return this.styleManager.setVariant(value);
-    
+
     override public function addChildList(childList:Array<Dynamic>):Void {
         super.addChildList(childList);
         this.styleManager.doPropagateChanges();
@@ -266,7 +278,7 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
             alignment : MIN,
             distribution : NONE
         }
-        
+
         layout.vertical = {
             gap : 0,
             size : this.vLayoutSize,
@@ -278,7 +290,7 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
 	}
 
     function set_layout(value:LayoutElement<CrappUIDisplay>):LayoutElement<CrappUIDisplay> {
-        
+
         this.startBatchUpdate();
         if (!this.hasHorizontalConstraint) this.x = value.x;
         if (!this.hasVerticalConstraint) this.y = value.y;
@@ -318,7 +330,7 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
 
     private function paintBorder(style:CrappUIStyle):Void {
         this.border = style.preventBorder
-            ? null 
+            ? null
             : new PriBorderStyle(2, style.onColor.color.mix(style.color.color, 0.5));
     }
 
