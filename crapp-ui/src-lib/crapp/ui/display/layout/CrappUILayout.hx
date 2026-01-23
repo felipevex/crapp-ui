@@ -164,36 +164,42 @@ class CrappUILayout extends CrappUIDisplay {
     }
 
     function set_hLayoutDistribution(value:LayoutDistribution):LayoutDistribution {
+        if (this.hLayoutDistribution == value) return value;
         this.hLayoutDistribution = value;
         this.updateDisplay();
         return value;
     }
 
     function set_vLayoutDistribution(value:LayoutDistribution):LayoutDistribution {
+        if (this.vLayoutDistribution == value) return value;
         this.vLayoutDistribution = value;
         this.updateDisplay();
         return value;
     }
 
     function set_hLayoutAlignment(value:LayoutAlignment):LayoutAlignment {
+        if (this.hLayoutAlignment == value) return value;
         this.hLayoutAlignment = value;
         this.updateDisplay();
         return value;
     }
 
     function set_vLayoutAlignment(value:LayoutAlignment):LayoutAlignment {
+        if (this.vLayoutAlignment == value) return value;
         this.vLayoutAlignment = value;
         this.updateDisplay();
         return value;
     }
 
     function set_hLayoutGap(value:Float):Float {
+        if (this.hLayoutGap == value) return value;
         this.hLayoutGap = value;
         this.updateDisplay();
         return value;
     }
 
     function set_vLayoutGap(value:Float):Float {
+        if (this.vLayoutGap == value) return value;
         this.vLayoutGap = value;
         this.updateDisplay();
         return value;

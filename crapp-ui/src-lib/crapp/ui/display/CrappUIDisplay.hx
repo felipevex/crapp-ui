@@ -253,6 +253,8 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
     }
 
     override function set_disabled(value:Bool):Bool {
+        if (this.disabled == value) return value;
+
         this.mouseEnabled = !value;
         var result:Bool = super.set_disabled(value);
         this.updateDisplay();
@@ -313,12 +315,14 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
 	}
 
 	function set_hLayoutSize(value:LayoutSize):LayoutSize {
+        if (this.hLayoutSize == value) return value;
 		this.hLayoutSize = value;
         this.updateDisplay();
         return value;
 	}
 
 	function set_vLayoutSize(value:LayoutSize):LayoutSize {
+        if (this.vLayoutSize == value) return value;
 		this.vLayoutSize = value;
         this.updateDisplay();
         return value;
