@@ -146,7 +146,7 @@ class CrappUIDisplay extends PriBuilder implements ICrappUIStyleObject {
         return !this.isPortraitDisplay();
     }
 
-    inline private function get_isScreenSmall():Bool return (PriApp.g().width <= 768);
+    inline private function get_isScreenSmall():Bool return (PriApp.g().width <= 540);
     inline private function get_isScreenPortrait():Bool return (PriApp.g().width < PriApp.g().height);
     inline private function get_isScreenBig():Bool return !this.isScreenSmall;
     inline private function get_isScreenLandscape():Bool return !this.isScreenPortrait;

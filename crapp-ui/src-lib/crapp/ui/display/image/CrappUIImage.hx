@@ -13,12 +13,12 @@ import crapp.ui.display.image.types.CrappUIImageResizeType;
 </priori>
 ')
 class CrappUIImage extends CrappUIDisplay {
-    
+
     public var resize(default, set):CrappUIImageResizeType = AUTO_HEIGHT;
     public var effect(default, set):CrappUIImageEffectType = NONE;
 
     public var src(default, set):String;
-    
+
     private var image:PriImage;
 
     override function setup() {
@@ -70,7 +70,7 @@ class CrappUIImage extends CrappUIDisplay {
     private function onError(e:PriEvent):Void {
         this.image.removeFromParent();
         this.image.kill();
-        
+
         if (this.actions.onError != null) this.actions.onError();
     }
 
@@ -85,6 +85,7 @@ class CrappUIImage extends CrappUIDisplay {
     private function updateSize():Void {
         if (this.image == null) return;
 
+        this.preventRepaint = true;
         this.bgColor = null;
 
         switch (this.resize) {
@@ -111,6 +112,8 @@ class CrappUIImage extends CrappUIDisplay {
 
             case _ : {}
         }
+
+        this.preventRepaint = false;
 
         this.image.centerX = this.width / 2;
         this.image.centerY = this.height / 2;
