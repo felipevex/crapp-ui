@@ -49,6 +49,8 @@ class CrappUITextInput extends CrappUIInput<String> {
     **/
     public var password(get, set):Bool;
 
+    public var maxChars(get, set):Int;
+
     /**
        Construtor da classe `CrappUITextInput` que inicializa o componente de entrada de texto.
        Define o `tag` como `TEXT_INPUT` e configura a largura padrão para 300.
@@ -58,6 +60,9 @@ class CrappUITextInput extends CrappUIInput<String> {
         super();
         haxe.Timer.delay(this.allowTransition.bind(PriTransitionType.BACKGROUND_COLOR, 0.2), 1);
     }
+
+    private function get_maxChars():Int return this.input.maxChars;
+    private function set_maxChars(value:Int):Int return this.input.maxChars = value;
 
     override private function get_value():String return this.input.value;
 	override private function set_value(value:String):String {
