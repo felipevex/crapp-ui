@@ -47,6 +47,8 @@ import crapp.ui.display.app.CrappUIScene;
             <private:CrappUIButton id="testDrag" label="DRAG" />
             <private:CrappUIButton id="testBadge" label="BADGE" />
             <private:CrappUIButton id="testBadgeContainer" label="BADGE - CONTAINER" />
+            <private:CrappUIButton id="testTabGroup" label="TAB - GROUP" />
+
         </private:CrappUIScrollable>
     </view>
 </priori>
@@ -90,6 +92,7 @@ class SceneHome extends CrappUIScene<Nothing> {
         this.testDrag.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneDrag);
         this.testBadge.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneBadge);
         this.testBadgeContainer.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneBadgeContainer);
+        this.testTabGroup.actions.onClick = () -> CrappUIRouteManager.use().navigate(FrontRoute.pathSceneTabGroup);
 
     }
 }

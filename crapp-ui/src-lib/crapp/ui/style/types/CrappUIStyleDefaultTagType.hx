@@ -25,4 +25,5 @@ enum abstract CrappUIStyleDefaultTagType(String) from String to String {
     var BADGE;
     var BADGE_INPUT;
     var MENU;
+    var TAB;
 }
