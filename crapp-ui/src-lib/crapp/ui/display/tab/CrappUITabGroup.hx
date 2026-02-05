@@ -1,7 +1,6 @@
 package crapp.ui.display.tab;
 
 import crapp.ui.style.data.CrappUIStyleData;
-import crapp.ui.style.CrappUIColor;
 import crapp.ui.controller.CrappUITapController;
 import priori.types.PriTransitionType;
 import crapp.ui.style.types.CrappUIStyleDefaultTagType;
@@ -9,7 +8,6 @@ import crapp.ui.style.CrappUIStyle;
 import priori.view.PriDisplay;
 import crapp.ui.display.CrappUIDisplay;
 import crapp.ui.composite.builtin.ButtonableComposite;
-import crapp.ui.composite.builtin.OverEffectComposite;
 import crapp.ui.display.text.CrappUIText;
 import crapp.ui.display.layout.CrappUILayout;
 
