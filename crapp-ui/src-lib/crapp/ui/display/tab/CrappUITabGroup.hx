@@ -1,5 +1,6 @@
 package crapp.ui.display.tab;
 
+import haxe.Timer;
 import crapp.ui.style.data.CrappUIStyleData;
 import crapp.ui.controller.CrappUITapController;
 import priori.types.PriTransitionType;
@@ -45,21 +46,6 @@ class CrappUITabGroup extends CrappUIDisplay {
         this.updateDisplay();
     }
 
-    private function updateHeader():Void {
-        var tabs:Array<String> = [];
-
-        for (i in 0 ... this.rootDisplay.numChildren) {
-            var item:PriDisplay = this.rootDisplay.getChild(i);
-
-            if (!Std.isOfType(item, CrappUITab)) continue;
-
-            var tab:CrappUITab = cast item;
-            tabs.push(tab.label);
-        }
-
-        this.headerDisplay.tabs = tabs;
-    }
-
     override function paint() {
         super.paint();
 
@@ -75,6 +61,19 @@ class CrappUITabGroup extends CrappUIDisplay {
         this.rootDisplay.bgColor = style.color;
         this.rootDisplay.corners = [Math.round(style.corners)];
     }
+
+    private function updateHeader():Void {
+        var tabs:Array<String> = [];
+
+        for (i in 0 ... this.rootDisplay.numChildren) {
+            if (!Std.isOfType(this.rootDisplay.getChild(i), CrappUITab)) continue;
+
+            var tab:CrappUITab = cast this.rootDisplay.getChild(i);
+            tabs.push(tab.label);
+        }
+
+        this.headerDisplay.tabs = tabs;
+    }
 }
 
 @priori('
@@ -84,7 +83,7 @@ class CrappUITabGroup extends CrappUIDisplay {
     </view>
 </priori>
 ')
-private class CrappUITabHeader extends CrappUIDisplay {
+private class CrappUITabHeader extends CrappUILayout {
 
     public var tabIndex(default, null):Int;
 
@@ -107,12 +106,14 @@ private class CrappUITabHeader extends CrappUIDisplay {
         var style = this.style;
 
         var space:Float = style.space;
+
         var currentX:Float = space;
         var containerHeight:Float = 0;
 
         for (handler in this.handlers) {
             handler.x = currentX;
             currentX += handler.width + space;
+
             containerHeight = Math.max(containerHeight, 2 + handler.height);
         }
 
@@ -202,9 +203,11 @@ private class CrappUITabHeaderHandle extends CrappUIDisplay {
 
         this.tapController = new CrappUITapController(this, this.updateDisplay);
 
-        this.allowTransition(PriTransitionType.BACKGROUND_COLOR, 0.2);
-        this.allowTransition(PriTransitionType.Y, 0.5);
-        this.allowTransition(PriTransitionType.HEIGHT, 0.5);
+        Timer.delay(() -> {
+            this.allowTransition(PriTransitionType.BACKGROUND_COLOR, 0.2);
+            this.allowTransition(PriTransitionType.Y, 0.5);
+            this.allowTransition(PriTransitionType.HEIGHT, 0.5);
+        }, 10);
     }
 
     override function paint() {
