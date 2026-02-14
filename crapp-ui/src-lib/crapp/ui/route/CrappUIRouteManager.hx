@@ -10,7 +10,7 @@ import priori.app.PriApp;
 import util.kit.path.Path;
 
 /**
-    A classe **CrappUIRouteManager** é responsável por gerenciar as rotas e escopos da aplicação.  
+    A classe **CrappUIRouteManager** é responsável por gerenciar as rotas e escopos da aplicação.
     Esta classe implementa o padrão *Singleton*, garantindo que apenas uma instância seja utilizada durante a execução do programa.
 
     #### Responsabilidades:
@@ -23,7 +23,7 @@ import util.kit.path.Path;
     - **PriEvent.CHANGE**: Disparado na função onRouteChange() sempre que uma nova cena é instanciada, indicando que houve mudança de rota.
 */
 class CrappUIRouteManager extends PriEventDispatcher {
-    
+
     // SINGLETON
     private static var _singleton:CrappUIRouteManager;
 
@@ -122,7 +122,7 @@ class CrappUIRouteManager extends PriEventDispatcher {
         for (route in this.routes) {
             if (route.path == '**') starRoute = route;
             if (!route.path.match(path).matched) continue;
-            
+
             if (StringKit.isEmpty(route.scope) || this.hasScope(route.scope)) return route;
         }
 
@@ -145,7 +145,7 @@ class CrappUIRouteManager extends PriEventDispatcher {
     /**
         Verifica se o escopo informado existe na sessão atual.
         Retorna true se o escopo existir, caso contrário, retorna false.
-        
+
         @param scope Escopo a ser verificado.
         @return True se o escopo existir; caso contrário, false.
      */
@@ -155,7 +155,7 @@ class CrappUIRouteManager extends PriEventDispatcher {
         Adiciona um novo escopo à sessão.
         A adição de escopos permite controlar o acesso às rotas registradas de acordo com os privilégios definidos,
         adicionando o escopo se ele não for nulo e ainda não estiver presente.
-    
+
         @param scope Escopo a ser adicionado.
      */
     public function addScope(scope:String):Void {
@@ -166,7 +166,7 @@ class CrappUIRouteManager extends PriEventDispatcher {
     /**
         Remove o escopo especificado da sessão.
         Esta função gerencia os privilégios de acesso removendo escopos que não são mais válidos.
-    
+
         @param scope Escopo a ser removido.
      */
     public function removeScope(scope:String):Void {
@@ -185,7 +185,11 @@ class CrappUIRouteManager extends PriEventDispatcher {
         this.scene.right = 0;
         this.scene.bottom = 0;
 
-        this.holder.addChild(this.scene);   
+        this.holder.addChild(this.scene);
+    }
+
+    public function getCurrentScene():CrappUIScene<Dynamic> {
+        return this.scene;
     }
 
     /**
@@ -197,7 +201,7 @@ class CrappUIRouteManager extends PriEventDispatcher {
 
     /**
         Navega para a próxima rota, utilizando a funcionalidade do host.
-        
+
         Permite avançar na navegação historicamente armazenada.
      */
     inline public function navigateForward():Void this.host.navigateForward();
@@ -208,11 +212,11 @@ class CrappUIRouteManager extends PriEventDispatcher {
         @param path Caminho para onde realizar a navegação.
      */
     inline public function navigate(path:String):Void this.host.navigate(path);
-    
+
     /**
         Recarrega a rota atual. Caso a cena já esteja instanciada, esta será destruída e uma nova instância será criada.
         Esse método é útil para atualizar a cena sem alterar o histórico de navegação.
-        
+
         @return void
      */
     inline public function reload():Void this.onRouteChange();
@@ -225,11 +229,11 @@ class CrappUIRouteManager extends PriEventDispatcher {
         @return void
      */
     inline public function replace(path:String):Void this.host.replace(path);
-    
+
     /**
         Extrai e retorna o parâmetro da rota atual.
         Utiliza o método extract do objeto Path associado para obter os parâmetros dinamicamente definidos na URL.
-    
+
         @return Parâmetro extraído da rota atual ou null, caso não haja parâmetros.
      */
     public function routeParam():Null<Dynamic> {
